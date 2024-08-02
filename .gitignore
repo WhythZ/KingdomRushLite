@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# 保留库文件夹及其内所有内容
+!Dependencies/
+!Dependencies/**
