@@ -27,51 +27,40 @@
 #include <cJSON.h>
 #pragma endregion
 
-void Test_JSON()
+void Test_CSV()
 {
 	//加载路径下的文件
-	std::ifstream testFile("GameData/test.json");
+	std::ifstream testFile("GameData/test.CSV");
 	//检查是否成功加载
 	if (!testFile.good())
 	{
-		std::cout << "JSON File Note Found" << std::endl;
+		std::cout << "CSV File Note Found" << std::endl;
 		return;
 	}
 
-	//用于存储被读取文件的数据
-	std::stringstream fileData;
-	//将所有读取到的内容防到这个容器内
-	fileData << testFile.rdbuf();
-	//关掉被读取文件
-	testFile.close();
-
-	//将字符串数据（即JSON最外圈的花括号及其包含的内容）解析到jsonRoot容器上
-	cJSON* jsonRoot = cJSON_Parse(fileData.str().c_str());
-
-	//从jsonRoot中以键名读取对应的值
-	cJSON* json_alive = cJSON_GetObjectItem(jsonRoot, "alive");
-	cJSON* json_name = cJSON_GetObjectItem(jsonRoot, "name");
-	cJSON* json_age = cJSON_GetObjectItem(jsonRoot, "age");
-	cJSON* json_hobby = cJSON_GetObjectItem(jsonRoot, "hobby");
-	cJSON* json_friend = cJSON_GetObjectItem(jsonRoot, "friend");
-
-	/*展示被成功读取的数据的键值对*/
-	//展示读取的布尔值
-	std::cout << json_alive->string << " : " << json_alive->valueint << std::endl;
-	//展示读取的字符串
-	std::cout << json_name->string << " : " << json_name->valuestring << std::endl;
-	//展示读取的整型（浮点型对应valuedouble）
-	std::cout << json_age->string << " : " << json_age->valueint << std::endl;
-	//展示读取的数组
-	std::cout << json_hobby->string << " : " << std::endl;
-	cJSON* item_ptr = nullptr;
-	cJSON_ArrayForEach(item_ptr, json_hobby)
+	//CSV需要逐行读取，该变量在循环中存储每一行的内容
+	std::string lineBuf;
+	//通过循环来遍历每行内容；getline函数第一参数位接收被读取的文件，第二参数位是存放读取的数据的对象，第三参数位默认是以换行符间隔读取
+	while (std::getline(testFile, lineBuf))
 	{
-		//上面那个宏接收一个临时的工具空指针和需要遍历的JSON元素对象，在这里执行一个for循环，遍历数组中的元素
-		std::cout << "\t" << item_ptr->valuestring << std::endl;
+		//使用每行的内容来构造有输入流能力的lineStream对象，以作为getline函数的第一个参数，lineBuf不能直接放在这个位置，因为没有输入流能力
+		std::stringstream lineStream(lineBuf);
+		//该变量用于存储以分隔符隔开的字段
+		std::string gridBuf;
+		//内部循环遍历行中的每个字段的内容，识别逗号字符作为分隔符
+		while (std::getline(lineStream, gridBuf, ','))
+		{
+			//展示读取到的每个字段
+			std::cout << gridBuf << ", ";
+		}
+		std::cout << std::endl;
 	}
-	//不知道怎么解析嵌套JSON，感觉没必要写那么复杂
-	//std::cout << json_friend->string << " : " << json_friend->type << std::endl;
+	//1, 2, 3,
+	//4, 5, 6,
+	//7, 8, 9,
+
+	//关掉文件
+	testFile.close();
 }
 
 int main()
@@ -112,7 +101,7 @@ int main()
 	//存储鼠标指针位置
 	SDL_Point cursorPos = { 0,0 };
 
-	Test_JSON();
+	Test_CSV();
 
 	//游戏主循环
 	while (!isQuit)
