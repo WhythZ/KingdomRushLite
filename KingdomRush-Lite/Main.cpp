@@ -16,7 +16,63 @@
 #include <SDL_ttf.h>
 //图形支持
 #include <SDL2_gfxPrimitives.h>
+
+//文件读写
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+
+//用于解析JSON文件
+#include <cJSON.h>
 #pragma endregion
+
+void Test_JSON()
+{
+	//加载路径下的文件
+	std::ifstream testFile("GameData/test.json");
+	//检查是否成功加载
+	if (!testFile.good())
+	{
+		std::cout << "JSON File Note Found" << std::endl;
+		return;
+	}
+
+	//用于存储被读取文件的数据
+	std::stringstream fileData;
+	//将所有读取到的内容防到这个容器内
+	fileData << testFile.rdbuf();
+	//关掉被读取文件
+	testFile.close();
+
+	//将字符串数据（即JSON最外圈的花括号及其包含的内容）解析到jsonRoot容器上
+	cJSON* jsonRoot = cJSON_Parse(fileData.str().c_str());
+
+	//从jsonRoot中以键名读取对应的值
+	cJSON* json_alive = cJSON_GetObjectItem(jsonRoot, "alive");
+	cJSON* json_name = cJSON_GetObjectItem(jsonRoot, "name");
+	cJSON* json_age = cJSON_GetObjectItem(jsonRoot, "age");
+	cJSON* json_hobby = cJSON_GetObjectItem(jsonRoot, "hobby");
+	cJSON* json_friend = cJSON_GetObjectItem(jsonRoot, "friend");
+
+	/*展示被成功读取的数据的键值对*/
+	//展示读取的布尔值
+	std::cout << json_alive->string << " : " << json_alive->valueint << std::endl;
+	//展示读取的字符串
+	std::cout << json_name->string << " : " << json_name->valuestring << std::endl;
+	//展示读取的整型（浮点型对应valuedouble）
+	std::cout << json_age->string << " : " << json_age->valueint << std::endl;
+	//展示读取的数组
+	std::cout << json_hobby->string << " : " << std::endl;
+	cJSON* item_ptr = nullptr;
+	cJSON_ArrayForEach(item_ptr, json_hobby)
+	{
+		//上面那个宏接收一个临时的工具空指针和需要遍历的JSON元素对象，在这里执行一个for循环，遍历数组中的元素
+		std::cout << "\t" << item_ptr->valuestring << std::endl;
+	}
+	//不知道怎么解析嵌套JSON，感觉没必要写那么复杂
+	//std::cout << json_friend->string << " : " << json_friend->type << std::endl;
+}
 
 int main()
 {
@@ -40,13 +96,23 @@ int main()
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	#pragma endregion
 
-	//存储鼠标指针位置
-	SDL_Point cursorPos = { 0,0 };
+	#pragma region ControlFPS
+	//需要维持的游戏帧率（frame per second），代表每秒刷新的帧数
+	int fps = 60;
+	//此函数获取一个高性能（精度较高）计时器，函数返回的值（计时器跳的总数）作为计时器的起点，通过作差后除以频率才有意义
+	Uint64 lastCounter = SDL_GetPerformanceCounter();
+	//频率即每一秒此计时器会跳多少次
+	Uint64 counterFreq = SDL_GetPerformanceFrequency();
+	#pragma endregion
 
 	//决定游戏主循环是否结束
 	bool isQuit = false;
 	//用于调用SDL事件，根据不同的事件类型做出相应的反应
 	SDL_Event event;
+	//存储鼠标指针位置
+	SDL_Point cursorPos = { 0,0 };
+
+	Test_JSON();
 
 	//游戏主循环
 	while (!isQuit)
@@ -65,6 +131,19 @@ int main()
 				cursorPos.y = event.motion.y;
 			}
 		}
+
+		#pragma region ControlFPS
+		/*计时器*/
+		//获取当前的计时器跳的总数，用以与主循环前得到的计时器总数作差
+		Uint64 currentCounter = SDL_GetPerformanceCounter();
+		//作差后转换为双精度浮点，除以频率得到每次循环的时间间隔（单位为秒）
+		double delta = (double)(currentCounter - lastCounter) / counterFreq;
+		//将当前的次数作为起点，进行下一次循环
+		lastCounter = currentCounter;
+		//若是帧率超过了限定值，那么就将多余的时间延迟掉防止主循环频率过快；乘以1000是将秒转化为毫秒，因为秒这个单位太大而精度不高
+		if (delta * 1000 < 1000.0 / fps)
+			SDL_Delay((Uint32)(1000.0 / fps - delta * 1000));
+		#pragma endregion
 
 		/*渲染绘图*/
 		//确定渲染的颜色为纯黑（不透明），接收RGB三色与Alpha（记录图像的透明度信息的256级灰度）
