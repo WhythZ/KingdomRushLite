@@ -13,27 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="源文件\SourceScriptes">
-      <UniqueIdentifier>{ac5e8176-f090-42ac-bc1c-14c647ec70f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Dependencies">
+    <Filter Include="源文件\cJSON">
       <UniqueIdentifier>{ae9f0ac5-07aa-43fa-a4e1-9fcfe7e05988}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="头文件\HeaderScripts">
-      <UniqueIdentifier>{1f969942-3df0-4865-8dd4-3eeb14bdde22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
-      <Filter>源文件\Dependencies</Filter>
+      <Filter>源文件\cJSON</Filter>
     </ClCompile>
-    <ClCompile Include="SourceScripts\Main.cpp">
-      <Filter>源文件\SourceScriptes</Filter>
+    <ClCompile Include="Main.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HeaderScripts\Manager.h">
-      <Filter>头文件\HeaderScripts</Filter>
+    <ClInclude Include="Game_Manager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
