@@ -20,9 +20,9 @@ class GameManager : public Manager<GameManager>
 	friend class Manager<GameManager>;
 
 protected:
+	//构造函数，要养成构造了什么就要释放什么的习惯，以防止内存泄漏与减少内存占用
 	GameManager()
 	{
-		#pragma region Initialize
 		//初始化SDL库的所有子系统；因为SDL_Init函数返回0表示成功，所以此处第一个传入参数取反
 		InitAssert(!SDL_Init(SDL_INIT_EVERYTHING), u8"Failed To Init SDL");
 		//初始化SDL_ttf库；TTF_Init函数返回0表示成功
@@ -48,11 +48,20 @@ protected:
 		InitAssert(renderer, "Failed To Create Renderer");
 
 		//向SDL提出建议，使得在打开SDL窗口的时候若是输入中文可以显示候选词列表
-		SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
-		#pragma endregion
+		//SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
 	}
+	
+	//析构函数，析构的顺序应当与构造的顺序相反，因为构造的顺序暗含依赖的关系，被依赖项不该被先释放
 	~GameManager()
 	{
+		//注意析构顺序，先销毁渲染器与窗口
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+		//最后释放库的初始化内容，因为上面两个是依赖于库而存在的
+		Mix_Quit();
+		IMG_Quit();
+		TTF_Quit();
+		SDL_Quit();
 	}
 
 public:
@@ -159,4 +168,4 @@ private:
 	}
 };
 
-#endif // !_GAME_MANAGER_H_
+#endif

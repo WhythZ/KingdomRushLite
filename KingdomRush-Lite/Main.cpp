@@ -21,8 +21,6 @@
 
 int main(int _argc, char** _argv)
 {
-	//创建游戏主管理器
-	GameManager* gameManager = GameManager::GetInstance();
-	//运行游戏主循环，并获取返回值
-	return gameManager->Run(_argc, _argv);
+	//运行游戏主管理器内的主循环方法，并获取返回值
+	return GameManager::GetInstance()->Run(_argc, _argv);
 }

@@ -39,4 +39,4 @@ protected:
 template<typename T>
 T* Manager<T>::manager = nullptr;
 
-#endif // !_MANAGER_H_
+#endif
