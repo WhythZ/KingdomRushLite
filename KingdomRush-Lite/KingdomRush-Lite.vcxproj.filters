@@ -19,6 +19,9 @@
     <Filter Include="头文件\Manager">
       <UniqueIdentifier>{27ab3c9e-2380-486f-9c45-771ac15fda0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Map">
+      <UniqueIdentifier>{316eac5e-465a-437b-830e-5300719c812d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -36,7 +39,10 @@
       <Filter>头文件\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>头文件\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
