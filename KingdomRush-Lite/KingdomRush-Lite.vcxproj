@@ -26,6 +26,7 @@
     <ClInclude Include="Game_Manager.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Route.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

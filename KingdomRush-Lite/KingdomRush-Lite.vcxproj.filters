@@ -22,6 +22,9 @@
     <Filter Include="头文件\Map">
       <UniqueIdentifier>{316eac5e-465a-437b-830e-5300719c812d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Route">
+      <UniqueIdentifier>{7f722d7b-2a93-4a73-a949-5ce5c49685ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>头文件\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Route.h">
+      <Filter>头文件\Route</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
