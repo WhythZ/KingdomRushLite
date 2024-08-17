@@ -1,12 +1,12 @@
-#ifndef _MAP_H_
-#define _MAP_H_
+#ifndef _MAP_HPP_
+#define _MAP_HPP_
 
 #include <string>
 #include <fstream>
 #include <sstream>
 
 #include "SDL.h"
-#include "Tile.h"
+#include "Tile.hpp"
 
 //¹Ø¿¨µØÍ¼
 class Map

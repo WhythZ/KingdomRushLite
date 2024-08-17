@@ -1,6 +1,6 @@
 //可继承单例Manager模板类实现，用#ifndef预处理防止内部代码被多次包含编译
-#ifndef _MANAGER_H_
-#define _MANAGER_H_
+#ifndef _MANAGER_HPP_
+#define _MANAGER_HPP_
 
 template<typename T>
 class Manager

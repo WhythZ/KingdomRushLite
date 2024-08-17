@@ -1,8 +1,8 @@
-#ifndef _ROUTE_H_
-#define _ROUTE_H_
+#ifndef _ROUTE_HPP_
+#define _ROUTE_HPP_
 
 #include"SDL.h"
-#include "Map.h"
+#include "Map.hpp"
 
 //记录怪物的行进路径，用于生成洋流图
 class Route

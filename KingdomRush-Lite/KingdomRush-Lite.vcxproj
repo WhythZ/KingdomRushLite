@@ -23,11 +23,11 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game_Manager.h" />
-    <ClInclude Include="Manager.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="Route.h" />
-    <ClInclude Include="Tile.h" />
+    <ClInclude Include="Game_Manager.hpp" />
+    <ClInclude Include="Manager.hpp" />
+    <ClInclude Include="Map.hpp" />
+    <ClInclude Include="Route.hpp" />
+    <ClInclude Include="Tile.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

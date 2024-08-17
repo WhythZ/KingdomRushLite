@@ -35,19 +35,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Manager.h">
+    <ClInclude Include="Manager.hpp">
       <Filter>头文件\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Game_Manager.h">
+    <ClInclude Include="Game_Manager.hpp">
       <Filter>头文件\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
+    <ClInclude Include="Tile.hpp">
       <Filter>头文件\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
+    <ClInclude Include="Map.hpp">
       <Filter>头文件\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Route.h">
+    <ClInclude Include="Route.hpp">
       <Filter>头文件\Route</Filter>
     </ClInclude>
   </ItemGroup>
