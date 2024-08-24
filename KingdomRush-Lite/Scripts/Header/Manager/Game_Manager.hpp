@@ -1,7 +1,6 @@
 #ifndef _GAME_MANAGER_HPP_
 #define _GAME_MANAGER_HPP_
 
-#pragma region Preprocess
 //用于继承基类
 #include "Manager.hpp"
 //引入SDL库
@@ -12,7 +11,6 @@
 #include <SDL_image.h>
 //混音支持
 #include <SDL_mixer.h>
-#pragma endregion
 
 class GameManager : public Manager<GameManager>
 {

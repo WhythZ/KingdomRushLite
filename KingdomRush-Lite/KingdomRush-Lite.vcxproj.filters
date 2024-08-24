@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="源文件\cJSON">
-      <UniqueIdentifier>{ae9f0ac5-07aa-43fa-a4e1-9fcfe7e05988}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Manager">
       <UniqueIdentifier>{27ab3c9e-2380-486f-9c45-771ac15fda0a}</UniqueIdentifier>
     </Filter>
@@ -25,29 +22,32 @@
     <Filter Include="头文件\Route">
       <UniqueIdentifier>{7f722d7b-2a93-4a73-a949-5ce5c49685ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Dependencies">
+      <UniqueIdentifier>{ae9f0ac5-07aa-43fa-a4e1-9fcfe7e05988}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
-      <Filter>源文件\cJSON</Filter>
+      <Filter>源文件\Dependencies</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="Scripts\Source\Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Manager.hpp">
+    <ClInclude Include="Scripts\Header\Manager\Manager.hpp">
       <Filter>头文件\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Game_Manager.hpp">
+    <ClInclude Include="Scripts\Header\Manager\Game_Manager.hpp">
       <Filter>头文件\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.hpp">
+    <ClInclude Include="Scripts\Header\Map\Tile.hpp">
       <Filter>头文件\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Map.hpp">
+    <ClInclude Include="Scripts\Header\Map\Map.hpp">
       <Filter>头文件\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Route.hpp">
+    <ClInclude Include="Scripts\Header\Route\Route.hpp">
       <Filter>头文件\Route</Filter>
     </ClInclude>
   </ItemGroup>

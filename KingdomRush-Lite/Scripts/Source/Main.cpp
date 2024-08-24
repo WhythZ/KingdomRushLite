@@ -17,7 +17,7 @@
 #define SDL_MAIN_HANDLED
 
 //游戏主管理器
-#include "Game_Manager.hpp"
+#include "../Header/Manager/Game_Manager.hpp"
 
 int main(int _argc, char** _argv)
 {

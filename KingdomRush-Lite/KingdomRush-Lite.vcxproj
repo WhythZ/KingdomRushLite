@@ -20,14 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Scripts\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game_Manager.hpp" />
-    <ClInclude Include="Manager.hpp" />
-    <ClInclude Include="Map.hpp" />
-    <ClInclude Include="Route.hpp" />
-    <ClInclude Include="Tile.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Game_Manager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
+    <ClInclude Include="Scripts\Header\Map\Map.hpp" />
+    <ClInclude Include="Scripts\Header\Route\Route.hpp" />
+    <ClInclude Include="Scripts\Header\Map\Tile.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
