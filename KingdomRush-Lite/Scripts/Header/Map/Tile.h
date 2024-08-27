@@ -38,7 +38,4 @@ struct Tile
 	bool hasTower = false;
 };
 
-//自定义数据类型TileMap，是一个存储Tile元素的二维vector容器数组
-typedef std::vector<std::vector<Tile>> TileMap;
-
 #endif

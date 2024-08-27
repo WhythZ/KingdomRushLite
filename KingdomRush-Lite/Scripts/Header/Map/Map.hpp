@@ -11,6 +11,9 @@
 #include "SDL.h"
 #include "Tile.h"
 
+//自定义数据类型TileMap，是一个存储Tile元素的二维vector容器数组
+typedef std::vector<std::vector<Tile>> TileMap;
+
 //关卡地图
 class Map
 {
