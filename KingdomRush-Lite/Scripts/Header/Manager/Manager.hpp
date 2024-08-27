@@ -1,10 +1,18 @@
-//可继承单例Manager模板类实现，用#ifndef预处理防止内部代码被多次包含编译
+////
+////可继承单例Manager模板类实现
+////
+
+//用#ifndef预处理防止内部代码被多次包含编译
 #ifndef _MANAGER_HPP_
 #define _MANAGER_HPP_
 
 template<typename T>
 class Manager
 {
+protected:
+	//静态的唯一Manager类对象的指针，在外部初始化
+	static T* manager;
+
 public:
 	//静态的函数，用于获取Manager类的唯一实例指针
 	static T* GetInstance()
@@ -20,11 +28,6 @@ public:
 	}
 
 protected:
-	//静态的唯一Manager类对象的指针，在外部初始化
-	static T* manager;
-
-protected:
-	/*被保护的重要函数，子类可调用，外部不可访问*/
 	//构造函数，单例模式的类不应当能被在外部创建对象
 	Manager() = default;
 	//析构函数

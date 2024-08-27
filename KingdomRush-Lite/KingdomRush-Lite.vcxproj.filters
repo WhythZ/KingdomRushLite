@@ -38,10 +38,10 @@
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp">
       <Filter>头文件\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\Game_Manager.hpp">
+    <ClInclude Include="Scripts\Header\Manager\GameManager.hpp">
       <Filter>头文件\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Map\Tile.hpp">
+    <ClInclude Include="Scripts\Header\Map\Tile.h">
       <Filter>头文件\Map</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Map\Map.hpp">
