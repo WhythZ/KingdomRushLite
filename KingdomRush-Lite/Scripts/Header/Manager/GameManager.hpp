@@ -1,7 +1,3 @@
-////
-////游戏主管理器
-////
-
 #ifndef _GAME_MANAGER_HPP_
 #define _GAME_MANAGER_HPP_
 
@@ -16,6 +12,7 @@
 //用于继承基类
 #include "Manager.hpp"
 
+//游戏主管理器
 class GameManager : public Manager<GameManager>
 {
 	//授予Manager基类的GetInstance函数权限以调用GameManager类的构造函数

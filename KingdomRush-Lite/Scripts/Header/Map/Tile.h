@@ -1,9 +1,5 @@
-////
-////µØÍ¼ÍßÆ¬
-////
-
-#ifndef _TILE_HPP_
-#define _TILE_HPP_
+#ifndef _TILE_H_
+#define _TILE_H_
 
 #include <vector>
 

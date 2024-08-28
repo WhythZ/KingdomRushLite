@@ -1,7 +1,3 @@
-////
-////Â·¾¶Àà
-////
-
 #ifndef _ROUTE_HPP_
 #define _ROUTE_HPP_
 
