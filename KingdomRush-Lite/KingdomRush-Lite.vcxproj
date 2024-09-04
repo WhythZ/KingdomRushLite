@@ -23,6 +23,7 @@
     <ClCompile Include="Scripts\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scripts\Header\Manager\ConfigManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\GameManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
     <ClInclude Include="Scripts\Header\Map\Map.hpp" />

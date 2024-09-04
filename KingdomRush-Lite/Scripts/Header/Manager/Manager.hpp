@@ -17,10 +17,13 @@ public:
 protected:
 	//构造函数，单例模式的类不应当能被在外部创建对象
 	Manager() = default;
+
 	//析构函数
 	~Manager() = default;
+
 	//拷贝构造函数的调用无效
 	Manager(const Manager&) = delete;
+
 	//运算符=的重载的调用无效
 	Manager& operator=(const Manager&) = delete;
 };

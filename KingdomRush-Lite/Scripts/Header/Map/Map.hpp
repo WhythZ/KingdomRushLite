@@ -14,7 +14,7 @@
 typedef std::vector<std::vector<Tile>> TileMap;
 
 //怪物生成点路径池，用于存储离散的Route洋流图，每个洋流图即代表了多个离散的刷怪点
-typedef std::unordered_map<int, Route> SpawnerRoutePool;
+typedef std::unordered_map<int, Route> SpawnRoutePool;
 
 //关卡地图
 class Map
@@ -27,7 +27,7 @@ private:
 	SDL_Point homeIdx = { 0 };
 
 	//存储各刷怪点及其路径的池
-	SpawnerRoutePool spawnerRoutePool;
+	SpawnRoutePool spawnRoutePool;
 
 public:
 	Map() = default;
@@ -35,6 +35,18 @@ public:
 
 	//从指定路径加载读取瓦片地图的CSV文件，并返回布尔值表示加载成功与否
 	bool Load(const std::string&);
+
+	//放置防御塔的方法
+	void PlaceTowerAt(const SDL_Point&);
+
+	//获取瓦片地图的常索引
+	const TileMap& GetTileMap() const;
+
+	//获取家瓦片的位置索引
+	const SDL_Point& GetHomeIdx() const;
+
+	//获取刷怪点路径池
+	const SpawnRoutePool& GetSpawnRoutePool() const;
 
 	//获取地图的高（行数），注意返回值类型以及const修饰
 	size_t GetHeight() const;
@@ -109,6 +121,27 @@ bool Map::Load(const std::string& _csvPath)
 
 	//生成地图缓存
 	GenerateMapCache();
+}
+
+void Map::PlaceTowerAt(const SDL_Point& _tileIdx)
+{
+	//注意先索引y再索引x
+	tileMap[_tileIdx.y][_tileIdx.x].hasTower = true;
+}
+
+const TileMap& Map::GetTileMap() const
+{
+	return tileMap;
+}
+
+const SDL_Point& Map::GetHomeIdx() const
+{
+	return homeIdx;
+}
+
+const SpawnRoutePool& Map::GetSpawnRoutePool() const
+{
+	return spawnRoutePool;
 }
 
 size_t Map::GetHeight() const
@@ -209,7 +242,7 @@ void Map::GenerateMapCache()
 			else
 			{
 				//生成对应编号刷怪点位置的Route洋流图
-				spawnerRoutePool[_tile.specialFlagLayer] = Route(tileMap, { x, y });
+				spawnRoutePool[_tile.specialFlagLayer] = Route(tileMap, { x, y });
 			}
 		}
 	}

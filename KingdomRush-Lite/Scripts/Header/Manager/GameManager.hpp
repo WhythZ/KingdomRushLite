@@ -21,16 +21,19 @@ class GameManager : public Manager<GameManager>
 private:
 	//存储游戏主窗口，用于显示游戏画面
 	SDL_Window* window = nullptr;
+
 	//存储渲染器，渲染器可以使用GPU进行加速
 	SDL_Renderer* renderer = nullptr;
 
 	//决定游戏主循环是否结束
 	bool isQuit = false;
+
 	//需要维持的游戏帧率，即每秒刷新的帧数
 	int fps = 60;
 
 	//用于调用SDL事件，根据不同的事件类型做出相应的反应
 	SDL_Event event;
+
 	//存储鼠标指针位置，其位置在事件检测更新中被刷新
 	SDL_Point cursorPos = { 0,0 };
 
