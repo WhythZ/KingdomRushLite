@@ -4,11 +4,17 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+//一种哈希表，用于以键值对的形式存储离散数据
+#include <unordered_map>
 #include "SDL.h"
 #include "Tile.h"
+#include "../Route/Route.hpp"
 
 //自定义数据类型TileMap，是一个存储Tile元素的二维vector容器数组
 typedef std::vector<std::vector<Tile>> TileMap;
+
+//怪物生成点路径池，用于存储离散的Route洋流图，每个洋流图即代表了多个离散的刷怪点
+typedef std::unordered_map<int, Route> SpawnerRoutePool;
 
 //关卡地图
 class Map
@@ -19,6 +25,9 @@ private:
 
 	//使用SDL库的点来存储家（防守地点）的瓦片的索引位置；这种在编译阶段缓存TileMap中存储的静态数据的方法称为烘培
 	SDL_Point homeIdx = { 0 };
+
+	//存储各刷怪点及其路径的池
+	SpawnerRoutePool spawnerRoutePool;
 
 public:
 	Map() = default;
@@ -40,7 +49,7 @@ private:
 	//从瓦片字符串中提取信息并载入
 	void LoadTileFromString(const std::string, Tile&);
 
-	//生成地图的缓存
+	//用于读取生成地图的缓存
 	void GenerateMapCache();
 };
 
@@ -174,7 +183,7 @@ void Map::LoadTileFromString(const std::string _tileBuf, Tile& _tile)
 	//依据枚举内的映射进行强制类型转换；小于0无意义，0对应Tile::TileDir::None，表示无方向
 	_tile.directionLayer = (Tile::TileDir)((_values.size() < 3 || _values[0] < 0) ? 0 : _values[2]);
 	//小于-1无意义，等于-1表示无特殊建筑
-	_tile.specialLayer = (_values.size() < 4 || _values[0] < -1) ? -1 : _values[3];
+	_tile.specialFlagLayer = (_values.size() < 4 || _values[0] < -1) ? -1 : _values[3];
 }
 
 void Map::GenerateMapCache()
@@ -186,14 +195,21 @@ void Map::GenerateMapCache()
 		{
 			//临时使用一个常量瓦片引用存储
 			const Tile& _tile = tileMap[y][x];
-			if (_tile.specialLayer < 0)
+			
+			//遇到无意义值就跳过此瓦片（负数无意义，0是家，其余正整数为各刷怪点）
+			if (_tile.specialFlagLayer < 0)
 				continue;
-
 			//存储家的坐标
-			if (_tile.specialLayer == 0)
+			else if (_tile.specialFlagLayer == 0)
 			{
 				homeIdx.x = x;
 				homeIdx.y = y;
+			}
+			//剩下的情况均为刷怪点
+			else
+			{
+				//生成对应编号刷怪点位置的Route洋流图
+				spawnerRoutePool[_tile.specialFlagLayer] = Route(tileMap, { x, y });
 			}
 		}
 	}

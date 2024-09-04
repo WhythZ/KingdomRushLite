@@ -28,7 +28,7 @@ struct Tile
 	TileDir directionLayer = TileDir::None;
 	
 	//瓦片最上层的特殊事物渲染图层；0是家，1、2、3等整数分别表示不同的刷怪点，-1表示无特殊事物
-	int specialLayer = -1;
+	int specialFlagLayer = -1;
 
 	//这是一个运行时需进行判断的数据；放置防御塔时需判断当前瓦片是否已经存在防御塔
 	bool hasTower = false;
