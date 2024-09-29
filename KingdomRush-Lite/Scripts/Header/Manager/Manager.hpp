@@ -3,42 +3,33 @@
 #define _MANAGER_HPP_
 
 //可继承单例Manager模板类实现
-template <typename T>
+template <typename M>
 class Manager
 {
 protected:
-	//静态的唯一Manager类对象的指针，在外部初始化
-	static T* manager;
+	static M* manager;                            //静态的唯一Manager类对象的指针，在外部初始化
 
 public:
-	//静态的函数，用于获取Manager类的唯一实例指针
-	static T* GetInstance();
+	static M* GetInstance();                      //静态的函数，用于获取Manager类的唯一实例指针
 
 protected:
-	//构造函数，单例模式的类不应当能被在外部创建对象
-	Manager() = default;
-
-	//析构函数
-	~Manager() = default;
-
-	//拷贝构造函数的调用无效
-	Manager(const Manager&) = delete;
-
-	//运算符=的重载的调用无效
-	Manager& operator=(const Manager&) = delete;
+	Manager() = default;                          //构造函数，单例模式的类不应当能被在外部创建对象
+	~Manager() = default;                         //析构函数
+	Manager(const Manager&) = delete;             //无效化拷贝构造函数的调用
+	Manager& operator=(const Manager&) = delete;  //无效化赋值运算符重载的调用
 };
 
 //初始化静态成员变量
-template <typename T>
-T* Manager<T>::manager = nullptr;
+template <typename M>
+M* Manager<M>::manager = nullptr;
 
-template <typename T>
-T* Manager<T>::GetInstance()
+template <typename M>
+M* Manager<M>::GetInstance()
 {
 	//若manager未被创建（为空指针），则在堆区创建一个
 	if (!manager)
 	{
-		manager = new T();
+		manager = new M();
 	}
 
 	//这样我们就可以在外部通过Manager* xxxx = Manager::GetInstance();获取内部这个Manager对象的地址，而不是创建一个新的Manager

@@ -70,9 +70,8 @@ public:
 		double recoverIntensity = 25;
 	};
 
-protected:
+private:
 	ConfigManager() = default;
-
 	~ConfigManager() = default;
 };
 

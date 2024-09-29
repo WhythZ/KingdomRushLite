@@ -13,24 +13,17 @@ typedef std::vector<SDL_Point> TileIdxList;
 class Route
 {
 private:
-	//数组用于存储行进路径上瓦片索引点
-	TileIdxList tileIdxList;
+	TileIdxList tileIdxList;                       //数组用于存储行进路径上瓦片索引点
 
 public:
-	//默认的无参构造
-	Route() = default;
-	
-	//传入瓦片地图和起点单元格位置，生成怪物行进路径瓦片索引列表
-	Route(const TileMap&, const SDL_Point&);
-	
-	~Route() = default;
+	Route(const TileMap&, const SDL_Point&);       //传入瓦片地图和起点单元格位置，生成怪物行进路径瓦片索引列表
+	Route() = default;                             //默认构造
+	~Route() = default;                            //默认析构
 
-	//对外提供获取路径瓦片索引列表常引用的只读接口
-	const TileIdxList& GetTileIdxList() const;
+	const TileIdxList& GetTileIdxList() const;     //对外提供获取路径瓦片索引列表常引用的只读接口
 
 private:
-	//检查传入的瓦片索引是否已经在路径瓦片列表中出现过，防止路径首尾相接造成构造函数的死循环
-	bool CheckRepeatedPointIdx(const SDL_Point&);
+	bool CheckRepeatedPointIdx(const SDL_Point&);  //检查传入的瓦片索引是否已经在路径瓦片列表中出现过，防止路径首尾相接造成构造函数的死循环
 };
 
 Route::Route(const TileMap& _map, const SDL_Point& _beginIdx)

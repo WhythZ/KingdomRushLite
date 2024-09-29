@@ -20,49 +20,26 @@ typedef std::unordered_map<int, Route> SpawnRoutePool;
 class Map
 {
 private:
-	//当前关卡地图的瓦片地图
-	TileMap tileMap;
-
-	//使用SDL库的点来存储家（防守地点）的瓦片的索引位置；这种在编译阶段缓存TileMap中存储的静态数据的方法称为烘培
-	SDL_Point homeIdx = { 0 };
-
-	//存储各刷怪点及其路径的池
-	SpawnRoutePool spawnRoutePool;
+	TileMap tileMap;                                    //当前关卡地图的瓦片地图
+	SDL_Point homeIdx = { 0 };                          //使用SDL库的点来存储家（防守地点）的瓦片的索引位置
+	SpawnRoutePool spawnRoutePool;                      //存储各刷怪点及其路径的池
 
 public:
 	Map() = default;
 	~Map() = default;
 
-	//从指定路径加载读取瓦片地图的CSV文件，并返回布尔值表示加载成功与否
-	bool Load(const std::string&);
-
-	//放置防御塔的方法
-	void PlaceTowerAt(const SDL_Point&);
-
-	//获取瓦片地图的常索引
-	const TileMap& GetTileMap() const;
-
-	//获取家瓦片的位置索引
-	const SDL_Point& GetHomeIdx() const;
-
-	//获取刷怪点路径池
-	const SpawnRoutePool& GetSpawnRoutePool() const;
-
-	//获取地图的高（行数），注意返回值类型以及const修饰
-	size_t GetHeight() const;
-
-	//获取地图的宽（列数）
-	size_t GetWidth() const;
+	bool Load(const std::string&);                      //从指定路径加载瓦片地图CSV文件，并返回成功与否
+	void PlaceTowerAt(const SDL_Point&);                //放置防御塔的方法
+	const TileMap& GetTileMap() const;                  //获取瓦片地图的常索引
+	const SDL_Point& GetHomeIdx() const;                //获取家瓦片的位置索引
+	const SpawnRoutePool& GetSpawnRoutePool() const;    //获取刷怪点路径池
+	size_t GetHeight() const;                           //获取地图的高（行数）
+	size_t GetWidth() const;                            //获取地图的宽（列数）
 
 private:
-	//若字符串的首尾出现了空格，会很难被发现，所以提供一个剪切操作以统一，如"   x\x\x\x,y\y\y\y   "被剪切后得到"x\x\x\x.y\y\y\y"
-	std::string TrimString(const std::string);
-
-	//从瓦片字符串中提取信息并载入
-	void LoadTileFromString(const std::string, Tile&);
-
-	//用于读取生成地图的缓存
-	void GenerateMapCache();
+	std::string TrimString(const std::string);          //剪切瓦片字符串以保证格式的统一以便读取
+	void LoadTileFromString(const std::string, Tile&);  //从瓦片字符串中提取信息并载入
+	void GenerateMapCache();                            //用于读取生成地图的缓存
 };
 
 bool Map::Load(const std::string& _csvPath)
@@ -161,6 +138,7 @@ size_t Map::GetWidth() const
 }
 
 std::string Map::TrimString(const std::string _str)
+//若字符串的首尾出现了空格，会很难被发现，所以提供一个剪切操作以统一，如"   x\x\x\x,y\y\y\y   "被剪切后得到"x\x\x\x.y\y\y\y"
 {
 	//找到字符串中的第一个非空字符（非空格、非制表符）的索引；注意使用的是size_t类型
 	size_t _beginIdx = _str.find_first_not_of(" \t");
@@ -220,6 +198,7 @@ void Map::LoadTileFromString(const std::string _tileBuf, Tile& _tile)
 }
 
 void Map::GenerateMapCache()
+//这种在编译阶段缓存（TileMap中存储的）静态数据的方法称为烘培
 {
 	//遍历地图的每一个瓦片单元格
 	for (int y = 0; y < GetHeight(); y++)
