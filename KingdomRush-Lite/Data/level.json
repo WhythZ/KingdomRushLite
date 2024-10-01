@@ -1,239 +1,239 @@
 [
 	{
 		"rewards":	100,
-		"cooldown":	3,
+		"interval":	3,
 		"spawn_list":
 		[
 			{
-				"cooldown":	0,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	0,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			}
 		]
 	},
 	{
 		"rewards":	200,
-		"cooldown":	5,
+		"interval":	5,
 		"spawn_list":
 		[
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	0,
-				"point":	2,
-				"enemy":	"Slim"
+				"interval":	0,
+				"spawn_point":	2,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	0,
-				"point":	2,
-				"enemy":	"Slim"
+				"interval":	0,
+				"spawn_point":	2,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	0,
-				"point":	2,
-				"enemy":	"Slim"
+				"interval":	0,
+				"spawn_point":	2,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"KingSlim"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"KingSlime"
 			}
 		]
 	},
 	{
 		"rewards":	300,
-		"cooldown":	10,
+		"interval":	10,
 		"spawn_list":
 		[
 			{
-				"cooldown":	1,
-				"point":	2,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	2,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	2,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	2,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	2,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	2,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	2,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	2,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	1,
-				"point":	2,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	2,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	0,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	0,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	1,
-				"point":	2,
-				"enemy":	"Slim"
+				"interval":	1,
+				"spawn_point":	2,
+				"enemy_type":	"Slime"
 			},
 			{
-				"cooldown":	0,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	0,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	1,
-				"point":	2,
-				"enemy":	"KingSlim"
+				"interval":	1,
+				"spawn_point":	2,
+				"enemy_type":	"KingSlime"
 			},
 			{
-				"cooldown":	0,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	0,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			}
 		]
 	},
 	{
 		"rewards":	300,
-		"cooldown":	6,
+		"interval":	6,
 		"spawn_list":
 		[
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	0,
-				"point":	2,
-				"enemy":	"GoblinPriest"
+				"interval":	0,
+				"spawn_point":	2,
+				"enemy_type":	"PriestGoblin"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	0,
-				"point":	2,
-				"enemy":	"Goblin"
+				"interval":	0,
+				"spawn_point":	2,
+				"enemy_type":	"Goblin"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	0,
-				"point":	2,
-				"enemy":	"Goblin"
+				"interval":	0,
+				"spawn_point":	2,
+				"enemy_type":	"Goblin"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	0,
-				"point":	2,
-				"enemy":	"Goblin"
+				"interval":	0,
+				"spawn_point":	2,
+				"enemy_type":	"Goblin"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	0,
-				"point":	2,
-				"enemy":	"Goblin"
+				"interval":	0,
+				"spawn_point":	2,
+				"enemy_type":	"Goblin"
 			},
 			{
-				"cooldown":	1,
-				"point":	1,
-				"enemy":	"Skeleton"
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Skeleton"
 			},
 			{
-				"cooldown":	0,
-				"point":	2,
-				"enemy":	"Goblin"
+				"interval":	0,
+				"spawn_point":	2,
+				"enemy_type":	"Goblin"
 			}
 		]
 	}
