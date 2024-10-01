@@ -1,5 +1,5 @@
-#ifndef _TILE_H_
-#define _TILE_H_
+#ifndef _TILE_HPP_
+#define _TILE_HPP_
 
 #include <vector>
 

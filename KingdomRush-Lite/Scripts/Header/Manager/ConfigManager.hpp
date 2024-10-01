@@ -8,6 +8,7 @@
 #include <cJSON.h>
 #include <SDL.h>
 #include "Manager.hpp"
+#include "../Map/Map.hpp"
 
 //用于处理游戏配置文件config.json内的预制体信息
 class ConfigManager : public Manager<ConfigManager>
@@ -15,14 +16,16 @@ class ConfigManager : public Manager<ConfigManager>
 	friend class Manager<ConfigManager>;
 
 public:
+	Map map;       //游戏地图
+
 	//游戏的基础配置信息预制体
 	struct BasicConfigInfoPrefab
 	{
-		//窗口标题
-		std::string windowTitle = "KingdomRush-Lite";
 		//窗口高度与宽度
 		int windowWidth = 1280;
 		int windowHeight = 720;
+		//窗口标题
+		std::string windowTitle = "KingdomRush-Lite";
 	};
 
 	//玩家预制体
@@ -63,7 +66,7 @@ public:
 		//敌人造成的伤害
 		double damage = 1;
 		//敌人爆金币的概率
-		double coinRation = 0.5;
+		double coinRatio = 0.5;
 		//敌人恢复技能的冷却、范围（-1为不恢复，0为只恢复自己）与恢复强度
 		double recoverCooldown = 10;
 		double recoverRange = -1;
