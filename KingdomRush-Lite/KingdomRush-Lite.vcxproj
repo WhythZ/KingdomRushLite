@@ -23,12 +23,15 @@
     <ClCompile Include="Scripts\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scripts\Header\Enemy\Enemy.hpp" />
+    <ClInclude Include="Scripts\Header\Enemy\EnemyType.hpp" />
     <ClInclude Include="Scripts\Header\Manager\ConfigManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\GameManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
     <ClInclude Include="Scripts\Header\Map\Map.hpp" />
+    <ClInclude Include="Scripts\Header\Enemy\Wave.hpp" />
     <ClInclude Include="Scripts\Header\Route\Route.hpp" />
-    <ClInclude Include="Scripts\Header\Map\Tile.h" />
+    <ClInclude Include="Scripts\Header\Map\Tile.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

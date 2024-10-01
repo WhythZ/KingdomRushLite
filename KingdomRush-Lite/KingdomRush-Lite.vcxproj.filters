@@ -25,6 +25,9 @@
     <Filter Include="源文件\Dependencies">
       <UniqueIdentifier>{ae9f0ac5-07aa-43fa-a4e1-9fcfe7e05988}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Enemy">
+      <UniqueIdentifier>{ee40717e-9d95-474e-8bbc-76cf994ba3ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -38,7 +41,7 @@
     <ClInclude Include="Scripts\Header\Manager\GameManager.hpp">
       <Filter>头文件\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Map\Tile.h">
+    <ClInclude Include="Scripts\Header\Map\Tile.hpp">
       <Filter>头文件\Map</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Map\Map.hpp">
@@ -52,6 +55,15 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp">
       <Filter>头文件\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Enemy\Enemy.hpp">
+      <Filter>头文件\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Enemy\EnemyType.hpp">
+      <Filter>头文件\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Enemy\Wave.hpp">
+      <Filter>头文件\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
