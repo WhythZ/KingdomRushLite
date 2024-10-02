@@ -131,8 +131,8 @@ bool ConfigManager::LoadConfig(const std::string& _path)
 	std::stringstream _strStream;
 	_strStream << _file.rdbuf();
 	_file.close();
-	
-	//将_strStream的内容转化为C风格的字符数组后进行，将该json文件的所有内容解析并存储到容器内，然后检测是否解析成功
+
+	//将_strStream的内容转化为C风格字符数组后解析并存储（cJSON_Parse方法是开辟到堆区的，故后续要对_jsonRoot进行销毁），检测是否解析成功
 	cJSON* _jsonRoot = cJSON_Parse(_strStream.str().c_str());
 	if (!_jsonRoot) return false;
 
@@ -141,42 +141,28 @@ bool ConfigManager::LoadConfig(const std::string& _path)
 	#pragma endregion
 
 	//解析基本配置
-	cJSON* _jsonBasic = cJSON_GetObjectItem(_jsonRoot, "basic");
-	if (!ParseBasicConfigPrefab(basicPrefab, _jsonBasic)) return false;
+	if (!ParseBasicConfigPrefab(basicPrefab, cJSON_GetObjectItem(_jsonRoot, "basic"))) return false;
 
 	//解析玩家配置
-	cJSON* _jsonPlayer = cJSON_GetObjectItem(_jsonRoot, "player");
-	if (!ParsePlayerConfigPrefab(playerPrefab, _jsonPlayer)) return false;
+	if (!ParsePlayerConfigPrefab(playerPrefab, cJSON_GetObjectItem(_jsonRoot, "player"))) return false;
 
 	//解析各防御塔配置
 	cJSON* _jsonTower = cJSON_GetObjectItem(_jsonRoot, "tower");
-
-	cJSON* _jsonArcher = cJSON_GetObjectItem(_jsonTower, "archer");
-	if (!ParseTowerConfigPrefab(archerPrefab, _jsonArcher)) return false;
-
-	cJSON* _jsonAxeman = cJSON_GetObjectItem(_jsonTower, "axeman");
-	if (!ParseTowerConfigPrefab(axemanPrefab, _jsonAxeman)) return false;
-
-	cJSON* _jsonGunner = cJSON_GetObjectItem(_jsonTower, "gunner");
-	if (!ParseTowerConfigPrefab(gunnerPrefab, _jsonGunner)) return false;
+	if (!ParseTowerConfigPrefab(archerPrefab, cJSON_GetObjectItem(_jsonTower, "archer"))) return false;
+	if (!ParseTowerConfigPrefab(axemanPrefab, cJSON_GetObjectItem(_jsonTower, "axeman"))) return false;
+	if (!ParseTowerConfigPrefab(gunnerPrefab, cJSON_GetObjectItem(_jsonTower, "gunner"))) return false;
 
 	//解析各敌人配置
 	cJSON* _jsonEnemyType = cJSON_GetObjectItem(_jsonRoot, "enemy_type");
+	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "slime"))) return false;
+	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "king_slime"))) return false;
+	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "skeleton"))) return false;
+	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "goblin"))) return false;
+	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "priest_goblin"))) return false;
 
-	cJSON* _jsonSlime = cJSON_GetObjectItem(_jsonEnemyType, "slime");
-	if (!ParseEnemyConfigPrefab(slimePrefab, _jsonSlime))return false;
-
-	cJSON* _jsonKingSlime = cJSON_GetObjectItem(_jsonEnemyType, "king_slime");
-	if (!ParseEnemyConfigPrefab(slimePrefab, _jsonKingSlime))return false;
-
-	cJSON* _jsonSkeleton = cJSON_GetObjectItem(_jsonEnemyType, "skeleton");
-	if (!ParseEnemyConfigPrefab(slimePrefab, _jsonSkeleton))return false;
-
-	cJSON* _jsonGoblin = cJSON_GetObjectItem(_jsonEnemyType, "goblin");
-	if (!ParseEnemyConfigPrefab(slimePrefab, _jsonGoblin))return false;
-
-	cJSON* _jsonPriestGoblin = cJSON_GetObjectItem(_jsonEnemyType, "priest_goblin");
-	if (!ParseEnemyConfigPrefab(slimePrefab, _jsonPriestGoblin))return false;
+	//释放内存并返回
+	cJSON_Delete(_jsonRoot);
+	return true;
 }
 
 bool ConfigManager::LoadLevel(const std::string& _path)
@@ -191,7 +177,7 @@ bool ConfigManager::LoadLevel(const std::string& _path)
 	_strStream << _file.rdbuf();
 	_file.close();
 
-	//将_strStream的内容转化为C风格的字符数组后进行，将该json文件的所有内容解析并存储到容器内，然后检测是否解析成功
+	//将_strStream的内容转化为C风格字符数组后解析并存储（cJSON_Parse方法是开辟到堆区的，故后续要对_jsonRoot进行销毁），检测是否解析成功
 	cJSON* _jsonRoot = cJSON_Parse(_strStream.str().c_str());
 	if (!_jsonRoot) return false;
 
@@ -259,25 +245,15 @@ bool ConfigManager::LoadLevel(const std::string& _path)
 					else if (_jsonEnemyType->valuestring == "Goblin") { _spawnEvent.enemyType = EnemyType::Goblin; }
 					else if (_jsonEnemyType->valuestring == "PriestGoblin") { _spawnEvent.enemyType = EnemyType::PriestGoblin; }
 				}
-
-				////防止内存泄漏
-				//cJSON_Delete(_jsonSEventInterval);
-				//cJSON_Delete(_jsonSpawnPoint);
-				//cJSON_Delete(_jsonEnemyType);
 			}
 		}
-
-		////防止内存泄漏
-		//cJSON_Delete(_jsonRewards);
-		//cJSON_Delete(_jsonWaveInterval);
-		//cJSON_Delete(_jsonSpawnList);
 
 		//如果上述三个值中的最后一个（生成事件列表）为空，则说明该_wave读取失败（前两者都有默认值，读取失败就采取默认值），需要被从waveList中弹出
 		if (_wave.spawnEventList.empty())
 			waveList.pop_back();
 	}
 
-	//防止内存泄漏
+	//防止内存泄漏；因为_jsonRoot是开辟在堆区的，而_jsonWave是对后者的部分拷贝（依赖关系，需注意销毁顺序），所以需要对二者进行销毁
 	cJSON_Delete(_jsonWave);
 	cJSON_Delete(_jsonRoot);
 
@@ -319,25 +295,23 @@ bool ConfigManager::ParsePlayerConfigPrefab(PlayerConfigPrefab& _prefab, cJSON* 
 		return false;
 
 	cJSON* _jsonSpeed = cJSON_GetObjectItem(_jsonRoot, "speed");
-	cJSON* _jsonNormalAtkCd = cJSON_GetObjectItem(_jsonRoot, "normal_attack_cooldown");
-	cJSON* _jsonNormalAtkDmg = cJSON_GetObjectItem(_jsonRoot, "normal_attack_damage");
-	cJSON* _jsonSkillCd = cJSON_GetObjectItem(_jsonRoot, "skill_cooldown");
-	cJSON* _jsonSkillDmg = cJSON_GetObjectItem(_jsonRoot, "skill_damage");
-
-	if (!_jsonSpeed || !_jsonNormalAtkCd || !_jsonNormalAtkDmg || !_jsonSkillCd || !_jsonSkillDmg
-		|| _jsonSpeed->type != cJSON_Number
-		|| _jsonNormalAtkCd->type != cJSON_Number
-		|| _jsonNormalAtkDmg->type != cJSON_Number
-		|| _jsonSkillCd->type != cJSON_Number
-		|| _jsonSkillDmg->type != cJSON_Number)
-	{
-		return false;
-	}
-
+	if (!_jsonSpeed || _jsonSpeed->type != cJSON_Number) return false;
 	_prefab.speed = _jsonSpeed->valuedouble;
+	
+	cJSON* _jsonNormalAtkCd = cJSON_GetObjectItem(_jsonRoot, "normal_attack_cooldown");
+	if (!_jsonNormalAtkCd || _jsonNormalAtkCd->type != cJSON_Number) return false;
 	_prefab.normalAttackCooldown = _jsonNormalAtkCd->valuedouble;
+	
+	cJSON* _jsonNormalAtkDmg = cJSON_GetObjectItem(_jsonRoot, "normal_attack_damage");
+	if (!_jsonNormalAtkDmg || _jsonNormalAtkDmg->type != cJSON_Number) return false;
 	_prefab.normalAttackDamage = _jsonNormalAtkDmg->valuedouble;
+	
+	cJSON* _jsonSkillCd = cJSON_GetObjectItem(_jsonRoot, "skill_cooldown");
+	if (!_jsonSkillCd || _jsonSkillCd->type != cJSON_Number) return false;
 	_prefab.skillCooldown = _jsonSkillCd->valuedouble;
+
+	cJSON* _jsonSkillDmg = cJSON_GetObjectItem(_jsonRoot, "skill_damage");
+	if (!_jsonSkillDmg || _jsonSkillDmg->type != cJSON_Number) return false;
 	_prefab.skillDamage = _jsonSkillDmg->valuedouble;
 
 	return true;
