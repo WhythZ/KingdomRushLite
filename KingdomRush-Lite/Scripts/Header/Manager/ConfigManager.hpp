@@ -11,6 +11,9 @@
 #include "../Map/Map.hpp"
 #include "../Enemy/Wave.hpp"
 
+//防御塔最高等级
+#define TOWER_MAX_LEVEL 10
+
 //用于处理游戏配置文件config.json内的预制体信息
 class ConfigManager : public Manager<ConfigManager>
 {
@@ -72,7 +75,6 @@ public:
 		double recoverIntensity = 25;
 	};
 
-public:
 	const int initCoinNum = 100;           //初始的金币数量常量
 	const int pickCoinNum = 10;            //每拾取一个金币增加的金币数量常量
 	const double initHomeHP = 10;          //家的初始默认血量常量
@@ -89,8 +91,8 @@ public:
 
 	std::vector<Wave> waveList;            //怪物波次列表
 
-	BasicConfigPrefab basicConfigPrefab;
-	PlayerConfigPrefab playerPrefab;
+	BasicConfigPrefab basicPrefab;         //存储基本配置信息
+	PlayerConfigPrefab playerPrefab;       //存储玩家配置信息
 
 	TowerConfigPrefab archerPrefab;
 	TowerConfigPrefab axemanPrefab;
@@ -109,6 +111,13 @@ public:
 private:
 	ConfigManager() = default;
 	~ConfigManager() = default;
+
+	bool ParseBasicConfigPrefab(BasicConfigPrefab&, cJSON*);    //专门解析基本配置信息
+	bool ParsePlayerConfigPrefab(PlayerConfigPrefab&, cJSON*);  //专门解析玩家配置信息
+	bool ParseTowerConfigPrefab(TowerConfigPrefab&, cJSON*);    //专门解析防御塔配置信息
+	bool ParseEnemyConfigPrefab(EnemyConfigPrefab&, cJSON*);    //专门解析敌人配置信息
+
+	bool ParseNumberArray(double*, int, cJSON*);                //解析数字数组，如防御塔的各级属性
 };
 
 bool ConfigManager::LoadConfig(const std::string& _path)
@@ -126,31 +135,48 @@ bool ConfigManager::LoadConfig(const std::string& _path)
 	//将_strStream的内容转化为C风格的字符数组后进行，将该json文件的所有内容解析并存储到容器内，然后检测是否解析成功
 	cJSON* _jsonRoot = cJSON_Parse(_strStream.str().c_str());
 	if (!_jsonRoot) return false;
+
+	//类型检测
+	if (_jsonRoot->type != cJSON_Object) return false;
 	#pragma endregion
 
-	//一个用于指向子节点json对象的可复用指针
-	cJSON* _jsonChild = nullptr;
+	//解析基本配置
+	cJSON* _jsonBasic = cJSON_GetObjectItem(_jsonRoot, "basic");
+	if (!ParseBasicConfigPrefab(basicPrefab, _jsonBasic)) return false;
 
-	//读取该json文本树的第一级子节点内容
-	_jsonChild = cJSON_GetObjectItem(_jsonRoot, "basic");
-	basicConfigPrefab.windowWidth = cJSON_GetObjectItem(_jsonChild, "window_width")->valueint;
-	basicConfigPrefab.windowHeight = cJSON_GetObjectItem(_jsonChild, "window_height")->valueint;
-	basicConfigPrefab.windowTitle = cJSON_GetObjectItem(_jsonChild, "window_title")->valuestring;
+	//解析玩家配置
+	cJSON* _jsonPlayer = cJSON_GetObjectItem(_jsonRoot, "player");
+	if (!ParsePlayerConfigPrefab(playerPrefab, _jsonPlayer)) return false;
 
-	//读取该json文本树的第二级子节点内容
-	_jsonChild = cJSON_GetObjectItem(_jsonRoot, "player");
-	playerPrefab.speed = cJSON_GetObjectItem(_jsonChild, "speed")->valuedouble;
-	playerPrefab.normalAttackCooldown = cJSON_GetObjectItem(_jsonChild, "normal_attack_cooldown")->valuedouble;
-	playerPrefab.normalAttackDamage = cJSON_GetObjectItem(_jsonChild, "normal_attack_damage")->valuedouble;
-	playerPrefab.skillCooldown = cJSON_GetObjectItem(_jsonChild, "skill_cooldown")->valuedouble;
-	playerPrefab.skillDamage = cJSON_GetObjectItem(_jsonChild, "skill_damage")->valuedouble;
+	//解析各防御塔配置
+	cJSON* _jsonTower = cJSON_GetObjectItem(_jsonRoot, "tower");
 
-	//读取该json文本树的第三级子节点内容
-	_jsonChild = cJSON_GetObjectItem(_jsonRoot, "tower");
+	cJSON* _jsonArcher = cJSON_GetObjectItem(_jsonTower, "archer");
+	if (!ParseTowerConfigPrefab(archerPrefab, _jsonArcher)) return false;
 
+	cJSON* _jsonAxeman = cJSON_GetObjectItem(_jsonTower, "axeman");
+	if (!ParseTowerConfigPrefab(axemanPrefab, _jsonAxeman)) return false;
 
-	//读取该json文本树的第四级子节点内容
-	_jsonChild = cJSON_GetObjectItem(_jsonRoot, "enemy_type");
+	cJSON* _jsonGunner = cJSON_GetObjectItem(_jsonTower, "gunner");
+	if (!ParseTowerConfigPrefab(gunnerPrefab, _jsonGunner)) return false;
+
+	//解析各敌人配置
+	cJSON* _jsonEnemyType = cJSON_GetObjectItem(_jsonRoot, "enemy_type");
+
+	cJSON* _jsonSlime = cJSON_GetObjectItem(_jsonEnemyType, "slime");
+	if (!ParseEnemyConfigPrefab(slimePrefab, _jsonSlime))return false;
+
+	cJSON* _jsonKingSlime = cJSON_GetObjectItem(_jsonEnemyType, "king_slime");
+	if (!ParseEnemyConfigPrefab(slimePrefab, _jsonKingSlime))return false;
+
+	cJSON* _jsonSkeleton = cJSON_GetObjectItem(_jsonEnemyType, "skeleton");
+	if (!ParseEnemyConfigPrefab(slimePrefab, _jsonSkeleton))return false;
+
+	cJSON* _jsonGoblin = cJSON_GetObjectItem(_jsonEnemyType, "goblin");
+	if (!ParseEnemyConfigPrefab(slimePrefab, _jsonGoblin))return false;
+
+	cJSON* _jsonPriestGoblin = cJSON_GetObjectItem(_jsonEnemyType, "priest_goblin");
+	if (!ParseEnemyConfigPrefab(slimePrefab, _jsonPriestGoblin))return false;
 }
 
 bool ConfigManager::LoadLevel(const std::string& _path)
@@ -253,10 +279,158 @@ bool ConfigManager::LoadLevel(const std::string& _path)
 
 	//防止内存泄漏
 	cJSON_Delete(_jsonWave);
+	cJSON_Delete(_jsonRoot);
 
 	//检测waveList是否为空，为空则说明配置文件编写有误
 	if (waveList.empty()) return false;
 	//一切都没毛病的话，就最终返回成功的信号
+	return true;
+}
+
+bool ConfigManager::ParseBasicConfigPrefab(BasicConfigPrefab& _prefab, cJSON* _jsonRoot)
+{
+	//检测传入类型
+	if (!_jsonRoot || _jsonRoot->type != cJSON_Object)
+		return false;
+
+	cJSON* _jsonWindowWidth = cJSON_GetObjectItem(_jsonRoot, "window_width");
+	cJSON* _jsonWindowHeight = cJSON_GetObjectItem(_jsonRoot, "window_height");
+	cJSON* _jsonWindowTitle = cJSON_GetObjectItem(_jsonRoot, "window_title");
+
+	if (!_jsonWindowWidth || !_jsonWindowHeight || !_jsonWindowTitle
+		|| _jsonWindowWidth->type != cJSON_Number
+		|| _jsonWindowHeight->type != cJSON_Number
+		|| _jsonWindowTitle->type != cJSON_String)
+	{
+		return false;
+	}
+
+	_prefab.windowWidth = _jsonWindowWidth->valueint;
+	_prefab.windowHeight = _jsonWindowHeight->valueint;
+	_prefab.windowTitle = _jsonWindowTitle->valuestring;
+
+	return true;
+}
+
+bool ConfigManager::ParsePlayerConfigPrefab(PlayerConfigPrefab& _prefab, cJSON* _jsonRoot)
+{
+	//检测传入类型
+	if (!_jsonRoot || _jsonRoot->type != cJSON_Object)
+		return false;
+
+	cJSON* _jsonSpeed = cJSON_GetObjectItem(_jsonRoot, "speed");
+	cJSON* _jsonNormalAtkCd = cJSON_GetObjectItem(_jsonRoot, "normal_attack_cooldown");
+	cJSON* _jsonNormalAtkDmg = cJSON_GetObjectItem(_jsonRoot, "normal_attack_damage");
+	cJSON* _jsonSkillCd = cJSON_GetObjectItem(_jsonRoot, "skill_cooldown");
+	cJSON* _jsonSkillDmg = cJSON_GetObjectItem(_jsonRoot, "skill_damage");
+
+	if (!_jsonSpeed || !_jsonNormalAtkCd || !_jsonNormalAtkDmg || !_jsonSkillCd || !_jsonSkillDmg
+		|| _jsonSpeed->type != cJSON_Number
+		|| _jsonNormalAtkCd->type != cJSON_Number
+		|| _jsonNormalAtkDmg->type != cJSON_Number
+		|| _jsonSkillCd->type != cJSON_Number
+		|| _jsonSkillDmg->type != cJSON_Number)
+	{
+		return false;
+	}
+
+	_prefab.speed = _jsonSpeed->valuedouble;
+	_prefab.normalAttackCooldown = _jsonNormalAtkCd->valuedouble;
+	_prefab.normalAttackDamage = _jsonNormalAtkDmg->valuedouble;
+	_prefab.skillCooldown = _jsonSkillCd->valuedouble;
+	_prefab.skillDamage = _jsonSkillDmg->valuedouble;
+
+	return true;
+}
+
+bool ConfigManager::ParseTowerConfigPrefab(TowerConfigPrefab& _prefab, cJSON* _jsonRoot)
+{
+	//检测传入类型
+	if (!_jsonRoot || _jsonRoot->type != cJSON_Object)
+		return false;
+
+	cJSON* _jsonCooldown = cJSON_GetObjectItem(_jsonRoot, "cooldown");
+	if (!ParseNumberArray(_prefab.cooldown, TOWER_MAX_LEVEL, _jsonCooldown)) return false;
+
+	cJSON* _jsonDamage = cJSON_GetObjectItem(_jsonRoot, "damage");
+	if (!ParseNumberArray(_prefab.damage, TOWER_MAX_LEVEL, _jsonDamage)) return false;
+	
+	cJSON* _jsonViewRange = cJSON_GetObjectItem(_jsonRoot, "view_range");
+	if (!ParseNumberArray(_prefab.viewRange, TOWER_MAX_LEVEL, _jsonViewRange)) return false;
+	
+	cJSON* _jsonBuildCost = cJSON_GetObjectItem(_jsonRoot, "build_cost");
+	if (!ParseNumberArray(_prefab.buildCost, TOWER_MAX_LEVEL, _jsonBuildCost)) return false;
+
+	cJSON* _jsonUpgradeCost = cJSON_GetObjectItem(_jsonRoot, "upgrade_cost");
+	//注意此处传入的长度是(TOWER_MAX_LEVEL - 1)，因为防御塔的初始等级是1，所以可升级次数是最高等级减1
+	if (!ParseNumberArray(_prefab.upgradeCost, TOWER_MAX_LEVEL - 1, _jsonUpgradeCost)) return false;
+
+	return true;
+}
+
+bool ConfigManager::ParseEnemyConfigPrefab(EnemyConfigPrefab& _prefab, cJSON* _jsonRoot)
+{
+	//检测传入类型
+	if (!_jsonRoot || _jsonRoot->type != cJSON_Object)
+		return false;
+
+	cJSON* _jsonHP = cJSON_GetObjectItem(_jsonRoot, "hp");
+	if (!_jsonHP || _jsonHP->type != cJSON_Number) return false;
+	_prefab.hp = _jsonHP->valuedouble;
+
+	cJSON* _jsonSpeed = cJSON_GetObjectItem(_jsonRoot, "speed");
+	if (!_jsonSpeed || _jsonSpeed->type != cJSON_Number) return false;
+	_prefab.speed = _jsonSpeed->valuedouble;
+
+	cJSON* _jsonDamage = cJSON_GetObjectItem(_jsonRoot, "damage");
+	if (!_jsonDamage || _jsonDamage->type != cJSON_Number) return false;
+	_prefab.damage = _jsonDamage->valuedouble;
+
+	cJSON* _jsonCoinRatio = cJSON_GetObjectItem(_jsonRoot, "coin_ratio");
+	if (!_jsonCoinRatio || _jsonCoinRatio->type != cJSON_Number) return false;
+	_prefab.coinRatio = _jsonCoinRatio->valuedouble;
+
+	cJSON* _jsonRecoverCooldown = cJSON_GetObjectItem(_jsonRoot, "recover_cooldown");
+	if (!_jsonRecoverCooldown || _jsonRecoverCooldown->type != cJSON_Number) return false;
+	_prefab.recoverCooldown = _jsonRecoverCooldown->valuedouble;
+
+	cJSON* _jsonRecoverRange = cJSON_GetObjectItem(_jsonRoot, "recover_range");
+	if (!_jsonRecoverRange || _jsonRecoverRange->type != cJSON_Number) return false;
+	_prefab.recoverRange = _jsonRecoverRange->valuedouble;
+
+	cJSON* _jsonRecoveIntensity = cJSON_GetObjectItem(_jsonRoot, "recover_intensity");
+	if (!_jsonRecoveIntensity || _jsonRecoveIntensity->type != cJSON_Number) return false;
+	_prefab.recoverIntensity = _jsonRecoveIntensity->valuedouble;
+
+	return true;
+}
+
+bool ConfigManager::ParseNumberArray(double* _arr, int _maxLength, cJSON* _jsonRoot)
+{
+	//检测是否为数组类型
+	if (!_jsonRoot || _jsonRoot->type != cJSON_Array)
+		return false;
+
+	//用于记录循环的轮次，使得我们可以通过索引访问数组元素
+	int _idx = -1;
+	cJSON* _jsonElem = nullptr;
+	cJSON_ArrayForEach(_jsonElem, _jsonRoot)
+	{
+		//递增索引
+		_idx++;
+
+		//若检测到错误类型，则说明配置文件有毛病
+		if (_jsonElem->type != cJSON_Number)
+			return false;
+
+		//_maxLength的意义是，比如配置文件中的该数组存储了20个防御塔等级的数值，但是我只想要前10个
+		if (_idx >= _maxLength)
+			continue;
+
+		//读取数据
+		_arr[_idx] = _jsonElem->valuedouble;
+	}
+
 	return true;
 }
 
