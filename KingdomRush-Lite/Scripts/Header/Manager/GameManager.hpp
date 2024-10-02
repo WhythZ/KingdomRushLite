@@ -13,7 +13,7 @@
 #include "Manager.hpp"
 
 //游戏主管理器
-class GameManager : public Manager<GameManager>
+class GameManager :public Manager<GameManager>
 {
 	//授予Manager基类的GetInstance函数权限以调用GameManager类的构造函数
 	friend class Manager<GameManager>;

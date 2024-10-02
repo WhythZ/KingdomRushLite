@@ -15,7 +15,7 @@
 #define TOWER_MAX_LEVEL 10
 
 //用于处理游戏配置文件config.json内的预制体信息
-class ConfigManager : public Manager<ConfigManager>
+class ConfigManager :public Manager<ConfigManager>
 {
 	friend class Manager<ConfigManager>;
 
