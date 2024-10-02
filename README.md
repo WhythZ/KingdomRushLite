@@ -2,7 +2,7 @@
 
 ## License
 
-This repo adopts [MIT License](https://spdx.org/licenses/MIT)
+This repo adopts GPL-3.0 License
 
 ## About
 
