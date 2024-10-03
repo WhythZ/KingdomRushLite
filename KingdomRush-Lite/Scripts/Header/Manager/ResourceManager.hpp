@@ -45,12 +45,12 @@ enum SpriteResID
 	Enemy_PriestGoblin_Sketch,   //牧师哥布林白色剪影
 
 	Item_Coin,                   //掉落的金币
-	
+
 	UI_Coin,                     //玩家金币总额
 	UI_Heart,                    //玩家血量红心
 	UI_Avatar_Player,            //玩家头像
 	UI_Avatar_Home,              //家头像
-	
+
 	UI_SelectCursor,             //选中对象的视效
 	UI_Place_Idle,               //放置防御塔的轮盘UI
 	UI_Place_HoveredTop,         //指针悬浮在放置轮盘上部时的反馈视效
@@ -250,13 +250,13 @@ bool ResourceManager::LoadSoundRes()
 	//从文件中加载音效
 	soundPool[AudioResID::SFX_PlayerSkill_Flash] = Mix_LoadWAV("Assets/Audio/SFX/flash.wav");
 	soundPool[AudioResID::SFX_PlayerSkill_Impact] = Mix_LoadWAV("Assets/Audio/SFX/impact.wav");
-	
+
 	soundPool[AudioResID::SFX_Pick_Coin] = Mix_LoadWAV("Assets/Audio/SFX/coin.mp3");
 	soundPool[AudioResID::SFX_HomeHurt] = Mix_LoadWAV("Assets/Audio/SFX/home_hurt.wav");
-	
+
 	soundPool[AudioResID::SFX_Tower_Place] = Mix_LoadWAV("Assets/Audio/SFX/place_tower.mp3");
 	soundPool[AudioResID::SFX_Tower_Upgrade] = Mix_LoadWAV("Assets/Audio/SFX/tower_level_up.mp3");
-	
+
 	soundPool[AudioResID::SFX_Arrow_Shoot_1] = Mix_LoadWAV("Assets/Audio/SFX/arrow_fire_1.mp3");
 	soundPool[AudioResID::SFX_Arrow_Shoot_2] = Mix_LoadWAV("Assets/Audio/SFX/arrow_fire_2.mp3");
 	soundPool[AudioResID::SFX_Arrow_Hit_1] = Mix_LoadWAV("Assets/Audio/SFX/arrow_hit_1.mp3");

@@ -12,7 +12,7 @@
 //基类与其它管理器类
 #include "Manager.hpp"
 #include "ConfigManager.hpp"
-//#include "ResourceManager.hpp"
+#include "ResourceManager.hpp"
 
 //游戏主管理器
 class GameManager :public Manager<GameManager>
@@ -129,8 +129,7 @@ GameManager::GameManager()
 	#pragma endregion
 
 	//加载资源
-	//ResourceManager* _res = ResourceManager::GetInstance();
-	//InitAssert(_res->LoadResource(renderer), "Failed To Load Resources");
+	InitAssert(ResourceManager::GetInstance()->LoadResource(renderer), "Failed To Load Resources");
 }
 
 GameManager::~GameManager()

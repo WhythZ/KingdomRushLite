@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c" />
-    <ClCompile Include="Scripts\Header\Manager\ResourceManager.hpp" />
     <ClCompile Include="Scripts\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -29,6 +28,7 @@
     <ClInclude Include="Scripts\Header\Manager\ConfigManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\GameManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\ResourceManager.hpp" />
     <ClInclude Include="Scripts\Header\Map\Map.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Wave.hpp" />
     <ClInclude Include="Scripts\Header\Map\Route.hpp" />
