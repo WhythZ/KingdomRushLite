@@ -1,10 +1,14 @@
 #ifndef _RESOURCE_MANAGER_HPP_
 #define _RESOURCE_MANAGER_HPP_
 
+#include <unordered_map>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
 #include "Manager.hpp"
 
-//图像资源池
-enum SpriteResPool
+//图像资源、图像池类
+enum SpriteResID
 {
 	Player,                      //玩家控制角色的帧动画
 	VFX_Flash_Up,                //玩家技能闪电，方向朝上
@@ -20,6 +24,7 @@ enum SpriteResPool
 	Tile_TileSet,                //瓦片素材图集
 	Tile_Home,                   //家瓦片
 	Tile_Spawner,                //怪物生成点瓦片
+	Tile_DirectionArrow,         //行进路径方向
 
 	Tower_Archer,                //弓箭手防御塔
 	Tower_Axeman,                //投斧手防御塔
@@ -39,10 +44,10 @@ enum SpriteResPool
 	Enemy_Goblin_Sketch,         //哥布林白色剪影
 	Enemy_PriestGoblin_Sketch,   //牧师哥布林白色剪影
 
-	UI_CoinDrop,                 //掉落的金币
-	UI_CoinOwned,                //玩家金币总额
-	UI_HealthBar,                //玩家生命值
-
+	Item_Coin,                   //掉落的金币
+	
+	UI_Coin,                     //玩家金币总额
+	UI_Heart,                    //玩家血量红心
 	UI_Avatar_Player,            //玩家头像
 	UI_Avatar_Home,              //家头像
 	
@@ -60,9 +65,10 @@ enum SpriteResPool
 	UI_Text_Loss,                //失败文字显示
 	UI_GameOver                  //失败界面
 };
+typedef std::unordered_map<SpriteResID, SDL_Texture*> SpritePool;
 
-//音频资源池
-enum AudioResPool
+//音频资源、音乐池类、声音池类
+enum AudioResID
 {
 	BGM_Main,                    //主背景音乐
 
@@ -92,12 +98,15 @@ enum AudioResPool
 	SFX_Win,                     //游戏胜利音效
 	SFX_Loss,                    //游戏失败音效
 };
+typedef std::unordered_map<AudioResID, Mix_Music*> MusicPool;
+typedef std::unordered_map<AudioResID, Mix_Chunk*> SoundPool;
 
-//字体资源池
-enum FontResPool
+//字体资源、字体池类
+enum FontResID
 {
 	Pixel_CN,                   //游戏主字体（含中文）
 };
+typedef std::unordered_map<FontResID, TTF_Font*> FontPool;
 
 //游戏资产管理器
 class ResourceManager :public Manager<ResourceManager>
@@ -105,9 +114,183 @@ class ResourceManager :public Manager<ResourceManager>
 	friend class Manager<ResourceManager>;
 
 private:
-
+	SpritePool spritePool;              //图像池
+	MusicPool musicPool;                //音乐池
+	SoundPool soundPool;                //音效池
+	FontPool fontPool;                  //字体池
 
 public:
+	bool LoadResource(SDL_Renderer*);   //加载所有资源
+
+	const SpritePool& GetSpritePool();  //获取只读图像池
+	const MusicPool& GetMusicPool();    //获取只读音频池
+	const SoundPool& GetSoundPool();    //获取只读音效池
+	const FontPool& GetFontPool();      //获取只读图像池
+
+private:
+	ResourceManager() = default;
+	~ResourceManager() = default;
+
+	bool LoadSpriteRes(SDL_Renderer*);  //从文件中加载图像资产
+	bool LoadMusicRes();                //从文件中加载音乐资产
+	bool LoadSoundRes();                //从文件中加载音效资产
+	bool LoadFontRes();                 //从文件中加载字体资产
 };
+
+bool ResourceManager::LoadResource(SDL_Renderer* _renderer)
+{
+	if (!LoadSpriteRes(_renderer) || !LoadMusicRes() || !LoadSoundRes() || !LoadFontRes())
+		return false;
+	return true;
+}
+
+const SpritePool& ResourceManager::GetSpritePool()
+{
+	return spritePool;
+}
+
+const MusicPool& ResourceManager::GetMusicPool()
+{
+	return musicPool;
+}
+
+const SoundPool& ResourceManager::GetSoundPool()
+{
+	return soundPool;
+}
+
+const FontPool& ResourceManager::GetFontPool()
+{
+	return fontPool;
+}
+
+bool ResourceManager::LoadSpriteRes(SDL_Renderer* _renderer)
+{
+	//因为此处我们无需用到SDL_Surface*对象，所以可以直接使用IMG_LoadTexture()方法省略将两个步骤合一
+	//SDL_Surface* _imgSurface = IMG_Load("Assets/xx.jpg");                             //从外存加载到内存（内存结构体）
+	//SDL_Texture* _imgTexture = SDL_CreateTextureFromSurface(_renderer, _imgSurface);  //从内存加载到显存（GPU纹理数据）
+
+	//将图片资源加载存储在图像池（unordered_map类型的容器）
+	spritePool[SpriteResID::Player] = IMG_LoadTexture(_renderer, "Assets/Sprite/Player/player.png");
+	spritePool[SpriteResID::VFX_Flash_Up] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_up.png");
+	spritePool[SpriteResID::VFX_Flash_Down] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_down.png");
+	spritePool[SpriteResID::VFX_Flash_Left] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_left.png");
+	spritePool[SpriteResID::VFX_Flash_Right] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_right.png");
+	spritePool[SpriteResID::VFX_Impact_Up] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_up.png");
+	spritePool[SpriteResID::VFX_Impact_Down] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_down.png");
+	spritePool[SpriteResID::VFX_Impact_Left] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_left.png");
+	spritePool[SpriteResID::VFX_Impact_Right] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_right.png");
+	spritePool[SpriteResID::VFX_Explode] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/explode.png");
+
+	spritePool[SpriteResID::Tile_TileSet] = IMG_LoadTexture(_renderer, "Assets/Sprite/Tile/tileset.png");
+	spritePool[SpriteResID::Tile_Home] = IMG_LoadTexture(_renderer, "Assets/Sprite/Tile/home.png");
+	spritePool[SpriteResID::Tile_Spawner] = IMG_LoadTexture(_renderer, "Assets/Sprite/Tile/spawner.png");
+	spritePool[SpriteResID::Tile_DirectionArrow] = IMG_LoadTexture(_renderer, "Assets/Sprite/Tile/direction_arrow.png");
+
+	spritePool[SpriteResID::Tower_Archer] = IMG_LoadTexture(_renderer, "Assets/Sprite/Tower/tower_archer.png");
+	spritePool[SpriteResID::Tower_Axeman] = IMG_LoadTexture(_renderer, "Assets/Sprite/Tower/tower_axeman.png");
+	spritePool[SpriteResID::Tower_Gunner] = IMG_LoadTexture(_renderer, "Assets/Sprite/Tower/tower_gunner.png");
+	spritePool[SpriteResID::Bullet_Arrow] = IMG_LoadTexture(_renderer, "Assets/Sprite/Bullet/arrow.png");
+	spritePool[SpriteResID::Bullet_Axe] = IMG_LoadTexture(_renderer, "Assets/Sprite/Bullet/axe.png");
+	spritePool[SpriteResID::Bullet_Shell] = IMG_LoadTexture(_renderer, "Assets/Sprite/Bullet/shell.png");
+
+	spritePool[SpriteResID::Enemy_Slime] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/slime.png");
+	spritePool[SpriteResID::Enemy_Slime_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/slime_sketch.png");
+	spritePool[SpriteResID::Enemy_KingSlime] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/king_slime.png");
+	spritePool[SpriteResID::Enemy_KingSlime_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/king_slime_sketch.png");
+	spritePool[SpriteResID::Enemy_Skeleton] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/skeleton.png");
+	spritePool[SpriteResID::Enemy_Skeleton_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/skeleton_sketch.png");
+	spritePool[SpriteResID::Enemy_Goblin] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/goblin.png");
+	spritePool[SpriteResID::Enemy_Goblin_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/goblin_sketch.png");
+	spritePool[SpriteResID::Enemy_PriestGoblin] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/priest_goblin.png");
+	spritePool[SpriteResID::Enemy_PriestGoblin_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/priest_goblin_sketch.png");
+
+	spritePool[SpriteResID::Item_Coin] = IMG_LoadTexture(_renderer, "Assets/Sprite/Item/coin.png");
+
+	spritePool[SpriteResID::UI_Coin] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/coin.png");
+	spritePool[SpriteResID::UI_Heart] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/heart.png");
+	spritePool[SpriteResID::UI_Avatar_Player] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/player_avatar.png");
+	spritePool[SpriteResID::UI_Avatar_Home] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/home_avatar.png");
+
+	spritePool[SpriteResID::UI_SelectCursor] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/select_cursor.png");
+	spritePool[SpriteResID::UI_Place_Idle] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_idle.png");
+	spritePool[SpriteResID::UI_Place_HoveredTop] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_hovered_top.png");
+	spritePool[SpriteResID::UI_Place_HoveredLeft] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_hovered_left.png");
+	spritePool[SpriteResID::UI_Place_HoveredRight] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_hovered_right.png");
+	spritePool[SpriteResID::UI_Upgrade_Idle] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/upgrade_idle.png");
+	spritePool[SpriteResID::UI_Upgrade_HoveredTop] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/upgrade_hovered_top.png");
+	spritePool[SpriteResID::UI_Upgrade_HoveredLeft] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/upgrade_hovered_left.png");
+	spritePool[SpriteResID::UI_Upgrade_HoveredRight] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/upgrade_hovered_right.png");
+
+	spritePool[SpriteResID::UI_Text_Win] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/win_text.png");
+	spritePool[SpriteResID::UI_Text_Loss] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/loss_text.png");
+	spritePool[SpriteResID::UI_GameOver] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/game_over_bar.png");
+
+	//检查unordered_map容器中所有键值对的值是否有效；其中auto是自动类型推导，成员second访问的是键值对的值
+	for (const auto& _pair : spritePool)
+		if (!_pair.second) return false;
+	//检查无误就返回加载成功
+	return true;
+}
+
+bool ResourceManager::LoadMusicRes()
+{
+	//从文件中加载音乐
+	musicPool[AudioResID::BGM_Main] = Mix_LoadMUS("Assets/Audio/BGM/main_bgm.mp3");
+
+	//检查unordered_map容器中所有键值对的值是否有效；其中auto是自动类型推导，成员second访问的是键值对的值
+	for (const auto& _pair : musicPool)
+		if (!_pair.second) return false;
+	//检查无误就返回加载成功
+	return true;
+}
+
+bool ResourceManager::LoadSoundRes()
+{
+	//从文件中加载音效
+	soundPool[AudioResID::SFX_PlayerSkill_Flash] = Mix_LoadWAV("Assets/Audio/SFX/flash.wav");
+	soundPool[AudioResID::SFX_PlayerSkill_Impact] = Mix_LoadWAV("Assets/Audio/SFX/impact.wav");
+	
+	soundPool[AudioResID::SFX_Pick_Coin] = Mix_LoadWAV("Assets/Audio/SFX/coin.mp3");
+	soundPool[AudioResID::SFX_HomeHurt] = Mix_LoadWAV("Assets/Audio/SFX/home_hurt.wav");
+	
+	soundPool[AudioResID::SFX_Tower_Place] = Mix_LoadWAV("Assets/Audio/SFX/place_tower.mp3");
+	soundPool[AudioResID::SFX_Tower_Upgrade] = Mix_LoadWAV("Assets/Audio/SFX/tower_level_up.mp3");
+	
+	soundPool[AudioResID::SFX_Arrow_Shoot_1] = Mix_LoadWAV("Assets/Audio/SFX/arrow_fire_1.mp3");
+	soundPool[AudioResID::SFX_Arrow_Shoot_2] = Mix_LoadWAV("Assets/Audio/SFX/arrow_fire_2.mp3");
+	soundPool[AudioResID::SFX_Arrow_Hit_1] = Mix_LoadWAV("Assets/Audio/SFX/arrow_hit_1.mp3");
+	soundPool[AudioResID::SFX_Arrow_Hit_2] = Mix_LoadWAV("Assets/Audio/SFX/arrow_hit_2.mp3");
+	soundPool[AudioResID::SFX_Arrow_Hit_3] = Mix_LoadWAV("Assets/Audio/SFX/arrow_hit_3.mp3");
+
+	soundPool[AudioResID::SFX_Axe_Shoot] = Mix_LoadWAV("Assets/Audio/SFX/axe_fire.mp3");
+	soundPool[AudioResID::SFX_Axe_Hit_1] = Mix_LoadWAV("Assets/Audio/SFX/axe_hit_1.mp3");
+	soundPool[AudioResID::SFX_Axe_Hit_2] = Mix_LoadWAV("Assets/Audio/SFX/axe_hit_2.mp3");
+	soundPool[AudioResID::SFX_Axe_Hit_3] = Mix_LoadWAV("Assets/Audio/SFX/axe_hit_3.mp3");
+
+	soundPool[AudioResID::SFX_Shell_Shoot] = Mix_LoadWAV("Assets/Audio/SFX/shell_fire.mp3");
+	soundPool[AudioResID::SFX_Shell_Hit] = Mix_LoadWAV("Assets/Audio/SFX/shell_hit.mp3");
+
+	soundPool[AudioResID::SFX_Win] = Mix_LoadWAV("Assets/Audio/SFX/win.wav");
+	soundPool[AudioResID::SFX_Loss] = Mix_LoadWAV("Assets/Audio/SFX/loss.mp3");
+
+	//检查unordered_map容器中所有键值对的值是否有效；其中auto是自动类型推导，成员second访问的是键值对的值
+	for (const auto& _pair : soundPool)
+		if (!_pair.second) return false;
+	//检查无误就返回加载成功
+	return true;
+}
+
+bool ResourceManager::LoadFontRes()
+{
+	//从文件中加载字体
+	fontPool[FontResID::Pixel_CN] = TTF_OpenFont("Assets/Font/ipix.ttf", 25);
+
+	//检查unordered_map容器中所有键值对的值是否有效；其中auto是自动类型推导，成员second访问的是键值对的值
+	for (const auto& _pair : fontPool)
+		if (!_pair.second) return false;
+	//检查无误就返回加载成功
+	return true;
+}
 
 #endif

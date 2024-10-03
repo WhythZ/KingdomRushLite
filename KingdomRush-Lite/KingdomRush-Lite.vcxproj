@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c" />
+    <ClCompile Include="Scripts\Header\Manager\ResourceManager.hpp" />
     <ClCompile Include="Scripts\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -36,6 +36,9 @@
     <ClCompile Include="Scripts\Source\Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Scripts\Header\Manager\ResourceManager.hpp">
+      <Filter>头文件\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Manager\GameManager.hpp">
