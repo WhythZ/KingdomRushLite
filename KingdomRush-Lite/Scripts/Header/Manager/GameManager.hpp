@@ -129,7 +129,7 @@ GameManager::GameManager()
 	#pragma endregion
 
 	//加载资源
-	InitAssert(ResourceManager::GetInstance()->LoadResource(renderer), "Failed To Load Resources");
+	InitAssert(ResourceManager::GetInstance()->LoadResource(renderer), u8"Failed To Load Resources");
 }
 
 GameManager::~GameManager()
@@ -147,8 +147,7 @@ GameManager::~GameManager()
 void GameManager::InitAssert(bool _flag, const char* _errMsg)
 {
 	//如果初始化成功，那么无事发生，直接返回
-	if (_flag)
-		return;
+	if (_flag) return;
 	//如果初始化失败，那么就用SDL创建一个报错消息窗口，该函数(消息类型, 窗口标题, 详细报错信息, 作为谁的子窗口)
 	//第四个参数如果填NULL，那么报错窗口不作为子窗口；若是有传入窗口，那么报错窗口将作为传入的窗口的子窗口，若子窗口不关掉，父窗口无法被用户交互
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, u8"Game Init Failed", _errMsg, window);

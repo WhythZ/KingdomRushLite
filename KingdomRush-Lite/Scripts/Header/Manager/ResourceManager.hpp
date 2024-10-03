@@ -139,8 +139,11 @@ private:
 
 bool ResourceManager::LoadResource(SDL_Renderer* _renderer)
 {
-	if (!LoadSpriteRes(_renderer) || !LoadMusicRes() || !LoadSoundRes() || !LoadFontRes())
-		return false;
+	if (!LoadSpriteRes(_renderer)) return false;
+	if (!LoadMusicRes()) return false;
+	if (!LoadSoundRes()) return false;
+	if (!LoadFontRes()) return false;
+
 	return true;
 }
 
@@ -263,12 +266,12 @@ bool ResourceManager::LoadSoundRes()
 	soundPool[AudioResID::SFX_Arrow_Hit_2] = Mix_LoadWAV("Assets/Audio/SFX/arrow_hit_2.mp3");
 	soundPool[AudioResID::SFX_Arrow_Hit_3] = Mix_LoadWAV("Assets/Audio/SFX/arrow_hit_3.mp3");
 
-	soundPool[AudioResID::SFX_Axe_Shoot] = Mix_LoadWAV("Assets/Audio/SFX/axe_fire.mp3");
+	soundPool[AudioResID::SFX_Axe_Shoot] = Mix_LoadWAV("Assets/Audio/SFX/axe_fire.wav");
 	soundPool[AudioResID::SFX_Axe_Hit_1] = Mix_LoadWAV("Assets/Audio/SFX/axe_hit_1.mp3");
 	soundPool[AudioResID::SFX_Axe_Hit_2] = Mix_LoadWAV("Assets/Audio/SFX/axe_hit_2.mp3");
 	soundPool[AudioResID::SFX_Axe_Hit_3] = Mix_LoadWAV("Assets/Audio/SFX/axe_hit_3.mp3");
 
-	soundPool[AudioResID::SFX_Shell_Shoot] = Mix_LoadWAV("Assets/Audio/SFX/shell_fire.mp3");
+	soundPool[AudioResID::SFX_Shell_Shoot] = Mix_LoadWAV("Assets/Audio/SFX/shell_fire.wav");
 	soundPool[AudioResID::SFX_Shell_Hit] = Mix_LoadWAV("Assets/Audio/SFX/shell_hit.mp3");
 
 	soundPool[AudioResID::SFX_Win] = Mix_LoadWAV("Assets/Audio/SFX/win.wav");
