@@ -31,7 +31,7 @@
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
     <ClInclude Include="Scripts\Header\Map\Map.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Wave.hpp" />
-    <ClInclude Include="Scripts\Header\Route\Route.hpp" />
+    <ClInclude Include="Scripts\Header\Map\Route.hpp" />
     <ClInclude Include="Scripts\Header\Map\Tile.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

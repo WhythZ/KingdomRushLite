@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include "SDL.h"
 #include "Tile.hpp"
-#include "../Route/Route.hpp"
+#include "Route.hpp"
 
 //自定义数据类型TileMap，是一个存储Tile元素的二维vector容器数组
 typedef std::vector<std::vector<Tile>> TileMap;
@@ -82,9 +82,11 @@ bool Map::Load(const std::string& _csvPath)
 			_tileMapTemp[_yIdx].emplace_back();
 
 			//读取tileBuf字符串中的瓦片数据并载入临时地图对应瓦片上；也可以用tileMapTemp[yIdx].back()
-			Tile& tile = _tileMapTemp[_yIdx][_xIdx];
-			LoadTileFromString(_tileBuf, tile);
+			LoadTileFromString(_tileBuf, _tileMapTemp[_yIdx][_xIdx]);
 		}
+
+		//将_xIdx恢复原位
+		_xIdx = -1;
 	}
 
 	//关闭文件

@@ -9,8 +9,10 @@
 #include <SDL_image.h>
 //混音支持
 #include <SDL_mixer.h>
-//用于继承基类
+//基类与其它管理器类
 #include "Manager.hpp"
+#include "ConfigManager.hpp"
+//#include "ResourceManager.hpp"
 
 //游戏主管理器
 class GameManager :public Manager<GameManager>
@@ -33,7 +35,7 @@ private:
 	GameManager();                       //构造了什么就要释放什么，以防止内存泄漏与减少内存占用
 	~GameManager();                      //析构的顺序应当与构造的顺序相反，因为构造的顺序暗含依赖的关系，被依赖项不该被先释放
 	
-	void InitAssert(bool, const char*);  //初始化断言，用于初始化各库，并依据各库的初始化函数返回的参数判断是否初始化成功
+	void InitAssert(bool, const char*);  //初始化断言，用于初始化，并依据初始化函数返回的参数判断是否初始化成功
 	void On_Input();                     //主循环内检测拉取的输入事件，并对应地作出反应
 	void On_UpdateData(double);          //主循环内检测数据的更新
 	void On_Render();                    //主循环内渲染绘图的具体过程
@@ -87,6 +89,7 @@ int GameManager::Run(int _argc, char** _argv)
 
 GameManager::GameManager()
 {
+	#pragma region SDL-Libraries
 	//初始化SDL库的所有子系统；因为SDL_Init函数返回0表示成功，所以此处第一个传入参数取反
 	InitAssert(!SDL_Init(SDL_INIT_EVERYTHING), u8"Failed To Init SDL");
 	//初始化SDL_ttf库；TTF_Init函数返回0表示成功
@@ -97,9 +100,19 @@ GameManager::GameManager()
 	InitAssert(Mix_Init(MIX_INIT_MP3), u8"Failed To Init SDL_mixer");
 	//打开混音器的声道，Mix_OpenAudio(音频采样率, 解码音频格式, 声道数, 音频解码缓冲区大小)
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+	#pragma endregion
 
-	//从屏幕中心显示一个标题为"KingdomRush-Lite"的1280x720的一般样式的窗口 
-	window = SDL_CreateWindow(u8"KingdomRush-Lite", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
+	//加载配置文件
+	ConfigManager* _config = ConfigManager::GetInstance();
+	//使用初始化断言，加载地图文件、主配置文件（其内包含窗口配置信息，故而放在窗口初始化之前）、关卡文件
+	InitAssert(_config->map.Load("Data/map.csv"), u8"Failed To Load map.csv");
+	InitAssert(_config->LoadConfig("Data/config.json"), u8"Failed To Load config.json");
+	InitAssert(_config->LoadLevel("Data/level.json"), u8"Failed To Load level.json");
+
+	#pragma region Window&Renderer
+	//从屏幕中心显示一个标题为"KingdomRush-Lite"的1280x720的一般样式的窗口
+	window = SDL_CreateWindow(_config->basicPrefab.windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		_config->basicPrefab.windowWidth, _config->basicPrefab.windowHeight, SDL_WINDOW_SHOWN);
 	//检测窗口是否初始化成功
 	InitAssert(window, "Failed To Create Window");
 
@@ -113,6 +126,11 @@ GameManager::GameManager()
 
 	//向SDL提出建议，使得在打开SDL窗口的时候若是输入中文可以显示候选词列表
 	//SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
+	#pragma endregion
+
+	//加载资源
+	//ResourceManager* _res = ResourceManager::GetInstance();
+	//InitAssert(_res->LoadResource(renderer), "Failed To Load Resources");
 }
 
 GameManager::~GameManager()

@@ -3,8 +3,10 @@
 
 #include <vector>
 #include "SDL.h"
-#include "../Map/Tile.hpp"
-#include "../Map/Map.hpp"
+#include "Map.hpp"
+
+//自定义数据类型TileMap，是一个存储Tile元素的二维vector容器数组
+typedef std::vector<std::vector<Tile>> TileMap;
 
 //存储行进路径上瓦片索引点的数组数据类型
 typedef std::vector<SDL_Point> TileIdxList;
@@ -17,8 +19,8 @@ private:
 
 public:
 	Route(const TileMap&, const SDL_Point&);       //传入瓦片地图和起点单元格位置，生成怪物行进路径瓦片索引列表
-	Route() = default;                             //默认构造
-	~Route() = default;                            //默认析构
+	Route() = default; 
+	~Route() = default;
 
 	const TileIdxList& GetTileIdxList() const;     //对外提供获取路径瓦片索引列表常引用的只读接口
 

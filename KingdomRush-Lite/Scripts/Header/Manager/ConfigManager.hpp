@@ -75,12 +75,12 @@ public:
 		double recoverIntensity = 25;
 	};
 
+	Map map;                               //游戏地图
+	SDL_Rect mapRect = { 0 };              //地图渲染的窗口位置
+
 	const int initCoinNum = 100;           //初始的金币数量常量
 	const int pickCoinNum = 10;            //每拾取一个金币增加的金币数量常量
 	const double initHomeHP = 10;          //家的初始默认血量常量
-
-	Map map;                               //游戏地图
-	SDL_Rect mapRect = { 0 };              //地图渲染的窗口位置
 
 	bool isNotLose = true;                 //家没被攻破，游戏就没有输
 	bool isWavesOver = false;              //波次全部结束，则游戏结束
