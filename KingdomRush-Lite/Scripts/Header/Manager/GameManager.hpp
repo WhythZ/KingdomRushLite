@@ -28,7 +28,7 @@ private:
 	int fps = 60;                        //需要维持的游戏帧率，即每秒刷新的帧数
 	
 	SDL_Point cursorPos = { 0,0 };       //存储鼠标指针位置，其位置在事件检测更新中被刷新
-	SDL_Texture* mapTexture = nullptr;   //存储地图渲染的纹理图片
+	SDL_Texture* mapTexture = nullptr;   //存储被渲染成一整张SDL_Texture*纹理图片的瓦片地图
 
 public:
 	int Run(int, char**);                //将游戏主循环封装在此函数内（为了使main函数主体保持整洁）
@@ -80,6 +80,7 @@ int GameManager::Run(int _argc, char** _argv)
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		//使用设定的不透明黑色填充整个窗口达到清屏的效果
 		SDL_RenderClear(renderer);
+
 		//在经历了上述准备后，进行具体的渲染绘图
 		On_Render();
 		//将渲染的内容更新到窗口缓冲区上
@@ -183,21 +184,50 @@ void GameManager::On_UpdateData(double delta)
 
 void GameManager::On_Render()
 {
+	//用于从目标窗口中切割出一块用于塞入mapTexture的区域
+	SDL_Rect _dst = ConfigManager::GetInstance()->mapRect;
+	//将mapTexture渲染在_dst从窗口中切割出的区域内
+	SDL_RenderCopy(renderer, mapTexture, nullptr, &_dst);
 }
 
 bool GameManager::GenerateTileMapTileMap()
 {
-	#pragma region Preparation
-	//获取配置管理器的单例
-	ConfigManager* _config = ConfigManager::GetInstance();
+	#pragma region PrepareMapTextureCanvas
 	//获取游戏的地图与瓦片地图的常引用
-	const Map& _map = _config->map;
+	const Map& _map = ConfigManager::GetInstance()->map;
 	const TileMap& _tileMap = _map.GetTileMap();
-	//准备修改地图在游戏窗口内部渲染地图纹理的位置，即存储的是地图矩形的左上角定点坐标
-	SDL_Rect& _mapRect = _config->mapRect;
+
+	//最终渲染出的瓦片地图的纹理宽高
+	int _tileMapWidth = (int)_map.GetWidthTileNum() * TILE_SIZE;
+	int _tileMapHeight = (int)_map.GetHeightTileNum() * TILE_SIZE;
+
+	//对最终要被渲染在屏幕上的地图纹理图片进行编辑
+	//第一参数即渲染器（即作为画笔在纹理画布上画画），第四五位参数即渲染画布的宽高
+	//纹理排布格式是SDL_PIXELFORMAT_ARGB8888（8位即0~255范围的Alpha的RGB），访问权限是SDL_TEXTUREACCESS_TARGET（即纹理可以作为画布被渲染器渲染）
+	mapTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, _tileMapWidth, _tileMapHeight);
+	//渲染失败（比如图片太大，显存不够）则返回false
+	if (!mapTexture) return false;
 	#pragma endregion
 
-	#pragma region SegmentTileSetTex
+	#pragma region PrepareMapRect
+	//直接修改配置管理器的mapRect成员，在此函数中仅做写操作，其读操作在函数On_Render()中进行，用于指定切割mapTexture在窗口中的渲染位置
+	SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
+
+	//更改配置文件中的地图纹理的渲染位置（SDL_Rect对象：成员x和y表示纹理图片的矩形左上角顶点的坐标、成员w和h表示矩形的宽高）
+	//利用定义好的（固定的）窗口宽度减去嵌在窗口中间的矩形地图的宽度（参考“回”字的结构）后再除以2即可得到地图纹理矩形左上定点的横坐标，纵坐标同理
+	_mapRect.x = (ConfigManager::GetInstance()->basicPrefab.windowWidth - _tileMapWidth) / 2;
+	_mapRect.y = (ConfigManager::GetInstance()->basicPrefab.windowHeight - _tileMapHeight) / 2;
+	//宽高的值是绝对的（x和y坐标表示的点的位置是相对于窗口的），所以直接赋值即可
+	_mapRect.w = _tileMapWidth;
+	_mapRect.h = _tileMapHeight;
+	#pragma endregion
+
+	//设置地图纹理的混合渲染模式（SDL_BLENDMODE_BLEND即启用透明度的渲染）
+	SDL_SetTextureBlendMode(mapTexture, SDL_BLENDMODE_BLEND);
+	//将渲染器renderer的渲染目标指定到mapTexture上（在使用完成后一定要记得置空目标到nullptr上）
+	SDL_SetRenderTarget(renderer, mapTexture);
+
+	#pragma region PrepareSegmentTileSetTexture
 	//获取TileSet的纹理图片准备对其进行切割取材
 	//不能用ResourceManager::GetInstance()->GetSpritePool()[SpriteResID::Tile_TileSet]获取池内的资源对象
 	//因为若池内没有目标ID的话，unordered_map就会创建一个，而GetSpritePool()返回的是const的资源池，是不允许上述可能产生的更改的
@@ -209,47 +239,83 @@ bool GameManager::GenerateTileMapTileMap()
 	//查询纹理属性，第一个参数传入（被访问的）纹理的指针，第二三参数位传入的是纹理格式与访问权限（用不到就置空即可）
 	//第四五传入宽高的地址，被访问的纹理对象的宽高信息就会被存储到对应的传入地址上
 	SDL_QueryTexture(_tileSetTexture, nullptr, nullptr, &_tileSetWidth, &_tileSetHeight);
-	
+
 	//计算该TileSet的一行可以提取几个瓦片（这与图片的宽度、宏TILE_SIZE的大小有关，此处并不是最通用的图片切割算法，后续可扩展）
 	int _rowTileNum = (int)std::ceil((double)(_tileSetWidth / TILE_SIZE));
 	//计算该TileSet的一列可以提取几个瓦片
 	int _columnTileNum = (int)std::ceil((double)(_tileSetHeight / TILE_SIZE));
 	#pragma endregion
 
-	#pragma region PrepareTileMapTexCanvas
-	//最终渲染出的瓦片地图的纹理宽高
-	int _tileMapWidth = (int)_map.GetWidthTileNum() * TILE_SIZE;
-	int _tileMapHeight = (int)_map.GetHeightTileNum() * TILE_SIZE;
-
-	//对最终要被渲染在屏幕上的地图纹理图片进行编辑
-	//第一参数即渲染器（即作为画笔在纹理画布上画画），第四五位参数即渲染画布的宽高
-	//纹理排布格式是SDL_PIXELFORMAT_ARGB8888（8位即0~255范围的Alpha的RGB），访问权限是SDL_TEXTUREACCESS_TARGET（即纹理可以作为画布被渲染器渲染）
-	mapTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, _tileMapWidth, _tileMapHeight);
-	//渲染失败（比如图片太大，显存不够）则返回false
-	if (!mapTexture) return false;
-
-	//更改配置文件中的地图纹理的渲染位置（SDL_Rect对象：成员x和y表示纹理图片的矩形左上角顶点的坐标、成员w和h表示矩形的宽高）
-	//利用定义好的（固定的）窗口宽度减去嵌在窗口中间的矩形地图的宽度（参考“回”字的结构）后再除以2即可得到地图纹理矩形左上定点的横坐标，纵坐标同理
-	_mapRect.x = (_config->basicPrefab.windowWidth - _tileMapWidth) / 2;
-	_mapRect.y = (_config->basicPrefab.windowHeight - _tileMapHeight) / 2;
-	//宽高的值是绝对的（x和y坐标表示的点的位置是相对于窗口的），所以直接赋值即可
-	_mapRect.w = _tileMapWidth;
-	_mapRect.h = _tileMapHeight;
-	#pragma endregion
-
-	//设置地图纹理的混合渲染模式（SDL_BLENDMODE_BLEND即启用透明度的渲染）
-	SDL_SetTextureBlendMode(mapTexture, SDL_BLENDMODE_BLEND);
-	//将渲染器renderer的渲染目标指定到mapTexture上（在使用完成后一定要记得置空目标到nullptr上）
-	SDL_SetRenderTarget(renderer, mapTexture);
-
 	//逐瓦片对mapTexture进行渲染
-	for (int y = 0; y < _map.GetWidthTileNum(); y++)
+	for (int y = 0; y < _map.GetHeightTileNum(); y++)
 	{
-		for (int x = 0; x < _map.GetHeightTileNum(); x++)
+		for (int x = 0; x < _map.GetWidthTileNum(); x++)
 		{
+			//存储TileSet中的对应瓦片素材的矩形纹理图片的位置（矩形左上角顶点坐标xy+矩形宽高wh）
+			SDL_Rect _src;
+			//被遍历的瓦片地图中的瓦片，其指定了应当渲染TileSet中的特定素材纹理
+			const Tile& _tile = _tileMap[y][x];
 
+			//_src将被渲染到mapTexture中的_dst位置上
+			const SDL_Rect& _dst =
+			{
+				//目标瓦片矩形左上角顶点的坐标
+				x * TILE_SIZE, y * TILE_SIZE,
+				//瓦片是边长固定的正方形
+				TILE_SIZE, TILE_SIZE
+			};
+
+			#pragma region RenderTerrainLayer
+			//根据_tile内存储的信息，决定应当如何裁取TileSet以获取正确的图片
+			//先从地形层（每个非负数索引一个瓦片）开始，因为其应当被放在最底层（最后被渲染在同一区块的纹理会显示在顶层）
+			_src =
+			{
+				//terrainLayer是地形层指定的渲染瓦片索引，设想TileSet一行有5列瓦片，若terrainLayer等于11（索引0表示第一个瓦片），
+				//那么就要取第3行的第2列瓦片作为渲染目标，11%5=1表示第2列没毛病，11/5=2表示第3行没毛病
+				(_tile.terrainLayer % _rowTileNum) * TILE_SIZE,
+				(_tile.terrainLayer / _rowTileNum) * TILE_SIZE,
+				//宽高固定不变，没啥好说的
+				TILE_SIZE, TILE_SIZE
+			};
+			//将从纹理块_src拷贝渲染到目标区块_dst上
+			//第二参数位的参数类型是SDL_Texture*，第三参数位是SDL_Rect*，即对前者的裁剪
+			//第四参数位的SDL_Rect*对象则是对mapTexture（也是SDL_Texture*）的裁剪
+			SDL_RenderCopy(renderer, _tileSetTexture, &_src, &_dst);
+			#pragma endregion
+			
+			#pragma region RenderDecorationLayer
+			//渲染装饰层（每个非负数索引一个瓦片）
+			if (_tile.decorationLayer > 0)
+			{
+				_src =
+				{
+					//这里存在一个潜在问题，即地形层和装饰层可能会由于设置不当而重复渲染同一个索引的瓦片
+					(_tile.decorationLayer % _rowTileNum) * TILE_SIZE,
+					(_tile.decorationLayer / _rowTileNum) * TILE_SIZE,
+					TILE_SIZE, TILE_SIZE
+				};
+				//此处的渲染会覆盖在地形层之上
+				SDL_RenderCopy(renderer, _tileSetTexture, &_src, &_dst);
+			}
+			#pragma endregion
 		}
 	}
+
+	#pragma region RenderHome
+	//获取家在瓦片地图中的位置索引（瓦片地图中应当渲染家的纹理的位置瓦片矩形的左上顶点的坐标）
+	const SDL_Point& _homeIdx = _map.GetHomeIdx();
+	//通过索引锁定对应的纹理区域（SDL_Point的xy即是SDL_Rect的xy）
+	const SDL_Rect& _homeDst =
+	{
+		//家的坐标在瓦片地图中对应的SDL_Rect纹理图片的左上顶点位置
+		_homeIdx.x * TILE_SIZE, _homeIdx.y * TILE_SIZE,
+		//瓦片是边长固定的正方形
+		TILE_SIZE, TILE_SIZE
+	};
+	//如果家的瓦片纹理在TileSet中，就需要从中寻找，但我们已经将其提取出来放到资源池里了，就可以直接用
+	SDL_Texture* _homeSrc = ResourceManager::GetInstance()->GetSpritePool().find(SpriteResID::Tile_Home)->second;
+	SDL_RenderCopy(renderer, _homeSrc, nullptr, &_homeDst);
+	#pragma endregion
 
 	//置空渲染目标（即渲染窗口）
 	SDL_SetRenderTarget(renderer, nullptr);

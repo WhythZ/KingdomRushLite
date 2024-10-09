@@ -21,7 +21,7 @@ class Map
 {
 private:
 	TileMap tileMap;                                    //当前关卡地图的瓦片地图
-	SDL_Point homeIdx = { 0 };                          //使用SDL库的点来存储家（防守地点）的瓦片的索引位置
+	SDL_Point homeIdx = { 0 };                          //存储家（防守地点）在瓦片地图中的位置索引
 	SpawnRoutePool spawnRoutePool;                      //存储各刷怪点及其路径的池
 
 public:
