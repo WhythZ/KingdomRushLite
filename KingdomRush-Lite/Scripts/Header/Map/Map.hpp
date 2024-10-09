@@ -91,15 +91,16 @@ bool Map::Load(const std::string& _csvPath)
 
 	//关闭文件
 	_file.close();
+
 	//对被加载完成的临时地图进行检验，此处对于全空的地图或者第一行为空的地图返回false表示加载失败
 	if (_tileMapTemp.empty() || _tileMapTemp[0].empty())
 		return false;
-	//加载成功的话就可以放心赋值，并返回true
+	//加载成功的话就可以放心赋值
 	tileMap = _tileMapTemp;
-	return true;
 
-	//生成地图缓存
+	//在地图被加载完成后，生成地图缓存，并返回true结束函数
 	GenerateMapCache();
+	return true;
 }
 
 void Map::PlaceTowerAt(const SDL_Point& _tileIdx)
