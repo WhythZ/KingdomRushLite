@@ -30,11 +30,11 @@ public:
 
 	bool Load(const std::string&);                      //从指定路径加载瓦片地图CSV文件，并返回成功与否
 	void PlaceTowerAt(const SDL_Point&);                //放置防御塔的方法
-	const TileMap& GetTileMap() const;                  //获取瓦片地图的常索引
-	const SDL_Point& GetHomeIdx() const;                //获取家瓦片的位置索引
-	const SpawnRoutePool& GetSpawnRoutePool() const;    //获取刷怪点路径池
-	size_t GetHeight() const;                           //获取地图的高（行数）
-	size_t GetWidth() const;                            //获取地图的宽（列数）
+	const TileMap& GetTileMap() const;                  //获取瓦片地图的常引用
+	const SDL_Point& GetHomeIdx() const;                //获取家瓦片的位置常引用
+	const SpawnRoutePool& GetSpawnRoutePool() const;    //获取刷怪点路径池的常引用
+	size_t GetHeightTileNum() const;                    //获取地图的高（行瓦片数）
+	size_t GetWidthTileNum() const;                     //获取地图的宽（列瓦片数）
 
 private:
 	std::string TrimString(const std::string);          //剪切瓦片字符串以保证格式的统一以便读取
@@ -123,7 +123,7 @@ const SpawnRoutePool& Map::GetSpawnRoutePool() const
 	return spawnRoutePool;
 }
 
-size_t Map::GetHeight() const
+size_t Map::GetHeightTileNum() const
 {
 	if (tileMap.empty())
 		return 0;
@@ -131,7 +131,7 @@ size_t Map::GetHeight() const
 	return tileMap.size();
 }
 
-size_t Map::GetWidth() const
+size_t Map::GetWidthTileNum() const
 {
 	if (tileMap.empty())
 		return 0;
@@ -203,9 +203,9 @@ void Map::GenerateMapCache()
 //这种在编译阶段缓存（TileMap中存储的）静态数据的方法称为烘培
 {
 	//遍历地图的每一个瓦片单元格
-	for (int y = 0; y < GetHeight(); y++)
+	for (int y = 0; y < GetHeightTileNum(); y++)
 	{
-		for (int x = 0; x < GetWidth(); x++)
+		for (int x = 0; x < GetWidthTileNum(); x++)
 		{
 			//临时使用一个常量瓦片引用存储
 			const Tile& _tile = tileMap[y][x];

@@ -76,7 +76,7 @@ public:
 	};
 
 	Map map;                               //游戏地图
-	SDL_Rect mapRect = { 0 };              //地图渲染的窗口位置
+	SDL_Rect mapRect = { 0 };              //地图矩形的左上顶点渲染在游戏窗口内的位置
 
 	const int initCoinNum = 100;           //初始的金币数量常量
 	const int pickCoinNum = 10;            //每拾取一个金币增加的金币数量常量

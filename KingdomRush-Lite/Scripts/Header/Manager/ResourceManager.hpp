@@ -7,7 +7,7 @@
 #include <SDL_ttf.h>
 #include "Manager.hpp"
 
-//图像资源、图像池类
+//图像资源、音频资源、字体资源
 enum SpriteResID
 {
 	Player,                      //玩家控制角色的帧动画
@@ -65,9 +65,7 @@ enum SpriteResID
 	UI_Text_Loss,                //失败文字显示
 	UI_GameOver                  //失败界面
 };
-typedef std::unordered_map<SpriteResID, SDL_Texture*> SpritePool;
 
-//音频资源、音乐池类、声音池类
 enum AudioResID
 {
 	BGM_Main,                    //主背景音乐
@@ -98,14 +96,16 @@ enum AudioResID
 	SFX_Win,                     //游戏胜利音效
 	SFX_Loss,                    //游戏失败音效
 };
-typedef std::unordered_map<AudioResID, Mix_Music*> MusicPool;
-typedef std::unordered_map<AudioResID, Mix_Chunk*> SoundPool;
 
-//字体资源、字体池类
 enum FontResID
 {
 	Pixel_CN,                   //游戏主字体（含中文）
 };
+
+//图像池类、音乐池类、声音池类、字体池类
+typedef std::unordered_map<SpriteResID, SDL_Texture*> SpritePool;
+typedef std::unordered_map<AudioResID, Mix_Music*> MusicPool;
+typedef std::unordered_map<AudioResID, Mix_Chunk*> SoundPool;
 typedef std::unordered_map<FontResID, TTF_Font*> FontPool;
 
 //游戏资产管理器
