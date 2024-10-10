@@ -7,26 +7,26 @@
 class Timer
 {
 private:
-	double passTime = 0;                       //从计时器被创建后，过去了多长时间
-	double waitTime = 0;                       //等待多长时间后触发指定功能
+	double passTime = 0;                            //从计时器被创建后，过去了多长时间
+	double waitTime = 0;                            //等待多长时间后触发指定功能
 
-	bool isPaused = false;                     //计时器的暂停，暂停期间passTime不累积时间
-	bool isShotted = false;                    //只要计时器被到时触发一次，该值就变为真
-	bool isOneShot = false;                    //true表示该计时器仅能触发一次
-	std::function<void()> trigger;             //计时器计时结束被触发时，触发什么回调函数
+	bool isPaused = false;                          //计时器的暂停，暂停期间passTime不累积时间
+	bool isShotted = false;                         //只要计时器被到时触发一次，该值就变为真
+	bool isOneShot = false;                         //true表示该计时器仅能触发一次
+	std::function<void()> trigger;                  //计时器计时结束被触发时，触发什么回调函数
 
 public:
 	Timer() = default;
 	~Timer() = default;
 
-	void SetWaitTime(double);                  //设置等待时间
-	void SetOneShot(bool);                     //设置是否可以多次触发
-	void SetTimeOut(std::function<void()>);    //设置<void()>即无参无返的回调函数
+	void SetWaitTime(double);                       //设置等待时间
+	void SetOneShot(bool);                          //设置是否可以多次触发
+	void SetTimeOutTrigger(std::function<void()>);  //设置<void()>即无参无返的回调函数
 
-	void OnUpdate(double);                     //更新计时
-	void Pause();                              //暂停计时
-	void Resume();                             //继续计时
-	void Restart();                            //完全重置计时状态
+	void OnUpdate(double);                          //更新计时
+	void Pause();                                   //暂停计时
+	void Resume();                                  //继续计时
+	void Restart();                                 //完全重置计时状态
 };
 
 void Timer::SetWaitTime(double _wait)
@@ -39,7 +39,7 @@ void Timer::SetOneShot(bool _flag)
 	isOneShot = _flag;
 }
 
-void Timer::SetTimeOut(std::function<void()> _callback)
+void Timer::SetTimeOutTrigger(std::function<void()> _callback)
 {
 	trigger = _callback;
 }
@@ -59,8 +59,7 @@ void Timer::OnUpdate(double _delta)
 		bool _canShot = (!isOneShot || (isOneShot && !isShotted));
 
 		//如果可触发，且回调函数存在，则触发回调函数
-		if (_canShot && trigger)
-			trigger;
+		if (_canShot && trigger) trigger();
 
 		//消费掉一个等待时间周期，以便下一次触发
 		passTime -= waitTime;

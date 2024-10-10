@@ -23,6 +23,7 @@
     <ClCompile Include="Scripts\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scripts\Header\Animation\Animation.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Enemy.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\EnemyType.hpp" />
     <ClInclude Include="Scripts\Header\Manager\ConfigManager.hpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="Scripts\Header\Enemy\Wave.hpp" />
     <ClInclude Include="Scripts\Header\Map\Route.hpp" />
     <ClInclude Include="Scripts\Header\Map\Tile.hpp" />
+    <ClInclude Include="Scripts\Header\Timer\Timer.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -25,6 +25,12 @@
     <Filter Include="头文件\Enemy">
       <UniqueIdentifier>{ee40717e-9d95-474e-8bbc-76cf994ba3ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Timer">
+      <UniqueIdentifier>{a4ed2a13-b32b-44bc-923f-bcbab6821d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Animation">
+      <UniqueIdentifier>{dfea80e2-b32a-4fd1-805c-8d0ee42f2773}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -64,6 +70,12 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Manager\ResourceManager.hpp">
       <Filter>头文件\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Timer\Timer.hpp">
+      <Filter>头文件\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Animation\Animation.hpp">
+      <Filter>头文件\Animation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
