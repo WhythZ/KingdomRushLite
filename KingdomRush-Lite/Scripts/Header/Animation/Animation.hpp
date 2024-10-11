@@ -14,11 +14,11 @@ class Animation
 private:
 	Timer timer;                                     //计时器用于帧动画更新
 	std::function<void()> trigger;                   //动画播放结束后触发的回调函数
-
 	bool isLoop = false;                             //是否循环播放动画
+
 	SDL_Texture* srcSpriteSheetTexture = nullptr;    //使用的源SpriteSheet图片
 	std::vector<SDL_Rect> srcSpriteSheetRects;       //裁剪SpriteSheet获取所需的逐帧图片
-	
+
 	int frameIdx = 0;                                //动画播放到的帧的索引
 	int frameWidth = 0, frameHeight = 0;             //每帧动画纹理的宽高
 	SDL_Texture* dstAnimTexture = nullptr;           //每帧动画实际播放的纹理图片
@@ -28,13 +28,13 @@ public:
 	Animation();
 	~Animation() = default;
 
-	//以第四参数传入的索引列表，截取传入的源SpriteSheet图片（二三参数位定义了其宽高帧图片个数）中的部分矩形纹理，用作动画帧
+	//设置动画素材；即以第四参数传入的索引列表截取传入的源SpriteSheet图片（二三参数位定义了其宽高帧图片个数）中的若干部分矩形纹理，以用作动画各帧
 	void SetAnimFrames(SDL_Texture*, int, int, const std::vector<int>);
-	void SetAnimEndTrigger(std::function<void()>);     //设置动画播放结束的回调函数
-	void SetLoop(bool);                                //设置动画是否循环播放
-	void SetFrameInterval(double);                     //设置每帧动画播放的时间间隔，即定时器的waitTime
+	void SetAnimEndTrigger(std::function<void()>);   //设置动画播放结束的回调函数
+	void SetLoop(bool);                              //设置动画是否循环播放
+	void SetFrameInterval(double);                   //设置每帧动画播放的时间间隔，即定时器的waitTime
 
-	//传入渲染器、人物动画材质应当被渲染的位置（Rect的左上顶点）、图片的旋转角度（比如子弹动画会随方向旋转）
+	//设置动画播放；即传入渲染器、动画被渲染的位置（Rect的左上顶点）、动画的旋转角度（比如子弹动画会随方向旋转）
 	void OnRender(SDL_Renderer*, const SDL_Point&, double);
 	void OnUpdate(double);                           //动画的帧更新
 	void Restart();                                  //重置动画播放
@@ -44,6 +44,7 @@ Animation::Animation()
 {
 	//利用计时器的间隔时间触发来更新每帧动画，所以必须可以多次触发
 	timer.SetOneShot(false);
+
 	//使用匿名函数设置计时器使用的回调函数（每帧动画结束后都会触发该函数）
 	//内部嵌入了每个Animation对象自身的回调函数（仅在动画最后一帧播放后触发该函数）
 	timer.SetTimeOutTrigger(
@@ -122,9 +123,17 @@ void Animation::SetFrameInterval(double _time)
 	timer.SetWaitTime(_time);
 }
 
-void Animation::OnRender(SDL_Renderer* _renderer, const SDL_Point& _pos, double _angle)
+void Animation::OnRender(SDL_Renderer* _renderer, const SDL_Point& _dstPos, double _angle)
 {
-	//SDL_RenderCopy(_renderer, )
+	//对游戏窗口的裁切矩形，用于确定渲染的目标位置；这个Rect是静态的，任意Animation对象调用此函数时共享同一个Rect
+	static SDL_Rect _dstPosRect =
+	{
+		_dstPos.x,_dstPos.y,
+		frameWidth,frameHeight
+	};
+
+	//SDL_RenderCopy的参数进阶版：渲染器、源材质、源材质的裁切矩形、目标渲染位置（对主窗口的裁切矩形）、旋转角度、旋转的中心点（默认几何中心）、镜像翻转类型枚举
+	SDL_RenderCopyEx(_renderer, srcSpriteSheetTexture, &srcSpriteSheetRects[frameIdx], &_dstPosRect, 0, nullptr, SDL_FLIP_NONE);
 }
 
 void Animation::OnUpdate(double _delta)
