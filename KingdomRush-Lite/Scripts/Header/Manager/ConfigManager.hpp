@@ -75,22 +75,7 @@ public:
 		double recoverIntensity = 25;
 	};
 
-	Map map;                               //游戏地图
-	SDL_Rect mapRect = { 0 };              //地图矩形的左上顶点渲染在游戏窗口内的位置
-
-	const int initCoinNum = 100;           //初始的金币数量常量
-	const int pickCoinNum = 10;            //每拾取一个金币增加的金币数量常量
-	const double initHomeHP = 10;          //家的初始默认血量常量
-
-	bool isNotLose = true;                 //家没被攻破，游戏就没有输
-	bool isWavesOver = false;              //波次全部结束，则游戏结束
-
-	int levelArcher;                       //弓箭塔等级（全局统一升级）
-	int levelAxeman;                       //投斧手等级
-	int levelGunner;                       //枪炮手等级
-
-	std::vector<Wave> waveList;            //怪物波次列表
-
+	#pragma region LoadedPrefabs
 	BasicConfigPrefab basicPrefab;         //存储基本配置信息
 	PlayerConfigPrefab playerPrefab;       //存储玩家配置信息
 
@@ -103,6 +88,29 @@ public:
 	EnemyConfigPrefab skeletonPrefab;
 	EnemyConfigPrefab goblinPrefab;
 	EnemyConfigPrefab priestgGoblinPrefab;
+	#pragma endregion
+
+	#pragma region Map
+	Map map;                               //游戏地图
+	SDL_Rect mapRect = { 0 };              //地图矩形的左上顶点渲染在游戏窗口内的位置
+	#pragma endregion
+
+	const double initHomeHP = 10;          //家的初始默认血量常量
+
+	bool isNotLose = true;                 //家没被攻破，游戏就没有输
+	std::vector<Wave> waveList;            //怪物波次列表
+	bool isWavesOver = false;              //波次全部结束，则游戏结束
+
+	#pragma region TowerLevel
+	int levelArcher;                       //弓箭塔等级（全局统一升级）
+	int levelAxeman;                       //投斧手等级
+	int levelGunner;                       //枪炮手等级
+	#pragma endregion
+
+	#pragma region Coin
+	const int initCoinNum = 100;           //初始的金币数量常量
+	const int pickCoinNum = 10;            //每拾取一个金币增加的金币数量常量
+	#pragma endregion
 
 public:
 	bool LoadConfig(const std::string&);   //加载游戏的各项基本设置（json）

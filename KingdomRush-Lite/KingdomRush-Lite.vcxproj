@@ -35,6 +35,7 @@
     <ClInclude Include="Scripts\Header\Map\Route.hpp" />
     <ClInclude Include="Scripts\Header\Map\Tile.hpp" />
     <ClInclude Include="Scripts\Header\Timer\Timer.hpp" />
+    <ClInclude Include="Scripts\Header\Vector\Vector2.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

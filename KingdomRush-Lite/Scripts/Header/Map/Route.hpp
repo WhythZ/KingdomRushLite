@@ -3,26 +3,25 @@
 
 #include <vector>
 #include "SDL.h"
+#include "Tile.hpp"
 #include "Map.hpp"
-
-//自定义数据类型TileMap，是一个存储Tile元素的二维vector容器数组
-typedef std::vector<std::vector<Tile>> TileMap;
-
-//存储行进路径上瓦片索引点的数组数据类型
-typedef std::vector<SDL_Point> TileIdxList;
 
 //怪物的行进路径洋流图
 class Route
 {
+public:
+	//存储行进路径上瓦片点的二维坐标的数组数据类型
+	typedef std::vector<SDL_Point> TilePointList;
+
 private:
-	TileIdxList tileIdxList;                       //数组用于存储行进路径上瓦片索引点
+	TilePointList tilePointList;                   //数组用于存储行进路径上瓦片二维点坐标
 
 public:
 	Route(const TileMap&, const SDL_Point&);       //传入瓦片地图和起点单元格位置，生成怪物行进路径瓦片索引列表
 	Route() = default; 
 	~Route() = default;
 
-	const TileIdxList& GetTileIdxList() const;     //对外提供获取路径瓦片索引列表常引用的只读接口
+	const TilePointList& GetTilePointList() const; //对外提供获取路径瓦片索引列表常引用的只读接口
 
 private:
 	bool CheckRepeatedPointIdx(const SDL_Point&);  //检查传入的瓦片索引是否已经在路径瓦片列表中出现过，防止路径首尾相接造成构造函数的死循环
@@ -48,7 +47,7 @@ Route::Route(const TileMap& _map, const SDL_Point& _beginIdx)
 		if (CheckRepeatedPointIdx(_nextIdx) == true)
 			break;
 		else
-			tileIdxList.push_back(_nextIdx);
+			tilePointList.push_back(_nextIdx);
 
 		//下一个砖块到达了家，那么路径结束
 		if (_map[_nextIdx.y][_nextIdx.x].specialFlagLayer == 0)
@@ -84,15 +83,15 @@ Route::Route(const TileMap& _map, const SDL_Point& _beginIdx)
 	}
 }
 
-const TileIdxList& Route::GetTileIdxList() const
+const Route::TilePointList& Route::GetTilePointList() const
 {
-	return tileIdxList;
+	return tilePointList;
 }
 
 bool Route::CheckRepeatedPointIdx(const SDL_Point& _targetIdx)
 {
 	//使用了C++11引入的范围for循环（Range-Based for Loop）进行遍历
-	for (const SDL_Point& i : tileIdxList)
+	for (const SDL_Point& i : tilePointList)
 	{
 		//检测坐标重叠
 		if (i.x == _targetIdx.x && i.y == _targetIdx.y)

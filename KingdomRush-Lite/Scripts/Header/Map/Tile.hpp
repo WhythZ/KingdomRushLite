@@ -25,4 +25,7 @@ struct Tile
 	bool hasTower = false;                   //这是一个运行时需进行判断的数据；放置防御塔时需判断当前瓦片是否已经存在防御塔
 };
 
+//自定义数据类型TileMap，是一个存储Tile元素的二维vector容器数组
+typedef std::vector<std::vector<Tile>> TileMap;
+
 #endif
