@@ -123,9 +123,9 @@ void Animation::SetFrameInterval(double _time)
 	timer.SetWaitTime(_time);
 }
 
-void Animation::OnRender(SDL_Renderer* _renderer, const SDL_Point& _dstPos, double _angle)
+void Animation::OnRender(SDL_Renderer* _renderer, const SDL_Point& _dstPos, double _angle = 0)
 {
-	//对游戏窗口的裁切矩形，用于确定渲染的目标位置；这个Rect是静态的，任意Animation对象调用此函数时共享同一个Rect
+	//对游戏窗口的裁切矩形，用于确定渲染的目标位置；这个Rect是静态的（但不意味着是常量），任意Animation对象调用此函数时共享同一个Rect
 	static SDL_Rect _dstPosRect =
 	{
 		_dstPos.x,_dstPos.y,
@@ -133,7 +133,7 @@ void Animation::OnRender(SDL_Renderer* _renderer, const SDL_Point& _dstPos, doub
 	};
 
 	//SDL_RenderCopy的参数进阶版：渲染器、源材质、源材质的裁切矩形、目标渲染位置（对主窗口的裁切矩形）、旋转角度、旋转的中心点（默认几何中心）、镜像翻转类型枚举
-	SDL_RenderCopyEx(_renderer, srcSpriteSheetTexture, &srcSpriteSheetRects[frameIdx], &_dstPosRect, 0, nullptr, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(_renderer, srcSpriteSheetTexture, &srcSpriteSheetRects[frameIdx], &_dstPosRect, _angle, nullptr, SDL_FLIP_NONE);
 }
 
 void Animation::OnUpdate(double _delta)

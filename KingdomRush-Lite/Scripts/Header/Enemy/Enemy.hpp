@@ -10,6 +10,11 @@
 #include "../Manager/ConfigManager.hpp"
 #include "../Manager/ResourceManager.hpp"
 
+//怪物减速丢失的速度（单位：每格瓦片）
+#define SLOW_DOWN_SPEED_LOST 0.5
+//怪物被减速的持续时间
+#define SLOW_DOWN_DURATION 1
+
 class Enemy
 {
 public:
@@ -17,75 +22,108 @@ public:
 	typedef std::function<void(Enemy*)> SkillCallBack;
 
 private:
-	Vector2 position;                        //怪物位置
-	Vector2 velocity;                        //速度矢量
-	Vector2 direction;                       //行进朝向
+	Vector2 position;                           //怪物位置
+	Vector2 velocity;                           //速度矢量
+	Vector2 direction;                          //行进朝向
 
-	bool isAlive = true;                     //记录怪物是否存活
+	bool isAlive = true;                        //记录怪物是否存活
+
+	Timer speedRestoreTimer;                    //控制怪物恢复初始移速
 
 	#pragma region Animation
-	Animation* animCurrent;                  //指向当前调用的动画
-	bool isShowSketch;                       //是否处于受击变白（即绘制剪影）的状态
-	Timer sketchTimer;                       //管理受击变白特效持续时长
+	Animation* animCurrent;                     //指向当前调用的动画
+	bool isShowSketch;                          //是否处于受击变白（即绘制剪影）的状态
+	Timer sketchTimer;                          //管理受击变白特效持续时长
 	#pragma endregion
 
 	#pragma region Route
-	const Route* route = nullptr;            //该怪物行进的瓦片路径
-	int currentTileIdx = 0;                  //当前怪物处于路径上的瓦片的索引
-	Vector2 targetTilePosition;              //将要驶入的下一个瓦片的坐标位置
+	const Route* route = nullptr;               //该怪物行进的瓦片路径
+	int currentTileIdx = 0;                     //当前怪物处于路径上的瓦片的索引
+	Vector2 targetTilePosition;                 //将要驶入的下一个瓦片的坐标位置
 	#pragma endregion
 
 	#pragma region Skill
-	SkillCallBack skillRecoverTrigger;       //释放恢复技能的回调函数
-	Timer skillRecoverCooldowndTimer;        //恢复技能释放冷却的计时器
-	Timer skillRecoverFinishedTimer;         //控制释放恢复技能需要耗费多长时间
+	SkillCallBack skillRecoverTrigger;          //释放恢复技能的回调函数
+	Timer skillRecoverCooldowndTimer;           //恢复技能释放冷却的计时器
 	#pragma endregion
 
 protected:
-	EnemyType type;                          //敌人的种类
+	EnemyType type;                             //敌人的种类
 
 	#pragma region Animation
-	Vector2 size;                            //敌人图片的二维尺寸大小
-	Animation animUp;                        //朝上方向的动画
-	Animation animDown;                      //朝下方向的动画
-	Animation animLeft;                      //朝左方向的动画
-	Animation animRight;                     //朝右方向的动画
-	Animation animUpSketch;                  //朝上方向的受击剪影动画
-	Animation animDownSketch;                //朝下方向的受击剪影动画
-	Animation animLeftSketch;                //朝左方向的受击剪影动画
-	Animation animRightSketch;               //朝右方向的受击剪影动画
+	Vector2 spriteSize;                         //敌人图片的二维尺寸大小
+	Animation animUp;                           //朝上方向的动画
+	Animation animDown;                         //朝下方向的动画
+	Animation animLeft;                         //朝左方向的动画
+	Animation animRight;                        //朝右方向的动画
+	Animation animUpSketch;                     //朝上方向的受击剪影动画
+	Animation animDownSketch;                   //朝下方向的受击剪影动画
+	Animation animLeftSketch;                   //朝左方向的受击剪影动画
+	Animation animRightSketch;                  //朝右方向的受击剪影动画
 	#pragma endregion
 	
 	#pragma region BasicStats
-	double healthMaximum = 0;                //最大生命值（读取配置文件）
-	double healthCurrent = 0;                //当前生命值（动态进行记录）
+	double healthMaximum = 0;                   //最大生命值（读取配置文件）
+	double healthCurrent = 0;                   //当前生命值（动态进行记录）
 
-	double speedMaximum = 0;                 //最大移动速率标量（读取配置文件）
-	double speedCurrent = 0;                 //当前移动速率标量（动态进行记录）
+	double speedMaximum = 0;                    //最大移动速率标量（读取配置文件）
+	double speedCurrent = 0;                    //当前移动速率标量（动态进行记录）
 
-	double damage = 0;                       //敌人可以对防守单位造成的伤害
+	double attackDamage = 0;                    //敌人可以对防守单位（家）造成的伤害
 
-	double rewardRatio = 0;                  //奖励掉落概率
+	double rewardRatio = 0;                     //奖励掉落概率
 	#pragma endregion
 
 	#pragma region SkillStats
-	double skillRecoverCooldown = 0;         //恢复技能的冷却
-	double skillRecoverRange = 0;            //恢复技能的范围
-	double skillRecoverIntensity = 0;        //恢复技能的强度
+	double skillRecoverCooldown = 0;            //恢复技能的冷却
+	double skillRecoverRange = 0;               //恢复技能的范围
+	double skillRecoverIntensity = 0;           //恢复技能的强度
 	#pragma endregion
 
 public:
 	Enemy();
 	~Enemy() = default;
+	void SetSkillTrigger(SkillCallBack);        //设置技能回调函数
+	void SetRoute(const Route*);                //设置行进路径
+	void SetPosition(const Vector2&);           //设置初始位置
 
-	void OnUpdate(double);                   //帧更新函数
+	void OnUpdate(double);                      //帧更新函数
+	void OnRender(SDL_Renderer*, double);       //渲染绘图更新
+
+	void IncreaseHealth(double);                //增加生命值
+	void DecreaseHealth(double);                //减少生命值
+	void SlowDown();                            //移速减缓
+	void Kill();                                //无效化该怪物
+
+	bool IsAlive() const;                       //获取怪物存活状态
+	double GetRouteProcess() const;             //获取怪物行进状况
+
+	double GetHealth() const;                   //获取当前血量
+	const Vector2& GetSpriteSize() const;       //获取贴图（碰撞箱）尺寸
+	const Vector2& GetPosition() const;         //获取怪物位置
+	const Vector2& GetVelocity() const;         //获取怪物速度矢量
+	double GetAttackDamage() const;             //获取怪物能对家造成的伤害
+	double GetRewardRatio() const;              //获取金币掉率
+
+	double GetSkillRecoverCooldown() const;     //获取恢复技能的冷却
+	double GetSkillRecoverRange() const;        //获取恢复技能的范围半径
+	double GetSkillRecoverIntensity() const;    //获取恢复技能的强度
 
 private:
-	void UpdateTargetTilePosition();         //更新目标瓦片的位置
+	void RefreshTargetTilePosition();           //更新目标瓦片的位置
 };
 
 Enemy::Enemy()
 {
+	//怪物速度损失时，通过该计时器控制其在计时结束时恢复初始移速，是单次触发
+	speedRestoreTimer.SetOneShot(true);
+	speedRestoreTimer.SetTimeOutTrigger(
+		[&]()
+		{
+			speedCurrent = speedMaximum;
+		}
+	);
+
 	#pragma region Animation
 	//受击动画触发一次即可
 	sketchTimer.SetOneShot(true);
@@ -99,7 +137,7 @@ Enemy::Enemy()
 		}
 	);
 	#pragma endregion
-	
+
 	#pragma region Skill
 	//恢复技能冷却一结束就会再次释放，所以并非单次触发
 	skillRecoverCooldowndTimer.SetOneShot(false);
@@ -111,16 +149,24 @@ Enemy::Enemy()
 			skillRecoverTrigger(this);
 		}
 	);
-
-	//每当治愈技能被触发后，释放该技能的怪物会减速或停止，通过该计时器控制其何时恢复初始速度，所以是单次触发
-	skillRecoverFinishedTimer.SetOneShot(true);
-	skillRecoverFinishedTimer.SetTimeOutTrigger(
-		[&]()
-		{
-			speedCurrent = speedMaximum;
-		}
-	);
 	#pragma endregion
+}
+
+void Enemy::SetSkillTrigger(Enemy::SkillCallBack _callback)
+{
+	this->skillRecoverTrigger = _callback;
+}
+
+void Enemy::SetRoute(const Route* _route)
+{
+	route = _route;
+	//更新目标点
+	RefreshTargetTilePosition();
+}
+
+void Enemy::SetPosition(const Vector2& _position)
+{
+	position = _position;
 }
 
 void Enemy::OnUpdate(double _delta)
@@ -131,7 +177,7 @@ void Enemy::OnUpdate(double _delta)
 	//更新各计时器
 	sketchTimer.OnUpdate(_delta);
 	skillRecoverCooldowndTimer.OnUpdate(_delta);
-	skillRecoverFinishedTimer.OnUpdate(_delta);
+	speedRestoreTimer.OnUpdate(_delta);
 
 	#pragma region MoveOnDistance
 	//计算该帧（即更新的_delta时间内）过程中怪物期望移动的距离
@@ -140,13 +186,192 @@ void Enemy::OnUpdate(double _delta)
 	Vector2 _targetDistance = targetTilePosition - position;
 	//这一帧实际移动的距离不应当大于到当前目标点的距离（若速度较小则可能出现小于的情况，这无妨，经过多次帧更新后总能到达目标处的）
 	position += (_moveDistance < _targetDistance) ? _moveDistance : _targetDistance;
-	//如果当前位置距离目标地点的距离长度（在标定尺度下）近似于0，则说明到达了该目标地点，这时要更新目标位置
+	#pragma endregion
+
+	#pragma region RefreshEnemyState
+	//如果当前位置距离目标地点的距离长度（在标定尺度下）近似于0，则说明到达了该目标地点，这时就要更新当前位置，并获取新的目标位置
 	if (_targetDistance.ApproxZero())
-		UpdateTargetTilePosition();
+	{
+		//更新位置与目标
+		currentTileIdx++;
+		RefreshTargetTilePosition();
+
+		//新的方向为一个单位向量，从当前位置指向目标位置
+		direction = (targetTilePosition - position).Normalized();
+	}
+
+	//更新速度矢量，因为speed的单位是单元格每秒，所以最终速度要乘上单元格的边长
+	velocity.x = direction.x * speedCurrent * TILE_SIZE;
+	velocity.y = direction.y * speedCurrent * TILE_SIZE;
+	#pragma endregion
+
+	#pragma region Animation
+	//由于velocity.x与velocity.y由于浮点数的缘故，不能用标准的等于零作判据，所以用比较水平竖直速度大小的方式来确定播放水平动画还是竖直动画
+	bool _isShowAnimHorizontal = abs(velocity.x) >= abs(velocity.y);
+	
+	//是否处于受击状态
+	if (!isShowSketch)
+	{
+		//若播放水平动画，依据水平速度正负判断左右；播放竖直动画亦然
+		if (_isShowAnimHorizontal)
+			animCurrent = (velocity.x > 0) ? &animRight : &animLeft;
+		else
+			animCurrent = (velocity.y > 0) ? &animUp : &animDown;
+	}
+	else
+	{
+		if (_isShowAnimHorizontal)
+			animCurrent = (velocity.x > 0) ? &animRightSketch : &animLeftSketch;
+		else
+			animCurrent = (velocity.y > 0) ? &animUpSketch : &animDownSketch;
+	}
 	#pragma endregion
 }
 
-void Enemy::UpdateTargetTilePosition()
+void Enemy::OnRender(SDL_Renderer* _renderer, double _delta)
+{
+	#pragma region SpriteAnimation
+	//怪物贴图的左上角顶点坐标
+	static SDL_Point rectPoint;
+	rectPoint.x = (int)(position.x - spriteSize.x / 2);
+	rectPoint.y = (int)(position.y - spriteSize.y / 2);
+
+	//调用当前动画的渲染
+	animCurrent->OnRender(_renderer, rectPoint);
+	#pragma endregion
+
+	#pragma region HealthBar
+	//血条的定位Rect
+	static SDL_Rect healthBarRect;
+	//血条的常量尺寸大小
+	static const Vector2 healthBarSize = { 40,8 };
+	//血条偏移贴图正上方的偏移量（为了让血条不要紧贴着怪物贴图的顶边）
+	static const float healthBarVerticalOffset = 3;
+	//血条的内容与边框的颜色，R-G-B-Alpha
+	static const SDL_Color healthBarColorContent = { 225,255,195,255 };
+	static const SDL_Color healthBarColorBorder = { 115,185,125,255 };
+
+	//当怪物生命值不满时，绘制血条
+	if (healthCurrent < healthMaximum)
+	{
+		//让血条的中心点水平上对齐怪物贴图的中心
+		healthBarRect.x = (int)(position.x - healthBarSize.x / 2);
+		//竖直上在怪物贴图的正上方，注意是减法（坐标轴y轴正方向朝下的缘故）
+		healthBarRect.y = (int)(position.y - spriteSize.y / 2 - healthBarSize.y - healthBarVerticalOffset);
+		//宽度表示生命条的长度
+		healthBarRect.w = (int)(healthBarSize.x * (healthCurrent / healthMaximum));
+		//高度不变
+		healthBarRect.h = (int)(healthBarSize.y);
+
+		//设置血条内容绘制颜色
+		SDL_SetRenderDrawColor(_renderer, healthBarColorContent.r, healthBarColorContent.g, healthBarColorContent.b, healthBarColorContent.a);
+		//以上述颜色绘制血条内容
+		SDL_RenderFillRect(_renderer, &healthBarRect);
+
+		//为了绘制血条边框，将宽度变回原来的宽度
+		healthBarRect.w = (int)(healthBarSize.x);
+		SDL_SetRenderDrawColor(_renderer, healthBarColorBorder.r, healthBarColorBorder.g, healthBarColorBorder.b, healthBarColorBorder.a);
+		SDL_RenderFillRect(_renderer, &healthBarRect);
+	}
+	#pragma endregion
+}
+
+void Enemy::IncreaseHealth(double _incre)
+{
+	//增加生命值且不超过上限
+	healthCurrent = ((healthCurrent + _incre) < healthMaximum) ? (healthCurrent + _incre) : healthMaximum;
+}
+
+void Enemy::DecreaseHealth(double _decre)
+{
+	//减少生命值且不低于零
+	healthCurrent = ((healthCurrent - _decre) > 0) ? (healthCurrent - _decre) : 0;
+	//判断是否死亡
+	if (healthCurrent <= 0)
+		isAlive = false;
+
+	//每次受到攻击都要播放受击剪影闪白动画（重置闪白计时器）
+	isShowSketch = true;
+	sketchTimer.Restart();
+}
+
+void Enemy::SlowDown()
+{
+	//注意不是speedCurrent -= SLOW_DOWN_SPEED_LOST，后者会导致速度损失直到为零，这是不对的
+	speedCurrent = speedMaximum - SLOW_DOWN_SPEED_LOST;
+	//经过一定时长后恢复初始最大移速
+	speedRestoreTimer.SetWaitTime(SLOW_DOWN_DURATION);
+	speedRestoreTimer.Restart();
+}
+
+void Enemy::Kill()
+{
+	//当敌人触碰到家的时候，即使血量未清零，也要处死（无效化）怪物
+	isAlive = false;
+}
+
+bool Enemy::IsAlive() const
+{
+	return IsAlive;
+}
+
+double Enemy::GetRouteProcess() const
+{
+	//存储路径长度
+	int _routeSize = route->GetTilePointList().size();
+
+	//返回路径完成进度
+	return (double)((currentTileIdx + 1) / _routeSize);
+}
+
+double Enemy::GetHealth() const
+{
+	return healthCurrent;
+}
+
+const Vector2& Enemy::GetSpriteSize() const
+{
+	//比如碰撞检测的时候，就需要获取碰撞箱尺寸（此处简化其为贴图尺寸）
+	return spriteSize;
+}
+
+const Vector2& Enemy::GetPosition() const
+{
+	return position;
+}
+
+const Vector2& Enemy::GetVelocity() const
+{
+	return velocity;
+}
+
+double Enemy::GetAttackDamage() const
+{
+	return attackDamage;
+}
+
+double Enemy::GetRewardRatio() const
+{
+	return rewardRatio;
+}
+
+double Enemy::GetSkillRecoverCooldown() const
+{
+	return skillRecoverCooldown;
+}
+
+double Enemy::GetSkillRecoverRange() const
+{
+	//配置文件中关于长度的数据的单位均以[每单元格]为单位，所以要乘上瓦片长度
+	return skillRecoverRange * TILE_SIZE;
+}
+
+double Enemy::GetSkillRecoverIntensity() const
+{
+	return skillRecoverIntensity;
+}
+
+void Enemy::RefreshTargetTilePosition()
 {
 	//获取路径二维瓦片坐标列表
 	const Route::TilePointList& _tilePointList = route->GetTilePointList();
@@ -166,8 +391,6 @@ void Enemy::UpdateTargetTilePosition()
 		//从地图左上角开始，依靠二维瓦片点的离散坐标寻找到（路径上的）目标瓦片左上顶点的具体坐标，再加上半个TILE_SIZE得到目标瓦片中心在游戏窗口上的坐标
 		position.x = _mapRect.x + (_targetTilePoint.x * TILE_SIZE) + TILE_SIZE / 2;
 		position.y = _mapRect.y + (_targetTilePoint.y * TILE_SIZE) + TILE_SIZE / 2;
-
-
 	}
 }
 
