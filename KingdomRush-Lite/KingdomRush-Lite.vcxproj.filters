@@ -34,6 +34,9 @@
     <Filter Include="头文件\Vector">
       <UniqueIdentifier>{9e552c3e-7e00-4808-94f5-9e4dffe5a5fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Enemy\Concrete">
+      <UniqueIdentifier>{24526127-b1c0-4520-bfdf-41c71cba3a05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -82,6 +85,21 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Vector\Vector2.hpp">
       <Filter>头文件\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\Goblin.hpp">
+      <Filter>头文件\Enemy\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\KingSlime.hpp">
+      <Filter>头文件\Enemy\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\PriestGoblin.hpp">
+      <Filter>头文件\Enemy\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\Skeleton.hpp">
+      <Filter>头文件\Enemy\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\Slime.hpp">
+      <Filter>头文件\Enemy\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

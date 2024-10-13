@@ -24,6 +24,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Animation\Animation.hpp" />
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\Goblin.hpp" />
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\KingSlime.hpp" />
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\PriestGoblin.hpp" />
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\Skeleton.hpp" />
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\Slime.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Enemy.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\EnemyType.hpp" />
     <ClInclude Include="Scripts\Header\Manager\ConfigManager.hpp" />

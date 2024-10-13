@@ -232,7 +232,7 @@ bool GameManager::GenerateTileMapTileMap()
 	//不能用ResourceManager::GetInstance()->GetSpritePool()[SpriteResID::Tile_TileSet]获取池内的资源对象
 	//因为若池内没有目标ID的话，unordered_map就会创建一个，而GetSpritePool()返回的是const的资源池，是不允许上述可能产生的更改的
 	//而函数find(XXX)返回的就是以XXX为键的键值对，->second指的是取出该键值对的值
-	SDL_Texture* _tileSetTexture = ResourceManager::GetInstance()->GetSpritePool().find(SpriteResID::Tile_TileSet)->second;
+	SDL_Texture* _tileSetTexture = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Tile_TileSet)->second;
 
 	//存储TileSet的宽高
 	int _tileSetWidth, _tileSetHeight;
@@ -313,7 +313,7 @@ bool GameManager::GenerateTileMapTileMap()
 		TILE_SIZE, TILE_SIZE
 	};
 	//如果家的瓦片纹理在TileSet中，就需要从中寻找，但我们已经将其提取出来放到资源池里了，就可以直接用
-	SDL_Texture* _homeSrc = ResourceManager::GetInstance()->GetSpritePool().find(SpriteResID::Tile_Home)->second;
+	SDL_Texture* _homeSrc = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Tile_Home)->second;
 	SDL_RenderCopy(renderer, _homeSrc, nullptr, &_homeDst);
 	#pragma endregion
 
