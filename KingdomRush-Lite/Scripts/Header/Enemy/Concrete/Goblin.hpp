@@ -21,8 +21,8 @@ Goblin::Goblin()
 	//获取配置数据
 	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::GetInstance()->goblinPrefab;
 	//获取纹理
-	static SDL_Texture* _sprite = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Enemy_Goblin)->second;
-	static SDL_Texture* _spriteSketch = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Enemy_Goblin_Sketch)->second;
+	static SDL_Texture* _sprite = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Enemy_Goblin)->second;
+	static SDL_Texture* _spriteSketch = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Enemy_Goblin_Sketch)->second;
 
 	#pragma region SetAnimation
 	static const std::vector<int> _spriteIdxListDown = { 0,1,2,3,4,5 };

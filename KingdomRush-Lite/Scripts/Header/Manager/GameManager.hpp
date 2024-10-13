@@ -232,7 +232,7 @@ bool GameManager::GenerateTileMapTileMap()
 	//不能用ResourceManager::GetInstance()->GetSpritePool()[SpriteResID::Tile_TileSet]获取池内的资源对象
 	//因为若池内没有目标ID的话，unordered_map就会创建一个，而GetSpritePool()返回的是const的资源池，是不允许上述可能产生的更改的
 	//而函数find(XXX)返回的就是以XXX为键的键值对，->second指的是取出该键值对的值
-	SDL_Texture* _tileSetTexture = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Tile_TileSet)->second;
+	SDL_Texture* _tileSetTexture = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Tile_TileSet)->second;
 
 	//存储TileSet的宽高
 	int _tileSetWidth, _tileSetHeight;
@@ -303,7 +303,7 @@ bool GameManager::GenerateTileMapTileMap()
 
 	#pragma region RenderHome
 	//获取家在瓦片地图中的位置索引（瓦片地图中应当渲染家的纹理的位置瓦片矩形的左上顶点的坐标）
-	const SDL_Point& _homeIdx = _map.GetHomeIdx();
+	const SDL_Point& _homeIdx = _map.GetHomePoint();
 	//通过索引锁定对应的纹理区域（SDL_Point的xy即是SDL_Rect的xy）
 	const SDL_Rect& _homeDst =
 	{
@@ -313,7 +313,7 @@ bool GameManager::GenerateTileMapTileMap()
 		TILE_SIZE, TILE_SIZE
 	};
 	//如果家的瓦片纹理在TileSet中，就需要从中寻找，但我们已经将其提取出来放到资源池里了，就可以直接用
-	SDL_Texture* _homeSrc = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Tile_Home)->second;
+	SDL_Texture* _homeSrc = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Tile_Home)->second;
 	SDL_RenderCopy(renderer, _homeSrc, nullptr, &_homeDst);
 	#pragma endregion
 

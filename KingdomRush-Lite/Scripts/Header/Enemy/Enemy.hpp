@@ -88,10 +88,10 @@ public:
 	void SetPosition(const Vector2&);           //设置初始位置
 
 	void OnUpdate(double);                      //帧更新函数
-	void OnRender(SDL_Renderer*, double);       //渲染绘图更新
+	void OnRender(SDL_Renderer*);               //渲染绘图更新
 
-	void IncreaseHealth(double);                //增加生命值
-	void DecreaseHealth(double);                //减少生命值
+	void IncreaseHealthBy(double);              //增加生命值
+	void DecreaseHealthBy(double);              //减少生命值
 	void SlowDown();                            //移速减缓
 	void Kill();                                //无效化该怪物
 
@@ -228,7 +228,7 @@ void Enemy::OnUpdate(double _delta)
 	#pragma endregion
 }
 
-void Enemy::OnRender(SDL_Renderer* _renderer, double _delta)
+void Enemy::OnRender(SDL_Renderer* _renderer)
 {
 	#pragma region SpriteAnimation
 	//怪物贴图的左上角顶点坐标
@@ -276,13 +276,13 @@ void Enemy::OnRender(SDL_Renderer* _renderer, double _delta)
 	#pragma endregion
 }
 
-void Enemy::IncreaseHealth(double _incre)
+void Enemy::IncreaseHealthBy(double _incre)
 {
 	//增加生命值且不超过上限
 	healthCurrent = ((healthCurrent + _incre) < healthMaximum) ? (healthCurrent + _incre) : healthMaximum;
 }
 
-void Enemy::DecreaseHealth(double _decre)
+void Enemy::DecreaseHealthBy(double _decre)
 {
 	//减少生命值且不低于零
 	healthCurrent = ((healthCurrent - _decre) > 0) ? (healthCurrent - _decre) : 0;

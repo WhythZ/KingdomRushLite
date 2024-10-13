@@ -101,5 +101,14 @@
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Slime.hpp">
       <Filter>头文件\Enemy\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\EnemyManager.hpp">
+      <Filter>头文件\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\AudioManager.hpp">
+      <Filter>头文件\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\HomeManager.hpp">
+      <Filter>头文件\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

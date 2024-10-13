@@ -18,7 +18,7 @@ class Map
 {
 private:
 	TileMap tileMap;                                    //当前关卡地图的瓦片地图
-	SDL_Point homeIdx = { 0 };                          //存储家（防守地点）在瓦片地图中的位置索引
+	SDL_Point homePoint = { 0 };                        //存储家（防守地点）在瓦片地图中的位置索引
 	RoutePool spawnRoutePool;                           //刷怪点路径池，存储多个离散的Route洋流图
 
 public:
@@ -28,7 +28,7 @@ public:
 	bool Load(const std::string&);                      //从指定路径加载瓦片地图CSV文件，并返回成功与否
 	void PlaceTowerAt(const SDL_Point&);                //放置防御塔的方法
 	const TileMap& GetTileMap() const;                  //获取瓦片地图的常引用
-	const SDL_Point& GetHomeIdx() const;                //获取家瓦片的位置常引用
+	const SDL_Point& GetHomePoint() const;              //获取家瓦片的位置常引用
 	const RoutePool& GetSpawnRoutePool() const;         //获取刷怪点路径池的常引用
 	size_t GetHeightTileNum() const;                    //获取地图的高（行瓦片数）
 	size_t GetWidthTileNum() const;                     //获取地图的宽（列瓦片数）
@@ -111,9 +111,9 @@ const TileMap& Map::GetTileMap() const
 	return tileMap;
 }
 
-const SDL_Point& Map::GetHomeIdx() const
+const SDL_Point& Map::GetHomePoint() const
 {
-	return homeIdx;
+	return homePoint;
 }
 
 const RoutePool& Map::GetSpawnRoutePool() const
@@ -214,8 +214,8 @@ void Map::GenerateMapCache()
 			//存储家的坐标
 			else if (_tile.specialFlagLayer == 0)
 			{
-				homeIdx.x = x;
-				homeIdx.y = y;
+				homePoint.x = x;
+				homePoint.y = y;
 			}
 			//剩下的情况均为刷怪点
 			else

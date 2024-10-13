@@ -31,8 +31,11 @@
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Slime.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Enemy.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\EnemyType.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\AudioManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\ConfigManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\EnemyManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\GameManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\HomeManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\ResourceManager.hpp" />
     <ClInclude Include="Scripts\Header\Map\Map.hpp" />
