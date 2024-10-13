@@ -34,15 +34,15 @@ enum SpriteResID
 	Bullet_Shell,                //炮弹投射物
 
 	Enemy_Slime,                 //史莱姆帧动画
-	Enemy_KingSlime,             //王史莱姆帧动画
+	Enemy_SlimeKing,             //王史莱姆帧动画
 	Enemy_Skeleton,              //骷髅兵帧动画
 	Enemy_Goblin,                //哥布林帧动画
-	Enemy_PriestGoblin,          //牧师哥布林帧动画
+	Enemy_GoblinPriest,          //牧师哥布林帧动画
 	Enemy_Slime_Sketch,          //史莱姆白色剪影，用作受击特效
-	Enemy_KingSlime_Sketch,      //王史莱姆白色剪影
+	Enemy_SlimeKing_Sketch,      //王史莱姆白色剪影
 	Enemy_Skeleton_Sketch,       //骷髅兵白色剪影
 	Enemy_Goblin_Sketch,         //哥布林白色剪影
-	Enemy_PriestGoblin_Sketch,   //牧师哥布林白色剪影
+	Enemy_GoblinPriest_Sketch,   //牧师哥布林白色剪影
 
 	Item_Coin,                   //掉落的金币
 
@@ -199,14 +199,14 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 
 	texturePool[SpriteResID::Enemy_Slime] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/slime.png");
 	texturePool[SpriteResID::Enemy_Slime_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/slime_sketch.png");
-	texturePool[SpriteResID::Enemy_KingSlime] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/king_slime.png");
-	texturePool[SpriteResID::Enemy_KingSlime_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/king_slime_sketch.png");
+	texturePool[SpriteResID::Enemy_SlimeKing] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/king_slime.png");
+	texturePool[SpriteResID::Enemy_SlimeKing_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/king_slime_sketch.png");
 	texturePool[SpriteResID::Enemy_Skeleton] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/skeleton.png");
 	texturePool[SpriteResID::Enemy_Skeleton_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/skeleton_sketch.png");
 	texturePool[SpriteResID::Enemy_Goblin] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/goblin.png");
 	texturePool[SpriteResID::Enemy_Goblin_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/goblin_sketch.png");
-	texturePool[SpriteResID::Enemy_PriestGoblin] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/priest_goblin.png");
-	texturePool[SpriteResID::Enemy_PriestGoblin_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/priest_goblin_sketch.png");
+	texturePool[SpriteResID::Enemy_GoblinPriest] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/priest_goblin.png");
+	texturePool[SpriteResID::Enemy_GoblinPriest_Sketch] = IMG_LoadTexture(_renderer, "Assets/Sprite/Enemy/priest_goblin_sketch.png");
 
 	texturePool[SpriteResID::Item_Coin] = IMG_LoadTexture(_renderer, "Assets/Sprite/Item/coin.png");
 

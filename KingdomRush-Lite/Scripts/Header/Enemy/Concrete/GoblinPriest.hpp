@@ -1,28 +1,28 @@
-#ifndef _GOBLIN_HPP_
-#define _GOBLIN_HPP_
+#ifndef _PRIEST_GOBLIN_HPP_
+#define _PRIEST_GOBLIN_HPP_
 
 #include "../Enemy.hpp"
 #include "../EnemyType.hpp"
 #include "../../Manager/ConfigManager.hpp"
 #include "../../Manager/ResourceManager.hpp"
 
-class Goblin :public Enemy
+class GoblinPriest :public Enemy
 {
 public:
-	Goblin();
-	~Goblin() = default;
+	GoblinPriest();
+	~GoblinPriest() = default;
 };
 
-Goblin::Goblin()
+GoblinPriest::GoblinPriest()
 {
 	//设置怪物类型
-	type = EnemyType::Goblin;
+	type = EnemyType::GoblinPriest;
 
 	//获取配置数据
-	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::GetInstance()->goblinPrefab;
+	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::GetInstance()->goblinPriestPrefab;
 	//获取纹理
-	static SDL_Texture* _sprite = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Enemy_Goblin)->second;
-	static SDL_Texture* _spriteSketch = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Enemy_Goblin_Sketch)->second;
+	static SDL_Texture* _sprite = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Enemy_GoblinPriest)->second;
+	static SDL_Texture* _spriteSketch = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Enemy_GoblinPriest_Sketch)->second;
 
 	#pragma region SetAnimation
 	static const std::vector<int> _spriteIdxListDown = { 0,1,2,3,4,5 };

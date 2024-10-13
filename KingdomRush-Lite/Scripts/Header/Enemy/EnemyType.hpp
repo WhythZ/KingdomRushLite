@@ -5,10 +5,10 @@
 enum EnemyType
 {
 	Slime,
-	KingSlime,
+	SlimeKing,
 	Skeleton,
 	Goblin,
-	PriestGoblin
+	GoblinPriest
 };
 
 #endif

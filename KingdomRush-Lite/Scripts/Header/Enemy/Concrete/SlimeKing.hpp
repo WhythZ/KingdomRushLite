@@ -1,28 +1,28 @@
-#ifndef _GOBLIN_HPP_
-#define _GOBLIN_HPP_
+#ifndef _KING_SLIME_HPP_
+#define _KING_SLIME_HPP_
 
 #include "../Enemy.hpp"
 #include "../EnemyType.hpp"
 #include "../../Manager/ConfigManager.hpp"
 #include "../../Manager/ResourceManager.hpp"
 
-class Goblin :public Enemy
+class SlimeKing :public Enemy
 {
 public:
-	Goblin();
-	~Goblin() = default;
+	SlimeKing();
+	~SlimeKing() = default;
 };
 
-Goblin::Goblin()
+SlimeKing::SlimeKing()
 {
 	//设置怪物类型
-	type = EnemyType::Goblin;
+	type = EnemyType::SlimeKing;
 
 	//获取配置数据
-	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::GetInstance()->goblinPrefab;
+	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::GetInstance()->slimeKingPrefab;
 	//获取纹理
-	static SDL_Texture* _sprite = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Enemy_Goblin)->second;
-	static SDL_Texture* _spriteSketch = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Enemy_Goblin_Sketch)->second;
+	static SDL_Texture* _sprite = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Enemy_SlimeKing)->second;
+	static SDL_Texture* _spriteSketch = ResourceManager::GetInstance()->GetTexturePool().find(SpriteResID::Enemy_SlimeKing_Sketch)->second;
 
 	#pragma region SetAnimation
 	static const std::vector<int> _spriteIdxListDown = { 0,1,2,3,4,5 };

@@ -9,6 +9,9 @@
 //引入计时器
 #include "../Timer/Timer.hpp"
 
+//动画播放的默认帧间隔
+#define FRAME_INTERVAL 0.1
+
 class Animation
 {
 private:
@@ -118,7 +121,7 @@ void Animation::SetLoop(bool _loop)
 	isLoop = _loop;
 }
 
-void Animation::SetFrameInterval(double _time)
+void Animation::SetFrameInterval(double _time = FRAME_INTERVAL)
 {
 	timer.SetWaitTime(_time);
 }

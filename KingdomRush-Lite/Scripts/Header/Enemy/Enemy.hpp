@@ -71,7 +71,7 @@ protected:
 
 	double attackDamage = 0;                    //敌人可以对防守单位（家）造成的伤害
 
-	double rewardRatio = 0;                     //奖励掉落概率
+	double coinRatio = 0;                       //奖励掉落概率
 	#pragma endregion
 
 	#pragma region SkillStats
@@ -103,7 +103,7 @@ public:
 	const Vector2& GetPosition() const;         //获取怪物位置
 	const Vector2& GetVelocity() const;         //获取怪物速度矢量
 	double GetAttackDamage() const;             //获取怪物能对家造成的伤害
-	double GetRewardRatio() const;              //获取金币掉率
+	double GetCoinRatio() const;                //获取金币掉率
 
 	double GetSkillRecoverCooldown() const;     //获取恢复技能的冷却
 	double GetSkillRecoverRange() const;        //获取恢复技能的范围半径
@@ -350,9 +350,9 @@ double Enemy::GetAttackDamage() const
 	return attackDamage;
 }
 
-double Enemy::GetRewardRatio() const
+double Enemy::GetCoinRatio() const
 {
-	return rewardRatio;
+	return coinRatio;
 }
 
 double Enemy::GetSkillRecoverCooldown() const

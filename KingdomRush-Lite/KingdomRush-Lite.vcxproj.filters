@@ -89,10 +89,10 @@
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Goblin.hpp">
       <Filter>头文件\Enemy\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Enemy\Concrete\KingSlime.hpp">
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\SlimeKing.hpp">
       <Filter>头文件\Enemy\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Enemy\Concrete\PriestGoblin.hpp">
+    <ClInclude Include="Scripts\Header\Enemy\Concrete\GoblinPriest.hpp">
       <Filter>头文件\Enemy\Concrete</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Skeleton.hpp">
