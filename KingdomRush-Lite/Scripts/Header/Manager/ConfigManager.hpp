@@ -97,9 +97,9 @@ public:
 
 	const double initHomeHP = 10;          //家的初始默认血量常量
 
-	bool isNotLose = true;                 //家没被攻破，游戏就没有输
 	std::vector<Wave> waveList;            //怪物波次列表
 	bool isWavesOver = false;              //波次全部结束，则游戏结束
+	bool isNotLose = true;                 //家没被攻破，游戏就没有输
 
 	#pragma region TowerLevel
 	int levelArcher;                       //弓箭塔等级（全局统一升级）

@@ -38,6 +38,7 @@
     <ClInclude Include="Scripts\Header\Manager\HomeManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\ResourceManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\WaveManager.hpp" />
     <ClInclude Include="Scripts\Header\Map\Map.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Wave.hpp" />
     <ClInclude Include="Scripts\Header\Map\Route.hpp" />

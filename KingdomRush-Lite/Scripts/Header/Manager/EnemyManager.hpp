@@ -4,10 +4,15 @@
 #include <vector>
 #include <SDL.h>
 #include "Manager.hpp"
-#include "../Enemy/Enemy.hpp";
 #include "ConfigManager.hpp"
 #include "HomeManager.hpp"
 #include "AudioManager.hpp"
+#include "../Enemy/Enemy.hpp";
+#include "../Enemy/Concrete/Slime.hpp"
+#include "../Enemy/Concrete/SlimeKing.hpp"
+#include "../Enemy/Concrete/Skeleton.hpp"
+#include "../Enemy/Concrete/Goblin.hpp"
+#include "../Enemy/Concrete/GoblinPriest.hpp"
 
 class EnemyManager :public Manager<EnemyManager>
 {
@@ -18,19 +23,21 @@ public:
 	typedef std::vector<Enemy*> EnemyList;
 
 private:
-	EnemyList enemyList;
+	EnemyList enemyList;               //当前在场上的怪物实例列表
 
 public:
-	void OnUpdate(double);          //帧更新
-	void OnRender(SDL_Renderer*);   //图像渲染
+	void OnUpdate(double);             //帧更新
+	void OnRender(SDL_Renderer*);      //图像渲染
 
 private:
 	EnemyManager() = default;
 	~EnemyManager();
 
-	void ProcessCollisionBullet();  //进行与投射物的碰撞的判定
-	void ProcessCollisionHome();    //进行与家的碰撞的判定
-	void RemoveDeadEnemies();       //移除掉死亡敌人
+	void ProcessCollisionBullet();     //进行与投射物的碰撞的判定
+	void ProcessCollisionHome();       //进行与家的碰撞的判定
+	
+	void RemoveDeadEnemies();          //移除掉死亡敌人
+	void SpawnEnemy(EnemyType, int);   //在某个出生点处生成敌人
 };
 
 void EnemyManager::OnUpdate(double _delta)
@@ -109,6 +116,47 @@ void EnemyManager::RemoveDeadEnemies()
 
 	//删除所有死亡的敌人，此时的enemyList在remove_if的排列下，所有死亡的敌人指针均在列表末尾
 	enemyList.erase(_begin, enemyList.end());
+}
+
+void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
+{
+	//临时用于存储位置信息
+	static Vector2 _pos;
+	//获取地图Rect用于定位
+	static const SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
+	
+	#pragma region LocateSpawnPoint
+	//获取生成路径池，用于索引具体的出生点
+	static const RoutePool& _spawnRoutePool = ConfigManager::GetInstance()->map.GetSpawnRoutePool();
+	//获取_spawnPointIdx在路径池中对应的对象，需要检测其是否为空对象（当输入的索引超出路径总数就会产生这个问题）
+	const auto& _itr = _spawnRoutePool.find(_spawnPointIdx);
+	//若指向end()这个无效的位置（该迭代器指向列表的最后一个元素的后一个位置）则说明传入的索引是错误的
+	if (_itr == _spawnRoutePool.end())
+		return;
+	#pragma endregion
+
+	//将要生成的敌人对象
+	Enemy* _enemy = nullptr;
+	switch (_type)
+	{
+	case EnemyType::Slime:
+		_enemy = new Slime();
+		break;
+	case EnemyType::SlimeKing:
+		_enemy = new SlimeKing();
+		break;
+	case EnemyType::Skeleton:
+		_enemy = new Skeleton();
+		break;
+	case EnemyType::Goblin:
+		_enemy = new Goblin();
+		break;
+	case EnemyType::GoblinPriest:
+		_enemy = new GoblinPriest();
+		break;
+	default:
+		break;
+	}
 }
 
 #endif
