@@ -2,7 +2,7 @@
 #define _ENEMY_TYPE_HPP_
 
 //敌人类型的枚举
-enum EnemyType
+enum class EnemyType
 {
 	Slime,
 	SlimeKing,
