@@ -22,7 +22,7 @@ private:
 	SDL_Texture* srcSpriteSheetTexture = nullptr;    //使用的源SpriteSheet图片
 	std::vector<SDL_Rect> srcSpriteSheetRects;       //裁剪SpriteSheet获取所需的逐帧图片
 
-	int frameIdx = 0;                                //动画播放到的帧的索引
+	size_t frameIdx = 0;                             //动画播放到的帧的索引
 	int frameWidth = 0, frameHeight = 0;             //每帧动画纹理的宽高
 	SDL_Texture* dstAnimTexture = nullptr;           //每帧动画实际播放的纹理图片
 	SDL_Rect* animRect = nullptr;                    //指定纹理图片渲染在窗口上的位置

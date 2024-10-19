@@ -32,7 +32,7 @@ private:
 
 	#pragma region Animation
 	Animation* animCurrent;                     //指向当前调用的动画
-	bool isShowSketch;                          //是否处于受击变白（即绘制剪影）的状态
+	bool isShowSketch = false;                  //是否处于受击变白（即绘制剪影）的状态
 	Timer sketchTimer;                          //管理受击变白特效持续时长
 	#pragma endregion
 
@@ -83,7 +83,7 @@ protected:
 public:
 	Enemy();
 	~Enemy() = default;
-	void SetSkillTrigger(SkillCallBack);        //设置技能回调函数
+	void SetRecoverSkillTrigger(SkillCallBack); //设置回复技能的回调函数
 	void SetRoute(const Route*);                //设置行进路径
 	void SetPosition(const Vector2&);           //设置初始位置
 
@@ -106,7 +106,7 @@ public:
 	double GetCoinRatio() const;                //获取金币掉率
 
 	double GetSkillRecoverCooldown() const;     //获取恢复技能的冷却
-	double GetSkillRecoverRange() const;        //获取恢复技能的范围半径
+	double GetSkillRecoverRadius() const;       //获取恢复技能的范围半径
 	double GetSkillRecoverIntensity() const;    //获取恢复技能的强度
 
 private:
@@ -125,6 +125,9 @@ Enemy::Enemy()
 	);
 
 	#pragma region Animation
+	//初始化动画
+	animCurrent = &animDown;
+
 	//受击动画触发一次即可
 	sketchTimer.SetOneShot(true);
 	//设置受击闪白的持续时间，短短的就好
@@ -152,7 +155,7 @@ Enemy::Enemy()
 	#pragma endregion
 }
 
-void Enemy::SetSkillTrigger(Enemy::SkillCallBack _callback)
+void Enemy::SetRecoverSkillTrigger(Enemy::SkillCallBack _callback)
 {
 	this->skillRecoverTrigger = _callback;
 }
@@ -312,13 +315,13 @@ void Enemy::Kill()
 
 bool Enemy::IsAlive() const
 {
-	return IsAlive;
+	return isAlive;
 }
 
 double Enemy::GetRouteProcess() const
 {
 	//存储路径长度
-	int _routeSize = route->GetTilePointList().size();
+	size_t _routeSize = route->GetTilePointList().size();
 
 	//返回路径完成进度
 	return (double)((currentTileIdx + 1) / _routeSize);
@@ -360,7 +363,7 @@ double Enemy::GetSkillRecoverCooldown() const
 	return skillRecoverCooldown;
 }
 
-double Enemy::GetSkillRecoverRange() const
+double Enemy::GetSkillRecoverRadius() const
 {
 	//配置文件中关于长度的数据的单位均以[每单元格]为单位，所以要乘上瓦片长度
 	return skillRecoverRange * TILE_SIZE;

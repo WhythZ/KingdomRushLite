@@ -7,7 +7,7 @@
 #include "ConfigManager.hpp"
 #include "HomeManager.hpp"
 #include "AudioManager.hpp"
-#include "../Enemy/Enemy.hpp";
+#include "../Enemy/Enemy.hpp"
 #include "../Enemy/Concrete/Slime.hpp"
 #include "../Enemy/Concrete/SlimeKing.hpp"
 #include "../Enemy/Concrete/Skeleton.hpp"
@@ -29,6 +29,9 @@ public:
 	void OnUpdate(double);             //帧更新
 	void OnRender(SDL_Renderer*);      //图像渲染
 
+	bool IsEnemyCleaned() const;       //判断场上敌人是否清空
+	void SpawnEnemy(EnemyType, int);   //在某个出生点处生成敌人
+
 private:
 	EnemyManager() = default;
 	~EnemyManager();
@@ -37,7 +40,6 @@ private:
 	void ProcessCollisionHome();       //进行与家的碰撞的判定
 	
 	void RemoveDeadEnemies();          //移除掉死亡敌人
-	void SpawnEnemy(EnemyType, int);   //在某个出生点处生成敌人
 };
 
 void EnemyManager::OnUpdate(double _delta)
@@ -48,8 +50,98 @@ void EnemyManager::OnUpdate(double _delta)
 
 void EnemyManager::OnRender(SDL_Renderer* _renderer)
 {
+
 	for (Enemy* _enemy : enemyList)
 		_enemy->OnRender(_renderer);
+}
+
+bool EnemyManager::IsEnemyCleaned() const
+{
+	return enemyList.empty();
+}
+
+void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
+{
+	//临时用于存储位置信息
+	static Vector2 _pos;
+	//获取地图Rect用于定位
+	static const SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
+
+	#pragma region CreateEnemyObject
+	//将要生成的敌人对象
+	Enemy* _enemy = nullptr;
+	switch (_type)
+	{
+	case EnemyType::Slime:
+		_enemy = new Slime();
+		break;
+	case EnemyType::SlimeKing:
+		_enemy = new SlimeKing();
+		break;
+	case EnemyType::Skeleton:
+		_enemy = new Skeleton();
+		break;
+	case EnemyType::Goblin:
+		_enemy = new Goblin();
+		break;
+	case EnemyType::GoblinPriest:
+		_enemy = new GoblinPriest();
+		break;
+	default:
+		break;
+	}
+	#pragma endregion
+
+	#pragma region LocateSpawnPosition
+	//获取生成路径池，用于索引具体的出生点
+	static const RoutePool& _spawnRoutePool = ConfigManager::GetInstance()->map.GetSpawnRoutePool();
+	//获取_spawnPointIdx在路径池中对应的对象，需要检测其是否为空对象（当输入的索引超出路径总数就会产生这个问题）
+	const auto& _itr = _spawnRoutePool.find(_spawnPointIdx);
+	//若指向end()这个无效的位置（该迭代器指向列表的最后一个元素的后一个位置）则说明传入的索引是错误的
+	if (_itr == _spawnRoutePool.end())
+		return;
+	//获取生成路径
+	Route _route = _itr->second;
+
+	//获取传入编号对应的生成路径上的瓦片坐标点索引列表
+	const Route::TilePointList _tilePointList = _route.GetTilePointList();
+	//计算怪物应当被生成到的位置（相对游戏窗口的实际坐标）
+	_pos.x = _mapRect.x + _tilePointList[0].x * TILE_SIZE + TILE_SIZE / 2;
+	_pos.y = _mapRect.y + _tilePointList[0].y * TILE_SIZE + TILE_SIZE / 2;
+	#pragma endregion
+
+	//实际设置怪物的初始位置与行进路径
+	_enemy->SetPosition(_pos);
+	_enemy->SetRoute(&_route);
+
+	//设置怪物的技能
+	_enemy->SetRecoverSkillTrigger(
+		//接收一个技能释放者的参数
+		[&](Enemy* _src)
+		{
+			//获取恢复技能的影响半径，如果非正，那就说明该怪物没有这个技能，直接结束
+			double _radius = _src->GetSkillRecoverRadius();
+			if (_radius <= 0) return;
+
+			//获取技能释放者的位置
+			const Vector2& _srcPos = _src->GetPosition();
+			//遍历场上的所有敌人，检测其是否在技能影响半径范围内
+			for (Enemy* _dst : enemyList)
+			{
+				//获取潜在目标的位置
+				const Vector2& _dstPos = _dst->GetPosition();
+				//计算释放者与该敌人间的距离（向量长度的计算是我们之前在Vector2类内写好的）
+				double _distance = (_dstPos - _srcPos).Length();
+
+				//进行距离的判断，若在范围内则增加血量
+				if (_distance <= _radius)
+					_dst->IncreaseHealthBy(_src->GetSkillRecoverIntensity());
+			}
+		}
+	);
+
+	//将怪物添加到统计列表
+	enemyList.push_back(_enemy);
 }
 
 EnemyManager::~EnemyManager()
@@ -67,8 +159,8 @@ void EnemyManager::ProcessCollisionBullet()
 	static const SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
 	//通过上述两个东西，计算出家的贴图的左上角顶点的实际坐标（Vector2是连续的实际坐标点，而SDL_Point是离散的带单位的非实际坐标点）
 	static const Vector2 _homePos = {
-		_mapRect.x + _homePt.x * TILE_SIZE,
-		_mapRect.y + _homePt.y * TILE_SIZE,
+		(double)(_mapRect.x + _homePt.x * TILE_SIZE),
+		(double)(_mapRect.y + _homePt.y * TILE_SIZE),
 	};
 	#pragma endregion
 
@@ -116,47 +208,6 @@ void EnemyManager::RemoveDeadEnemies()
 
 	//删除所有死亡的敌人，此时的enemyList在remove_if的排列下，所有死亡的敌人指针均在列表末尾
 	enemyList.erase(_begin, enemyList.end());
-}
-
-void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
-{
-	//临时用于存储位置信息
-	static Vector2 _pos;
-	//获取地图Rect用于定位
-	static const SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
-	
-	#pragma region LocateSpawnPoint
-	//获取生成路径池，用于索引具体的出生点
-	static const RoutePool& _spawnRoutePool = ConfigManager::GetInstance()->map.GetSpawnRoutePool();
-	//获取_spawnPointIdx在路径池中对应的对象，需要检测其是否为空对象（当输入的索引超出路径总数就会产生这个问题）
-	const auto& _itr = _spawnRoutePool.find(_spawnPointIdx);
-	//若指向end()这个无效的位置（该迭代器指向列表的最后一个元素的后一个位置）则说明传入的索引是错误的
-	if (_itr == _spawnRoutePool.end())
-		return;
-	#pragma endregion
-
-	//将要生成的敌人对象
-	Enemy* _enemy = nullptr;
-	switch (_type)
-	{
-	case EnemyType::Slime:
-		_enemy = new Slime();
-		break;
-	case EnemyType::SlimeKing:
-		_enemy = new SlimeKing();
-		break;
-	case EnemyType::Skeleton:
-		_enemy = new Skeleton();
-		break;
-	case EnemyType::Goblin:
-		_enemy = new Goblin();
-		break;
-	case EnemyType::GoblinPriest:
-		_enemy = new GoblinPriest();
-		break;
-	default:
-		break;
-	}
 }
 
 #endif

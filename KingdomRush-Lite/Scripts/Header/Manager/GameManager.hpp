@@ -11,8 +11,11 @@
 #include <SDL_mixer.h>
 //基类与其它管理器类
 #include "Manager.hpp"
+#include "GameProgressManager.hpp"
 #include "ConfigManager.hpp"
 #include "ResourceManager.hpp"
+#include "WaveManager.hpp"
+#include "EnemyManager.hpp"
 
 //游戏主管理器
 class GameManager :public Manager<GameManager>
@@ -36,11 +39,12 @@ public:
 private:
 	GameManager();                       //构造了什么就要释放什么，以防止内存泄漏与减少内存占用
 	~GameManager();                      //析构的顺序应当与构造的顺序相反，因为构造的顺序暗含依赖的关系，被依赖项不该被先释放
-	
 	void InitAssert(bool, const char*);  //初始化断言，用于初始化，并依据初始化函数返回的参数判断是否初始化成功
-	void On_Input();                     //主循环内检测拉取的输入事件，并对应地作出反应
-	void On_UpdateData(double);          //主循环内检测数据的更新
-	void On_Render();                    //主循环内渲染绘图的具体过程
+	
+	void OnInput();                      //主循环内检测输入事件并作出相应的反应
+	void OnUpdate(double);               //主循环内逐帧检测数据的更新
+	void OnRender();                     //主循环内渲染绘图的具体过程
+	
 	bool GenerateTileMapTileMap();       //将所有瓦片生成整张瓦片地图纹理，以提升渲染性能
 };
 
@@ -70,10 +74,10 @@ int GameManager::Run(int _argc, char** _argv)
 
 		//拉取并处理事件以保证窗口正常交互
 		while (SDL_PollEvent(&event))
-			On_Input();
+			OnInput();
 
 		//数据更新检测
-		On_UpdateData(_delta);
+		OnUpdate(_delta);
 
 		#pragma region Render
 		//确定渲染的颜色为纯黑（不透明），接收RGB三色与Alpha（记录图像的透明度信息的256级灰度）
@@ -82,7 +86,7 @@ int GameManager::Run(int _argc, char** _argv)
 		SDL_RenderClear(renderer);
 
 		//在经历了上述准备后，进行具体的渲染绘图
-		On_Render();
+		OnRender();
 		//将渲染的内容更新到窗口缓冲区上
 		SDL_RenderPresent(renderer);
 		#pragma endregion
@@ -164,7 +168,7 @@ void GameManager::InitAssert(bool _flag, const char* _errMsg)
 	exit(-1);
 }
 
-void GameManager::On_Input()
+void GameManager::OnInput()
 {
 	//点击窗口的退出键时触发的SDL_QUIT事件
 	if (event.type == SDL_QUIT)
@@ -178,16 +182,27 @@ void GameManager::On_Input()
 	}
 }
 
-void GameManager::On_UpdateData(double delta)
+void GameManager::OnUpdate(double _delta)
 {
+	//游戏没结束才会进行下列管理器的更新
+	if (!GameProgressManager::GetInstance()->isGameOver)
+	{
+		WaveManager::GetInstance()->OnUpdate(_delta);
+		EnemyManager::GetInstance()->OnUpdate(_delta);
+	}
 }
 
-void GameManager::On_Render()
+void GameManager::OnRender()
 {
-	//用于从目标窗口中切割出一块用于塞入mapTexture的区域
+	#pragma region GameWindow
+	//用于从目标窗口中切割出一块区域，用于塞入mapTexture的画面内容
 	SDL_Rect _dst = ConfigManager::GetInstance()->mapRect;
 	//将mapTexture渲染在_dst从窗口中切割出的区域内
 	SDL_RenderCopy(renderer, mapTexture, nullptr, &_dst);
+	#pragma endregion
+
+	//渲染敌人
+	EnemyManager::GetInstance()->OnRender(renderer);
 }
 
 bool GameManager::GenerateTileMapTileMap()
