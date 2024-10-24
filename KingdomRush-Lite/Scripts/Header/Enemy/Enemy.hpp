@@ -101,6 +101,7 @@ public:
 	double GetHealth() const;                   //获取当前血量
 	const Vector2& GetSpriteSize() const;       //获取贴图（碰撞箱）尺寸
 	const Vector2& GetPosition() const;         //获取怪物位置
+	const Vector2& GetTargetPosition() const;   //获取怪物的目标位置
 	const Vector2& GetVelocity() const;         //获取怪物速度矢量
 	double GetAttackDamage() const;             //获取怪物能对家造成的伤害
 	double GetCoinRatio() const;                //获取金币掉率
@@ -117,12 +118,7 @@ Enemy::Enemy()
 {
 	//怪物速度损失时，通过该计时器控制其在计时结束时恢复初始移速，是单次触发
 	speedRestoreTimer.SetOneShot(true);
-	speedRestoreTimer.SetTimeOutTrigger(
-		[&]()
-		{
-			speedCurrent = speedMaximum;
-		}
-	);
+	speedRestoreTimer.SetTimeOutTrigger([&]() {speedCurrent = speedMaximum; });
 
 	#pragma region Animation
 	//初始化动画
@@ -133,25 +129,14 @@ Enemy::Enemy()
 	//设置受击闪白的持续时间，短短的就好
 	sketchTimer.SetWaitTime(0.1);
 	//设置回调函数
-	sketchTimer.SetTimeOutTrigger(
-		[&]()
-		{
-			isShowSketch = false;
-		}
-	);
+	sketchTimer.SetTimeOutTrigger([&]() {isShowSketch = false; });
 	#pragma endregion
 
 	#pragma region Skill
 	//恢复技能冷却一结束就会再次释放，所以并非单次触发
 	skillRecoverCooldowndTimer.SetOneShot(false);
-	//冷却结束就释放恢复技能，即传入了包装其对应回调函数的匿名函数
-	skillRecoverCooldowndTimer.SetTimeOutTrigger(
-		[&]()
-		{
-			//技能的释放者为自己
-			skillRecoverTrigger(this);
-		}
-	);
+	//冷却结束就释放恢复技能（技能的释放者为自己），即传入了包装其对应回调函数的匿名函数
+	skillRecoverCooldowndTimer.SetTimeOutTrigger([&]() {skillRecoverTrigger(this); });
 	#pragma endregion
 }
 
@@ -182,33 +167,28 @@ void Enemy::OnUpdate(double _delta)
 	skillRecoverCooldowndTimer.OnUpdate(_delta);
 	speedRestoreTimer.OnUpdate(_delta);
 
-	#pragma region MoveOnDistance
-	//计算该帧（即更新的_delta时间内）过程中怪物期望移动的距离
-	Vector2 _moveDistanceVec = velocity * _delta;
+	#pragma region RefreshAfterMoving
 	//计算距离下一个目标砖块的距离，即目标位置与当前位置的差
 	Vector2 _targetDistanceVec = targetTilePosition - position;
-	//这一帧实际移动的距离不应当大于到当前目标点的距离（若速度较小则可能出现小于的情况，这无妨，经过多次帧更新后总能到达目标处的）
-	position += (_moveDistanceVec < _targetDistanceVec) ? _moveDistanceVec : _targetDistanceVec;
-	#pragma endregion
 
-	#pragma region RefreshEnemyState
 	//如果当前位置距离目标地点的距离长度（在标定尺度下）近似于0，则说明到达了该目标地点，这时就要更新当前位置，并获取新的目标位置
 	if (_targetDistanceVec.ApproxZero())
 	{
-		//更新位置与目标
+		//更新目标位置与当前行进的方向
 		currentTileIdx++;
 		RefreshTargetTilePosition();
-
-		//新的方向为一个单位向量，从当前位置指向目标位置
-		direction = (targetTilePosition - position).Normalized();
 	}
-
+	
 	//更新速度矢量，因为speed的单位是单元格每秒，所以最终速度要乘上单元格的边长
 	velocity.x = direction.x * speedCurrent * TILE_SIZE;
 	velocity.y = direction.y * speedCurrent * TILE_SIZE;
-	#pragma endregion
 
-	//std::cout << "CurrentPosition=" << position << "   Target=" << targetTilePosition << "\n";
+	//计算该帧（即更新的_delta时间内）过程中怪物期望移动的距离
+	Vector2 _moveDistanceVec = velocity * _delta;
+
+	//这一帧实际移动的距离不应当大于到当前目标点的距离（若速度较小则可能出现小于的情况，这无妨，经过多次帧更新后总能到达目标处的）
+	position += (_moveDistanceVec < _targetDistanceVec) ? _moveDistanceVec : _targetDistanceVec;
+	#pragma endregion
 
 	#pragma region AnimationChange
 	//由于velocity.x与velocity.y由于浮点数的缘故，不能用标准的等于零作判据，所以用比较水平竖直速度大小的方式来确定播放水平动画还是竖直动画
@@ -345,6 +325,11 @@ const Vector2& Enemy::GetPosition() const
 	return position;
 }
 
+const Vector2& Enemy::GetTargetPosition() const
+{
+	return targetTilePosition;
+}
+
 const Vector2& Enemy::GetVelocity() const
 {
 	return velocity;
@@ -380,22 +365,32 @@ void Enemy::RefreshTargetTilePosition()
 {
 	//获取路径二维瓦片坐标列表
 	const Route::TilePointList& _tilePointList = route->GetTilePointList();
-	
-	//目标瓦片的索引就是当前所在瓦片索引的下一个
-	int _targetTileIdx = currentTileIdx + 1;
 
-	//如果当前没有超出路径上瓦片的总数，则可以寻找下一个目标点的在屏幕上的位置
-	if (_targetTileIdx < _tilePointList.size())
+	//如果当前的目标点没有超出路径上瓦片的总数，则可以寻找下一个目标点的在屏幕上的位置
+	if (currentTileIdx + 1 < _tilePointList.size())
 	{
-		//获取目标瓦片的二维SDL_Point坐标，这与Vector2不同，前者是离散的（乘上TILE_SIZE才能表示实际距离）点坐标，后者是连续的具体距离向量
-		const SDL_Point& _targetTilePoint = _tilePointList[_targetTileIdx];
+		//获取当前与目标瓦片的二维SDL_Point坐标，这与Vector2不同，前者是离散的（乘上TILE_SIZE才能表示实际距离）点坐标，后者是连续的具体距离向量
+		const SDL_Point& _currentTilePoint = _tilePointList[currentTileIdx];
+		const SDL_Point& _targetTilePoint = _tilePointList[currentTileIdx + 1];
 
+		#pragma region UpdateDirection
+		if (_targetTilePoint.x > _currentTilePoint.x)
+			direction.x = 1;
+		if (_targetTilePoint.x < _currentTilePoint.x)
+			direction.x = -1;
+		if (_targetTilePoint.y < _currentTilePoint.y)
+			direction.y = -1;
+		if (_targetTilePoint.y > _currentTilePoint.y)
+			direction.y = 1;
+		#pragma endregion
+
+		#pragma region UpdateTargetPosition
 		//获取静态的整个瓦片地图渲染在游戏窗口中的位置Rect，用于定位路径上的目标点相对游戏窗口的位置
 		static const SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
-
 		//从地图左上角开始，依靠二维瓦片点的离散坐标寻找到（路径上的）目标瓦片左上顶点的具体坐标，再加上半个TILE_SIZE得到目标瓦片中心在游戏窗口上的坐标
-		position.x = _mapRect.x + (_targetTilePoint.x * TILE_SIZE) + TILE_SIZE / 2;
-		position.y = _mapRect.y + (_targetTilePoint.y * TILE_SIZE) + TILE_SIZE / 2;
+		targetTilePosition.x = _mapRect.x + (_targetTilePoint.x * TILE_SIZE) + TILE_SIZE / 2;
+		targetTilePosition.y = _mapRect.y + (_targetTilePoint.y * TILE_SIZE) + TILE_SIZE / 2;
+		#pragma endregion
 	}
 }
 

@@ -54,7 +54,7 @@ Vector2 Vector2::Normalized() const
 bool Vector2::ApproxZero() const
 {
 	//判断两个物体之间是否重合时（比如某怪物是否到达目标地点），直接将向量的浮点数元素x、y和0作比较是不精确的，会出现二者永远无法被判定为重合的情况
-	return Length() < 0.000001;
+	return Length() < 0.001;
 }
 
 bool Vector2::operator==(const Vector2& _compare) const

@@ -53,6 +53,9 @@ void EnemyManager::OnUpdate(double _delta)
 
 	//检测死亡敌人并将其移除
 	RemoveDeadEnemies();
+
+	if (enemyList.size() > 0)
+		std::cout << "FirstEnemyPos=" << enemyList[0]->GetPosition() << ", Target=" << enemyList[0]->GetTargetPosition() << "\n";
 }
 
 void EnemyManager::OnRender(SDL_Renderer* _renderer)
@@ -70,7 +73,6 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 {
 	//临时用于存储位置信息
 	static Vector2 _pos;
-	std::cout << "SpawnPositon=" << _pos << "\n";
 	//获取地图Rect用于定位
 	static const SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
 
@@ -118,7 +120,6 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 	default:
 		break;
 	}
-	#pragma endregion
 
 	//实际设置怪物的初始位置与行进路径
 	_enemy->SetPosition(_pos);
@@ -149,6 +150,9 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 			}
 		}
 	);
+	#pragma endregion
+
+	//std::cout << "SpawnEnemy=" << _type << ", SpawnPositon=" << _pos << ", Route=" << _route << "\n";
 
 	//将怪物添加到统计列表
 	enemyList.push_back(_enemy);

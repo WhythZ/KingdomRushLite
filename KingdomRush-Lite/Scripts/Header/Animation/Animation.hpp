@@ -32,7 +32,7 @@ public:
 	~Animation() = default;
 
 	//设置动画素材；即以第四参数传入的索引列表截取传入的源SpriteSheet图片（二三参数位定义了其宽高帧图片个数）中的若干部分矩形纹理，以用作动画各帧
-	void SetAnimFrames(SDL_Texture*, int, int, const std::vector<int>);
+	void SetAnimFrames(SDL_Texture*, int, int, const std::vector<int>&);
 	void SetAnimEndTrigger(std::function<void()>);   //设置动画播放结束的回调函数
 	void SetLoop(bool);                              //设置动画是否循环播放
 	void SetFrameInterval(double);                   //设置每帧动画播放的时间间隔，即定时器的waitTime
@@ -51,7 +51,7 @@ Animation::Animation()
 	//使用匿名函数设置计时器使用的回调函数（每帧动画结束后都会触发该函数）
 	//内部嵌入了每个Animation对象自身的回调函数（仅在动画最后一帧播放后触发该函数）
 	timer.SetTimeOutTrigger(
-		//[&]表捕获；括号内是参数列表；花括号是函数体
+		//[&]表以引用捕获外部变量；括号内是参数列表；花括号是函数体
 		[&]()
 		{
 			//递增帧索引
@@ -67,14 +67,15 @@ Animation::Animation()
 				{
 					frameIdx = (srcSpriteSheetRects.size() - 1);
 					//如果回调函数存在，就调用该函数
-					if (trigger) trigger();
+					if (trigger)
+						trigger();
 				}
 			}
 		}
 	);
 }
 
-void Animation::SetAnimFrames(SDL_Texture* _spriteSheet, int _horizontalNum, int _verticalNum, const std::vector<int> _idxList)
+void Animation::SetAnimFrames(SDL_Texture* _spriteSheet, int _horizontalNum, int _verticalNum, const std::vector<int>& _idxList)
 {
 	//存储用于裁剪的源SpriteSheet
 	srcSpriteSheetTexture = _spriteSheet;
@@ -134,8 +135,6 @@ void Animation::OnRender(SDL_Renderer* _renderer, const SDL_Point& _dstPos, doub
 		_dstPos.x,_dstPos.y,
 		frameWidth,frameHeight
 	};
-
-	//std::cout << "AnimPoint=(" << _dstPos.x << "," << _dstPos.y << ")\n";
 
 	//SDL_RenderCopy的参数进阶版：渲染器、源材质、源材质的裁切矩形、目标渲染位置（对主窗口的裁切矩形）、旋转角度、旋转的中心点（默认几何中心）、镜像翻转类型枚举
 	SDL_RenderCopyEx(_renderer, srcSpriteSheetTexture, &srcSpriteSheetRects[frameIdx], &_dstPosRect, _angle, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);

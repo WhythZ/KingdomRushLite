@@ -100,4 +100,17 @@ bool Route::CheckRepeatedPointIdx(const SDL_Point& _targetIdx)
 	return false;
 }
 
+std::ostream& operator<<(std::ostream& _cout, const SDL_Point _pt)
+{
+	_cout << "(" << _pt.x << "," << _pt.y << ")";
+	return _cout;
+}
+
+std::ostream& operator<<(std::ostream& _cout, const Route& _route)
+{
+	Route::TilePointList _pts = _route.GetTilePointList();
+	std::cout << "[Begin=" << _pts[0] << ",End=" << _pts[_pts.size() - 1] << "]\n";
+	return _cout;
+}
+
 #endif
