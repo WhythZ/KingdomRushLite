@@ -17,7 +17,7 @@ class Animation
 private:
 	Timer timer;                                     //计时器用于帧动画更新
 	std::function<void()> trigger;                   //动画播放结束后触发的回调函数
-	bool isLoop = false;                             //是否循环播放动画
+	bool isLoop = true;                              //是否循环播放动画
 
 	SDL_Texture* srcSpriteSheetTexture = nullptr;    //使用的源SpriteSheet图片
 	std::vector<SDL_Rect> srcSpriteSheetRects;       //裁剪SpriteSheet获取所需的逐帧图片
@@ -135,8 +135,10 @@ void Animation::OnRender(SDL_Renderer* _renderer, const SDL_Point& _dstPos, doub
 		frameWidth,frameHeight
 	};
 
+	//std::cout << "AnimPoint=(" << _dstPos.x << "," << _dstPos.y << ")\n";
+
 	//SDL_RenderCopy的参数进阶版：渲染器、源材质、源材质的裁切矩形、目标渲染位置（对主窗口的裁切矩形）、旋转角度、旋转的中心点（默认几何中心）、镜像翻转类型枚举
-	SDL_RenderCopyEx(_renderer, srcSpriteSheetTexture, &srcSpriteSheetRects[frameIdx], &_dstPosRect, _angle, nullptr, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(_renderer, srcSpriteSheetTexture, &srcSpriteSheetRects[frameIdx], &_dstPosRect, _angle, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);
 }
 
 void Animation::OnUpdate(double _delta)

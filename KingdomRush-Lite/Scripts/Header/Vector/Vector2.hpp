@@ -125,4 +125,11 @@ double Vector2::operator*(const Vector2& _mtp) const
 	return (x * _mtp.x) + (y * _mtp.y);
 }
 
+//左移运算符重载用于输出
+std::ostream& operator<<(std::ostream& _cout, const Vector2& _obj)
+{
+	_cout << "(" << _obj.x << "," << _obj.y << ")";
+	return _cout;
+}
+
 #endif

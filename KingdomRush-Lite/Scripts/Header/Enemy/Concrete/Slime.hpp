@@ -21,8 +21,8 @@ Slime::Slime()
 	//获取配置数据
 	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::GetInstance()->slimePrefab;
 	//获取纹理
-	static SDL_Texture* _sprite = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Enemy_Slime)->second;
-	static SDL_Texture* _spriteSketch = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Enemy_Slime_Sketch)->second;
+	static SDL_Texture* _sprites = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Enemy_Slime)->second;
+	static SDL_Texture* _spritesSketch = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Enemy_Slime_Sketch)->second;
 
 	#pragma region SetAnimation
 	static const std::vector<int> _spriteIdxListDown = { 0,1,2,3,4,5 };
@@ -31,16 +31,16 @@ Slime::Slime()
 	static const std::vector<int> _spriteIdxListLeft = { 18,19,20,21,22,23 };
 
 	//设置上下左右的动画贴图
-	animDown.SetLoop(true); animDown.SetAnimFrames(_sprite, 6, 4, _spriteIdxListDown);
-	animUp.SetLoop(true); animUp.SetAnimFrames(_sprite, 6, 4, _spriteIdxListUp);
-	animRight.SetLoop(true); animRight.SetAnimFrames(_sprite, 6, 4, _spriteIdxListRight);
-	animLeft.SetLoop(true); animLeft.SetAnimFrames(_sprite, 6, 4, _spriteIdxListLeft);
+	animDown.SetLoop(true); animDown.SetAnimFrames(_sprites, 6, 4, _spriteIdxListDown);
+	animUp.SetLoop(true); animUp.SetAnimFrames(_sprites, 6, 4, _spriteIdxListUp);
+	animRight.SetLoop(true); animRight.SetAnimFrames(_sprites, 6, 4, _spriteIdxListRight);
+	animLeft.SetLoop(true); animLeft.SetAnimFrames(_sprites, 6, 4, _spriteIdxListLeft);
 
 	//设置上下左右的受击剪影贴图
-	animDownSketch.SetLoop(true); animDownSketch.SetAnimFrames(_spriteSketch, 6, 4, _spriteIdxListDown);
-	animUpSketch.SetLoop(true); animUpSketch.SetAnimFrames(_spriteSketch, 6, 4, _spriteIdxListUp);
-	animRightSketch.SetLoop(true); animRightSketch.SetAnimFrames(_spriteSketch, 6, 4, _spriteIdxListRight);
-	animLeftSketch.SetLoop(true); animLeftSketch.SetAnimFrames(_spriteSketch, 6, 4, _spriteIdxListLeft);
+	animDownSketch.SetLoop(true); animDownSketch.SetAnimFrames(_spritesSketch, 6, 4, _spriteIdxListDown);
+	animUpSketch.SetLoop(true); animUpSketch.SetAnimFrames(_spritesSketch, 6, 4, _spriteIdxListUp);
+	animRightSketch.SetLoop(true); animRightSketch.SetAnimFrames(_spritesSketch, 6, 4, _spriteIdxListRight);
+	animLeftSketch.SetLoop(true); animLeftSketch.SetAnimFrames(_spritesSketch, 6, 4, _spriteIdxListLeft);
 	#pragma endregion
 
 	#pragma region BasicStats

@@ -46,11 +46,17 @@ void EnemyManager::OnUpdate(double _delta)
 {
 	for (Enemy* _enemy : enemyList)
 		_enemy->OnUpdate(_delta);
+
+	//碰撞检测
+	ProcessCollisionBullet();
+	ProcessCollisionHome();
+
+	//检测死亡敌人并将其移除
+	RemoveDeadEnemies();
 }
 
 void EnemyManager::OnRender(SDL_Renderer* _renderer)
 {
-
 	for (Enemy* _enemy : enemyList)
 		_enemy->OnRender(_renderer);
 }
@@ -64,8 +70,30 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 {
 	//临时用于存储位置信息
 	static Vector2 _pos;
+	std::cout << "SpawnPositon=" << _pos << "\n";
 	//获取地图Rect用于定位
 	static const SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
+
+	#pragma region LocateSpawnPosition
+	//获取生成路径池，用于索引具体的出生点
+	static const RoutePool& _spawnRoutePool = ConfigManager::GetInstance()->map.GetSpawnRoutePool();
+	//获取_spawnPointIdx在路径池中对应的对象，需要检测其是否为空对象（当输入的索引超出路径总数就会产生这个问题）
+	const auto& _itr = _spawnRoutePool.find(_spawnPointIdx);
+	//若指向end()这个无效的位置（该迭代器指向列表的最后一个元素的后一个位置）则说明传入的索引是错误的
+	if (_itr == _spawnRoutePool.end())
+	{
+		std::cout << "Invalid SpawnPointIdx\n";
+		return;
+	}
+	//获取生成路径
+	Route _route = _itr->second;
+
+	//获取传入编号对应的生成路径上的瓦片坐标点索引列表
+	const Route::TilePointList _tilePointList = _route.GetTilePointList();
+	//计算怪物应当被生成到的位置（相对游戏窗口的实际坐标）
+	_pos.x = _mapRect.x + _tilePointList[0].x * TILE_SIZE + TILE_SIZE / 2;
+	_pos.y = _mapRect.y + _tilePointList[0].y * TILE_SIZE + TILE_SIZE / 2;
+	#pragma endregion
 
 	#pragma region CreateEnemyObject
 	//将要生成的敌人对象
@@ -90,24 +118,6 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 	default:
 		break;
 	}
-	#pragma endregion
-
-	#pragma region LocateSpawnPosition
-	//获取生成路径池，用于索引具体的出生点
-	static const RoutePool& _spawnRoutePool = ConfigManager::GetInstance()->map.GetSpawnRoutePool();
-	//获取_spawnPointIdx在路径池中对应的对象，需要检测其是否为空对象（当输入的索引超出路径总数就会产生这个问题）
-	const auto& _itr = _spawnRoutePool.find(_spawnPointIdx);
-	//若指向end()这个无效的位置（该迭代器指向列表的最后一个元素的后一个位置）则说明传入的索引是错误的
-	if (_itr == _spawnRoutePool.end())
-		return;
-	//获取生成路径
-	Route _route = _itr->second;
-
-	//获取传入编号对应的生成路径上的瓦片坐标点索引列表
-	const Route::TilePointList _tilePointList = _route.GetTilePointList();
-	//计算怪物应当被生成到的位置（相对游戏窗口的实际坐标）
-	_pos.x = _mapRect.x + _tilePointList[0].x * TILE_SIZE + TILE_SIZE / 2;
-	_pos.y = _mapRect.y + _tilePointList[0].y * TILE_SIZE + TILE_SIZE / 2;
 	#pragma endregion
 
 	//实际设置怪物的初始位置与行进路径

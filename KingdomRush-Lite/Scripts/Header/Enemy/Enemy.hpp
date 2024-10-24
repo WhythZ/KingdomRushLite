@@ -184,16 +184,16 @@ void Enemy::OnUpdate(double _delta)
 
 	#pragma region MoveOnDistance
 	//计算该帧（即更新的_delta时间内）过程中怪物期望移动的距离
-	Vector2 _moveDistance = velocity * _delta;
+	Vector2 _moveDistanceVec = velocity * _delta;
 	//计算距离下一个目标砖块的距离，即目标位置与当前位置的差
-	Vector2 _targetDistance = targetTilePosition - position;
+	Vector2 _targetDistanceVec = targetTilePosition - position;
 	//这一帧实际移动的距离不应当大于到当前目标点的距离（若速度较小则可能出现小于的情况，这无妨，经过多次帧更新后总能到达目标处的）
-	position += (_moveDistance < _targetDistance) ? _moveDistance : _targetDistance;
+	position += (_moveDistanceVec < _targetDistanceVec) ? _moveDistanceVec : _targetDistanceVec;
 	#pragma endregion
 
 	#pragma region RefreshEnemyState
 	//如果当前位置距离目标地点的距离长度（在标定尺度下）近似于0，则说明到达了该目标地点，这时就要更新当前位置，并获取新的目标位置
-	if (_targetDistance.ApproxZero())
+	if (_targetDistanceVec.ApproxZero())
 	{
 		//更新位置与目标
 		currentTileIdx++;
@@ -208,7 +208,9 @@ void Enemy::OnUpdate(double _delta)
 	velocity.y = direction.y * speedCurrent * TILE_SIZE;
 	#pragma endregion
 
-	#pragma region Animation
+	//std::cout << "CurrentPosition=" << position << "   Target=" << targetTilePosition << "\n";
+
+	#pragma region AnimationChange
 	//由于velocity.x与velocity.y由于浮点数的缘故，不能用标准的等于零作判据，所以用比较水平竖直速度大小的方式来确定播放水平动画还是竖直动画
 	bool _isShowAnimHorizontal = abs(velocity.x) >= abs(velocity.y);
 	
@@ -235,46 +237,46 @@ void Enemy::OnRender(SDL_Renderer* _renderer)
 {
 	#pragma region SpriteAnimation
 	//怪物贴图的左上角顶点坐标
-	static SDL_Point rectPoint;
-	rectPoint.x = (int)(position.x - spriteSize.x / 2);
-	rectPoint.y = (int)(position.y - spriteSize.y / 2);
+	static SDL_Point _rectXY;
+	_rectXY.x = (int)(position.x - spriteSize.x / 2);
+	_rectXY.y = (int)(position.y - spriteSize.y / 2);
 
 	//调用当前动画的渲染
-	animCurrent->OnRender(_renderer, rectPoint);
+	animCurrent->OnRender(_renderer, _rectXY);
 	#pragma endregion
 
 	#pragma region HealthBar
 	//血条的定位Rect
-	static SDL_Rect healthBarRect;
+	static SDL_Rect _healthBarRect;
 	//血条的常量尺寸大小
-	static const Vector2 healthBarSize = { 40,8 };
+	static const Vector2 _healthBarSize = { 40,8 };
 	//血条偏移贴图正上方的偏移量（为了让血条不要紧贴着怪物贴图的顶边）
-	static const float healthBarVerticalOffset = 3;
+	static const float _healthBarVerticalOffset = 3;
 	//血条的内容与边框的颜色，R-G-B-Alpha
-	static const SDL_Color healthBarColorContent = { 225,255,195,255 };
-	static const SDL_Color healthBarColorBorder = { 115,185,125,255 };
+	static const SDL_Color _healthBarColorContent = { 225,255,195,255 };
+	static const SDL_Color _healthBarColorBorder = { 115,185,125,255 };
 
 	//当怪物生命值不满时，绘制血条
 	if (healthCurrent < healthMaximum)
 	{
 		//让血条的中心点水平上对齐怪物贴图的中心
-		healthBarRect.x = (int)(position.x - healthBarSize.x / 2);
+		_healthBarRect.x = (int)(position.x - _healthBarSize.x / 2);
 		//竖直上在怪物贴图的正上方，注意是减法（坐标轴y轴正方向朝下的缘故）
-		healthBarRect.y = (int)(position.y - spriteSize.y / 2 - healthBarSize.y - healthBarVerticalOffset);
+		_healthBarRect.y = (int)(position.y - spriteSize.y / 2 - _healthBarSize.y - _healthBarVerticalOffset);
 		//宽度表示生命条的长度
-		healthBarRect.w = (int)(healthBarSize.x * (healthCurrent / healthMaximum));
+		_healthBarRect.w = (int)(_healthBarSize.x * (healthCurrent / healthMaximum));
 		//高度不变
-		healthBarRect.h = (int)(healthBarSize.y);
+		_healthBarRect.h = (int)(_healthBarSize.y);
 
 		//设置血条内容绘制颜色
-		SDL_SetRenderDrawColor(_renderer, healthBarColorContent.r, healthBarColorContent.g, healthBarColorContent.b, healthBarColorContent.a);
+		SDL_SetRenderDrawColor(_renderer, _healthBarColorContent.r, _healthBarColorContent.g, _healthBarColorContent.b, _healthBarColorContent.a);
 		//以上述颜色绘制血条内容
-		SDL_RenderFillRect(_renderer, &healthBarRect);
+		SDL_RenderFillRect(_renderer, &_healthBarRect);
 
 		//为了绘制血条边框，将宽度变回原来的宽度
-		healthBarRect.w = (int)(healthBarSize.x);
-		SDL_SetRenderDrawColor(_renderer, healthBarColorBorder.r, healthBarColorBorder.g, healthBarColorBorder.b, healthBarColorBorder.a);
-		SDL_RenderFillRect(_renderer, &healthBarRect);
+		_healthBarRect.w = (int)(_healthBarSize.x);
+		SDL_SetRenderDrawColor(_renderer, _healthBarColorBorder.r, _healthBarColorBorder.g, _healthBarColorBorder.b, _healthBarColorBorder.a);
+		SDL_RenderFillRect(_renderer, &_healthBarRect);
 	}
 	#pragma endregion
 }
