@@ -38,7 +38,7 @@ private:
 
 	#pragma region Route
 	const Route* route = nullptr;               //该怪物行进的瓦片路径
-	int currentTileIdx = 0;                     //当前怪物处于路径上的瓦片的索引
+	size_t targetTileIdx = 0;                   //怪物的目标瓦片索引
 	Vector2 targetTilePosition;                 //将要驶入的下一个瓦片的坐标位置
 	#pragma endregion
 
@@ -111,7 +111,7 @@ public:
 	double GetSkillRecoverIntensity() const;    //获取恢复技能的强度
 
 private:
-	void RefreshTargetTilePosition();           //更新目标瓦片的位置
+	void RefreshTargetTile();                   //更新目标
 };
 
 Enemy::Enemy()
@@ -147,9 +147,10 @@ void Enemy::SetRecoverSkillTrigger(Enemy::SkillCallBack _callback)
 
 void Enemy::SetRoute(const Route* _route)
 {
+	std::cout << "Init Route\n";
 	route = _route;
 	//更新目标点
-	RefreshTargetTilePosition();
+	RefreshTargetTile();
 }
 
 void Enemy::SetPosition(const Vector2& _position)
@@ -168,26 +169,27 @@ void Enemy::OnUpdate(double _delta)
 	speedRestoreTimer.OnUpdate(_delta);
 
 	#pragma region RefreshAfterMoving
-	//计算距离下一个目标砖块的距离，即目标位置与当前位置的差
+	//计算前一帧（即更新的_delta时间内）过程中怪物期望移动的距离，以及距离下一个目标砖块的距离
+	Vector2 _moveDistanceVec = velocity * _delta;
 	Vector2 _targetDistanceVec = targetTilePosition - position;
+	//当前帧实际移动的距离不应当大于到当前目标点的距离
+	position += (_moveDistanceVec < _targetDistanceVec) ? _moveDistanceVec : _targetDistanceVec;
 
 	//如果当前位置距离目标地点的距离长度（在标定尺度下）近似于0，则说明到达了该目标地点，这时就要更新当前位置，并获取新的目标位置
 	if (_targetDistanceVec.ApproxZero())
 	{
-		//更新目标位置与当前行进的方向
-		currentTileIdx++;
-		RefreshTargetTilePosition();
+		std::cout << "Refresh\n";
+
+		//更新目标位置
+		targetTileIdx++;
+		RefreshTargetTile();
+		//更新行进方向
+		direction = (targetTilePosition - position).Normalized();
 	}
-	
+
 	//更新速度矢量，因为speed的单位是单元格每秒，所以最终速度要乘上单元格的边长
 	velocity.x = direction.x * speedCurrent * TILE_SIZE;
 	velocity.y = direction.y * speedCurrent * TILE_SIZE;
-
-	//计算该帧（即更新的_delta时间内）过程中怪物期望移动的距离
-	Vector2 _moveDistanceVec = velocity * _delta;
-
-	//这一帧实际移动的距离不应当大于到当前目标点的距离（若速度较小则可能出现小于的情况，这无妨，经过多次帧更新后总能到达目标处的）
-	position += (_moveDistanceVec < _targetDistanceVec) ? _moveDistanceVec : _targetDistanceVec;
 	#pragma endregion
 
 	#pragma region AnimationChange
@@ -306,7 +308,7 @@ double Enemy::GetRouteProcess() const
 	size_t _routeSize = route->GetTilePointList().size();
 
 	//返回路径完成进度
-	return (double)((currentTileIdx + 1) / _routeSize);
+	return (double)(targetTileIdx / _routeSize);
 }
 
 double Enemy::GetHealth() const
@@ -361,36 +363,27 @@ double Enemy::GetSkillRecoverIntensity() const
 	return skillRecoverIntensity;
 }
 
-void Enemy::RefreshTargetTilePosition()
+void Enemy::RefreshTargetTile()
 {
 	//获取路径二维瓦片坐标列表
 	const Route::TilePointList& _tilePointList = route->GetTilePointList();
+	std::cout << "_tilePointList.size()=" << _tilePointList.size() << "\n";
 
 	//如果当前的目标点没有超出路径上瓦片的总数，则可以寻找下一个目标点的在屏幕上的位置
-	if (currentTileIdx + 1 < _tilePointList.size())
+	if (targetTileIdx < _tilePointList.size())
 	{
 		//获取当前与目标瓦片的二维SDL_Point坐标，这与Vector2不同，前者是离散的（乘上TILE_SIZE才能表示实际距离）点坐标，后者是连续的具体距离向量
-		const SDL_Point& _currentTilePoint = _tilePointList[currentTileIdx];
-		const SDL_Point& _targetTilePoint = _tilePointList[currentTileIdx + 1];
+		const SDL_Point& _targetTilePoint = _tilePointList[targetTileIdx];
 
-		#pragma region UpdateDirection
-		if (_targetTilePoint.x > _currentTilePoint.x)
-			direction.x = 1;
-		if (_targetTilePoint.x < _currentTilePoint.x)
-			direction.x = -1;
-		if (_targetTilePoint.y < _currentTilePoint.y)
-			direction.y = -1;
-		if (_targetTilePoint.y > _currentTilePoint.y)
-			direction.y = 1;
-		#pragma endregion
+		std::cout << "TargetTilePoint=" << "(" << _targetTilePoint.x << "," << _targetTilePoint.y << ")\n";
 
-		#pragma region UpdateTargetPosition
 		//获取静态的整个瓦片地图渲染在游戏窗口中的位置Rect，用于定位路径上的目标点相对游戏窗口的位置
 		static const SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
 		//从地图左上角开始，依靠二维瓦片点的离散坐标寻找到（路径上的）目标瓦片左上顶点的具体坐标，再加上半个TILE_SIZE得到目标瓦片中心在游戏窗口上的坐标
 		targetTilePosition.x = _mapRect.x + (_targetTilePoint.x * TILE_SIZE) + TILE_SIZE / 2;
 		targetTilePosition.y = _mapRect.y + (_targetTilePoint.y * TILE_SIZE) + TILE_SIZE / 2;
-		#pragma endregion
+
+		std::cout << "TargetTilePosition=" << targetTilePosition << ")\n";
 	}
 }
 

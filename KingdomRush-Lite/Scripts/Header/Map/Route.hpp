@@ -27,49 +27,51 @@ private:
 	bool CheckRepeatedPointIdx(const SDL_Point&);  //检查传入的瓦片索引是否已经在路径瓦片列表中出现过，防止路径首尾相接造成构造函数的死循环
 };
 
-Route::Route(const TileMap& _map, const SDL_Point& _beginIdx)
+Route::Route(const TileMap& _map, const SDL_Point& _beginPoint)
 {
 	//存储瓦片地图的长宽
 	size_t _mapWidth = _map[0].size();
 	size_t _mapHeight = _map.size();
 
 	//记录路径的下一个瓦片索引，初始化为传入的起始瓦片
-	SDL_Point _nextIdx = _beginIdx;
+	SDL_Point _nextPoint = _beginPoint;
 
 	//循环
 	while (true)
 	{
 		//若瓦片索引超出了地图边界，则结束循环
-		if (_nextIdx.x >= _mapWidth || _nextIdx.y >= _mapHeight)
+		if (_nextPoint.x >= _mapWidth || _nextPoint.y >= _mapHeight)
 			break;
 
-		//若路径是否形成闭环，则停止循环，否则放入路径瓦片列表内；第一个被添加进列表的是_beginIdx对应的瓦片索引，之后的点都需要被检验
-		if (CheckRepeatedPointIdx(_nextIdx) == true)
+		//若路径形成闭环，则停止循环，否则放入路径瓦片列表内；第一个被添加进列表的是_beginIdx对应的瓦片索引，之后的点都需要被检验
+		if (CheckRepeatedPointIdx(_nextPoint))
 			break;
 		else
-			tilePointList.push_back(_nextIdx);
+			tilePointList.push_back(_nextPoint);
+		
+		//std::cout << "tilePointList.size()=" << tilePointList.size() << " _nexPoint=(" << _nextPoint.x << "," << _nextPoint.y << ")\n";
 
 		//下一个砖块到达了家，那么路径结束
-		if (_map[_nextIdx.y][_nextIdx.x].specialFlagLayer == 0)
+		if (_map[_nextPoint.y][_nextPoint.x].specialFlagLayer == 0)
 			break;
 
 		//默认标记下一个瓦片为存在
 		bool _isNextTileExist = true;
 
 		//按照瓦片的方向性进行索引的移动
-		switch (_map[_nextIdx.y][_nextIdx.x].directionLayer)
+		switch (_map[_nextPoint.y][_nextPoint.x].directionLayer)
 		{
 		case Tile::TileDir::Up:
-			_nextIdx.y--;
+			_nextPoint.y--;
 			break;
 		case Tile::TileDir::Down:
-			_nextIdx.y++;
+			_nextPoint.y++;
 			break;
 		case Tile::TileDir::Left:
-			_nextIdx.x--;
+			_nextPoint.x--;
 			break;
 		case Tile::TileDir::Right:
-			_nextIdx.x++;
+			_nextPoint.x++;
 			break;
 		default:
 			//标记下一个路径瓦片为不存在，并结束switch结构

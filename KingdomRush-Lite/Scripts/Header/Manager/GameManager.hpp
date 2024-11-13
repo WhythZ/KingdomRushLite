@@ -45,7 +45,7 @@ private:
 	void OnUpdate(double);               //主循环内逐帧检测数据的更新
 	void OnRender();                     //主循环内渲染绘图的具体过程
 	
-	bool GenerateTileMapTileMap();       //将所有瓦片生成整张瓦片地图纹理，以提升渲染性能
+	bool GenerateTileMapTexture();       //将所有瓦片生成整张瓦片地图纹理，以提升渲染性能
 };
 
 int GameManager::Run(int _argc, char** _argv)
@@ -142,7 +142,7 @@ GameManager::GameManager()
 	InitAssert(ResourceManager::GetInstance()->LoadResource(renderer), u8"Failed To Load Resources");
 
 	//生成瓦片地图纹理
-	InitAssert(GenerateTileMapTileMap(), u8"Failed To Genrate TileMap Texture");
+	InitAssert(GenerateTileMapTexture(), u8"Failed To Genrate TileMap Texture");
 }
 
 GameManager::~GameManager()
@@ -205,7 +205,7 @@ void GameManager::OnRender()
 	EnemyManager::GetInstance()->OnRender(renderer);
 }
 
-bool GameManager::GenerateTileMapTileMap()
+bool GameManager::GenerateTileMapTexture()
 {
 	#pragma region PrepareMapTextureCanvas
 	//获取游戏的地图与瓦片地图的常引用

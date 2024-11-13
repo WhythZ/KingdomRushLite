@@ -55,7 +55,10 @@ void EnemyManager::OnUpdate(double _delta)
 	RemoveDeadEnemies();
 
 	if (enemyList.size() > 0)
-		std::cout << "FirstEnemyPos=" << enemyList[0]->GetPosition() << ", Target=" << enemyList[0]->GetTargetPosition() << "\n";
+	{
+		std::cout << "FirstEnemyPos=" << enemyList[0]->GetPosition() << ", Target=" << enemyList[0]->GetTargetPosition() << ", ";
+		std::cout << "Velocity=" << enemyList[0]->GetVelocity() << "\n";
+	}
 }
 
 void EnemyManager::OnRender(SDL_Renderer* _renderer)
@@ -92,14 +95,16 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 
 	//获取传入编号对应的生成路径上的瓦片坐标点索引列表
 	const Route::TilePointList _tilePointList = _route.GetTilePointList();
+
 	//计算怪物应当被生成到的位置（相对游戏窗口的实际坐标）
 	_pos.x = _mapRect.x + _tilePointList[0].x * TILE_SIZE + TILE_SIZE / 2;
 	_pos.y = _mapRect.y + _tilePointList[0].y * TILE_SIZE + TILE_SIZE / 2;
 	#pragma endregion
 
 	#pragma region CreateEnemyObject
-	//将要生成的敌人对象
+	//生成怪物对象
 	Enemy* _enemy = nullptr;
+	//确定怪物类型
 	switch (_type)
 	{
 	case EnemyType::Slime:
@@ -122,8 +127,8 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 	}
 
 	//实际设置怪物的初始位置与行进路径
-	_enemy->SetPosition(_pos);
 	_enemy->SetRoute(&_route);
+	_enemy->SetPosition(_pos);
 
 	//设置怪物的技能
 	_enemy->SetRecoverSkillTrigger(
@@ -152,6 +157,7 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 	);
 	#pragma endregion
 
+	//std::cout << "_tilePointList.size()=" << _tilePointList.size() << "\n";
 	//std::cout << "SpawnEnemy=" << _type << ", SpawnPositon=" << _pos << ", Route=" << _route << "\n";
 
 	//将怪物添加到统计列表

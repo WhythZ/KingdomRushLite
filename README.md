@@ -6,16 +6,13 @@ This repo adopts GPL-3.0 License
 
 ## About
 
-This repo is a tower defence game prototype, which is inspired by "Kingdom Rush" game series
+This repo is a tower defence game prototype, which is inspired by KingdomRush game series
 
 ## Dependency
 
-|IDE|Version|
-|---|---| 
-|Visual Studio|2022|
-
-|Library|Version|
+|IDE/Lib|Version|
 |---|---|
+|Visual Studio|2022|
 |[cJSON](https://github.com/DaveGamble/cJSON)|cJSON-1.7.18|
 |[SDL](https://github.com/libsdl-org/SDL)|SDL2-devel-2.30.2-VC|
 |[SDL_image](https://github.com/libsdl-org/SDL_image)|SDL2_image-devel-2.8.2-VC|
