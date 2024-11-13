@@ -367,7 +367,7 @@ void Enemy::RefreshTargetTile()
 {
 	//获取路径二维瓦片坐标列表
 	const Route::TilePointList& _tilePointList = route->GetTilePointList();
-	std::cout << "_tilePointList.size()=" << _tilePointList.size() << "\n";
+	//std::cout << "_tilePointList.size()=" << _tilePointList.size() << "\n";
 
 	//如果当前的目标点没有超出路径上瓦片的总数，则可以寻找下一个目标点的在屏幕上的位置
 	if (targetTileIdx < _tilePointList.size())
@@ -375,7 +375,7 @@ void Enemy::RefreshTargetTile()
 		//获取当前与目标瓦片的二维SDL_Point坐标，这与Vector2不同，前者是离散的（乘上TILE_SIZE才能表示实际距离）点坐标，后者是连续的具体距离向量
 		const SDL_Point& _targetTilePoint = _tilePointList[targetTileIdx];
 
-		std::cout << "TargetTilePoint=" << "(" << _targetTilePoint.x << "," << _targetTilePoint.y << ")\n";
+		//std::cout << "TargetTilePoint=" << "(" << _targetTilePoint.x << "," << _targetTilePoint.y << ")\n";
 
 		//获取静态的整个瓦片地图渲染在游戏窗口中的位置Rect，用于定位路径上的目标点相对游戏窗口的位置
 		static const SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
@@ -383,7 +383,7 @@ void Enemy::RefreshTargetTile()
 		targetTilePosition.x = _mapRect.x + (_targetTilePoint.x * TILE_SIZE) + TILE_SIZE / 2;
 		targetTilePosition.y = _mapRect.y + (_targetTilePoint.y * TILE_SIZE) + TILE_SIZE / 2;
 
-		std::cout << "TargetTilePosition=" << targetTilePosition << ")\n";
+		//std::cout << "TargetTilePosition=" << targetTilePosition << ")\n";
 	}
 }
 

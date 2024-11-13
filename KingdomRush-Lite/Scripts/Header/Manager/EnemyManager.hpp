@@ -91,7 +91,7 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 		return;
 	}
 	//获取生成路径
-	Route _route = _itr->second;
+	const Route& _route = _itr->second;
 
 	//获取传入编号对应的生成路径上的瓦片坐标点索引列表
 	const Route::TilePointList _tilePointList = _route.GetTilePointList();
