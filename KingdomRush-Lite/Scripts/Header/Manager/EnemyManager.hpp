@@ -54,11 +54,11 @@ void EnemyManager::OnUpdate(double _delta)
 	//¼ì²âËÀÍöµÐÈË²¢½«ÆäÒÆ³ý
 	RemoveDeadEnemies();
 
-	if (enemyList.size() > 0)
-	{
-		std::cout << "FirstEnemyPos=" << enemyList[0]->GetPosition() << ", Target=" << enemyList[0]->GetTargetPosition() << ", ";
-		std::cout << "Velocity=" << enemyList[0]->GetVelocity() << "\n";
-	}
+	//if (enemyList.size() > 0)
+	//{
+	//	std::cout << "FirstEnemyPos=" << enemyList[0]->GetPosition() << ", Target=" << enemyList[0]->GetTargetPosition() << ", ";
+	//	std::cout << "Velocity=" << enemyList[0]->GetVelocity() << "\n";
+	//}
 }
 
 void EnemyManager::OnRender(SDL_Renderer* _renderer)

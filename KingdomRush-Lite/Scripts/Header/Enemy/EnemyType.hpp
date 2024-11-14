@@ -4,6 +4,7 @@
 //敌人类型的枚举
 enum class EnemyType
 {
+	None,
 	Slime,
 	SlimeKing,
 	Skeleton,

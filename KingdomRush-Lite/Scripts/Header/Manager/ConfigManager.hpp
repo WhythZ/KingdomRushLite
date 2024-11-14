@@ -98,10 +98,10 @@ public:
 	const double initHomeHP = 10;          //家的初始默认血量常量
 	std::vector<Wave> waveList;            //怪物波次列表
 
-	#pragma region TowerLevel
-	int levelArcher;                       //弓箭塔等级（全局统一升级）
-	int levelAxeman;                       //投斧手等级
-	int levelGunner;                       //枪炮手等级
+	#pragma region Tower
+	int levelArcher = 0;                   //弓箭塔等级（全局统一升级）
+	int levelAxeman = 0;                   //投斧手等级
+	int levelGunner = 0;                   //枪炮手等级
 	#pragma endregion
 
 	#pragma region Coin

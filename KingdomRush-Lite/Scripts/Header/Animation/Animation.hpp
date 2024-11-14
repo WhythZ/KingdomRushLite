@@ -129,12 +129,24 @@ void Animation::SetFrameInterval(double _time = FRAME_INTERVAL)
 
 void Animation::OnRender(SDL_Renderer* _renderer, const SDL_Point& _dstPos, double _angle = 0)
 {
-	//对游戏窗口的裁切矩形，用于确定渲染的目标位置；这个Rect是静态的（但不意味着是常量），任意Animation对象调用此函数时共享同一个Rect
-	static SDL_Rect _dstPosRect =
+	//对游戏窗口的裁切矩形，用于确定渲染的目标位置
+	//这个Rect是静态的（由于OnRender被频繁调用，所以静态的局部变量有助于减少新建变量产生的开销）
+	//任意Animation对象调用此函数时共享同一个Rect，所以我们需要确保实时更新（下面有反例）
+	static SDL_Rect _dstPosRect;
+	_dstPosRect =
 	{
-		_dstPos.x,_dstPos.y,
-		frameWidth,frameHeight
+		_dstPos.x, _dstPos.y,
+			frameWidth, frameHeight
 	};
+
+	//由于是静态的，这种写法只会在初始化的时候被赋值一次，往后都不会被更新，所以会导致怪物动画原地踏步
+	//static SDL_Rect _dstPosRect =
+	//{
+	//	_dstPos.x,_dstPos.y,
+	//	frameWidth,frameHeight
+	//};
+	
+	//std::cout << "_dstPosRect.x/y=(" << _dstPosRect.x << "," << _dstPosRect.y << ")\n";
 
 	//SDL_RenderCopy的参数进阶版：渲染器、源材质、源材质的裁切矩形、目标渲染位置（对主窗口的裁切矩形）、旋转角度、旋转的中心点（默认几何中心）、镜像翻转类型枚举
 	SDL_RenderCopyEx(_renderer, srcSpriteSheetTexture, &srcSpriteSheetRects[frameIdx], &_dstPosRect, _angle, nullptr, SDL_RendererFlip::SDL_FLIP_NONE);

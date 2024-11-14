@@ -48,7 +48,7 @@ private:
 	#pragma endregion
 
 protected:
-	EnemyType type;                             //敌人的种类
+	EnemyType type = EnemyType::None;           //敌人的种类
 
 	#pragma region Animation
 	Vector2 spriteSize;                         //敌人图片的二维尺寸大小
@@ -218,13 +218,13 @@ void Enemy::OnUpdate(double _delta)
 void Enemy::OnRender(SDL_Renderer* _renderer)
 {
 	#pragma region SpriteAnimation
-	//怪物贴图的左上角顶点坐标
-	static SDL_Point _rectXY;
-	_rectXY.x = (int)(position.x - spriteSize.x / 2);
-	_rectXY.y = (int)(position.y - spriteSize.y / 2);
+	//怪物贴图的左上角顶点坐标，position是瓦片中心点的世界坐标，注意减去的不是TILE_SIZE/2
+	static SDL_Point _point;
+	_point.x = (int)(position.x - spriteSize.x / 2);
+	_point.y = (int)(position.y - spriteSize.y / 2);
 
 	//调用当前动画的渲染
-	animCurrent->OnRender(_renderer, _rectXY);
+	animCurrent->OnRender(_renderer, _point);
 	#pragma endregion
 
 	#pragma region HealthBar
