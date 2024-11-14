@@ -147,7 +147,7 @@ void Enemy::SetRecoverSkillTrigger(Enemy::SkillCallBack _callback)
 
 void Enemy::SetRoute(const Route* _route)
 {
-	std::cout << "Init Route\n";
+	//std::cout << "Init Route\n";
 	route = _route;
 	//更新目标点
 	RefreshTargetTile();
@@ -178,7 +178,7 @@ void Enemy::OnUpdate(double _delta)
 	//如果当前位置距离目标地点的距离长度（在标定尺度下）近似于0，则说明到达了该目标地点，这时就要更新当前位置，并获取新的目标位置
 	if (_targetDistanceVec.ApproxZero())
 	{
-		std::cout << "Refresh\n";
+		//std::cout << "Refresh\n";
 
 		//更新目标位置
 		targetTileIdx++;

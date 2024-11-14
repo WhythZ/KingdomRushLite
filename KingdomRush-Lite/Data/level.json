@@ -7,7 +7,7 @@
 			{
 				"interval":	0,
 				"spawn_point":	1,
-				"enemy_type":	"SlimeKing"
+				"enemy_type":	"Goblin"
 			},
 			{
 				"interval":	1,
@@ -94,7 +94,7 @@
 			{
 				"interval":	1,
 				"spawn_point":	1,
-				"enemy_type":	"KingSlime"
+				"enemy_type":	"SlimeKing"
 			}
 		]
 	},
@@ -146,7 +146,7 @@
 			{
 				"interval":	1,
 				"spawn_point":	2,
-				"enemy_type":	"KingSlime"
+				"enemy_type":	"SlimeKing"
 			},
 			{
 				"interval":	0,
@@ -183,7 +183,7 @@
 			{
 				"interval":	0,
 				"spawn_point":	2,
-				"enemy_type":	"PriestGoblin"
+				"enemy_type":	"GoblinPriest"
 			},
 			{
 				"interval":	1,

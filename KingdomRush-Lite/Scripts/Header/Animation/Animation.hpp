@@ -48,6 +48,9 @@ Animation::Animation()
 	//利用计时器的间隔时间触发来更新每帧动画，所以必须可以多次触发
 	timer.SetOneShot(false);
 
+	//设置帧间隔，此处采用默认帧间隔
+	this->SetFrameInterval(FRAME_INTERVAL);
+
 	//使用匿名函数设置计时器使用的回调函数（每帧动画结束后都会触发该函数）
 	//内部嵌入了每个Animation对象自身的回调函数（仅在动画最后一帧播放后触发该函数）
 	timer.SetTimeOutTrigger(
@@ -122,7 +125,7 @@ void Animation::SetLoop(bool _loop)
 	isLoop = _loop;
 }
 
-void Animation::SetFrameInterval(double _time = FRAME_INTERVAL)
+void Animation::SetFrameInterval(double _time)
 {
 	timer.SetWaitTime(_time);
 }
@@ -136,7 +139,7 @@ void Animation::OnRender(SDL_Renderer* _renderer, const SDL_Point& _dstPos, doub
 	_dstPosRect =
 	{
 		_dstPos.x, _dstPos.y,
-			frameWidth, frameHeight
+		frameWidth, frameHeight
 	};
 
 	//由于是静态的，这种写法只会在初始化的时候被赋值一次，往后都不会被更新，所以会导致怪物动画原地踏步
@@ -145,7 +148,6 @@ void Animation::OnRender(SDL_Renderer* _renderer, const SDL_Point& _dstPos, doub
 	//	_dstPos.x,_dstPos.y,
 	//	frameWidth,frameHeight
 	//};
-	
 	//std::cout << "_dstPosRect.x/y=(" << _dstPosRect.x << "," << _dstPosRect.y << ")\n";
 
 	//SDL_RenderCopy的参数进阶版：渲染器、源材质、源材质的裁切矩形、目标渲染位置（对主窗口的裁切矩形）、旋转角度、旋转的中心点（默认几何中心）、镜像翻转类型枚举
@@ -156,7 +158,7 @@ void Animation::OnUpdate(double _delta)
 {
 	timer.OnUpdate(_delta);
 }
-
+ 
 void Animation::Restart()
 {
 	//计时器重新开始计时

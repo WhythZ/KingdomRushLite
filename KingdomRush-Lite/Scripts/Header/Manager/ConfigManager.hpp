@@ -245,10 +245,10 @@ bool ConfigManager::LoadLevel(const std::string& _path)
 				if (_jsonEnemyType && _jsonEnemyType->type == cJSON_String)
 				{
 					if (_jsonEnemyType->valuestring == "Slime") { _spawnEvent.enemyType = EnemyType::Slime; }
-					else if (_jsonEnemyType->valuestring == "KingSlime") { _spawnEvent.enemyType = EnemyType::SlimeKing; }
+					else if (_jsonEnemyType->valuestring == "SlimeKing") { _spawnEvent.enemyType = EnemyType::SlimeKing; }
 					else if (_jsonEnemyType->valuestring == "Skeleton") { _spawnEvent.enemyType = EnemyType::Skeleton; }
 					else if (_jsonEnemyType->valuestring == "Goblin") { _spawnEvent.enemyType = EnemyType::Goblin; }
-					else if (_jsonEnemyType->valuestring == "PriestGoblin") { _spawnEvent.enemyType = EnemyType::GoblinPriest; }
+					else if (_jsonEnemyType->valuestring == "GoblinPriest") { _spawnEvent.enemyType = EnemyType::GoblinPriest; }
 				}
 			}
 		}
