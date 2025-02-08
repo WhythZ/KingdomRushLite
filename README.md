@@ -1,4 +1,4 @@
-# KingdomRush-Lite
+# KingdomRushLite
 
 ## License
 

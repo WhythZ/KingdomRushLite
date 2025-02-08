@@ -27,7 +27,7 @@ public:
 		int windowWidth = 1280;
 		int windowHeight = 720;
 		//窗口标题
-		std::string windowTitle = "KingdomRush-Lite";
+		std::string windowTitle = "KingdomRushLite";
 	};
 
 	//玩家预制体
