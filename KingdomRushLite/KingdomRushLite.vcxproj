@@ -24,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Animation\Animation.hpp" />
+    <ClInclude Include="Scripts\Header\Bullet\Bullet.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Goblin.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Concrete\SlimeKing.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Concrete\GoblinPriest.hpp" />
@@ -45,7 +46,7 @@
     <ClInclude Include="Scripts\Header\Enemy\Wave.hpp" />
     <ClInclude Include="Scripts\Header\Map\Route.hpp" />
     <ClInclude Include="Scripts\Header\Map\Tile.hpp" />
-    <ClInclude Include="Scripts\Header\Timer\Timer.hpp" />
+    <ClInclude Include="Scripts\Header\Math\Timer.hpp" />
     <ClInclude Include="Scripts\Header\Math\Vector2.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

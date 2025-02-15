@@ -4,7 +4,7 @@
 #include <functional>
 #include "../Animation/Animation.hpp"
 #include "../Math/Vector2.hpp"
-#include "../Timer/Timer.hpp"
+#include "../Math/Timer.hpp"
 #include "../Map/Route.hpp"
 #include "EnemyType.hpp"
 #include "../Manager/ConfigManager.hpp"

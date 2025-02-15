@@ -25,9 +25,6 @@
     <Filter Include="头文件\Enemy">
       <UniqueIdentifier>{ee40717e-9d95-474e-8bbc-76cf994ba3ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\Timer">
-      <UniqueIdentifier>{a4ed2a13-b32b-44bc-923f-bcbab6821d5a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Animation">
       <UniqueIdentifier>{dfea80e2-b32a-4fd1-805c-8d0ee42f2773}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,9 @@
     </Filter>
     <Filter Include="头文件\Math">
       <UniqueIdentifier>{9e552c3e-7e00-4808-94f5-9e4dffe5a5fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Bullet">
+      <UniqueIdentifier>{53df255b-f1a3-44cd-b7d0-38ce5fdc0248}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -77,9 +77,6 @@
     <ClInclude Include="Scripts\Header\Manager\ResourceManager.hpp">
       <Filter>头文件\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Timer\Timer.hpp">
-      <Filter>头文件\Timer</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\Header\Animation\Animation.hpp">
       <Filter>头文件\Animation</Filter>
     </ClInclude>
@@ -118,6 +115,12 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Manager\GameProgressManager.hpp">
       <Filter>头文件\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Bullet\Bullet.hpp">
+      <Filter>头文件\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Math\Timer.hpp">
+      <Filter>头文件\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@
 //纹理支持
 #include <SDL.h>
 //引入计时器
-#include "../Timer/Timer.hpp"
+#include "../Math/Timer.hpp"
 
 //动画播放的默认帧间隔
 #define FRAME_INTERVAL 0.1

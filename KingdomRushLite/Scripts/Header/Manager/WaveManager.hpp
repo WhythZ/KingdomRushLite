@@ -2,7 +2,7 @@
 #define _WAVE_MANAGER_HPP_
 
 #include "Manager.hpp"
-#include "../Timer/Timer.hpp"
+#include "../Math/Timer.hpp"
 #include "GameProgressManager.hpp"
 #include "ConfigManager.hpp"
 #include "EnemyManager.hpp"
