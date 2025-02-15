@@ -92,7 +92,7 @@ public:
 
 	#pragma region Map
 	Map map;                               //游戏地图
-	SDL_Rect mapRect = { 0 };              //地图矩形的左上顶点渲染在游戏窗口内的位置
+	SDL_Rect mapRect = { 0 };              //地图矩形渲染在游戏窗口内的位置与长宽
 	#pragma endregion
 
 	const double initHomeHP = 10;          //家的初始默认血量常量

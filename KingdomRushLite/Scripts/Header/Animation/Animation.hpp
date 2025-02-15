@@ -40,6 +40,7 @@ public:
 	//设置动画播放；即传入渲染器、动画被渲染的位置（Rect的左上顶点）、动画的旋转角度（比如子弹动画会随方向旋转）
 	void OnRender(SDL_Renderer*, const SDL_Point&, double);
 	void OnUpdate(double);                           //动画的帧更新
+
 	void Restart();                                  //重置动画播放
 };
 

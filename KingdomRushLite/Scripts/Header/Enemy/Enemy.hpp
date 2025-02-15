@@ -217,7 +217,7 @@ void Enemy::OnUpdate(double _delta)
 void Enemy::OnRender(SDL_Renderer* _renderer)
 {
 	#pragma region SpriteAnimation
-	//怪物贴图的左上角顶点坐标，position是瓦片中心点的世界坐标，注意减去的不是TILE_SIZE/2
+	//怪物贴图的左上角顶点坐标，position是瓦片中心点的世界坐标，注意减去的不是TILE_SIZE / 2
 	static SDL_Point _point;
 	_point.x = (int)(position.x - spriteSize.x / 2);
 	_point.y = (int)(position.y - spriteSize.y / 2);
