@@ -3,7 +3,7 @@
 
 #include <functional>
 #include "../Animation/Animation.hpp"
-#include "../Vector/Vector2.hpp"
+#include "../Math/Vector2.hpp"
 #include "../Timer/Timer.hpp"
 #include "../Map/Route.hpp"
 #include "EnemyType.hpp"
@@ -196,21 +196,20 @@ void Enemy::OnUpdate(double _delta)
 	//由于velocity.x与velocity.y由于浮点数的缘故，不能用标准的等于零作判据，所以用比较水平竖直速度大小的方式来确定播放水平动画还是竖直动画
 	bool _isShowAnimHorizontal = abs(velocity.x) >= abs(velocity.y);
 	
-	//是否处于受击状态
-	if (!isShowSketch)
+	//若播放水平动画，依据水平速度正负判断左右（竖直动画类推），依据是否处于受击状态判断播放哪个版本
+	if (_isShowAnimHorizontal)
 	{
-		//若播放水平动画，依据水平速度正负判断左右；播放竖直动画亦然
-		if (_isShowAnimHorizontal)
+		if (!isShowSketch)
 			animCurrent = (velocity.x > 0) ? &animRight : &animLeft;
 		else
-			animCurrent = (velocity.y > 0) ? &animUp : &animDown;
+			animCurrent = (velocity.x > 0) ? &animRightSketch : &animLeftSketch;
 	}
 	else
 	{
-		if (_isShowAnimHorizontal)
-			animCurrent = (velocity.x > 0) ? &animRightSketch : &animLeftSketch;
+		if (!isShowSketch)
+			animCurrent = (velocity.y > 0) ? &animDown : &animUp;
 		else
-			animCurrent = (velocity.y > 0) ? &animUpSketch : &animDownSketch;
+			animCurrent = (velocity.y > 0) ? &animDownSketch : &animUpSketch;
 	}
 	#pragma endregion
 }
@@ -378,7 +377,7 @@ void Enemy::RefreshTargetTile()
 		//std::cout << "TargetTilePoint=" << "(" << _targetTilePoint.x << "," << _targetTilePoint.y << ")\n";
 
 		//获取静态的整个瓦片地图渲染在游戏窗口中的位置Rect，用于定位路径上的目标点相对游戏窗口的位置
-		static const SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
+		static const SDL_Rect& _mapRect = ConfigManager::Instance()->mapRect;
 		//从地图左上角开始，依靠二维瓦片点的离散坐标寻找到（路径上的）目标瓦片左上顶点的具体坐标，再加上半个TILE_SIZE得到目标瓦片中心在游戏窗口上的坐标
 		targetTilePosition.x = _mapRect.x + (_targetTilePoint.x * TILE_SIZE) + TILE_SIZE / 2;
 		targetTilePosition.y = _mapRect.y + (_targetTilePoint.y * TILE_SIZE) + TILE_SIZE / 2;

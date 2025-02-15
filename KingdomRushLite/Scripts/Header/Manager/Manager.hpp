@@ -10,7 +10,7 @@ protected:
 	static M* manager;                            //静态的唯一Manager类对象的指针，在外部初始化
 
 public:
-	static M* GetInstance();                      //静态的函数，用于获取Manager类的唯一实例指针
+	static M* Instance();                         //静态的函数，用于获取Manager类的唯一实例指针
 
 protected:
 	Manager() = default;                          //构造函数，单例模式的类不应当能被在外部创建对象
@@ -24,7 +24,7 @@ template <typename M>
 M* Manager<M>::manager = nullptr;
 
 template <typename M>
-M* Manager<M>::GetInstance()
+M* Manager<M>::Instance()
 {
 	//若manager未被创建（为空指针），则在堆区创建一个
 	if (!manager)

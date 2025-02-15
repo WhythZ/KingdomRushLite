@@ -19,10 +19,10 @@ Slime::Slime()
 	type = EnemyType::Slime;
 
 	//获取配置数据
-	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::GetInstance()->slimePrefab;
+	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::Instance()->slimePrefab;
 	//获取纹理
-	static SDL_Texture* _sprites = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Enemy_Slime)->second;
-	static SDL_Texture* _spritesSketch = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Enemy_Slime_Sketch)->second;
+	static SDL_Texture* _sprites = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Enemy_Slime)->second;
+	static SDL_Texture* _spritesSketch = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Enemy_Slime_Sketch)->second;
 
 	#pragma region SetAnimation
 	static const std::vector<int> _spriteIdxListDown = { 0,1,2,3,4,5 };

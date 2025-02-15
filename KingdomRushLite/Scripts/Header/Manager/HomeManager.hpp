@@ -25,7 +25,7 @@ private:
 HomeManager::HomeManager()
 {
 	//血量读取
-	healthMaximum = ConfigManager::GetInstance()->initHomeHP;
+	healthMaximum = ConfigManager::Instance()->initHomeHP;
 	healthCurrent = healthMaximum;
 }
 
@@ -42,7 +42,7 @@ void HomeManager::DecreaseHealthBy(double _decre)
 		healthCurrent = 0;
 
 	//播放受击音效
-	AudioManager::GetInstance()->PlaySFX(SoundResID::HomeHurt);
+	AudioManager::Instance()->PlaySFX(SoundResID::HomeHurt);
 }
 
 #endif

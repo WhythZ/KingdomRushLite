@@ -35,8 +35,8 @@ private:
 
 void WaveManager::OnUpdate(double _delta)
 {
-	GameProgressManager* _gp = GameProgressManager::GetInstance();
-	HomeManager* _home = HomeManager::GetInstance();
+	GameProgressManager* _gp = GameProgressManager::Instance();
+	HomeManager* _home = HomeManager::Instance();
 
 	//如果游戏结束，就不需更新了
 	if (_gp->isGameOver)
@@ -49,10 +49,10 @@ void WaveManager::OnUpdate(double _delta)
 		eventStartTimer.OnUpdate(_delta);
 
 	//若波次结束，不能立刻重置波次计时器生成下一波，得等场上敌人都清空了再开始
-	if (isWaveEnded && EnemyManager::GetInstance()->IsEnemyCleaned())
+	if (isWaveEnded && EnemyManager::Instance()->IsEnemyCleaned())
 	{
 		//发放波次奖励
-		CoinManager::GetInstance()->IncreaseCoinNumBy(waveList[waveIdx].rewards);
+		CoinManager::Instance()->IncreaseCoinNumBy(waveList[waveIdx].rewards);
 
 		//递增波次索引（注意先发奖励再递增，否则会奖励错）
 		waveIdx++;
@@ -79,7 +79,7 @@ void WaveManager::OnUpdate(double _delta)
 WaveManager::WaveManager()
 {
 	//获取波次列表
-	waveList = ConfigManager::GetInstance()->waveList;
+	waveList = ConfigManager::Instance()->waveList;
 
 	//每次生成新波次敌人时，启用该计时器以开启波次
 	waveStartTimer.SetOneShot(true);
@@ -110,7 +110,7 @@ WaveManager::WaveManager()
 			const Wave::SpawnEvent _event = _eventList[eventIdx];
 
 			//按照当前生成事件的设置，在对应出生点路径上生成对应种类的敌人
-			EnemyManager::GetInstance()->SpawnEnemy(_event.enemyType, _event.spawnPoint);
+			EnemyManager::Instance()->SpawnEnemy(_event.enemyType, _event.spawnPoint);
 
 			//这次生成事件完成后，遂递增其索引
 			eventIdx++;

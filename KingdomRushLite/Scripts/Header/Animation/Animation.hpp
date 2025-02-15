@@ -100,7 +100,7 @@ void Animation::SetAnimFrames(SDL_Texture* _spriteSheet, int _horizontalNum, int
 		//假如SpriteSheet是3x3的，那么传入2表示第1行第3个，传入4表示第2行第2个
 		int _idx = _idxList[i];
 		int _x = _idx % _horizontalNum;
-		int _y = _idx / _verticalNum;
+		int _y = _idx / _horizontalNum;
 
 		//获取裁剪区域的矩形帧纹理图片
 		SDL_Rect _rect = {

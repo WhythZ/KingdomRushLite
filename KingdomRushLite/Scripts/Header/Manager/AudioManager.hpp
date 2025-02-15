@@ -36,8 +36,8 @@ void AudioManager::PlaySFX(SoundResID _id)
 AudioManager::AudioManager()
 {
 	//获取音频资源
-	musicPool = &ResourceManager::GetInstance()->GetMusicPool();
-	soundPool = &ResourceManager::GetInstance()->GetSoundPool();
+	musicPool = &ResourceManager::Instance()->GetMusicPool();
+	soundPool = &ResourceManager::Instance()->GetSoundPool();
 }
 
 #endif

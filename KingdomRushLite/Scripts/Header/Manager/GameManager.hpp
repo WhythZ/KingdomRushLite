@@ -112,7 +112,7 @@ GameManager::GameManager()
 
 	#pragma region LoadConfig
 	//加载配置文件（文件会被加载到这个指针指向的单例管理器上）
-	ConfigManager* _config = ConfigManager::GetInstance();
+	ConfigManager* _config = ConfigManager::Instance();
 	//使用初始化断言，加载地图文件、主配置文件（其内包含窗口配置信息，故而放在窗口初始化之前）、关卡文件
 	InitAssert(_config->map.Load("Data/map.csv"), u8"Failed To Load map.csv");
 	InitAssert(_config->LoadConfig("Data/config.json"), u8"Failed To Load config.json");
@@ -139,7 +139,7 @@ GameManager::GameManager()
 	#pragma endregion
 
 	//加载资源
-	InitAssert(ResourceManager::GetInstance()->LoadResource(renderer), u8"Failed To Load Resources");
+	InitAssert(ResourceManager::Instance()->LoadResource(renderer), u8"Failed To Load Resources");
 
 	//生成瓦片地图纹理
 	InitAssert(GenerateTileMapTexture(), u8"Failed To Genrate TileMap Texture");
@@ -185,10 +185,10 @@ void GameManager::OnInput()
 void GameManager::OnUpdate(double _delta)
 {
 	//游戏没结束才会进行下列管理器的更新
-	if (!GameProgressManager::GetInstance()->isGameOver)
+	if (!GameProgressManager::Instance()->isGameOver)
 	{
-		WaveManager::GetInstance()->OnUpdate(_delta);
-		EnemyManager::GetInstance()->OnUpdate(_delta);
+		WaveManager::Instance()->OnUpdate(_delta);
+		EnemyManager::Instance()->OnUpdate(_delta);
 	}
 }
 
@@ -196,20 +196,20 @@ void GameManager::OnRender()
 {
 	#pragma region GameWindow
 	//用于从目标窗口中切割出一块区域，用于塞入mapTexture的画面内容
-	SDL_Rect _dst = ConfigManager::GetInstance()->mapRect;
+	SDL_Rect _dst = ConfigManager::Instance()->mapRect;
 	//将mapTexture渲染在_dst从窗口中切割出的区域内
 	SDL_RenderCopy(renderer, mapTexture, nullptr, &_dst);
 	#pragma endregion
 
 	//渲染敌人
-	EnemyManager::GetInstance()->OnRender(renderer);
+	EnemyManager::Instance()->OnRender(renderer);
 }
 
 bool GameManager::GenerateTileMapTexture()
 {
 	#pragma region PrepareMapTextureCanvas
 	//获取游戏的地图与瓦片地图的常引用
-	const Map& _map = ConfigManager::GetInstance()->map;
+	const Map& _map = ConfigManager::Instance()->map;
 	const TileMap& _tileMap = _map.GetTileMap();
 
 	//最终渲染出的瓦片地图的纹理宽高
@@ -226,12 +226,12 @@ bool GameManager::GenerateTileMapTexture()
 
 	#pragma region PrepareMapRect
 	//直接修改配置管理器的mapRect成员，在此函数中仅做写操作，其读操作在函数On_Render()中进行，用于指定切割mapTexture在窗口中的渲染位置
-	SDL_Rect& _mapRect = ConfigManager::GetInstance()->mapRect;
+	SDL_Rect& _mapRect = ConfigManager::Instance()->mapRect;
 
 	//更改配置文件中的地图纹理的渲染位置（SDL_Rect对象：成员x和y表示纹理图片的矩形左上角顶点的坐标、成员w和h表示矩形的宽高）
 	//利用定义好的（固定的）窗口宽度减去嵌在窗口中间的矩形地图的宽度（参考“回”字的结构）后再除以2即可得到地图纹理矩形左上定点的横坐标，纵坐标同理
-	_mapRect.x = (ConfigManager::GetInstance()->basicPrefab.windowWidth - _tileMapWidth) / 2;
-	_mapRect.y = (ConfigManager::GetInstance()->basicPrefab.windowHeight - _tileMapHeight) / 2;
+	_mapRect.x = (ConfigManager::Instance()->basicPrefab.windowWidth - _tileMapWidth) / 2;
+	_mapRect.y = (ConfigManager::Instance()->basicPrefab.windowHeight - _tileMapHeight) / 2;
 	//宽高的值是绝对的（x和y坐标表示的点的位置是相对于窗口的），所以直接赋值即可
 	_mapRect.w = _tileMapWidth;
 	_mapRect.h = _tileMapHeight;
@@ -247,7 +247,7 @@ bool GameManager::GenerateTileMapTexture()
 	//不能用ResourceManager::GetInstance()->GetSpritePool()[SpriteResID::Tile_TileSet]获取池内的资源对象
 	//因为若池内没有目标ID的话，unordered_map就会创建一个，而GetSpritePool()返回的是const的资源池，是不允许上述可能产生的更改的
 	//而函数find(XXX)返回的就是以XXX为键的键值对，->second指的是取出该键值对的值
-	SDL_Texture* _tileSetTexture = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Tile_TileSet)->second;
+	SDL_Texture* _tileSetTexture = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Tile_TileSet)->second;
 
 	//存储TileSet的宽高
 	int _tileSetWidth, _tileSetHeight;
@@ -328,7 +328,7 @@ bool GameManager::GenerateTileMapTexture()
 		TILE_SIZE, TILE_SIZE
 	};
 	//如果家的瓦片纹理在TileSet中，就需要从中寻找，但我们已经将其提取出来放到资源池里了，就可以直接用
-	SDL_Texture* _homeSrc = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Tile_Home)->second;
+	SDL_Texture* _homeSrc = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Tile_Home)->second;
 	SDL_RenderCopy(renderer, _homeSrc, nullptr, &_homeDst);
 	#pragma endregion
 

@@ -19,10 +19,10 @@ Skeleton::Skeleton()
 	type = EnemyType::Skeleton;
 
 	//获取配置数据
-	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::GetInstance()->skeletonPrefab;
+	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::Instance()->skeletonPrefab;
 	//获取纹理
-	static SDL_Texture* _sprite = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Enemy_Skeleton)->second;
-	static SDL_Texture* _spriteSketch = ResourceManager::GetInstance()->GetTexturePool().find(TextureResID::Enemy_Skeleton_Sketch)->second;
+	static SDL_Texture* _sprite = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Enemy_Skeleton)->second;
+	static SDL_Texture* _spriteSketch = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Enemy_Skeleton_Sketch)->second;
 
 	#pragma region SetAnimation
 	static const std::vector<int> _spriteIdxListDown = { 0,1,2,3,4,5 };
