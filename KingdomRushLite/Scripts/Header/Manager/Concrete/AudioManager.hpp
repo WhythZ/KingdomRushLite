@@ -2,7 +2,7 @@
 #define _AUDIO_MANAGER_HPP_
 
 #include <vector>
-#include "Manager.hpp"
+#include "../Manager.hpp"
 #include "ResourceManager.hpp"
 
 class AudioManager :public Manager<AudioManager>

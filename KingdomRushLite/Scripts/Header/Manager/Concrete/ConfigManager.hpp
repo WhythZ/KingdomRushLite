@@ -7,9 +7,9 @@
 #include <string>
 #include <cJSON.h>
 #include <SDL.h>
-#include "Manager.hpp"
-#include "../Map/Map.hpp"
-#include "../Enemy/Wave.hpp"
+#include "../Manager.hpp"
+#include "../../Map/Map.hpp"
+#include "../../Enemy/Wave.hpp"
 
 //防御塔最高等级
 #define TOWER_MAX_LEVEL 10

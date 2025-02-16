@@ -3,7 +3,7 @@
 
 #include "../Math/Vector2.hpp"
 #include "../Animation/Animation.hpp"
-#include "../Manager/ConfigManager.hpp"
+#include "../Manager/Concrete/ConfigManager.hpp"
 #include "../Enemy/Enemy.hpp"
 
 class Bullet

@@ -3,16 +3,16 @@
 
 #include <vector>
 #include <SDL.h>
-#include "Manager.hpp"
+#include "../Manager.hpp"
 #include "ConfigManager.hpp"
 #include "HomeManager.hpp"
 #include "AudioManager.hpp"
-#include "../Enemy/Enemy.hpp"
-#include "../Enemy/Concrete/Slime.hpp"
-#include "../Enemy/Concrete/SlimeKing.hpp"
-#include "../Enemy/Concrete/Skeleton.hpp"
-#include "../Enemy/Concrete/Goblin.hpp"
-#include "../Enemy/Concrete/GoblinPriest.hpp"
+#include "../../Enemy/Enemy.hpp"
+#include "../../Enemy/Concrete/Slime.hpp"
+#include "../../Enemy/Concrete/SlimeKing.hpp"
+#include "../../Enemy/Concrete/Skeleton.hpp"
+#include "../../Enemy/Concrete/Goblin.hpp"
+#include "../../Enemy/Concrete/GoblinPriest.hpp"
 
 class EnemyManager :public Manager<EnemyManager>
 {

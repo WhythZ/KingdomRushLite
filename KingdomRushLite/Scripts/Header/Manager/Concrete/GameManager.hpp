@@ -10,7 +10,7 @@
 //混音支持
 #include <SDL_mixer.h>
 //基类与其它管理器类
-#include "Manager.hpp"
+#include "../Manager.hpp"
 #include "GameProgressManager.hpp"
 #include "ConfigManager.hpp"
 #include "ResourceManager.hpp"

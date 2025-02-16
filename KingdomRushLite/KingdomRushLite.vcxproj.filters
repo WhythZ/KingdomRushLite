@@ -37,6 +37,12 @@
     <Filter Include="头文件\Bullet">
       <UniqueIdentifier>{53df255b-f1a3-44cd-b7d0-38ce5fdc0248}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Bullet\Concrete">
+      <UniqueIdentifier>{e315cc9a-11e2-48fc-a9fc-9dec23346c3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Manager\Concrete">
+      <UniqueIdentifier>{4d82f41f-7f84-49b6-9ac8-47b4c4fc45c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -47,17 +53,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Scripts\Header\Manager\GameManager.hpp">
-      <Filter>头文件\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\Header\Map\Tile.hpp">
       <Filter>头文件\Map</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Map\Map.hpp">
       <Filter>头文件\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\ConfigManager.hpp">
-      <Filter>头文件\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp">
       <Filter>头文件\Manager</Filter>
@@ -73,9 +73,6 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Map\Route.hpp">
       <Filter>头文件\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\ResourceManager.hpp">
-      <Filter>头文件\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Animation\Animation.hpp">
       <Filter>头文件\Animation</Filter>
@@ -98,29 +95,47 @@
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Slime.hpp">
       <Filter>头文件\Enemy\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\EnemyManager.hpp">
-      <Filter>头文件\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\AudioManager.hpp">
-      <Filter>头文件\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\HomeManager.hpp">
-      <Filter>头文件\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\WaveManager.hpp">
-      <Filter>头文件\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\CoinManager.hpp">
-      <Filter>头文件\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\GameProgressManager.hpp">
-      <Filter>头文件\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\Header\Bullet\Bullet.hpp">
       <Filter>头文件\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Math\Timer.hpp">
-      <Filter>头文件\Bullet</Filter>
+      <Filter>头文件\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Bullet\Concrete\Arrow.hpp">
+      <Filter>头文件\Bullet\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Bullet\Concrete\Axe.hpp">
+      <Filter>头文件\Bullet\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Bullet\Concrete\Shell.hpp">
+      <Filter>头文件\Bullet\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\WaveManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\AudioManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\CoinManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\ConfigManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\EnemyManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\GameManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\GameProgressManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\HomeManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\ResourceManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #ifndef _COIN_MANAGER_HPP_
 #define _COIN_MANAGER_HPP_
 
-#include "Manager.hpp"
+#include "../Manager.hpp"
 
 class CoinManager :public Manager<CoinManager>
 {

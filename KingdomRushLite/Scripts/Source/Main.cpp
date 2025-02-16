@@ -11,7 +11,7 @@
 //用于解析JSON文件
 #include <cJSON.h>
 //游戏主管理器
-#include "../Header/Manager/GameManager.hpp"
+#include "../Header/Manager/Concrete/GameManager.hpp"
 
 //将此宏定义，否则main函数在预处理阶段会被define为SDL_main
 #define SDL_MAIN_HANDLED

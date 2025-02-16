@@ -1,8 +1,8 @@
 #ifndef _WAVE_MANAGER_HPP_
 #define _WAVE_MANAGER_HPP_
 
-#include "Manager.hpp"
-#include "../Math/Timer.hpp"
+#include "../Manager.hpp"
+#include "../../Math/Timer.hpp"
 #include "GameProgressManager.hpp"
 #include "ConfigManager.hpp"
 #include "EnemyManager.hpp"

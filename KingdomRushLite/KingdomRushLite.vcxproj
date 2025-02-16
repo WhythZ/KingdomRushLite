@@ -24,7 +24,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Animation\Animation.hpp" />
+    <ClInclude Include="Scripts\Header\Bullet\Concrete\Arrow.hpp" />
+    <ClInclude Include="Scripts\Header\Bullet\Concrete\Axe.hpp" />
     <ClInclude Include="Scripts\Header\Bullet\Bullet.hpp" />
+    <ClInclude Include="Scripts\Header\Bullet\Concrete\Shell.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Goblin.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Concrete\SlimeKing.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Concrete\GoblinPriest.hpp" />
@@ -32,16 +35,16 @@
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Slime.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Enemy.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\EnemyType.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\AudioManager.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\CoinManager.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\ConfigManager.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\EnemyManager.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\GameManager.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\GameProgressManager.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\HomeManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\AudioManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\CoinManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\ConfigManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\EnemyManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\GameManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\GameProgressManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\HomeManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\ResourceManager.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\WaveManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\ResourceManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\WaveManager.hpp" />
     <ClInclude Include="Scripts\Header\Map\Map.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\Wave.hpp" />
     <ClInclude Include="Scripts\Header\Map\Route.hpp" />

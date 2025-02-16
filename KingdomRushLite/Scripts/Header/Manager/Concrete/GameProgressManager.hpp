@@ -1,7 +1,7 @@
 #ifndef _GAME_PROGRESS_MANAGER_HPP_
 #define _GAME_PROGRESS_MANAGER_HPP_
 
-#include "Manager.hpp"
+#include "../Manager.hpp"
 
 class GameProgressManager :public Manager<GameProgressManager>
 {

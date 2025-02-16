@@ -7,8 +7,8 @@
 #include "../Math/Timer.hpp"
 #include "../Map/Route.hpp"
 #include "EnemyType.hpp"
-#include "../Manager/ConfigManager.hpp"
-#include "../Manager/ResourceManager.hpp"
+#include "../Manager/Concrete/ConfigManager.hpp"
+#include "../Manager/Concrete/ResourceManager.hpp"
 
 //怪物减速丢失的速度（单位：每格瓦片）
 #define SLOW_DOWN_SPEED_LOST 0.5

@@ -1,7 +1,7 @@
 #ifndef _HOME_MANAGER_HPP_
 #define _HOME_MANAGER_HPP_
 
-#include "Manager.hpp"
+#include "../Manager.hpp"
 #include "ConfigManager.hpp"
 #include "AudioManager.hpp"
 

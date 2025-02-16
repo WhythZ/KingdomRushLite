@@ -5,7 +5,7 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
-#include "Manager.hpp"
+#include "../Manager.hpp"
 
 //图像资源、音频资源、字体资源
 enum TextureResID

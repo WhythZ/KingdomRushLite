@@ -3,8 +3,8 @@
 
 #include "../Enemy.hpp"
 #include "../EnemyType.hpp"
-#include "../../Manager/ConfigManager.hpp"
-#include "../../Manager/ResourceManager.hpp"
+#include "../../Manager/Concrete/ConfigManager.hpp"
+#include "../../Manager/Concrete/ResourceManager.hpp"
 
 class Slime :public Enemy
 {
