@@ -50,7 +50,7 @@ Animation::Animation()
 	timer.SetOneShot(false);
 
 	//设置帧间隔，此处采用默认帧间隔
-	this->SetFrameInterval(FRAME_INTERVAL);
+	this->SetFrameInterval();
 
 	//使用匿名函数设置计时器使用的回调函数（每帧动画结束后都会触发该函数）
 	//内部嵌入了每个Animation对象自身的回调函数（仅在动画最后一帧播放后触发该函数）
@@ -126,7 +126,7 @@ void Animation::SetLoop(bool _loop)
 	isLoop = _loop;
 }
 
-void Animation::SetFrameInterval(double _time)
+void Animation::SetFrameInterval(double _time = FRAME_INTERVAL)
 {
 	timer.SetWaitTime(_time);
 }

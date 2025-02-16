@@ -3,14 +3,21 @@
 
 #include "../Bullet.hpp"
 
-class Shell : Bullet
+class Shell : public Bullet
 {
 public:
-	Shell() = default;
+	Shell();
 	~Shell() = default;
 
-private:
-
+	void OnCollide(Enemy*) override;
 };
+
+Shell::Shell()
+{
+}
+
+void Shell::OnCollide(Enemy*)
+{
+}
 
 #endif
