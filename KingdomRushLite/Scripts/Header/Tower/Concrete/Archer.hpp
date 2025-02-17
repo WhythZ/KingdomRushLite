@@ -81,7 +81,6 @@ void Archer::OnFireBullet()
 		AudioManager::Instance()->PlaySFX(SoundResID::Arrow_Shoot_2);
 		break;
 	default:
-		break;
 	}
 }
 

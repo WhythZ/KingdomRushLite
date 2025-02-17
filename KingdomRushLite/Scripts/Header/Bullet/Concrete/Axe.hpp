@@ -48,7 +48,6 @@ void Axe::OnCollide(Enemy* _enemy)
 		AudioManager::Instance()->PlaySFX(SoundResID::Axe_Hit_3);
 		break;
 	default:
-		break;
 	}
 
 	#pragma region Effect

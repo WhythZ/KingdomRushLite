@@ -26,7 +26,7 @@ public:
 	~Map() = default;
 
 	bool Load(const std::string&);                      //从指定路径加载瓦片地图CSV文件，并返回成功与否
-	void PlaceTowerAt(const SDL_Point&);                //放置防御塔的方法
+	void MarkTowerExistenceAt(const SDL_Point&);        //标记防御塔在特定瓦片处
 	const TileMap& GetTileMap() const;                  //获取瓦片地图的常引用
 	const SDL_Point& GetHomePoint() const;              //获取家瓦片的位置常引用
 	const RoutePool& GetSpawnRoutePool() const;         //获取刷怪点路径池的常引用
@@ -100,7 +100,7 @@ bool Map::Load(const std::string& _csvPath)
 	return true;
 }
 
-void Map::PlaceTowerAt(const SDL_Point& _tileIdx)
+void Map::MarkTowerExistenceAt(const SDL_Point& _tileIdx)
 {
 	//注意先索引y再索引x
 	tileMap[_tileIdx.y][_tileIdx.x].hasTower = true;

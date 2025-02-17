@@ -77,34 +77,7 @@ bool EnemyManager::IsEnemyCleaned() const
 
 void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 {
-	//临时用于存储位置信息
-	static Vector2 _pos;
-	//获取地图Rect用于定位
-	static const SDL_Rect& _mapRect = ConfigManager::Instance()->mapRect;
-
-	#pragma region LocateSpawnPosition
-	//获取生成路径池，用于索引具体的出生点
-	static const RoutePool& _spawnRoutePool = ConfigManager::Instance()->map.GetSpawnRoutePool();
-	//获取_spawnPointIdx在路径池中对应的对象，需要检测其是否为空对象（当输入的索引超出路径总数就会产生这个问题）
-	const auto& _itr = _spawnRoutePool.find(_spawnPointIdx);
-	//若指向end()这个无效的位置（该迭代器指向列表的最后一个元素的后一个位置）则说明传入的索引是错误的
-	if (_itr == _spawnRoutePool.end())
-	{
-		//std::cout << "Invalid SpawnPointIdx\n";
-		return;
-	}
-	//获取生成路径
-	const Route& _route = _itr->second;
-
-	//获取传入编号对应的生成路径上的瓦片坐标点索引列表
-	const Route::TilePointList _tilePointList = _route.GetTilePointList();
-
-	//计算怪物应当被生成到的位置（相对游戏窗口的实际坐标）
-	_pos.x = _mapRect.x + _tilePointList[0].x * TILE_SIZE + TILE_SIZE / 2;
-	_pos.y = _mapRect.y + _tilePointList[0].y * TILE_SIZE + TILE_SIZE / 2;
-	#pragma endregion
-
-	#pragma region CreateEnemyObject
+	#pragma region Instantiate
 	//生成怪物对象
 	Enemy* _enemy = nullptr;
 	//确定怪物类型
@@ -126,12 +99,42 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 		_enemy = new GoblinPriest();
 		break;
 	default:
-		break;
 	}
+	//若指定类型无效使得指针仍未指向实例化的对象，则停止生成
+	if (_enemy == nullptr)
+		return;
+	#pragma endregion
 
+	#pragma region LocateSpawnPosition
+	//临时用于存储位置信息
+	static Vector2 _pos;
+	//获取地图Rect用于定位
+	static const SDL_Rect& _mapRect = ConfigManager::Instance()->mapRect;
+
+	//获取生成路径池，用于索引具体的出生点
+	static const RoutePool& _spawnRoutePool = ConfigManager::Instance()->map.GetSpawnRoutePool();
+	//获取_spawnPointIdx在路径池中对应的对象，需要检测其是否为空对象（当输入的索引超出路径总数就会产生这个问题）
+	const auto& _itr = _spawnRoutePool.find(_spawnPointIdx);
+	//若指向end()这个无效的位置（该迭代器指向列表的最后一个元素的后一个位置）则说明传入的索引是错误的
+	if (_itr == _spawnRoutePool.end())
+	{
+		//std::cout << "Invalid SpawnPointIdx\n";
+		return;
+	}
+	//获取生成路径
+	const Route& _route = _itr->second;
+
+	//获取传入编号对应的生成路径上的瓦片坐标点索引列表
+	const Route::TilePointList _tilePointList = _route.GetTilePointList();
+
+	//计算怪物应当被生成到的位置（相对游戏窗口的实际坐标）
+	_pos.x = _mapRect.x + _tilePointList[0].x * TILE_SIZE + TILE_SIZE / 2;
+	_pos.y = _mapRect.y + _tilePointList[0].y * TILE_SIZE + TILE_SIZE / 2;
+	
 	//实际设置怪物的初始位置与行进路径
 	_enemy->SetRoute(&_route);
 	_enemy->SetPosition(_pos);
+	#pragma endregion
 
 	//设置怪物的技能
 	_enemy->SetRecoverSkillTrigger(
@@ -158,13 +161,12 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 			}
 		}
 	);
-	#pragma endregion
-
-	//std::cout << "_tilePointList.size()=" << _tilePointList.size() << "\n";
-	//std::cout << "SpawnEnemy=" << _type << ", SpawnPositon=" << _pos << ", Route=" << _route << "\n";
 
 	//将怪物添加到统计列表
 	enemyList.push_back(_enemy);
+
+	//std::cout << "_tilePointList.size()=" << _tilePointList.size() << "\n";
+	//std::cout << "SpawnEnemy=" << _type << ", SpawnPositon=" << _pos << ", Route=" << _route << "\n";
 }
 
 const EnemyManager::EnemyList& EnemyManager::GetEnemyList() const

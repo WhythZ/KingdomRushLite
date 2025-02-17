@@ -218,7 +218,6 @@ void Tower::UpdateIdleAnim()
 		animCurrent = &animIdleRight;
 		break;
 	default:
-		break;
 	}
 }
 
@@ -239,7 +238,6 @@ void Tower::UpdateFireAnim()
 		animCurrent = &animFireRight;
 		break;
 	default:
-		break;
 	}
 }
 

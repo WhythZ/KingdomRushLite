@@ -51,7 +51,6 @@ void Arrow::OnCollide(Enemy* _enemy)
 		AudioManager::Instance()->PlaySFX(SoundResID::Arrow_Hit_3);
 		break;
 	default:
-		break;
 	}
 }
 

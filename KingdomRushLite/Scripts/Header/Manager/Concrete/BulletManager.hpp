@@ -55,8 +55,6 @@ void BulletManager::OnRender(SDL_Renderer* _renderer)
 void BulletManager::FireBullet(BulletType _type, const Vector2& _position, const Vector2& _velocity, double _damager)
 {
 	Bullet* _bullet = nullptr;
-	
-	//开辟子弹子类实例
 	switch (_type)
 	{
 	case BulletType::Arrow:
@@ -69,8 +67,9 @@ void BulletManager::FireBullet(BulletType _type, const Vector2& _position, const
 		_bullet = new Shell();
 		break;
 	default:
-		break;
 	}
+	if (_bullet == nullptr)
+		return;
 
 	//设置子弹初始发射位置、速度、伤害
 	_bullet->SetPosition(_position);
