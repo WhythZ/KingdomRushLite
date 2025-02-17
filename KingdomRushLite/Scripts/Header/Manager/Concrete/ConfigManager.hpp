@@ -75,19 +75,22 @@ public:
 		double recoverIntensity = 25;
 	};
 
+public:
 	#pragma region Loaded
 	BasicConfigPrefab basicPrefab;         //存储基本配置信息
 	PlayerConfigPrefab playerPrefab;       //存储玩家配置信息
 
-	TowerConfigPrefab archerPrefab;
-	TowerConfigPrefab axemanPrefab;
-	TowerConfigPrefab gunnerPrefab;
+	std::vector<Wave> waveList;            //怪物波次列表
 
-	EnemyConfigPrefab slimePrefab;
-	EnemyConfigPrefab slimeKingPrefab;
-	EnemyConfigPrefab skeletonPrefab;
-	EnemyConfigPrefab goblinPrefab;
-	EnemyConfigPrefab goblinPriestPrefab;
+	TowerConfigPrefab archerPrefab;        //存储弓箭手配置信息
+	TowerConfigPrefab axemanPrefab;        //存储投斧手配置信息
+	TowerConfigPrefab gunnerPrefab;        //存储枪炮手配置信息
+
+	EnemyConfigPrefab slimePrefab;         //存储史莱姆配置信息
+	EnemyConfigPrefab slimeKingPrefab;     //存储史莱姆王配置信息
+	EnemyConfigPrefab skeletonPrefab;      //存储骷髅配置信息
+	EnemyConfigPrefab goblinPrefab;        //存储哥布林配置信息
+	EnemyConfigPrefab goblinPriestPrefab;  //存储哥布林祭司配置信息
 	#pragma endregion
 
 	#pragma region Coin
@@ -95,13 +98,7 @@ public:
 	const int pickCoinNum = 10;            //每拾取一个金币增加的金币数量常量
 	#pragma endregion
 
-	#pragma region Map
-	Map map;                               //游戏地图
-	SDL_Rect mapRect = { 0 };              //地图矩形渲染在游戏窗口内的位置与长宽
-	#pragma endregion
-
 	const double initHomeHP = 10;          //家的初始默认血量常量
-	std::vector<Wave> waveList;            //怪物波次列表
 
 public:
 	bool LoadConfig(const std::string&);   //加载游戏的各项基本设置（json）

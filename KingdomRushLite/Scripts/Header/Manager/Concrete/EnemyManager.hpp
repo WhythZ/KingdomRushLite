@@ -6,7 +6,6 @@
 
 #include "../Manager.hpp"
 #include "ConfigManager.hpp"
-#include "HomeManager.hpp"
 #include "AudioManager.hpp"
 #include "../../Enemy/Enemy.hpp"
 #include "../../Enemy/Concrete/Slime.hpp"
@@ -99,6 +98,7 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 		_enemy = new GoblinPriest();
 		break;
 	default:
+		break;
 	}
 	//若指定类型无效使得指针仍未指向实例化的对象，则停止生成
 	if (_enemy == nullptr)
@@ -109,10 +109,10 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 	//临时用于存储位置信息
 	static Vector2 _pos;
 	//获取地图Rect用于定位
-	static const SDL_Rect& _mapRect = ConfigManager::Instance()->mapRect;
+	static const SDL_Rect& _mapRect = ProcessManager::Instance()->mapRect;
 
 	//获取生成路径池，用于索引具体的出生点
-	static const RoutePool& _spawnRoutePool = ConfigManager::Instance()->map.GetSpawnRoutePool();
+	static const RoutePool& _spawnRoutePool = ProcessManager::Instance()->map.GetSpawnRoutePool();
 	//获取_spawnPointIdx在路径池中对应的对象，需要检测其是否为空对象（当输入的索引超出路径总数就会产生这个问题）
 	const auto& _itr = _spawnRoutePool.find(_spawnPointIdx);
 	//若指向end()这个无效的位置（该迭代器指向列表的最后一个元素的后一个位置）则说明传入的索引是错误的
@@ -184,9 +184,9 @@ void EnemyManager::ProcessCollisionBullet()
 {
 	#pragma region GetHomePosition
 	//获取家所在的瓦片坐标点
-	static const SDL_Point& _homePt = ConfigManager::Instance()->map.GetHomePoint();
+	static const SDL_Point& _homePt = ProcessManager::Instance()->map.GetHomePoint();
 	//获取瓦片地图相对于游戏窗口的渲染Rect
-	static const SDL_Rect& _mapRect = ConfigManager::Instance()->mapRect;
+	static const SDL_Rect& _mapRect = ProcessManager::Instance()->mapRect;
 	//通过上述两个东西，计算出家的贴图的左上角顶点的实际坐标（Vector2是连续的实际坐标点，而SDL_Point是离散的带单位的非实际坐标点）
 	static const Vector2 _homePos = {
 		(double)(_mapRect.x + _homePt.x * TILE_SIZE),
@@ -212,14 +212,13 @@ void EnemyManager::ProcessCollisionBullet()
 			//处死敌人
 			_enemy->Kill();
 			//计算伤害
-			HomeManager::Instance()->DecreaseHealthBy(_enemy->GetAttackDamage());
+			ProcessManager::Instance()->DecreaseHealthBy(_enemy->GetAttackDamage());
 		}
 	}
 }
 
 void EnemyManager::ProcessCollisionHome()
 {
-
 }
 
 void EnemyManager::RemoveDeadEnemies()

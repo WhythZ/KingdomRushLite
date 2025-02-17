@@ -70,7 +70,7 @@ void TowerManager::BuildTower(TowerType _type, const SDL_Point& _point)
 
 	//利用传入的离散点坐标，获取瓦片地图中对应的瓦片位置，将防御塔实际定位在该位置上
 	static Vector2 _position;
-	static const SDL_Rect& _mapRect = ConfigManager::Instance()->mapRect;
+	static const SDL_Rect& _mapRect = ProcessManager::Instance()->mapRect;
 	_position.x = _mapRect.x + _point.x * TILE_SIZE + TILE_SIZE / 2;
 	_position.x = _mapRect.y + _point.y * TILE_SIZE + TILE_SIZE / 2;
 	_tower->SetPosition(_position);
@@ -79,7 +79,7 @@ void TowerManager::BuildTower(TowerType _type, const SDL_Point& _point)
 	towerList.push_back(_tower);
 
 	//调用地图方法标记特定瓦片处已经存在防御塔
-	ConfigManager::Instance()->map.MarkTowerExistenceAt(_point);
+	ProcessManager::Instance()->map.MarkTowerExistenceAt(_point);
 
 	//播放放置防御塔的音效
 	AudioManager::Instance()->PlaySFX(SoundResID::Tower_Place);

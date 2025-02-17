@@ -7,8 +7,9 @@
 #include "../Math/Timer.hpp"
 #include "../Map/Route.hpp"
 #include "EnemyType.hpp"
-#include "../Manager/Concrete/ConfigManager.hpp"
+#include "../Manager/Concrete/ProcessManager.hpp"
 #include "../Manager/Concrete/ResourceManager.hpp"
+#include "../Manager/Concrete/ConfigManager.hpp"
 
 //怪物减速丢失的速度（单位：每格瓦片）
 #define SLOW_DOWN_SPEED_LOST 0.5
@@ -377,7 +378,7 @@ void Enemy::RefreshTargetTile()
 		//std::cout << "TargetTilePoint=" << "(" << _targetTilePoint.x << "," << _targetTilePoint.y << ")\n";
 
 		//获取静态的整个瓦片地图渲染在游戏窗口中的位置Rect，用于定位路径上的目标点相对游戏窗口的位置
-		static const SDL_Rect& _mapRect = ConfigManager::Instance()->mapRect;
+		static const SDL_Rect& _mapRect = ProcessManager::Instance()->mapRect;
 		//从地图左上角开始，依靠二维瓦片点的离散坐标寻找到（路径上的）目标瓦片左上顶点的具体坐标，再加上半个TILE_SIZE得到目标瓦片中心在游戏窗口上的坐标
 		targetTilePosition.x = _mapRect.x + (_targetTilePoint.x * TILE_SIZE) + TILE_SIZE / 2;
 		targetTilePosition.y = _mapRect.y + (_targetTilePoint.y * TILE_SIZE) + TILE_SIZE / 2;

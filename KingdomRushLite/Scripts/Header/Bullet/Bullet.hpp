@@ -88,7 +88,7 @@ void Bullet::OnUpdate(double _delta)
 	position += velocity * _delta;
 
 	//边缘检测，若子弹飞出地图（利用地图Rect进行检定）则及时清除
-	static const SDL_Rect _mapRect = ConfigManager::Instance()->mapRect;
+	static const SDL_Rect _mapRect = ProcessManager::Instance()->mapRect;
 	if (position.x <= _mapRect.x + size.x / 2
 		|| position.x >= _mapRect.x + _mapRect.w - size.x / 2
 		|| position.y >= _mapRect.y + size.y / 2

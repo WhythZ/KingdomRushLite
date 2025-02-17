@@ -111,10 +111,11 @@ GameManager::GameManager()
 	#pragma endregion
 
 	#pragma region LoadConfig
-	//加载配置文件（文件会被加载到这个指针指向的单例管理器上）
+	//加载配置文件（文件会被加载到这个指针指向的单例管理器上）与游戏进程文件
 	ConfigManager* _config = ConfigManager::Instance();
+	ProcessManager* _process = ProcessManager::Instance();
 	//使用初始化断言，加载地图文件、主配置文件（其内包含窗口配置信息，故而放在窗口初始化之前）、关卡文件
-	InitAssert(_config->map.Load("Data/map.csv"), u8"Failed To Load map.csv");
+	InitAssert(_process->map.Load("Data/map.csv"), u8"Failed To Load map.csv");
 	InitAssert(_config->LoadConfig("Data/config.json"), u8"Failed To Load config.json");
 	InitAssert(_config->LoadLevel("Data/level.json"), u8"Failed To Load level.json");
 	#pragma endregion
@@ -196,7 +197,7 @@ void GameManager::OnRender()
 {
 	#pragma region GameWindow
 	//用于从目标窗口中切割出一块区域，用于塞入mapTexture的画面内容
-	SDL_Rect _dst = ConfigManager::Instance()->mapRect;
+	SDL_Rect _dst = ProcessManager::Instance()->mapRect;
 	//将mapTexture渲染在_dst从窗口中切割出的区域内
 	SDL_RenderCopy(renderer, mapTexture, nullptr, &_dst);
 	#pragma endregion
@@ -209,7 +210,7 @@ bool GameManager::GenerateTileMapTexture()
 {
 	#pragma region PrepareMapTextureCanvas
 	//获取游戏的地图与瓦片地图的常引用
-	const Map& _map = ConfigManager::Instance()->map;
+	const Map& _map = ProcessManager::Instance()->map;
 	const TileMap& _tileMap = _map.GetTileMap();
 
 	//最终渲染出的瓦片地图的纹理宽高
@@ -225,8 +226,8 @@ bool GameManager::GenerateTileMapTexture()
 	#pragma endregion
 
 	#pragma region PrepareMapRect
-	//直接修改配置管理器的mapRect成员，在此函数中仅做写操作，其读操作在函数On_Render()中进行，用于指定切割mapTexture在窗口中的渲染位置
-	SDL_Rect& _mapRect = ConfigManager::Instance()->mapRect;
+	//直接修改mapRect，在此函数中仅做写操作，其读操作在函数OnRender()中进行，用于指定切割mapTexture在窗口中的渲染位置
+	SDL_Rect& _mapRect = ProcessManager::Instance()->mapRect;
 
 	//更改配置文件中的地图纹理的渲染位置（SDL_Rect对象：成员x和y表示纹理图片的矩形左上角顶点的坐标、成员w和h表示矩形的宽高）
 	//利用定义好的（固定的）窗口宽度减去嵌在窗口中间的矩形地图的宽度（参考“回”字的结构）后再除以2即可得到地图纹理矩形左上定点的横坐标，纵坐标同理

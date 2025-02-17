@@ -38,12 +38,10 @@
     <ClInclude Include="Scripts\Header\Enemy\EnemyType.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\AudioManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\BulletManager.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\Concrete\CoinManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\ConfigManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\EnemyManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\GameManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\ProcessManager.hpp" />
-    <ClInclude Include="Scripts\Header\Manager\Concrete\HomeManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\TowerManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\ResourceManager.hpp" />

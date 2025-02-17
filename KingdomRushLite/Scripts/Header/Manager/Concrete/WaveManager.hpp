@@ -6,8 +6,6 @@
 #include "ProcessManager.hpp"
 #include "ConfigManager.hpp"
 #include "EnemyManager.hpp"
-#include "HomeManager.hpp"
-#include "CoinManager.hpp"
 
 //波次管理器，每个波次由多个生成事件构成
 class WaveManager :public Manager<WaveManager>
@@ -36,7 +34,6 @@ private:
 void WaveManager::OnUpdate(double _delta)
 {
 	ProcessManager* _process = ProcessManager::Instance();
-	HomeManager* _home = HomeManager::Instance();
 
 	//如果游戏结束，就不需更新了
 	if (_process->isGameOver)
@@ -52,7 +49,7 @@ void WaveManager::OnUpdate(double _delta)
 	if (isWaveEnded && EnemyManager::Instance()->IsEnemyCleaned())
 	{
 		//发放波次奖励
-		CoinManager::Instance()->IncreaseCoinNumBy(waveList[waveIdx].rewards);
+		ProcessManager::Instance()->IncreaseCoinNumBy(waveList[waveIdx].rewards);
 
 		//递增波次索引（注意先发奖励再递增，否则会奖励错）
 		waveIdx++;
@@ -61,7 +58,7 @@ void WaveManager::OnUpdate(double _delta)
 		{
 			_process->isGameOver = true;
 			//如果家没了就输了，否则默认为赢
-			if (_home->GetCurrentHealth() <= 0)
+			if (_process->GetCurrentHealth() <= 0)
 				_process->isWin = false;
 		}
 		//还有剩余波次的话，那就重启波次计时器，准备开启下一波次
