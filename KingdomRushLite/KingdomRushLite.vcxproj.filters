@@ -134,7 +134,7 @@
     <ClInclude Include="Scripts\Header\Manager\Concrete\GameManager.hpp">
       <Filter>头文件\Manager\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\Concrete\GameProgressManager.hpp">
+    <ClInclude Include="Scripts\Header\Manager\Concrete\ProcessManager.hpp">
       <Filter>头文件\Manager\Concrete</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Manager\Concrete\HomeManager.hpp">

@@ -58,13 +58,13 @@ void Archer::UpdateBulletData()
 {
 	Tower::UpdateBulletData();
 
-	//获取配置管理器
-	static ConfigManager* _config = ConfigManager::Instance();
+	//获取防御塔管理器
+	static TowerManager* _manager = TowerManager::Instance();
 
 	//依据当前防御塔等级，获取对应的攻击间隔、攻击半径、伤害
-	fireCooldown = _config->archerPrefab.cooldown[_config->levelArcher];
-	fireRadius = _config->archerPrefab.viewRange[_config->levelArcher] * TILE_SIZE;
-	bulletDamage = _config->archerPrefab.damage[_config->levelArcher];
+	fireCooldown = _manager->GetFireCooldownOf(TowerType::Archer);
+	fireRadius = _manager->GetFireRadiusOf(TowerType::Archer);
+	bulletDamage = _manager->GetBulletDamageOf(TowerType::Archer);
 }
 
 void Archer::OnFireBullet()

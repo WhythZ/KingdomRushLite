@@ -11,7 +11,7 @@
 #include <SDL_mixer.h>
 //基类与其它管理器类
 #include "../Manager.hpp"
-#include "GameProgressManager.hpp"
+#include "ProcessManager.hpp"
 #include "ConfigManager.hpp"
 #include "ResourceManager.hpp"
 #include "WaveManager.hpp"
@@ -185,7 +185,7 @@ void GameManager::OnInput()
 void GameManager::OnUpdate(double _delta)
 {
 	//游戏没结束才会进行下列管理器的更新
-	if (!GameProgressManager::Instance()->isGameOver)
+	if (!ProcessManager::Instance()->isGameOver)
 	{
 		WaveManager::Instance()->OnUpdate(_delta);
 		EnemyManager::Instance()->OnUpdate(_delta);

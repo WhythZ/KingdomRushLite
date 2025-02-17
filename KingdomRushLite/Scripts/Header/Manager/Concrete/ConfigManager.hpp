@@ -75,7 +75,7 @@ public:
 		double recoverIntensity = 25;
 	};
 
-	#pragma region LoadedPrefabs
+	#pragma region Loaded
 	BasicConfigPrefab basicPrefab;         //存储基本配置信息
 	PlayerConfigPrefab playerPrefab;       //存储玩家配置信息
 
@@ -90,6 +90,11 @@ public:
 	EnemyConfigPrefab goblinPriestPrefab;
 	#pragma endregion
 
+	#pragma region Coin
+	const int initCoinNum = 100;           //初始的金币数量常量
+	const int pickCoinNum = 10;            //每拾取一个金币增加的金币数量常量
+	#pragma endregion
+
 	#pragma region Map
 	Map map;                               //游戏地图
 	SDL_Rect mapRect = { 0 };              //地图矩形渲染在游戏窗口内的位置与长宽
@@ -97,17 +102,6 @@ public:
 
 	const double initHomeHP = 10;          //家的初始默认血量常量
 	std::vector<Wave> waveList;            //怪物波次列表
-
-	#pragma region Tower
-	int levelArcher = 0;                   //弓箭塔等级（全局统一升级）
-	int levelAxeman = 0;                   //投斧手等级
-	int levelGunner = 0;                   //枪炮手等级
-	#pragma endregion
-
-	#pragma region Coin
-	const int initCoinNum = 100;           //初始的金币数量常量
-	const int pickCoinNum = 10;            //每拾取一个金币增加的金币数量常量
-	#pragma endregion
 
 public:
 	bool LoadConfig(const std::string&);   //加载游戏的各项基本设置（json）

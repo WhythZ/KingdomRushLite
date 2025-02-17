@@ -58,13 +58,13 @@ void Gunner::UpdateBulletData()
 {
 	Tower::UpdateBulletData();
 
-	//获取配置管理器
-	static ConfigManager* _config = ConfigManager::Instance();
+	//获取防御塔管理器
+	static TowerManager* _manager = TowerManager::Instance();
 
 	//依据当前防御塔等级，获取对应的攻击间隔、攻击半径、伤害
-	fireCooldown = _config->gunnerPrefab.cooldown[_config->levelGunner];
-	fireRadius = _config->gunnerPrefab.viewRange[_config->levelGunner] * TILE_SIZE;
-	bulletDamage = _config->gunnerPrefab.damage[_config->levelGunner];
+	fireCooldown = _manager->GetFireCooldownOf(TowerType::Gunner);
+	fireRadius = _manager->GetFireRadiusOf(TowerType::Gunner);
+	bulletDamage = _manager->GetBulletDamageOf(TowerType::Gunner);
 }
 
 void Gunner::OnFireBullet()

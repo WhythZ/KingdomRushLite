@@ -58,13 +58,13 @@ void Axeman::UpdateBulletData()
 {
 	Tower::UpdateBulletData();
 
-	//获取配置管理器
-	static ConfigManager* _config = ConfigManager::Instance();
+	//获取防御塔管理器
+	static TowerManager* _manager = TowerManager::Instance();
 
 	//依据当前防御塔等级，获取对应的攻击间隔、攻击半径、伤害
-	fireCooldown = _config->axemanPrefab.cooldown[_config->levelAxeman];
-	fireRadius = _config->axemanPrefab.viewRange[_config->levelAxeman] * TILE_SIZE;
-	bulletDamage = _config->axemanPrefab.damage[_config->levelAxeman];
+	fireCooldown = _manager->GetFireCooldownOf(TowerType::Axeman);
+	fireRadius = _manager->GetFireRadiusOf(TowerType::Axeman);
+	bulletDamage = _manager->GetBulletDamageOf(TowerType::Axeman);
 }
 
 void Axeman::OnFireBullet()

@@ -8,8 +8,6 @@
 #include "../Animation/Animation.hpp"
 #include "../Manager/Concrete/BulletManager.hpp"
 #include "../Manager/Concrete/EnemyManager.hpp"
-#include "../Manager/Concrete/ConfigManager.hpp"
-#include "../Manager/Concrete/ResourceManager.hpp"
 
 class Tower
 {

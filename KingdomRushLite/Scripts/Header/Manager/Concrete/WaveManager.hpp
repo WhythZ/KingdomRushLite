@@ -3,7 +3,7 @@
 
 #include "../Manager.hpp"
 #include "../../Math/Timer.hpp"
-#include "GameProgressManager.hpp"
+#include "ProcessManager.hpp"
 #include "ConfigManager.hpp"
 #include "EnemyManager.hpp"
 #include "HomeManager.hpp"
@@ -35,11 +35,11 @@ private:
 
 void WaveManager::OnUpdate(double _delta)
 {
-	GameProgressManager* _gp = GameProgressManager::Instance();
+	ProcessManager* _process = ProcessManager::Instance();
 	HomeManager* _home = HomeManager::Instance();
 
 	//如果游戏结束，就不需更新了
-	if (_gp->isGameOver)
+	if (_process->isGameOver)
 		return;
 
 	//若当前波次开始了，那就更新生成事件计时器，否则进行波次计时器的更新
@@ -59,10 +59,10 @@ void WaveManager::OnUpdate(double _delta)
 		//若超出范围，则说明所有波次结束，游戏结束
 		if (waveIdx >= waveList.size())
 		{
-			_gp->isGameOver = true;
+			_process->isGameOver = true;
 			//如果家没了就输了，否则默认为赢
 			if (_home->GetCurrentHealth() <= 0)
-				_gp->isWin = false;
+				_process->isWin = false;
 		}
 		//还有剩余波次的话，那就重启波次计时器，准备开启下一波次
 		else
