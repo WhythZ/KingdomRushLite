@@ -17,6 +17,9 @@ public:
 
 Arrow::Arrow()
 {
+	//设置子弹类型
+	type = BulletType::Arrow;
+
 	//获取图片资源并设置动画帧
 	static SDL_Texture* _animSprites = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Bullet_Arrow)->second;
 	static const std::vector<int> _animSpritesIdices = { 0, 1 };

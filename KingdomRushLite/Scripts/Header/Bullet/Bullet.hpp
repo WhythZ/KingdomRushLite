@@ -1,6 +1,7 @@
 #ifndef _BULLET_HPP_
 #define _BULLET_HPP_
 
+#include "BulletType.hpp"
 #include "../Math/Vector2.hpp"
 #include "../Animation/Animation.hpp"
 #include "../Manager/Concrete/ConfigManager.hpp"
@@ -9,6 +10,8 @@
 class Bullet
 {
 protected:
+	BulletType type = BulletType::None;     //子弹的类型
+
 	#pragma region Transform
 	Vector2 size;                           //子弹的尺寸
 	Vector2 position;                       //子弹的位置
@@ -33,7 +36,6 @@ private:
 public:
 	Bullet() = default;
 	~Bullet() = default;
-
 	void SetPosition(const Vector2&);       //设定子弹的发射位置
 	void SetVelocity(const Vector2&);       //设定子弹发射的速度向量
 	void SetDamage(double);                 //设定子弹命中敌人的伤害

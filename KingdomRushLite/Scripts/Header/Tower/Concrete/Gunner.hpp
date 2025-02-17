@@ -5,6 +5,15 @@
 
 class Gunner : public Tower
 {
+public:
+	Gunner();
+	~Gunner() = default;
 };
+
+Gunner::Gunner()
+{
+	//指定防御塔类型
+	type = TowerType::Gunner;
+}
 
 #endif

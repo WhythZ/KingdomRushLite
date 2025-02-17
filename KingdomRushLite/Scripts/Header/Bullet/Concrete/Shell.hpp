@@ -22,6 +22,9 @@ public:
 
 Shell::Shell()
 {
+	//设置子弹类型
+	type = BulletType::Shell;
+
 	//获取炮弹飞行的图片资源并设置动画帧
 	static SDL_Texture* _animFlyingSprites = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Bullet_Shell)->second;
 	static const std::vector<int> _animFlyingSpritesIdices = { 0, 1 };
@@ -35,7 +38,7 @@ Shell::Shell()
 	//炮弹动画并非循环，炸完就没了
 	animExploding.SetLoop(false);
 	//让炮弹动画结束时调用使炮弹消失的回调函数
-	animExploding.SetAnimOnFinished(
+	animExploding.SetOnAnimFinished(
 		[&]()
 		{
 			Invalidate();
@@ -81,7 +84,7 @@ void Shell::OnRender(SDL_Renderer* _renderer)
 	static SDL_Point _point;
 	_point.x = (int)(position.x - damageRange / 2);
 	_point.y = (int)(position.y - damageRange / 2);
-	animExploding.OnRender(_renderer, _point, 0);
+	animExploding.OnRender(_renderer, _point);
 	#pragma endregion
 }
 

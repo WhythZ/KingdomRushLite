@@ -52,6 +52,7 @@
     <ClInclude Include="Scripts\Header\Enemy\Wave.hpp" />
     <ClInclude Include="Scripts\Header\Map\Route.hpp" />
     <ClInclude Include="Scripts\Header\Map\Tile.hpp" />
+    <ClInclude Include="Scripts\Header\Math\FacingDir.hpp" />
     <ClInclude Include="Scripts\Header\Math\Timer.hpp" />
     <ClInclude Include="Scripts\Header\Math\Vector2.hpp" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Archer.hpp" />

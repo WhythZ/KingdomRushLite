@@ -17,6 +17,9 @@ public:
 
 Axe::Axe()
 {
+	//设置子弹类型
+	type = BulletType::Axe;
+
 	//获取图片资源并设置动画帧
 	static SDL_Texture* _animSprites = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Bullet_Axe)->second;
 	static const std::vector<int> _animSpritesIdices = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };

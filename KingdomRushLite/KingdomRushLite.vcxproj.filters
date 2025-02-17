@@ -167,5 +167,8 @@
     <ClInclude Include="Scripts\Header\Tower\Concrete\Archer.hpp">
       <Filter>头文件\Tower\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\Header\Math\FacingDir.hpp">
+      <Filter>头文件\Math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
