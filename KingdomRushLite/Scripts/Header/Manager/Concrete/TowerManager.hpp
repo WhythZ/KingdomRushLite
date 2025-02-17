@@ -34,8 +34,14 @@ public:
 
 private:
 	TowerManager() = default;
-	~TowerManager() = default;
+	~TowerManager();
 };
+
+TowerManager::~TowerManager()
+{
+	for (Tower* _tower : towerList)
+		delete _tower;
+}
 
 void TowerManager::OnUpdate(double _delta)
 {

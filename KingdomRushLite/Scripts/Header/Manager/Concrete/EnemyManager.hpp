@@ -23,26 +23,32 @@ public:
 	typedef std::vector<Enemy*> EnemyList;
 
 private:
-	EnemyList enemyList;               //当前在场上的怪物实例列表
+	EnemyList enemyList;                   //当前在场上的怪物实例列表
 
 public:
-	void OnUpdate(double);             //帧更新
-	void OnRender(SDL_Renderer*);      //图像渲染
+	void OnUpdate(double);                 //帧更新
+	void OnRender(SDL_Renderer*);          //图像渲染
 
-	bool IsEnemyCleaned() const;       //判断场上敌人是否清空
-	void SpawnEnemy(EnemyType, int);   //在某个出生点处生成敌人
+	void SpawnEnemy(EnemyType, int);       //在某个出生点处生成敌人
 
-	const EnemyList& GetEnemyList() const;
+	bool IsEnemyCleaned() const;           //判断场上敌人是否清空
+	const EnemyList& GetEnemyList() const; //获取场上敌人列表
 
 private:
 	EnemyManager() = default;
 	~EnemyManager();
 
-	void ProcessCollisionBullet();     //进行与投射物的碰撞的判定
-	void ProcessCollisionHome();       //进行与家的碰撞的判定
+	void ProcessCollisionBullet();         //进行与投射物的碰撞的判定
+	void ProcessCollisionHome();           //进行与家的碰撞的判定
 	
-	void RemoveDeadEnemies();          //移除掉死亡敌人
+	void RemoveDeadEnemies();              //移除掉死亡敌人
 };
+
+EnemyManager::~EnemyManager()
+{
+	for (Enemy* _enemy : enemyList)
+		delete _enemy;
+}
 
 void EnemyManager::OnUpdate(double _delta)
 {
@@ -67,11 +73,6 @@ void EnemyManager::OnRender(SDL_Renderer* _renderer)
 {
 	for (Enemy* _enemy : enemyList)
 		_enemy->OnRender(_renderer);
-}
-
-bool EnemyManager::IsEnemyCleaned() const
-{
-	return enemyList.empty();
 }
 
 void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
@@ -169,15 +170,14 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 	//std::cout << "SpawnEnemy=" << _type << ", SpawnPositon=" << _pos << ", Route=" << _route << "\n";
 }
 
+bool EnemyManager::IsEnemyCleaned() const
+{
+	return enemyList.empty();
+}
+
 const EnemyManager::EnemyList& EnemyManager::GetEnemyList() const
 {
 	return enemyList;
-}
-
-EnemyManager::~EnemyManager()
-{
-	for (Enemy* _enemy : enemyList)
-		delete _enemy;
 }
 
 void EnemyManager::ProcessCollisionBullet()

@@ -37,6 +37,12 @@ private:
 	void RemoveInvalidBullets();              //ÒÆ³ýÎÞÐ§×Óµ¯
 };
 
+BulletManager::~BulletManager()
+{
+	for (Bullet* _bullet : bulletList)
+		delete _bullet;
+}
+
 void BulletManager::OnUpdate(double _delta)
 {
 	for (Bullet* _bullet : bulletList)
@@ -83,12 +89,6 @@ void BulletManager::FireBullet(BulletType _type, const Vector2& _position, const
 const BulletManager::BulletList& BulletManager::GetBulletList() const
 {
 	return bulletList;
-}
-
-BulletManager::~BulletManager()
-{
-	for (Bullet* _bullet : bulletList)
-		delete _bullet;
 }
 
 void BulletManager::RemoveInvalidBullets()

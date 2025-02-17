@@ -31,48 +31,6 @@ private:
 	~WaveManager() = default;
 };
 
-void WaveManager::OnUpdate(double _delta)
-{
-	ProcessManager* _process = ProcessManager::Instance();
-
-	//如果游戏结束，就不需更新了
-	if (_process->isGameOver)
-		return;
-
-	//若当前波次开始了，那就更新生成事件计时器，否则进行波次计时器的更新
-	if (!isWaveStarted)
-		waveStartTimer.OnUpdate(_delta);
-	else
-		eventStartTimer.OnUpdate(_delta);
-
-	//若波次结束，不能立刻重置波次计时器生成下一波，得等场上敌人都清空了再开始
-	if (isWaveEnded && EnemyManager::Instance()->IsEnemyCleaned())
-	{
-		//发放波次奖励
-		ProcessManager::Instance()->IncreaseCoinNumBy(waveList[waveIdx].rewards);
-
-		//递增波次索引（注意先发奖励再递增，否则会奖励错）
-		waveIdx++;
-		//若超出范围，则说明所有波次结束，游戏结束
-		if (waveIdx >= waveList.size())
-		{
-			_process->isGameOver = true;
-			//如果家没了就输了，否则默认为赢
-			if (_process->GetCurrentHealth() <= 0)
-				_process->isWin = false;
-		}
-		//还有剩余波次的话，那就重启波次计时器，准备开启下一波次
-		else
-		{
-			//先重置生成事件索引
-			eventIdx = 0;
-			//然后获取新波器启动时间间隔，然后重启
-			waveStartTimer.SetWaitTime(waveList[waveIdx].interval);
-			waveStartTimer.Restart();
-		}
-	}
-}
-
 WaveManager::WaveManager()
 {
 	//获取波次列表
@@ -125,6 +83,48 @@ WaveManager::WaveManager()
 			eventStartTimer.Restart();
 		}
 	);
+}
+
+void WaveManager::OnUpdate(double _delta)
+{
+	ProcessManager* _process = ProcessManager::Instance();
+
+	//如果游戏结束，就不需更新了
+	if (_process->isGameOver)
+		return;
+
+	//若当前波次开始了，那就更新生成事件计时器，否则进行波次计时器的更新
+	if (!isWaveStarted)
+		waveStartTimer.OnUpdate(_delta);
+	else
+		eventStartTimer.OnUpdate(_delta);
+
+	//若波次结束，不能立刻重置波次计时器生成下一波，得等场上敌人都清空了再开始
+	if (isWaveEnded && EnemyManager::Instance()->IsEnemyCleaned())
+	{
+		//发放波次奖励
+		ProcessManager::Instance()->IncreaseCoinNumBy(waveList[waveIdx].rewards);
+
+		//递增波次索引（注意先发奖励再递增，否则会奖励错）
+		waveIdx++;
+		//若超出范围，则说明所有波次结束，游戏结束
+		if (waveIdx >= waveList.size())
+		{
+			_process->isGameOver = true;
+			//如果家没了就输了，否则默认为赢
+			if (_process->GetCurrentHealth() <= 0)
+				_process->isWin = false;
+		}
+		//还有剩余波次的话，那就重启波次计时器，准备开启下一波次
+		else
+		{
+			//先重置生成事件索引
+			eventIdx = 0;
+			//然后获取新波器启动时间间隔，然后重启
+			waveStartTimer.SetWaitTime(waveList[waveIdx].interval);
+			waveStartTimer.Restart();
+		}
+	}
 }
 
 #endif
