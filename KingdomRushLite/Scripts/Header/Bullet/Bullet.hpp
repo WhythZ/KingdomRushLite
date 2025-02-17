@@ -36,12 +36,12 @@ public:
 
 	void SetPosition(const Vector2&);       //设定子弹的发射位置
 	void SetVelocity(const Vector2&);       //设定子弹发射的速度向量
+	void SetDamage(double);                 //设定子弹命中敌人的伤害
 
 	virtual void OnUpdate(double);
 	virtual void OnRender(SDL_Renderer*);
 	virtual void OnCollide(Enemy*);         //子弹碰撞检测的函数
 
-	void RenewDamage(double);               //用于动态设定伤害，以迎合防御塔升级的需求
 	void DisableCollide();                  //取消子弹的可碰撞，以造成瞬时伤害而非持续伤害
 	void Invalidate();                      //使得子弹消失
 
@@ -70,6 +70,11 @@ void Bullet::SetVelocity(const Vector2& _velocity)
 		//转换为欧拉角度，此处暂时使用硬编码表示\pi
 		rotationAngle = _radian * 180 / 3.1415926;
 	}
+}
+
+void Bullet::SetDamage(double _damage)
+{
+	damage = _damage;
 }
 
 void Bullet::OnUpdate(double _delta)
@@ -109,11 +114,6 @@ void Bullet::OnCollide(Enemy* _enemy)
 	DisableCollide();
 
 	//对被碰撞到的敌人进行伤害检定
-}
-
-void Bullet::RenewDamage(double _damage)
-{
-	damage = _damage;
 }
 
 void Bullet::DisableCollide()

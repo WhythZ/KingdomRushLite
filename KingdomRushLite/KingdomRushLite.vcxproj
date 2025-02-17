@@ -24,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Animation\Animation.hpp" />
+    <ClInclude Include="Scripts\Header\Bullet\BulletType.hpp" />
     <ClInclude Include="Scripts\Header\Bullet\Concrete\Arrow.hpp" />
     <ClInclude Include="Scripts\Header\Bullet\Concrete\Axe.hpp" />
     <ClInclude Include="Scripts\Header\Bullet\Bullet.hpp" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Scripts\Header\Enemy\Enemy.hpp" />
     <ClInclude Include="Scripts\Header\Enemy\EnemyType.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\AudioManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\BulletManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\CoinManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\ConfigManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\EnemyManager.hpp" />

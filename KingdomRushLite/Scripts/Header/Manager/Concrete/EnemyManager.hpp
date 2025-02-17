@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <SDL.h>
+
 #include "../Manager.hpp"
 #include "ConfigManager.hpp"
 #include "HomeManager.hpp"

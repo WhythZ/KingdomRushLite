@@ -137,5 +137,11 @@
     <ClInclude Include="Scripts\Header\Manager\Concrete\ResourceManager.hpp">
       <Filter>头文件\Manager\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\BulletManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Bullet\BulletType.hpp">
+      <Filter>头文件\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
