@@ -186,7 +186,7 @@ void Tower::OnFireBullet()
 	#pragma endregion
 
 	#pragma region InstantiateBullet
-	//根据开火朝向实例化子弹，传入的速度向量记得乘上瓦片大小（这是配置文件中速率的定义所决定的）
+	//根据开火朝向实例化子弹，传入的速度向量记得乘上瓦片大小（这是由本工程中速率的定义所决定的）
 	BulletManager::Instance()->FireBullet(bulletType, this->position, _direction * bulletSpeed * TILE_SIZE, bulletDamage);
 	#pragma endregion
 }
@@ -255,7 +255,7 @@ Enemy* Tower::FindTargetEnemy()
 	for (Enemy* _enemy : _enemyList)
 	{
 		//确保敌人在攻击半径范围内
-		if ((_enemy->GetPosition() - this->position).Length() <= fireRadius * TILE_SIZE)
+		if ((_enemy->GetPosition() - this->position).Length() <= fireRadius)
 		{
 			//不断遍历更新最大完成度，最终得到路径完成度最大的怪物，其距离家门口最近
 			double _newProcess = _enemy->GetRouteProcess();

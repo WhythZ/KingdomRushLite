@@ -98,7 +98,7 @@ void Animation::SetAnimFrames(SDL_Texture* _spriteSheet, int _horizontalNum, int
 	//按索引逐个定义用于切割纹理的矩形
 	for (int i = 0; i < _idxList.size(); i++)
 	{
-		//假如SpriteSheet是3x3的，那么传入2表示第1行第3个，传入4表示第2行第2个
+		//假如SpriteSheet是4列3行的，那么传入2表示第1行第3个，传入5表示第2行第2个
 		int _idx = _idxList[i];
 		int _x = _idx % _horizontalNum;
 		int _y = _idx / _horizontalNum;
