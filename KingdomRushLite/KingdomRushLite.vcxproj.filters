@@ -43,6 +43,12 @@
     <Filter Include="头文件\Manager\Concrete">
       <UniqueIdentifier>{4d82f41f-7f84-49b6-9ac8-47b4c4fc45c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Tower">
+      <UniqueIdentifier>{377002d9-f708-4bb3-a443-68bc21a8961f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Tower\Concrete">
+      <UniqueIdentifier>{67760b45-db56-44e6-9c5f-586c5100f353}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -142,6 +148,24 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Bullet\BulletType.hpp">
       <Filter>头文件\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\TowerManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Tower\Tower.hpp">
+      <Filter>头文件\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Tower\TowerType.hpp">
+      <Filter>头文件\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Tower\Concrete\Gunner.hpp">
+      <Filter>头文件\Tower\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Tower\Concrete\Axeman.hpp">
+      <Filter>头文件\Tower\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Tower\Concrete\Archer.hpp">
+      <Filter>头文件\Tower\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

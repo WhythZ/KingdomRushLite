@@ -44,6 +44,7 @@
     <ClInclude Include="Scripts\Header\Manager\Concrete\GameManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\GameProgressManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\HomeManager.hpp" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\TowerManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\ResourceManager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\WaveManager.hpp" />
@@ -53,6 +54,11 @@
     <ClInclude Include="Scripts\Header\Map\Tile.hpp" />
     <ClInclude Include="Scripts\Header\Math\Timer.hpp" />
     <ClInclude Include="Scripts\Header\Math\Vector2.hpp" />
+    <ClInclude Include="Scripts\Header\Tower\Concrete\Archer.hpp" />
+    <ClInclude Include="Scripts\Header\Tower\Concrete\Axeman.hpp" />
+    <ClInclude Include="Scripts\Header\Tower\Concrete\Gunner.hpp" />
+    <ClInclude Include="Scripts\Header\Tower\Tower.hpp" />
+    <ClInclude Include="Scripts\Header\Tower\TowerType.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
