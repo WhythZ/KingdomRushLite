@@ -33,6 +33,8 @@ public:
 	bool IsEnemyCleaned() const;       //判断场上敌人是否清空
 	void SpawnEnemy(EnemyType, int);   //在某个出生点处生成敌人
 
+	const EnemyList& GetEnemyList() const;
+
 private:
 	EnemyManager() = default;
 	~EnemyManager();
@@ -88,7 +90,7 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 	//若指向end()这个无效的位置（该迭代器指向列表的最后一个元素的后一个位置）则说明传入的索引是错误的
 	if (_itr == _spawnRoutePool.end())
 	{
-		std::cout << "Invalid SpawnPointIdx\n";
+		//std::cout << "Invalid SpawnPointIdx\n";
 		return;
 	}
 	//获取生成路径
@@ -163,6 +165,11 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 
 	//将怪物添加到统计列表
 	enemyList.push_back(_enemy);
+}
+
+const EnemyManager::EnemyList& EnemyManager::GetEnemyList() const
+{
+	return enemyList;
 }
 
 EnemyManager::~EnemyManager()
