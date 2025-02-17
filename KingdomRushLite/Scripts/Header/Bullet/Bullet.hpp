@@ -74,6 +74,7 @@ void Bullet::SetVelocity(const Vector2& _velocity)
 
 void Bullet::OnUpdate(double _delta)
 {
+	//更新子弹飞行时的动画
 	animFlying.OnUpdate(_delta);
 
 	//按照速度向量更新子弹位置，并乘上单位时间使得实际移动速率与帧率无关

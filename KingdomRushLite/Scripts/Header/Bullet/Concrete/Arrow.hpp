@@ -20,8 +20,8 @@ Arrow::Arrow()
 	//获取图片资源并设置动画帧
 	static SDL_Texture* _animSprites = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Bullet_Arrow)->second;
 	static const std::vector<int> _animSpritesIdices = { 0, 1 };
-	animFlying.SetLoop(true);
 	animFlying.SetAnimFrames(_animSprites, 2, 1, _animSpritesIdices);
+	animFlying.SetLoop(true);
 
 	//箭的动画是需要有朝向的
 	canRotate = true;

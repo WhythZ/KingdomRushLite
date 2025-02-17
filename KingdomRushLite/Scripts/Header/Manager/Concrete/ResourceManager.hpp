@@ -19,7 +19,6 @@ enum TextureResID
 	VFX_Impact_Down,             //
 	VFX_Impact_Left,             //
 	VFX_Impact_Right,            //
-	VFX_Explode,                 //
 
 	Tile_TileSet,                //瓦片素材图集
 	Tile_Home,                   //家瓦片
@@ -32,6 +31,7 @@ enum TextureResID
 	Bullet_Arrow,                //弓箭投射物
 	Bullet_Axe,                  //斧子投射物
 	Bullet_Shell,                //炮弹投射物
+	Bullet_Shell_Explode,        //炮弹投射物爆炸
 
 	Enemy_Slime,                 //史莱姆帧动画
 	Enemy_SlimeKing,             //王史莱姆帧动画
@@ -186,7 +186,7 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 	texturePool[TextureResID::VFX_Impact_Down] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_down.png");
 	texturePool[TextureResID::VFX_Impact_Left] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_left.png");
 	texturePool[TextureResID::VFX_Impact_Right] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_right.png");
-	texturePool[TextureResID::VFX_Explode] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/explode.png");
+	texturePool[TextureResID::Bullet_Shell_Explode] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/explode.png");
 
 	texturePool[TextureResID::Tile_TileSet] = IMG_LoadTexture(_renderer, "Assets/Sprite/Tile/tileset.png");
 	texturePool[TextureResID::Tile_Home] = IMG_LoadTexture(_renderer, "Assets/Sprite/Tile/home.png");

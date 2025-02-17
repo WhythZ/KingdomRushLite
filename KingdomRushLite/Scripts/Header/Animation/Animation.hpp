@@ -33,7 +33,7 @@ public:
 
 	//设置动画素材；即以第四参数传入的索引列表截取传入的源SpriteSheet图片（二三参数位定义了其宽高帧图片个数）中的若干部分矩形纹理，以用作动画各帧
 	void SetAnimFrames(SDL_Texture*, int, int, const std::vector<int>&);
-	void SetAnimEndTrigger(std::function<void()>);   //设置动画播放结束的回调函数
+	void SetAnimOnFinished(std::function<void()>);   //设置动画播放结束的回调函数
 	void SetLoop(bool);                              //设置动画是否循环播放
 	void SetFrameInterval(double);                   //设置每帧动画播放的时间间隔，即定时器的waitTime
 
@@ -116,7 +116,7 @@ void Animation::SetAnimFrames(SDL_Texture* _spriteSheet, int _horizontalNum, int
 	}
 }
 
-void Animation::SetAnimEndTrigger(std::function<void()> _callBack)
+void Animation::SetAnimOnFinished(std::function<void()> _callBack)
 {
 	trigger = _callBack;
 }
