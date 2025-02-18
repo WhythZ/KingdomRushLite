@@ -3,7 +3,6 @@
 
 //#include <iostream>
 
-//敌人类型的枚举类
 enum class EnemyType
 {
 	None,

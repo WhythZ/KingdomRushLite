@@ -82,6 +82,18 @@
     <Filter Include="源文件\Tower\Concrete">
       <UniqueIdentifier>{f134d88d-c2f9-46d1-87fd-28de8221ef10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Drop">
+      <UniqueIdentifier>{74ec6501-924e-4f94-a583-fd58ce46638f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Drop">
+      <UniqueIdentifier>{279f0515-1787-4cce-ab6a-3bdcc2646f7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Drop\Concrete">
+      <UniqueIdentifier>{0cf36571-ca93-4a5b-9c84-51ba20009d25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Drop\Concrete">
+      <UniqueIdentifier>{532678d7-e208-4de7-8270-f481dbb44fbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -173,6 +185,15 @@
     </ClCompile>
     <ClCompile Include="Scripts\Source\Tower\Concrete\Gunner.cpp">
       <Filter>源文件\Tower\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Drop\Drop.cpp">
+      <Filter>源文件\Drop</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Drop\Concrete\Coin.cpp">
+      <Filter>源文件\Drop\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\DropManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +301,18 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Manager\Concrete\TowerManager.h">
       <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Drop\Concrete\Coin.h">
+      <Filter>头文件\Drop\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Drop\Drop.h">
+      <Filter>头文件\Drop</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\DropManager.h">
+      <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Drop\DropType.h">
+      <Filter>头文件\Drop</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
