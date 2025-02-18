@@ -24,7 +24,7 @@ protected:
 
 	#pragma region Animation
 	Animation animFlying;                   //子弹飞行时的动画
-	bool canRotate;                         //子弹是否可旋转对动画有影响
+	bool canRotate = false;                 //子弹是否可旋转对动画有影响
 	#pragma endregion
 
 private:

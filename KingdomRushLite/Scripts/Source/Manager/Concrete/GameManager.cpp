@@ -14,7 +14,11 @@
 
 int GameManager::Run(int _argc, char** _argv)
 {
-	//TowerManager::Instance()->BuildTower(TowerType::Archer, { 5,0 });
+	#pragma region TowerTesting
+	TowerManager::Instance()->BuildTower(TowerType::Archer, { 4,7 });
+	TowerManager::Instance()->BuildTower(TowerType::Axeman, { 5,7 });
+	TowerManager::Instance()->BuildTower(TowerType::Gunner, { 6,7 });
+	#pragma endregion
 
 	#pragma region LimitFPS
 	//此函数获取一个高性能（精度较高）计时器，函数返回的值（计时器跳的总数）作为计时器的起点，通过作差后除以频率才有意义
@@ -199,7 +203,7 @@ bool GameManager::GenerateTileMapTexture()
 	//直接修改mapRect，在此函数中仅做写操作，其读操作在函数OnRender()中进行，用于指定切割mapTexture在窗口中的渲染位置
 	SDL_Rect& _mapRect = ProcessManager::Instance()->mapRect;
 
-	//更改配置文件中的地图纹理的渲染位置（SDL_Rect对象：成员x和y表示纹理图片的矩形左上角顶点的坐标、成员w和h表示矩形的宽高）
+	//更改地图纹理的渲染位置（SDL_Rect对象：成员x和y表示纹理图片的矩形左上角顶点的坐标、成员w和h表示矩形的宽高）
 	//利用定义好的（固定的）窗口宽度减去嵌在窗口中间的矩形地图的宽度（参考“回”字的结构）后再除以2即可得到地图纹理矩形左上定点的横坐标，纵坐标同理
 	_mapRect.x = (ConfigManager::Instance()->basicPrefab.windowWidth - _tileMapWidth) / 2;
 	_mapRect.y = (ConfigManager::Instance()->basicPrefab.windowHeight - _tileMapHeight) / 2;

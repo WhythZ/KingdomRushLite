@@ -28,20 +28,20 @@ Gunner::Gunner()
 	static const std::vector<int> _fireLeftIdicies = { 28, 29, 30, 31 };
 	static const std::vector<int> _fireRightIdicies = { 24, 25, 26, 27 };
 
-	animIdleUp.SetAnimFrames(_sprites, 3, 8, _idleUpIdicies);
-	animIdleDown.SetAnimFrames(_sprites, 3, 8, _idleDownIdicies);
-	animIdleLeft.SetAnimFrames(_sprites, 3, 8, _idleLeftIdicies);
-	animIdleRight.SetAnimFrames(_sprites, 3, 8, _idleRightIdicies);
-	animFireUp.SetAnimFrames(_sprites, 3, 8, _fireUpIdicies);
-	animFireDown.SetAnimFrames(_sprites, 3, 8, _fireDownIdicies);
-	animFireLeft.SetAnimFrames(_sprites, 3, 8, _fireLeftIdicies);
-	animFireRight.SetAnimFrames(_sprites, 3, 8, _fireRightIdicies);
+	animIdleUp.SetAnimFrames(_sprites, 4, 8, _idleUpIdicies);
+	animIdleDown.SetAnimFrames(_sprites, 4, 8, _idleDownIdicies);
+	animIdleLeft.SetAnimFrames(_sprites, 4, 8, _idleLeftIdicies);
+	animIdleRight.SetAnimFrames(_sprites, 4, 8, _idleRightIdicies);
+	animFireUp.SetAnimFrames(_sprites, 4, 8, _fireUpIdicies);
+	animFireDown.SetAnimFrames(_sprites, 4, 8, _fireDownIdicies);
+	animFireLeft.SetAnimFrames(_sprites, 4, 8, _fireLeftIdicies);
+	animFireRight.SetAnimFrames(_sprites, 4, 8, _fireRightIdicies);
 	#pragma endregion
 }
 
-void Gunner::OnFireBullet()
+void Gunner::OnFireBullet(Enemy* _target)
 {
-	Tower::OnFireBullet();
+	Tower::OnFireBullet(_target);
 
 	//播放特定的发射音效
 	AudioManager::Instance()->PlaySFX(SoundResID::Shell_Shoot);

@@ -59,7 +59,7 @@ public:
 	const Vector2& GetPosition() const;        //获取防御塔的位置
 		
 protected:
-	void virtual OnFireBullet();               //子弹发射时的逻辑
+	void virtual OnFireBullet(Enemy*);         //子弹发射时的逻辑
 
 private:
 	void UpdateFacingDir(const Vector2&);      //更新防御塔朝向

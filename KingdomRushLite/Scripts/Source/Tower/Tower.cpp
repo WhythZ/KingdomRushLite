@@ -2,6 +2,7 @@
 #include "../../Header/Manager/Concrete/EnemyManager.h"
 #include "../../Header/Manager/Concrete/BulletManager.h"
 #include "../../Header/Manager/Concrete/TowerManager.h"
+#include <iostream>
 
 Tower::Tower()
 {
@@ -66,18 +67,23 @@ void Tower::OnUpdate(double _delta)
 	//如果处于可开火的状态，则准备更新相关数据并开火
 	if (canFire)
 	{
-		//更新子弹的属性数据
+		//更新子弹的属性数据，需在FindTargetEnemy()前更新，因该函数内使用了索敌半径数据
 		static TowerManager* _tm = TowerManager::Instance();
 		fireCooldown = _tm->GetFireCooldownOf(type);
 		fireRadius = _tm->GetFireRadiusOf(type);
 		bulletDamage = _tm->GetBulletDamageOf(type);
+		//std::cout << "FireRadius=" << fireRadius << "\n";
 
-		//调用子弹发射逻辑
-		OnFireBullet();
+		//如果暂时未找到可攻击目标，则无需进行后续更新浪费资源
+		Enemy* _target = FindTargetEnemy();
+		if (_target == nullptr)
+			return;
 
-		//重置可开火状态
+		//向目标敌人开火
+		OnFireBullet(_target);
+
+		//重置可开火状态，然后重置计时器，经冷却后canFire被回调函数重新赋值为true
 		canFire = false;
-		//重置计时器，等待经过冷却后canFire被回调函数重新赋值为true
 		fireTimer.SetWaitTime(fireCooldown);
 		fireTimer.Restart();
 	}
@@ -103,17 +109,12 @@ const Vector2& Tower::GetPosition() const
 	return position;
 }
 
-void Tower::OnFireBullet()
+void Tower::OnFireBullet(Enemy* _target)
 {
-	//如果暂时未找到可攻击目标，则无需进行后续更新浪费资源
-	Enemy* _target = FindTargetEnemy();
-	if (!_target)
-		return;
-
 	//开火的朝向
 	Vector2 _direction = (_target->GetPosition() - this->position).Normalized();
 
-	#pragma region UpdateAnimation
+	#pragma region UpdateTowerAnimation
 	//根据开火朝向更新防御塔朝向
 	UpdateFacingDir(_direction);
 	//然后按照朝向更新当前动画为对应方向的开火动画
@@ -186,7 +187,7 @@ Enemy* Tower::FindTargetEnemy()
 	EnemyManager::EnemyList _enemyList = EnemyManager::Instance()->GetEnemyList();
 
 	//在攻击范围内的敌人中，应当优先攻击最靠近家门口的那个
-	double _maxProcess = 0;
+	double _maxProcess = -1;
 	for (Enemy* _enemy : _enemyList)
 	{
 		//确保敌人在攻击半径范围内

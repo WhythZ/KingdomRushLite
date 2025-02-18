@@ -1,6 +1,5 @@
 #include "../../Header/Math/Vector2.h"
 #include <cmath>
-#include <iostream>
 
 Vector2::Vector2(double _x, double _y) :x(_x), y(_y) {}
 

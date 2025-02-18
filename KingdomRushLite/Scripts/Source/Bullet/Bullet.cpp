@@ -32,15 +32,17 @@ void Bullet::OnUpdate(double _delta)
 
 	//按照速度向量更新子弹位置，并乘上单位时间使得实际移动速率与帧率无关
 	position += velocity * _delta;
+	//std::cout << "BulletPosition=" << position << "\n";
 
 	//边缘检测，若子弹飞出地图（利用地图Rect进行检定）则及时清除
 	static const SDL_Rect _mapRect = ProcessManager::Instance()->mapRect;
 	if (position.x <= _mapRect.x + size.x / 2
 		|| position.x >= _mapRect.x + _mapRect.w - size.x / 2
-		|| position.y >= _mapRect.y + size.y / 2
-		|| position.y <= _mapRect.y + _mapRect.h - size.y / 2)
+		|| position.y <= _mapRect.y + size.y / 2
+		|| position.y >= _mapRect.y + _mapRect.h - size.y / 2)
 	{
 		Invalidate();
+		//std::cout << "Bullet Out of Map\n";
 	}
 }
 
@@ -57,9 +59,11 @@ void Bullet::OnRender(SDL_Renderer* _renderer)
 
 void Bullet::OnCollide(Enemy* _enemy)
 {
-	//与某个敌人碰撞后，子弹消失且不再重复发生碰撞
-	Invalidate();
+	//与某个敌人碰撞后，不能再重复发生碰撞检定
 	DisableCollide();
+
+	//然后该子弹消失（可重写该函数使得不立刻消失）
+	Invalidate();
 
 	//对被碰撞到的敌人进行伤害检定
 }

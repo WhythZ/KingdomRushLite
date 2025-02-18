@@ -39,9 +39,9 @@ Archer::Archer()
 	#pragma endregion
 }
 
-void Archer::OnFireBullet()
+void Archer::OnFireBullet(Enemy* _target)
 {
-	Tower::OnFireBullet();
+	Tower::OnFireBullet(_target);
 
 	//播放特定的发射音效
 	switch (rand() % 2)

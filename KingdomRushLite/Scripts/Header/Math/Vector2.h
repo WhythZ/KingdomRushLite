@@ -1,6 +1,8 @@
 #ifndef _VECTOR_2_H_
 #define _VECTOR_2_H_
 
+#include <iostream>
+
 class Vector2
 {
 public:
@@ -32,5 +34,8 @@ public:
 	void operator-=(const Vector2&);           //减等于
 	void operator*=(const double&);            //乘等于
 };
+
+//声明运算符重载
+std::ostream& operator<<(std::ostream& _cout, const Vector2& _obj);
 
 #endif

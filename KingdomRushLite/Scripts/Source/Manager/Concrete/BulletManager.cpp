@@ -2,6 +2,7 @@
 #include "../../../Header/Bullet/Concrete/Arrow.h"
 #include "../../../Header/Bullet/Concrete/Axe.h"
 #include "../../../Header/Bullet/Concrete/Shell.h"
+#include <iostream>
 
 BulletManager::~BulletManager()
 {

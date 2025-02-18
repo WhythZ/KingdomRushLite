@@ -26,6 +26,7 @@ void TowerManager::OnRender(SDL_Renderer* _renderer)
 
 void TowerManager::BuildTower(TowerType _type, const SDL_Point& _point)
 {
+	#pragma region Instantiate
 	Tower* _tower = nullptr;
 	switch (_type)
 	{
@@ -43,13 +44,20 @@ void TowerManager::BuildTower(TowerType _type, const SDL_Point& _point)
 	}
 	if (_tower == nullptr)
 		return;
+	#pragma endregion
 
+	#pragma region Locate
 	//利用传入的离散点坐标，获取瓦片地图中对应的瓦片位置，将防御塔实际定位在该位置上
 	static Vector2 _position;
 	static const SDL_Rect& _mapRect = ProcessManager::Instance()->mapRect;
 	_position.x = _mapRect.x + _point.x * TILE_SIZE + TILE_SIZE / 2;
-	_position.x = _mapRect.y + _point.y * TILE_SIZE + TILE_SIZE / 2;
+	_position.y = _mapRect.y + _point.y * TILE_SIZE + TILE_SIZE / 2;
 	_tower->SetPosition(_position);
+
+	//std::cout << "MapRectXY=(" << _mapRect.x << "," << _mapRect.y << ")\n";
+	//std::cout << "PlacePoint=(" << _point.x << "," << _point.y << ")\n";
+	//std::cout << "TowerPosition=(" << _position.x << "," << _position.y << ")\n";
+	#pragma endregion
 
 	//将实例化的防御塔对象存入列表
 	towerList.push_back(_tower);

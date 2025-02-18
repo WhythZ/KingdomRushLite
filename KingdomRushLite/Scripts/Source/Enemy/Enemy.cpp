@@ -191,11 +191,8 @@ bool Enemy::IsAlive() const
 
 double Enemy::GetRouteProcess() const
 {
-	//存储路径长度
-	size_t _routeSize = route->GetTilePointList().size();
-
 	//返回路径完成进度
-	return (double)(targetTileIdx / _routeSize);
+	return (double)targetTileIdx / (double)route->GetTilePointList().size();
 }
 
 double Enemy::GetHealth() const
