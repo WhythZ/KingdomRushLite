@@ -26,7 +26,7 @@ public:
 	void OnRender(SDL_Renderer*);             //渲染场景中的所有子弹对象
 
 	//发射子弹的方法，分别传入子弹类型、初始发射位置、发射速度、子弹伤害（速度与伤害与防御塔等级动态相关）
-	void FireBullet(BulletType, const Vector2&, const Vector2&, double);
+	void FireBullet(BulletType, const Vector2&, const Vector2&, float);
 
 	const BulletList& GetBulletList() const;  //对外提供获取场上子弹的接口
 
@@ -58,7 +58,7 @@ void BulletManager::OnRender(SDL_Renderer* _renderer)
 		_bullet->OnRender(_renderer);
 }
 
-void BulletManager::FireBullet(BulletType _type, const Vector2& _position, const Vector2& _velocity, double _damager)
+void BulletManager::FireBullet(BulletType _type, const Vector2& _position, const Vector2& _velocity, float _damager)
 {
 	Bullet* _bullet = nullptr;
 	switch (_type)
@@ -73,6 +73,7 @@ void BulletManager::FireBullet(BulletType _type, const Vector2& _position, const
 		_bullet = new Shell();
 		break;
 	default:
+		break;
 	}
 	if (_bullet == nullptr)
 		return;

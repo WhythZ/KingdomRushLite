@@ -3,13 +3,12 @@
 
 #include "../Manager.hpp"
 #include "ProcessManager.hpp"
-#include "../../Tower/Tower.hpp"
 #include "../../Tower/TowerType.hpp"
 #include "../../Tower/Concrete/Archer.hpp"
 #include "../../Tower/Concrete/Axeman.hpp"
 #include "../../Tower/Concrete/Gunner.hpp"
 
-class TowerManager : public Manager<TowerManager>
+class TowerManager :public Manager<TowerManager>
 {
 	friend class Manager<TowerManager>;
 
@@ -70,6 +69,7 @@ void TowerManager::BuildTower(TowerType _type, const SDL_Point& _point)
 		_tower = new Gunner();
 		break;
 	default:
+		break;
 	}
 	if (_tower == nullptr)
 		return;
@@ -108,6 +108,7 @@ void TowerManager::UpgradeTower(TowerType _type)
 		_process->levelGunner = (_process->levelGunner >= 9) ? 9 : (_process->levelGunner + 1);
 		break;
 	default:
+		break;
 	}
 
 	//播放升级防御塔的音效

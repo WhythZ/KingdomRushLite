@@ -13,8 +13,8 @@ public:
 	static M* Instance();                         //静态的函数，用于获取Manager类的唯一实例指针
 
 protected:
-	Manager() = default;                          //构造函数，单例模式的类不应当能被在外部创建对象
-	~Manager() = default;                         //析构函数
+	Manager() = default;                          //非公开构造函数，单例模式的类不应当能被在外部创建对象
+	~Manager() = default;
 	Manager(const Manager&) = delete;             //无效化拷贝构造函数的调用
 	Manager& operator=(const Manager&) = delete;  //无效化赋值运算符重载的调用
 };
@@ -28,9 +28,7 @@ M* Manager<M>::Instance()
 {
 	//若manager未被创建（为空指针），则在堆区创建一个
 	if (!manager)
-	{
 		manager = new M();
-	}
 
 	//这样我们就可以在外部通过Manager* xxxx = Manager::GetInstance();获取内部这个Manager对象的地址，而不是创建一个新的Manager
 	return manager;

@@ -6,8 +6,9 @@
 #include "../Math/Timer.hpp"
 #include "../Math/FacingDir.hpp"
 #include "../Animation/Animation.hpp"
-#include "../Manager/Concrete/BulletManager.hpp"
 #include "../Manager/Concrete/EnemyManager.hpp"
+#include "../Manager/Concrete/BulletManager.hpp"
+#include "../Manager/Concrete/TowerManager.hpp"
 
 class Tower
 {
@@ -59,7 +60,6 @@ public:
 	const Vector2& GetPosition() const;        //获取防御塔的位置
 		
 protected:
-	void virtual UpdateBulletData() = 0;       //更新子弹属性的纯虚函数
 	void virtual OnFireBullet();               //子弹发射时的逻辑
 
 private:
@@ -129,12 +129,14 @@ void Tower::OnUpdate(double _delta)
 	fireTimer.OnUpdate(_delta);
 	animCurrent->OnUpdate(_delta);
 
-	//更新子弹的属性数据，包括位置与瞬时速度向量
-	UpdateBulletData();
-
-	//如果处于可开火的状态，则准备用于开火的数据
+	//如果处于可开火的状态，则准备更新相关数据并开火
 	if (canFire)
 	{
+		//更新子弹的属性数据
+		fireCooldown = TowerManager::Instance()->GetFireCooldownOf(type);
+		fireRadius = TowerManager::Instance()->GetFireRadiusOf(type);
+		bulletDamage = TowerManager::Instance()->GetBulletDamageOf(type);
+
 		//调用子弹发射逻辑
 		OnFireBullet();
 
@@ -218,6 +220,7 @@ void Tower::UpdateIdleAnim()
 		animCurrent = &animIdleRight;
 		break;
 	default:
+		break;
 	}
 }
 
@@ -238,6 +241,7 @@ void Tower::UpdateFireAnim()
 		animCurrent = &animFireRight;
 		break;
 	default:
+		break;
 	}
 }
 

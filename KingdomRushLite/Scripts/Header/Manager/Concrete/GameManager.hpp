@@ -16,6 +16,7 @@
 #include "ResourceManager.hpp"
 #include "WaveManager.hpp"
 #include "EnemyManager.hpp"
+#include "TowerManager.hpp"
 
 //游戏主管理器
 class GameManager :public Manager<GameManager>
@@ -50,6 +51,8 @@ private:
 
 int GameManager::Run(int _argc, char** _argv)
 {
+	//TowerManager::Instance()->BuildTower(TowerType::Archer, { 5,0 });
+
 	#pragma region LimitFPS
 	//此函数获取一个高性能（精度较高）计时器，函数返回的值（计时器跳的总数）作为计时器的起点，通过作差后除以频率才有意义
 	Uint64 _lastCounter = SDL_GetPerformanceCounter();
@@ -190,6 +193,8 @@ void GameManager::OnUpdate(double _delta)
 	{
 		WaveManager::Instance()->OnUpdate(_delta);
 		EnemyManager::Instance()->OnUpdate(_delta);
+		BulletManager::Instance()->OnUpdate(_delta);
+		TowerManager::Instance()->OnUpdate(_delta);
 	}
 }
 
@@ -202,8 +207,10 @@ void GameManager::OnRender()
 	SDL_RenderCopy(renderer, mapTexture, nullptr, &_dst);
 	#pragma endregion
 
-	//渲染敌人
+	//渲染敌人、子弹、防御塔
 	EnemyManager::Instance()->OnRender(renderer);
+	BulletManager::Instance()->OnRender(renderer);
+	TowerManager::Instance()->OnRender(renderer);
 }
 
 bool GameManager::GenerateTileMapTexture()

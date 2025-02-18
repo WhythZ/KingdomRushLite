@@ -38,7 +38,7 @@ public:
 	~Bullet() = default;
 	void SetPosition(const Vector2&);       //设定子弹的发射位置
 	void SetVelocity(const Vector2&);       //设定子弹发射的速度向量
-	void SetDamage(double);                 //设定子弹命中敌人的伤害
+	void SetDamage(float);                  //设定子弹命中敌人的伤害
 
 	virtual void OnUpdate(double);
 	virtual void OnRender(SDL_Renderer*);
@@ -74,7 +74,7 @@ void Bullet::SetVelocity(const Vector2& _velocity)
 	}
 }
 
-void Bullet::SetDamage(double _damage)
+void Bullet::SetDamage(float _damage)
 {
 	damage = _damage;
 }

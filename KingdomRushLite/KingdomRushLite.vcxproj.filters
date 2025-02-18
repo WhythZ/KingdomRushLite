@@ -143,9 +143,6 @@
     <ClInclude Include="Scripts\Header\Bullet\BulletType.hpp">
       <Filter>头文件\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Manager\Concrete\TowerManager.hpp">
-      <Filter>头文件\Manager\Concrete</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\Header\Tower\Tower.hpp">
       <Filter>头文件\Tower</Filter>
     </ClInclude>
@@ -163,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Math\FacingDir.hpp">
       <Filter>头文件\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\TowerManager.hpp">
+      <Filter>头文件\Manager\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

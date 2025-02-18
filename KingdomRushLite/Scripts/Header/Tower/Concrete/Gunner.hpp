@@ -12,7 +12,6 @@ public:
 	~Gunner() = default;
 
 protected:
-	void UpdateBulletData() override;    //实现基类中关于更新子弹属性的纯虚函数
 	void OnFireBullet() override;        //重写基类中关于子弹发射的逻辑
 };
 
@@ -52,19 +51,6 @@ Gunner::Gunner()
 	animFireLeft.SetAnimFrames(_sprites, 3, 8, _fireLeftIdicies);
 	animFireRight.SetAnimFrames(_sprites, 3, 8, _fireRightIdicies);
 	#pragma endregion
-}
-
-void Gunner::UpdateBulletData()
-{
-	Tower::UpdateBulletData();
-
-	//获取防御塔管理器
-	static TowerManager* _manager = TowerManager::Instance();
-
-	//依据当前防御塔等级，获取对应的攻击间隔、攻击半径、伤害
-	fireCooldown = _manager->GetFireCooldownOf(TowerType::Gunner);
-	fireRadius = _manager->GetFireRadiusOf(TowerType::Gunner);
-	bulletDamage = _manager->GetBulletDamageOf(TowerType::Gunner);
 }
 
 void Gunner::OnFireBullet()
