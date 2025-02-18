@@ -1,5 +1,5 @@
-#include "../../Header/Bullet/Bullet.hpp"
-#include "../../Header/Manager/Concrete/ProcessManager.hpp"
+#include "../../Header/Bullet/Bullet.h"
+#include "../../Header/Manager/Concrete/ProcessManager.h"
 
 void Bullet::SetPosition(const Vector2& _position)
 {

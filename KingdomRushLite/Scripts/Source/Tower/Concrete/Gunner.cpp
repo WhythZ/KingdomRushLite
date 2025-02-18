@@ -1,5 +1,5 @@
-#include "../../../Header/Tower/Concrete/Gunner.hpp"
-#include "../../../Header/Manager/Concrete/AudioManager.hpp"
+#include "../../../Header/Tower/Concrete/Gunner.h"
+#include "../../../Header/Manager/Concrete/AudioManager.h"
 
 Gunner::Gunner()
 {

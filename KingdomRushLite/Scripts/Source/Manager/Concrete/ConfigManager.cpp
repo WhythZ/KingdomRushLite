@@ -1,4 +1,4 @@
-#include "../../../Header/Manager/Concrete/ConfigManager.hpp"
+#include "../../../Header/Manager/Concrete/ConfigManager.h"
 
 bool ConfigManager::LoadConfig(const std::string& _path)
 {

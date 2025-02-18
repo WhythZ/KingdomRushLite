@@ -1,6 +1,6 @@
-#include "../../../Header/Bullet/Concrete/Shell.hpp"
-#include "../../../Header/Manager/Concrete/ResourceManager.hpp"
-#include "../../../Header//Manager/Concrete/AudioManager.hpp"
+#include "../../../Header/Bullet/Concrete/Shell.h"
+#include "../../../Header/Manager/Concrete/ResourceManager.h"
+#include "../../../Header//Manager/Concrete/AudioManager.h"
 
 Shell::Shell()
 {

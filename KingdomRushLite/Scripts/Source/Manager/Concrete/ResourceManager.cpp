@@ -1,4 +1,4 @@
-#include "../../../Header/Manager/Concrete/ResourceManager.hpp"
+#include "../../../Header/Manager/Concrete/ResourceManager.h"
 
 bool ResourceManager::LoadResource(SDL_Renderer* _renderer)
 {

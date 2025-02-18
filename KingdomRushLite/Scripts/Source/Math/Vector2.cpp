@@ -1,4 +1,4 @@
-#include "../../Header/Math/Vector2.hpp"
+#include "../../Header/Math/Vector2.h"
 #include <cmath>
 #include <iostream>
 

@@ -1,6 +1,6 @@
-#include "../../../Header/Enemy/Concrete/Skeleton.hpp"
-#include "../../../Header/Manager/Concrete/ConfigManager.hpp"
-#include "../../../Header/Manager/Concrete/ResourceManager.hpp"
+#include "../../../Header/Enemy/Concrete/Skeleton.h"
+#include "../../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../../Header/Manager/Concrete/ResourceManager.h"
 
 Skeleton::Skeleton()
 {

@@ -1,10 +1,10 @@
-#include "../../../Header/Manager/Concrete/EnemyManager.hpp"
-#include "../../../Header/Manager/Concrete/ProcessManager.hpp"
-#include "../../../Header/Enemy/Concrete/Slime.hpp"
-#include "../../../Header/Enemy/Concrete/SlimeKing.hpp"
-#include "../../../Header/Enemy/Concrete/Skeleton.hpp"
-#include "../../../Header/Enemy/Concrete/Goblin.hpp"
-#include "../../../Header/Enemy/Concrete/GoblinPriest.hpp"
+#include "../../../Header/Manager/Concrete/EnemyManager.h"
+#include "../../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../../Header/Enemy/Concrete/Slime.h"
+#include "../../../Header/Enemy/Concrete/SlimeKing.h"
+#include "../../../Header/Enemy/Concrete/Skeleton.h"
+#include "../../../Header/Enemy/Concrete/Goblin.h"
+#include "../../../Header/Enemy/Concrete/GoblinPriest.h"
 
 EnemyManager::~EnemyManager()
 {

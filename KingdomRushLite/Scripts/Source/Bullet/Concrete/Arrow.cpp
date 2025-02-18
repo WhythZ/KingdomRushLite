@@ -1,6 +1,6 @@
-#include "../../../Header/Bullet/Concrete/Arrow.hpp"
-#include "../../../Header/Manager/Concrete/ResourceManager.hpp"
-#include "../../../Header//Manager/Concrete/AudioManager.hpp"
+#include "../../../Header/Bullet/Concrete/Arrow.h"
+#include "../../../Header/Manager/Concrete/ResourceManager.h"
+#include "../../../Header//Manager/Concrete/AudioManager.h"
 
 Arrow::Arrow()
 {

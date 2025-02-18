@@ -1,5 +1,5 @@
-#include "../../../Header/Tower/Concrete/Axeman.hpp"
-#include "../../../Header/Manager/Concrete/AudioManager.hpp"
+#include "../../../Header/Tower/Concrete/Axeman.h"
+#include "../../../Header/Manager/Concrete/AudioManager.h"
 
 Axeman::Axeman()
 {

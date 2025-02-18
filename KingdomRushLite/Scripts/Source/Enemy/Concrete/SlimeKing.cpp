@@ -1,6 +1,6 @@
-#include "../../../Header/Enemy/Concrete/SlimeKing.hpp"
-#include "../../../Header/Manager/Concrete/ConfigManager.hpp"
-#include "../../../Header/Manager/Concrete/ResourceManager.hpp"
+#include "../../../Header/Enemy/Concrete/SlimeKing.h"
+#include "../../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../../Header/Manager/Concrete/ResourceManager.h"
 
 SlimeKing::SlimeKing()
 {

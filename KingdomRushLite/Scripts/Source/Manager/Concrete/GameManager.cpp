@@ -1,16 +1,16 @@
-#include "../../../Header/Manager/Concrete/GameManager.hpp"
+#include "../../../Header/Manager/Concrete/GameManager.h"
 //字体、图像、混音支持
 #include <SDL_ttf.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 //用到的其它管理器类
-#include "../../../Header/Manager/Concrete/ProcessManager.hpp"
-#include "../../../Header/Manager/Concrete/ConfigManager.hpp"
-#include "../../../Header/Manager/Concrete/ResourceManager.hpp"
-#include "../../../Header/Manager/Concrete/WaveManager.hpp"
-#include "../../../Header/Manager/Concrete/EnemyManager.hpp"
-#include "../../../Header/Manager/Concrete/BulletManager.hpp"
-#include "../../../Header/Manager/Concrete/TowerManager.hpp"
+#include "../../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../../Header/Manager/Concrete/ResourceManager.h"
+#include "../../../Header/Manager/Concrete/WaveManager.h"
+#include "../../../Header/Manager/Concrete/EnemyManager.h"
+#include "../../../Header/Manager/Concrete/BulletManager.h"
+#include "../../../Header/Manager/Concrete/TowerManager.h"
 
 int GameManager::Run(int _argc, char** _argv)
 {

@@ -1,6 +1,6 @@
-#include "../../Header/Enemy/Enemy.hpp"
-#include "../../Header/Manager/Concrete/ProcessManager.hpp"
-#include "../../Header/Manager/Concrete/ConfigManager.hpp"
+#include "../../Header/Enemy/Enemy.h"
+#include "../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../Header/Manager/Concrete/ConfigManager.h"
 
 Enemy::Enemy()
 {

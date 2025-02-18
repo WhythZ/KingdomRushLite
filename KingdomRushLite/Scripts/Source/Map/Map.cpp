@@ -1,4 +1,4 @@
-#include "../../Header/Map/Map.hpp"
+#include "../../Header/Map/Map.h"
 
 bool Map::Load(const std::string& _csvPath)
 {

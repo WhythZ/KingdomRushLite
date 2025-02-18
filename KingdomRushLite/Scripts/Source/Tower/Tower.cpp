@@ -1,7 +1,7 @@
-#include "../../Header/Tower/Tower.hpp"
-#include "../../Header/Manager/Concrete/EnemyManager.hpp"
-#include "../../Header/Manager/Concrete/BulletManager.hpp"
-#include "../../Header/Manager/Concrete/TowerManager.hpp"
+#include "../../Header/Tower/Tower.h"
+#include "../../Header/Manager/Concrete/EnemyManager.h"
+#include "../../Header/Manager/Concrete/BulletManager.h"
+#include "../../Header/Manager/Concrete/TowerManager.h"
 
 Tower::Tower()
 {

@@ -1,6 +1,6 @@
-#include "../../../Header/Manager/Concrete/ProcessManager.hpp"
-#include "../../../Header/Manager/Concrete/ConfigManager.hpp"
-#include "../../../Header/Manager/Concrete/AudioManager.hpp"
+#include "../../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../../Header/Manager/Concrete/AudioManager.h"
 
 ProcessManager::ProcessManager()
 {

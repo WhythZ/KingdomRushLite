@@ -1,10 +1,10 @@
-#include "../../../Header/Manager/Concrete/TowerManager.hpp"
-#include "../../../Header/Manager/Concrete/ProcessManager.hpp"
-#include "../../../Header/Manager/Concrete/ConfigManager.hpp"
-#include "../../../Header/Manager/Concrete/AudioManager.hpp"
-#include "../../../Header/Tower/Concrete/Archer.hpp"
-#include "../../../Header/Tower/Concrete/Axeman.hpp"
-#include "../../../Header/Tower/Concrete/Gunner.hpp"
+#include "../../../Header/Manager/Concrete/TowerManager.h"
+#include "../../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../../Header/Manager/Concrete/AudioManager.h"
+#include "../../../Header/Tower/Concrete/Archer.h"
+#include "../../../Header/Tower/Concrete/Axeman.h"
+#include "../../../Header/Tower/Concrete/Gunner.h"
 
 TowerManager::~TowerManager()
 {

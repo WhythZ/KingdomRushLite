@@ -1,7 +1,7 @@
-#include "../../../Header/Manager/Concrete/WaveManager.hpp"
-#include "../../../Header/Manager/Concrete/ProcessManager.hpp"
-#include "../../../Header/Manager/Concrete/ConfigManager.hpp"
-#include "../../../Header/Manager/Concrete/EnemyManager.hpp"
+#include "../../../Header/Manager/Concrete/WaveManager.h"
+#include "../../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../../Header/Manager/Concrete/EnemyManager.h"
 
 WaveManager::WaveManager()
 {

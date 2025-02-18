@@ -1,7 +1,7 @@
-#include "../../../Header/Manager/Concrete/BulletManager.hpp"
-#include "../../../Header/Bullet/Concrete/Arrow.hpp"
-#include "../../../Header/Bullet/Concrete/Axe.hpp"
-#include "../../../Header/Bullet/Concrete/Shell.hpp"
+#include "../../../Header/Manager/Concrete/BulletManager.h"
+#include "../../../Header/Bullet/Concrete/Arrow.h"
+#include "../../../Header/Bullet/Concrete/Axe.h"
+#include "../../../Header/Bullet/Concrete/Shell.h"
 
 BulletManager::~BulletManager()
 {

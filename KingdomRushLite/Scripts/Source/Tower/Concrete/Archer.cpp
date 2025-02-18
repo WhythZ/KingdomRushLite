@@ -1,5 +1,5 @@
-#include "../../../Header/Tower/Concrete/Archer.hpp"
-#include "../../../Header/Manager/Concrete/AudioManager.hpp"
+#include "../../../Header/Tower/Concrete/Archer.h"
+#include "../../../Header/Manager/Concrete/AudioManager.h"
 
 Archer::Archer()
 {

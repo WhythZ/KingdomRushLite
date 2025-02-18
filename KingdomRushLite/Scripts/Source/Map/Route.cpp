@@ -1,4 +1,4 @@
-#include "../../Header/Map/Route.hpp"
+#include "../../Header/Map/Route.h"
 #include <iostream>
 
 Route::Route(const TileMap& _map, const SDL_Point& _beginPoint)
