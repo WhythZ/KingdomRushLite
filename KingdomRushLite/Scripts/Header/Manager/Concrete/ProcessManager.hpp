@@ -2,8 +2,6 @@
 #define _PROCESS_MANAGER_HPP_
 
 #include "../Manager.hpp"
-#include "ConfigManager.hpp"
-#include "AudioManager.hpp"
 #include "../../Map/Map.hpp"
 
 //记录一局游戏中的各项动态属性
@@ -47,38 +45,5 @@ private:
 	ProcessManager();
 	~ProcessManager() = default;
 };
-
-ProcessManager::ProcessManager()
-{
-	//血量读取
-	healthMaximum = ConfigManager::Instance()->initHomeHP;
-	healthCurrent = healthMaximum;
-}
-
-double ProcessManager::GetCurrentHealth() const
-{
-	return healthCurrent;
-}
-
-void ProcessManager::DecreaseHealthBy(double _decre)
-{
-	//减少血量
-	healthCurrent -= _decre;
-	if (healthCurrent <= 0)
-		healthCurrent = 0;
-
-	//播放受击音效
-	AudioManager::Instance()->PlaySFX(SoundResID::HomeHurt);
-}
-
-void ProcessManager::IncreaseCoinNumBy(double _reward)
-{
-	coinNum += _reward;
-}
-
-void ProcessManager::DecreaseCoinNumBy(double _cost)
-{
-	coinNum = (coinNum - _cost > 0) ? (coinNum - _cost) : 0;
-}
 
 #endif

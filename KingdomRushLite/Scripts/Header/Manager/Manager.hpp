@@ -23,6 +23,7 @@ protected:
 template <typename M>
 M* Manager<M>::manager = nullptr;
 
+//模板函数必须在头文件中实现，不能拆分到另一个源文件中实现
 template <typename M>
 M* Manager<M>::Instance()
 {

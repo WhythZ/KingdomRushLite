@@ -19,9 +19,6 @@
     <Filter Include="头文件\Map">
       <UniqueIdentifier>{316eac5e-465a-437b-830e-5300719c812d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\Dependencies">
-      <UniqueIdentifier>{ae9f0ac5-07aa-43fa-a4e1-9fcfe7e05988}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Enemy">
       <UniqueIdentifier>{ee40717e-9d95-474e-8bbc-76cf994ba3ec}</UniqueIdentifier>
     </Filter>
@@ -49,13 +46,133 @@
     <Filter Include="头文件\Tower\Concrete">
       <UniqueIdentifier>{67760b45-db56-44e6-9c5f-586c5100f353}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Animation">
+      <UniqueIdentifier>{094f630e-3b81-4c1d-8c3f-87282c0d38ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\_Dependencies">
+      <UniqueIdentifier>{ae9f0ac5-07aa-43fa-a4e1-9fcfe7e05988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Bullet">
+      <UniqueIdentifier>{1a464b9e-2da8-4b34-82df-360dab230ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Enemy">
+      <UniqueIdentifier>{0fbcb90d-0dd8-4915-a9c6-c07cfb5dae40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Manager">
+      <UniqueIdentifier>{74252bd2-08b4-428d-883e-167a9e26bd8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Map">
+      <UniqueIdentifier>{f82986b4-4447-4c17-9e51-4764b3e3920b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Math">
+      <UniqueIdentifier>{fa8bf10d-19a2-49be-9b20-27787df29e46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Tower">
+      <UniqueIdentifier>{b94dad9d-46ec-44dc-95bc-15dcc98bff3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Bullet\Concrete">
+      <UniqueIdentifier>{c9e72e0d-ba6a-4fb6-948a-a5a75cce3201}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Enemy\Concrete">
+      <UniqueIdentifier>{871270aa-e04e-4424-ba50-c179a06dd5ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Manager\Concrete">
+      <UniqueIdentifier>{b183c6f6-eab2-4b1e-ba3d-88c520e53940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Tower\Concrete">
+      <UniqueIdentifier>{f134d88d-c2f9-46d1-87fd-28de8221ef10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
-      <Filter>源文件\Dependencies</Filter>
+      <Filter>源文件\_Dependencies</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\Source\Main.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Animation\Animation.cpp">
+      <Filter>源文件\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Bullet\Bullet.cpp">
+      <Filter>源文件\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Bullet\Concrete\Arrow.cpp">
+      <Filter>源文件\Bullet\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Bullet\Concrete\Axe.cpp">
+      <Filter>源文件\Bullet\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Bullet\Concrete\Shell.cpp">
+      <Filter>源文件\Bullet\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Enemy\Enemy.cpp">
+      <Filter>源文件\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Enemy\Concrete\Goblin.cpp">
+      <Filter>源文件\Enemy\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Enemy\Concrete\GoblinPriest.cpp">
+      <Filter>源文件\Enemy\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Enemy\Concrete\Skeleton.cpp">
+      <Filter>源文件\Enemy\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Enemy\Concrete\Slime.cpp">
+      <Filter>源文件\Enemy\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Enemy\Concrete\SlimeKing.cpp">
+      <Filter>源文件\Enemy\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\AudioManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\BulletManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\ConfigManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\EnemyManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\GameManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\ProcessManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\ResourceManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\TowerManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\WaveManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Map\Map.cpp">
+      <Filter>源文件\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Map\Route.cpp">
+      <Filter>源文件\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Math\Vector2.cpp">
+      <Filter>源文件\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Math\Timer.cpp">
+      <Filter>源文件\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Tower\Tower.cpp">
+      <Filter>源文件\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Tower\Concrete\Archer.cpp">
+      <Filter>源文件\Tower\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Tower\Concrete\Axeman.cpp">
+      <Filter>源文件\Tower\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Tower\Concrete\Gunner.cpp">
+      <Filter>源文件\Tower\Concrete</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

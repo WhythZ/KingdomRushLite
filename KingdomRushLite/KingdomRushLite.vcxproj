@@ -20,6 +20,34 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c" />
+    <ClCompile Include="Scripts\Source\Animation\Animation.cpp" />
+    <ClCompile Include="Scripts\Source\Tower\Concrete\Archer.cpp" />
+    <ClCompile Include="Scripts\Source\Bullet\Concrete\Arrow.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\AudioManager.cpp" />
+    <ClCompile Include="Scripts\Source\Bullet\Concrete\Axe.cpp" />
+    <ClCompile Include="Scripts\Source\Tower\Concrete\Axeman.cpp" />
+    <ClCompile Include="Scripts\Source\Bullet\Bullet.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\BulletManager.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\ConfigManager.cpp" />
+    <ClCompile Include="Scripts\Source\Enemy\Enemy.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\EnemyManager.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\GameManager.cpp" />
+    <ClCompile Include="Scripts\Source\Enemy\Concrete\Goblin.cpp" />
+    <ClCompile Include="Scripts\Source\Enemy\Concrete\GoblinPriest.cpp" />
+    <ClCompile Include="Scripts\Source\Tower\Concrete\Gunner.cpp" />
+    <ClCompile Include="Scripts\Source\Map\Map.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\ProcessManager.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\ResourceManager.cpp" />
+    <ClCompile Include="Scripts\Source\Map\Route.cpp" />
+    <ClCompile Include="Scripts\Source\Bullet\Concrete\Shell.cpp" />
+    <ClCompile Include="Scripts\Source\Enemy\Concrete\Skeleton.cpp" />
+    <ClCompile Include="Scripts\Source\Enemy\Concrete\Slime.cpp" />
+    <ClCompile Include="Scripts\Source\Enemy\Concrete\SlimeKing.cpp" />
+    <ClCompile Include="Scripts\Source\Math\Timer.cpp" />
+    <ClCompile Include="Scripts\Source\Tower\Tower.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\TowerManager.cpp" />
+    <ClCompile Include="Scripts\Source\Math\Vector2.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\WaveManager.cpp" />
     <ClCompile Include="Scripts\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
