@@ -3,7 +3,7 @@
 
 #include "../Tower.h"
 
-#define AXEMAN_BULLET_SPEED 5
+#define TOWER_AXEMAN_BULLET_SPEED 5
 
 class Axeman : public Tower
 {

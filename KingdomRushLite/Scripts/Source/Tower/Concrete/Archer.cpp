@@ -12,7 +12,7 @@ Archer::Archer()
 	//设置子弹类型
 	bulletType = BulletType::Arrow;
 	//设置子弹发射速度
-	bulletSpeed = ARCHER_BULLET_SPEED;
+	bulletSpeed = TOWER_ARCHER_BULLET_SPEED;
 	#pragma endregion
 
 	#pragma region Animation

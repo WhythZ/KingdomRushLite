@@ -12,7 +12,7 @@ Axeman::Axeman()
 	//设置子弹类型
 	bulletType = BulletType::Axe;
 	//设置子弹发射速度
-	bulletSpeed = AXEMAN_BULLET_SPEED;
+	bulletSpeed = TOWER_AXEMAN_BULLET_SPEED;
 	#pragma endregion
 
 	#pragma region Animation

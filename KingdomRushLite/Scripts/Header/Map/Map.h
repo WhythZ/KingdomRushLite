@@ -6,7 +6,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include "SDL.h"
+#include <SDL.h>
 #include "Route.h"
 
 //Â·¾¶³Ø

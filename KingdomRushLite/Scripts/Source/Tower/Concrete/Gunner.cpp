@@ -12,7 +12,7 @@ Gunner::Gunner()
 	//设置子弹类型
 	bulletType = BulletType::Shell;
 	//设置子弹发射速度
-	bulletSpeed = GUNNER_BULLET_SPEED;
+	bulletSpeed = TOWER_GUNNER_BULLET_SPEED;
 	#pragma endregion
 
 	#pragma region Animation

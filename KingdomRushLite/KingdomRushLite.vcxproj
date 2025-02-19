@@ -53,6 +53,7 @@
     <ClCompile Include="Scripts\Source\Math\Vector2.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\WaveManager.cpp" />
     <ClCompile Include="Scripts\Source\Main.cpp" />
+    <ClCompile Include="Scripts\Source\UI\StatusBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Animation\Animation.h" />
@@ -94,6 +95,7 @@
     <ClInclude Include="Scripts\Header\Tower\Concrete\Gunner.h" />
     <ClInclude Include="Scripts\Header\Tower\Tower.h" />
     <ClInclude Include="Scripts\Header\Tower\TowerType.h" />
+    <ClInclude Include="Scripts\Header\UI\StatusBar.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

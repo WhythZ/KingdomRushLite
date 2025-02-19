@@ -94,6 +94,12 @@
     <Filter Include="源文件\Drop\Concrete">
       <UniqueIdentifier>{532678d7-e208-4de7-8270-f481dbb44fbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\UI">
+      <UniqueIdentifier>{b7302ece-98c4-4a09-a094-84e316981259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\UI">
+      <UniqueIdentifier>{a5b2cf47-d1bd-4772-9e46-70e6bdacf476}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -197,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\Source\Enemy\EnemyType.cpp">
       <Filter>源文件\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\UI\StatusBar.cpp">
+      <Filter>源文件\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +325,9 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Drop\DropType.h">
       <Filter>头文件\Drop</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\UI\StatusBar.h">
+      <Filter>头文件\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

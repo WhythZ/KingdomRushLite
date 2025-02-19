@@ -33,7 +33,7 @@ Shell::Shell()
 	explodingSize.x = 96; explodingSize.y = 96;
 	
 	//…Ë÷√≈⁄µØµƒ±¨’®∑∂Œß
-	damageRadius = 72;
+	damageRadius = BULLET_SHELL_DAMAGE_RADIUS;
 }
 
 void Shell::OnUpdate(double _delta)

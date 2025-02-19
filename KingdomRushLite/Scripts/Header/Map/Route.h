@@ -2,7 +2,7 @@
 #define _ROUTE_H_
 
 #include <vector>
-#include "SDL.h"
+#include <SDL.h>
 #include "Tile.h"
 
 //怪物的行进路径洋流图

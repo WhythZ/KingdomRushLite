@@ -7,7 +7,7 @@
 Tower::Tower()
 {
 	#pragma region Animation
-	//初始化动画的属性（纹理在子类中设置）
+	//初始化动画的各种属性（具体纹理在子类中设置）
 	animIdleUp.SetLoop(true);
 	animIdleDown.SetLoop(true);
 	animIdleLeft.SetLoop(true);
@@ -16,6 +16,15 @@ Tower::Tower()
 	animFireDown.SetLoop(false);
 	animFireLeft.SetLoop(false);
 	animFireRight.SetLoop(false);
+
+	animIdleUp.SetFrameInterval(ANIMATION_LARGER_FRAME_INTERVAL);
+	animIdleDown.SetFrameInterval(ANIMATION_LARGER_FRAME_INTERVAL);
+	animIdleLeft.SetFrameInterval(ANIMATION_LARGER_FRAME_INTERVAL);
+	animIdleRight.SetFrameInterval(ANIMATION_LARGER_FRAME_INTERVAL);
+	animFireUp.SetFrameInterval(ANIMATION_LARGER_FRAME_INTERVAL);
+	animFireDown.SetFrameInterval(ANIMATION_LARGER_FRAME_INTERVAL);
+	animFireLeft.SetFrameInterval(ANIMATION_LARGER_FRAME_INTERVAL);
+	animFireRight.SetFrameInterval(ANIMATION_LARGER_FRAME_INTERVAL);
 
 	//只有在完成一次开火后，才能更新当前动画为对应朝向的闲置动画（相当于从对应方向开火动画转换到对应方向闲置动画）
 	animFireUp.SetOnAnimFinished(

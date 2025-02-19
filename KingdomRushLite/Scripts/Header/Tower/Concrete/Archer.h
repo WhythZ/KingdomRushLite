@@ -3,7 +3,7 @@
 
 #include "../Tower.h"
 
-#define ARCHER_BULLET_SPEED 6
+#define TOWER_ARCHER_BULLET_SPEED 6
 
 class Archer : public Tower
 {
