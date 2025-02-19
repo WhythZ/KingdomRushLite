@@ -18,8 +18,8 @@ void EnemyManager::OnUpdate(double _delta)
 		_enemy->OnUpdate(_delta);
 
 	//碰撞检测
-	ProcessCollisionBullet();
-	ProcessCollisionHome();
+	UpdateCollisionBullet();
+	UpdateCollisionHome();
 
 	//检测死亡敌人并将其移除
 	RemoveDeadEnemies();
@@ -142,7 +142,7 @@ const EnemyManager::EnemyList& EnemyManager::GetEnemyList() const
 	return enemyList;
 }
 
-void EnemyManager::ProcessCollisionBullet()
+void EnemyManager::UpdateCollisionBullet()
 {
 	#pragma region GetHomePosition
 	//获取家所在的瓦片坐标点
@@ -179,7 +179,7 @@ void EnemyManager::ProcessCollisionBullet()
 	}
 }
 
-void EnemyManager::ProcessCollisionHome()
+void EnemyManager::UpdateCollisionHome()
 {
 }
 

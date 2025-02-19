@@ -31,7 +31,7 @@ private:
 	BulletManager() = default;
 	~BulletManager();
 
-	void RemoveInvalidBullets();              //移除无效子弹
+	void RemoveInvalidBullets();              //移除所有无效子弹
 };
 
 #endif

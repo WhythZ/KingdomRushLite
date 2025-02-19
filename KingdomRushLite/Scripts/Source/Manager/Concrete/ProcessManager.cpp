@@ -9,11 +9,6 @@ ProcessManager::ProcessManager()
 	healthCurrent = healthMaximum;
 }
 
-double ProcessManager::GetCurrentHealth() const
-{
-	return healthCurrent;
-}
-
 void ProcessManager::DecreaseHealthBy(double _decre)
 {
 	//¼õÉÙÑªÁ¿
@@ -33,4 +28,14 @@ void ProcessManager::IncreaseCoinNumBy(double _reward)
 void ProcessManager::DecreaseCoinNumBy(double _cost)
 {
 	coinNum = (coinNum - _cost > 0) ? (coinNum - _cost) : 0;
+}
+
+double ProcessManager::GetCurrentHealth() const
+{
+	return healthCurrent;
+}
+
+double ProcessManager::GetCurrentCoin() const
+{
+	return coinNum;
 }

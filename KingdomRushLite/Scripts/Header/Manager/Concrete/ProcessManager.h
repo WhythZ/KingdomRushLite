@@ -24,22 +24,23 @@ public:
 	int levelGunner = 0;                 //枪炮手等级
 	#pragma endregion
 
-	#pragma region Coin
-	double coinNum = 0;                  //玩家持有的金币数量
-	#pragma endregion
-
 private:
 	#pragma region Home
 	double healthMaximum;                //记录家的最大血量
 	double healthCurrent;                //记录家的当前血量
 	#pragma endregion
 
+	#pragma region Coin
+	double coinNum = 0;                  //玩家持有的金币数量
+	#pragma endregion
+
 public:
+	void DecreaseHealthBy(double);       //减少当前家血量
 	void IncreaseCoinNumBy(double);      //增加金币数
 	void DecreaseCoinNumBy(double);      //减少金币数
 
 	double GetCurrentHealth() const;     //获取当前家血量
-	void DecreaseHealthBy(double);       //减少当前家血量
+	double GetCurrentCoin() const;       //获取当前金币数
 
 private:
 	ProcessManager();

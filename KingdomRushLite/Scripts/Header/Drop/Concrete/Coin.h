@@ -8,6 +8,8 @@ class Coin :public Drop
 public:
 	Coin();
 	~Coin() = default;
+
+	void OnCollide() override;
 };
 
 #endif

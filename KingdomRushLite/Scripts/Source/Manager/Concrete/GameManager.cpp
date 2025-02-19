@@ -11,13 +11,15 @@
 #include "../../../Header/Manager/Concrete/EnemyManager.h"
 #include "../../../Header/Manager/Concrete/BulletManager.h"
 #include "../../../Header/Manager/Concrete/TowerManager.h"
+#include "../../../Header/Manager/Concrete/DropManager.h"
 
 int GameManager::Run(int _argc, char** _argv)
 {
-	#pragma region TowerTesting
+	#pragma region Testing
 	TowerManager::Instance()->BuildTower(TowerType::Archer, { 4,7 });
 	TowerManager::Instance()->BuildTower(TowerType::Axeman, { 5,7 });
 	TowerManager::Instance()->BuildTower(TowerType::Gunner, { 6,7 });
+	DropManager::Instance()->SpawnDrop(DropType::Coin, { 200,200 });
 	#pragma endregion
 
 	#pragma region LimitFPS
@@ -162,6 +164,7 @@ void GameManager::OnUpdate(double _delta)
 		EnemyManager::Instance()->OnUpdate(_delta);
 		BulletManager::Instance()->OnUpdate(_delta);
 		TowerManager::Instance()->OnUpdate(_delta);
+		DropManager::Instance()->OnUpdate(_delta);
 	}
 }
 
@@ -174,10 +177,11 @@ void GameManager::OnRender()
 	SDL_RenderCopy(renderer, mapTexture, nullptr, &_dst);
 	#pragma endregion
 
-	//äÖÈ¾µĞÈË¡¢×Óµ¯¡¢·ÀÓùËş
+	//äÖÈ¾µĞÈË¡¢×Óµ¯¡¢·ÀÓùËş¡¢µôÂäÎï
 	EnemyManager::Instance()->OnRender(renderer);
 	BulletManager::Instance()->OnRender(renderer);
 	TowerManager::Instance()->OnRender(renderer);
+	DropManager::Instance()->OnRender(renderer);
 }
 
 bool GameManager::GenerateTileMapTexture()

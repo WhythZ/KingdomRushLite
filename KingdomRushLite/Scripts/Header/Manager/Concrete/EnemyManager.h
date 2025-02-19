@@ -31,10 +31,10 @@ private:
 	EnemyManager() = default;
 	~EnemyManager();
 
-	void ProcessCollisionBullet();         //进行与投射物的碰撞的判定
-	void ProcessCollisionHome();           //进行与家的碰撞的判定
+	void UpdateCollisionBullet();          //进行与投射物的碰撞的判定
+	void UpdateCollisionHome();            //进行与家的碰撞的判定
 	
-	void RemoveDeadEnemies();              //移除掉死亡敌人
+	void RemoveDeadEnemies();              //移除所有死亡敌人
 };
 
 #endif
