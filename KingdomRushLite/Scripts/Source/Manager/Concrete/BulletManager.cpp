@@ -17,6 +17,8 @@ void BulletManager::OnUpdate(double _delta)
 
 	//检查无效的子弹并从场景中移除
 	RemoveInvalidBullets();
+
+	//std::cout << bulletList.size() << "\n";
 }
 
 void BulletManager::OnRender(SDL_Renderer* _renderer)

@@ -19,7 +19,7 @@ protected:
 	#pragma region Properties
 	Vector2 velocity;                       //子弹运动的速度
 	double damage = 0;                      //子弹能对敌人造成的伤害
-	double damageRange = -1;                //子弹造成伤害的AOE范围，
+	double damageRadius = -1;               //子弹造成伤害的AOE范围半径
 	#pragma endregion
 
 	#pragma region Animation
@@ -49,7 +49,7 @@ public:
 	const Vector2& GetSize() const;         //获取子弹尺寸，用于命中碰撞检测
 	const Vector2& GetPosition() const;     //获取子弹位置
 	double GetDamage() const;               //获取子弹伤害
-	double GetDamageRange() const;          //获取子弹伤害范围，用于伤害碰撞检测
+	double GetDamageRadius() const;         //获取子弹伤害范围，用于伤害碰撞检测
 	bool CanCollide() const;                //查询子弹的可碰撞与否
 	bool IsValid() const;                   //查询子弹的失效与否
 };

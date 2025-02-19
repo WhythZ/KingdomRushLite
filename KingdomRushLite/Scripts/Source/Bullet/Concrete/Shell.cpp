@@ -29,9 +29,11 @@ Shell::Shell()
 
 	//根据每帧动画的图片文件实际尺寸设置
 	size.x = 48; size.y = 48;
-
-	//设置炮弹的爆炸范围，同时也是爆炸动画帧的尺寸
-	damageRange = 96;
+	//设置爆炸动画帧的尺寸
+	explodingSize.x = 96; explodingSize.y = 96;
+	
+	//设置炮弹的爆炸范围
+	damageRadius = 72;
 }
 
 void Shell::OnUpdate(double _delta)
@@ -61,11 +63,10 @@ void Shell::OnRender(SDL_Renderer* _renderer)
 	}
 
 	#pragma region ExplosionAnimRender
-	//否则说明炮弹当前处于爆炸后状态，此时需渲染爆炸动画
-	//由于爆炸动画帧的尺寸不同于子弹尺寸，所以需要重新确定渲染位置
+	//否则说明炮弹当前处于爆炸后状态，此时需渲染爆炸动画，由于爆炸动画帧的尺寸不同于子弹尺寸，故需要重新确定渲染位置
 	static SDL_Point _point;
-	_point.x = (int)(position.x - damageRange / 2);
-	_point.y = (int)(position.y - damageRange / 2);
+	_point.x = (int)(position.x - explodingSize.x / 2);
+	_point.y = (int)(position.y - explodingSize.y / 2);
 	animExploding.OnRender(_renderer, _point);
 	#pragma endregion
 }

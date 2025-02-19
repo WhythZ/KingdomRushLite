@@ -41,6 +41,12 @@ void DropManager::SpawnDrop(DropType _type, const Vector2& _position)
 	dropList.push_back(_drop);
 }
 
+void DropManager::TrySpawnDrop(DropType _type, const Vector2& _position, double _possibility)
+{
+	if ((double)(rand() % 100) / 100.0 < _possibility)
+		SpawnDrop(_type, _position);
+}
+
 const DropManager::DropList& DropManager::GetDropList() const
 {
 	return dropList;

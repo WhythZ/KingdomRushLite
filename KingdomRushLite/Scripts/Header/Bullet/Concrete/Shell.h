@@ -7,6 +7,7 @@
 class Shell : public Bullet
 {
 private:
+	Vector2 explodingSize;                    //炮弹爆炸后的动画的尺寸
 	Animation animExploding;                  //炮弹爆炸后的动画
 
 public:

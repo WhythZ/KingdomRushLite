@@ -9,7 +9,7 @@
 #include "EnemyType.h"
 
 //怪物减速丢失的速度（单位：每格瓦片）
-#define SLOW_DOWN_SPEED_LOST 0.5
+#define SLOW_DOWN_SPEED_LOST 0.3
 //怪物被减速的持续时间
 #define SLOW_DOWN_DURATION 1
 
@@ -18,6 +18,39 @@ class Enemy
 public:
 	//定义怪物使用技能的回调函数，接收一个技能释放者的指针参数
 	typedef std::function<void(Enemy*)> SkillCallBack;
+
+protected:
+	EnemyType type = EnemyType::None;           //敌人的种类
+
+	#pragma region Animation
+	Vector2 spriteSize;                         //敌人图片的二维尺寸大小
+	Animation animUp;                           //朝上方向的动画
+	Animation animDown;                         //朝下方向的动画
+	Animation animLeft;                         //朝左方向的动画
+	Animation animRight;                        //朝右方向的动画
+	Animation animUpSketch;                     //朝上方向的受击剪影动画
+	Animation animDownSketch;                   //朝下方向的受击剪影动画
+	Animation animLeftSketch;                   //朝左方向的受击剪影动画
+	Animation animRightSketch;                  //朝右方向的受击剪影动画
+	#pragma endregion
+
+	#pragma region BasicStats
+	double healthMaximum = 0;                   //最大生命值（读取配置文件）
+	double healthCurrent = 0;                   //当前生命值（动态进行记录）
+
+	double speedMaximum = 0;                    //最大移动速率标量（读取配置文件）
+	double speedCurrent = 0;                    //当前移动速率标量（动态进行记录）
+
+	double attackDamage = 0;                    //敌人可以对防守单位（家）造成的伤害
+
+	double coinRatio = 0;                       //奖励掉落概率
+	#pragma endregion
+
+	#pragma region SkillStats
+	double skillRecoverCooldown = 0;            //恢复技能的冷却
+	double skillRecoverRange = 0;               //恢复技能的范围
+	double skillRecoverIntensity = 0;           //恢复技能的强度
+	#pragma endregion
 
 private:
 	Vector2 position;                           //怪物位置
@@ -45,39 +78,6 @@ private:
 	Timer skillRecoverCooldowndTimer;           //恢复技能释放冷却的计时器
 	#pragma endregion
 
-protected:
-	EnemyType type = EnemyType::None;           //敌人的种类
-
-	#pragma region Animation
-	Vector2 spriteSize;                         //敌人图片的二维尺寸大小
-	Animation animUp;                           //朝上方向的动画
-	Animation animDown;                         //朝下方向的动画
-	Animation animLeft;                         //朝左方向的动画
-	Animation animRight;                        //朝右方向的动画
-	Animation animUpSketch;                     //朝上方向的受击剪影动画
-	Animation animDownSketch;                   //朝下方向的受击剪影动画
-	Animation animLeftSketch;                   //朝左方向的受击剪影动画
-	Animation animRightSketch;                  //朝右方向的受击剪影动画
-	#pragma endregion
-	
-	#pragma region BasicStats
-	double healthMaximum = 0;                   //最大生命值（读取配置文件）
-	double healthCurrent = 0;                   //当前生命值（动态进行记录）
-
-	double speedMaximum = 0;                    //最大移动速率标量（读取配置文件）
-	double speedCurrent = 0;                    //当前移动速率标量（动态进行记录）
-
-	double attackDamage = 0;                    //敌人可以对防守单位（家）造成的伤害
-
-	double coinRatio = 0;                       //奖励掉落概率
-	#pragma endregion
-
-	#pragma region SkillStats
-	double skillRecoverCooldown = 0;            //恢复技能的冷却
-	double skillRecoverRange = 0;               //恢复技能的范围
-	double skillRecoverIntensity = 0;           //恢复技能的强度
-	#pragma endregion
-
 public:
 	Enemy();
 	~Enemy() = default;
@@ -97,12 +97,11 @@ public:
 	double GetRouteProcess() const;             //获取怪物行进状况
 
 	double GetHealth() const;                   //获取当前血量
-	const Vector2& GetSpriteSize() const;       //获取贴图（碰撞箱）尺寸
+	const Vector2& GetSize() const;             //获取贴图（碰撞箱）尺寸
 	const Vector2& GetPosition() const;         //获取怪物位置
 	const Vector2& GetTargetPosition() const;   //获取怪物的目标位置
 	const Vector2& GetVelocity() const;         //获取怪物速度矢量
 	double GetAttackDamage() const;             //获取怪物能对家造成的伤害
-	double GetCoinRatio() const;                //获取金币掉率
 
 	double GetSkillRecoverCooldown() const;     //获取恢复技能的冷却
 	double GetSkillRecoverRadius() const;       //获取恢复技能的范围半径

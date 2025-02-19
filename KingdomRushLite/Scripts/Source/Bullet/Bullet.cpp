@@ -95,9 +95,9 @@ double Bullet::GetDamage() const
 	return damage;
 }
 
-double Bullet::GetDamageRange() const
+double Bullet::GetDamageRadius() const
 {
-	return damageRange;
+	return damageRadius;
 }
 
 bool Bullet::CanCollide() const

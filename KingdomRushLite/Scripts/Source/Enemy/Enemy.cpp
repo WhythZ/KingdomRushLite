@@ -1,6 +1,7 @@
 #include "../../Header/Enemy/Enemy.h"
 #include "../../Header/Manager/Concrete/ProcessManager.h"
 #include "../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../Header/Manager/Concrete/DropManager.h"
 
 Enemy::Enemy()
 {
@@ -162,7 +163,13 @@ void Enemy::DecreaseHealthBy(double _decre)
 	healthCurrent = ((healthCurrent - _decre) > 0) ? (healthCurrent - _decre) : 0;
 	//判断是否死亡
 	if (healthCurrent <= 0)
+	{
+		//声明死亡状态
 		isAlive = false;
+		
+		//有概率爆金币
+		DropManager::Instance()->TrySpawnDrop(DropType::Coin, position, coinRatio);
+	}
 
 	//每次受到攻击都要播放受击剪影闪白动画（重置闪白计时器）
 	isShowSketch = true;
@@ -200,7 +207,7 @@ double Enemy::GetHealth() const
 	return healthCurrent;
 }
 
-const Vector2& Enemy::GetSpriteSize() const
+const Vector2& Enemy::GetSize() const
 {
 	//比如碰撞检测的时候，就需要获取碰撞箱尺寸（此处简化其为贴图尺寸）
 	return spriteSize;
@@ -224,11 +231,6 @@ const Vector2& Enemy::GetVelocity() const
 double Enemy::GetAttackDamage() const
 {
 	return attackDamage;
-}
-
-double Enemy::GetCoinRatio() const
-{
-	return coinRatio;
 }
 
 double Enemy::GetSkillRecoverCooldown() const

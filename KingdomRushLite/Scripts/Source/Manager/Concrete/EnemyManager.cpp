@@ -1,5 +1,6 @@
 #include "../../../Header/Manager/Concrete/EnemyManager.h"
 #include "../../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../../Header/Manager/Concrete/BulletManager.h"
 #include "../../../Header/Enemy/Concrete/Slime.h"
 #include "../../../Header/Enemy/Concrete/SlimeKing.h"
 #include "../../../Header/Enemy/Concrete/Skeleton.h"
@@ -144,6 +145,64 @@ const EnemyManager::EnemyList& EnemyManager::GetEnemyList() const
 
 void EnemyManager::UpdateCollisionBullet()
 {
+	//遍历场上所有敌人，进行与子弹的碰撞检测
+	for (Enemy* _enemy : enemyList)
+	{
+		//若该敌人已死则跳过，防止无意义地继续后续运算（因程序仍处于此循环语句，无法及时在外部将其移除）
+		if (!_enemy->IsAlive()) continue;
+
+		//获取敌人位置与尺寸
+		const Vector2& _enemyPosition = _enemy->GetPosition();
+		const Vector2& _enemySize = _enemy->GetSize();
+
+		//遍历场上所有子弹
+		static const BulletManager::BulletList& _bulletList = BulletManager::Instance()->GetBulletList();
+		for (Bullet* _bullet : _bulletList)
+		{
+			//若该子弹已不能发生碰撞判定，则跳过该子弹
+			if (!_bullet->CanCollide()) continue;
+			//获取子弹的中心位置，暂时无需尺寸（若是范围伤害那另说），因子弹矩形外围有较大空白区域，用于碰撞检定在视觉上不合适
+			const Vector2& _bulletPosition = _bullet->GetPosition();
+
+			//检测子弹中心点是否与敌人贴图矩形发生重合
+			if (_bulletPosition.x >= _enemyPosition.x - _enemySize.x / 2
+				&& _bulletPosition.x <= _enemyPosition.x + _enemySize.x / 2
+				&& _bulletPosition.y <= _enemyPosition.y + _enemySize.y / 2
+				&& _bulletPosition.y >= _enemyPosition.y - _enemySize.y / 2)
+			{
+				//获取子弹的伤害与伤害范围
+				double _damage = _bullet->GetDamage();
+				double _damageRadius = _bullet->GetDamageRadius();
+
+				//若范围为非正数，则说明是单体伤害
+				if (_damageRadius <= 0)
+				{
+					//处理敌人被子弹碰撞后的减血效果（该函数内置死亡检测以及爆金币等逻辑）
+					_enemy->DecreaseHealthBy(_damage);
+				}
+				//否则造成范围伤害
+				else
+				{
+					//重新遍历所有敌人，即把检测范围从当前单个敌人扩大到场上所有敌人
+					for (Enemy* _target : enemyList)
+					{
+						if ((_target->GetPosition() - _bulletPosition).Length() <= _damageRadius)
+						{
+							//处理敌人被子弹碰撞后的减血效果（该函数内置死亡检测以及爆金币等逻辑）
+							_target->DecreaseHealthBy(_damage);
+						}
+					}
+				}
+
+				//处理子弹的碰撞效果
+				_bullet->OnCollide(_enemy);
+			}
+		}
+	}
+}
+
+void EnemyManager::UpdateCollisionHome()
+{
 	#pragma region GetHomePosition
 	//获取家所在的瓦片坐标点
 	static const SDL_Point& _homePt = ProcessManager::Instance()->map.GetHomePoint();
@@ -177,10 +236,6 @@ void EnemyManager::UpdateCollisionBullet()
 			ProcessManager::Instance()->DecreaseHealthBy(_enemy->GetAttackDamage());
 		}
 	}
-}
-
-void EnemyManager::UpdateCollisionHome()
-{
 }
 
 void EnemyManager::RemoveDeadEnemies()
