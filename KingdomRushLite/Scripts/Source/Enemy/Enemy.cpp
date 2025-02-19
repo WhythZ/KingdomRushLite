@@ -123,8 +123,8 @@ void Enemy::OnRender(SDL_Renderer* _renderer)
 	//血条偏移贴图正上方的偏移量（为了让血条不要紧贴着怪物贴图的顶边）
 	static const float _healthBarVerticalOffset = 3;
 	//血条的内容与边框的颜色，R-G-B-Alpha
-	static const SDL_Color _healthBarColorContent = { 225,255,195,255 };
-	static const SDL_Color _healthBarColorBorder = { 115,185,125,255 };
+	static const SDL_Color _colorContent = { 225,255,195,255 };
+	static const SDL_Color _colorBorder = { 115,185,125,255 };
 
 	//当怪物生命值不满时，绘制血条
 	if (healthCurrent < healthMaximum)
@@ -132,21 +132,22 @@ void Enemy::OnRender(SDL_Renderer* _renderer)
 		//让血条的中心点水平上对齐怪物贴图的中心
 		_healthBarRect.x = (int)(position.x - _healthBarSize.x / 2);
 		//竖直上在怪物贴图的正上方，注意是减法（坐标轴y轴正方向朝下的缘故）
-		_healthBarRect.y = (int)(position.y - spriteSize.y / 2 - _healthBarSize.y - _healthBarVerticalOffset);
+		_healthBarRect.y = (int)(position.y - spriteSize.y / 2 - _healthBarVerticalOffset - _healthBarSize.y);
 		//宽度表示生命条的长度
 		_healthBarRect.w = (int)(_healthBarSize.x * (healthCurrent / healthMaximum));
 		//高度不变
 		_healthBarRect.h = (int)(_healthBarSize.y);
 
 		//设置血条内容绘制颜色
-		SDL_SetRenderDrawColor(_renderer, _healthBarColorContent.r, _healthBarColorContent.g, _healthBarColorContent.b, _healthBarColorContent.a);
-		//以上述颜色绘制血条内容
+		SDL_SetRenderDrawColor(_renderer, _colorContent.r, _colorContent.g, _colorContent.b, _colorContent.a);
+		//以上述颜色绘制填充的血条内容
 		SDL_RenderFillRect(_renderer, &_healthBarRect);
 
 		//为了绘制血条边框，将宽度变回原来的宽度
 		_healthBarRect.w = (int)(_healthBarSize.x);
-		SDL_SetRenderDrawColor(_renderer, _healthBarColorBorder.r, _healthBarColorBorder.g, _healthBarColorBorder.b, _healthBarColorBorder.a);
-		SDL_RenderFillRect(_renderer, &_healthBarRect);
+		SDL_SetRenderDrawColor(_renderer, _colorBorder.r, _colorBorder.g, _colorBorder.b, _colorBorder.a);
+		//以上述颜色绘制血条边框（注意是Draw而不是Fill）
+		SDL_RenderDrawRect(_renderer, &_healthBarRect);
 	}
 	#pragma endregion
 }

@@ -35,10 +35,10 @@ bool ConfigManager::LoadConfig(const std::string& _path)
 	//解析各敌人配置
 	cJSON* _jsonEnemyType = cJSON_GetObjectItem(_jsonRoot, "enemy_type");
 	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "slime"))) return false;
-	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "king_slime"))) return false;
-	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "skeleton"))) return false;
-	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "goblin"))) return false;
-	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "priest_goblin"))) return false;
+	if (!ParseEnemyConfigPrefab(slimeKingPrefab, cJSON_GetObjectItem(_jsonEnemyType, "king_slime"))) return false;
+	if (!ParseEnemyConfigPrefab(skeletonPrefab, cJSON_GetObjectItem(_jsonEnemyType, "skeleton"))) return false;
+	if (!ParseEnemyConfigPrefab(goblinPrefab, cJSON_GetObjectItem(_jsonEnemyType, "goblin"))) return false;
+	if (!ParseEnemyConfigPrefab(goblinPriestPrefab, cJSON_GetObjectItem(_jsonEnemyType, "priest_goblin"))) return false;
 
 	//释放内存并返回
 	cJSON_Delete(_jsonRoot);
