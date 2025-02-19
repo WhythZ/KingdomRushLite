@@ -7,42 +7,42 @@
 			{
 				"interval":	0,
 				"spawn_point":	1,
+				"enemy_type":	"Slime"
+			},
+			{
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
+			},
+			{
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
+			},
+			{
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
+			},
+			{
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
+			},
+			{
+				"interval":	1,
+				"spawn_point":	1,
+				"enemy_type":	"Slime"
+			},
+			{
+				"interval":	1,
+				"spawn_point":	1,
 				"enemy_type":	"Goblin"
 			},
 			{
 				"interval":	1,
 				"spawn_point":	1,
-				"enemy_type":	"Slime"
-			},
-			{
-				"interval":	1,
-				"spawn_point":	1,
-				"enemy_type":	"Slime"
-			},
-			{
-				"interval":	1,
-				"spawn_point":	1,
-				"enemy_type":	"Slime"
-			},
-			{
-				"interval":	1,
-				"spawn_point":	1,
-				"enemy_type":	"Slime"
-			},
-			{
-				"interval":	1,
-				"spawn_point":	1,
-				"enemy_type":	"Slime"
-			},
-			{
-				"interval":	1,
-				"spawn_point":	1,
-				"enemy_type":	"Slime"
-			},
-			{
-				"interval":	1,
-				"spawn_point":	1,
-				"enemy_type":	"Slime"
+				"enemy_type":	"Goblin"
 			}
 		]
 	},
@@ -69,7 +69,17 @@
 			{
 				"interval":	0,
 				"spawn_point":	2,
-				"enemy_type":	"Slime"
+				"enemy_type":	"Goblin"
+			},
+			{
+				"interval":	1,
+				"spawn_point":	2,
+				"enemy_type":	"Goblin"
+			},
+			{
+				"interval":	1,
+				"spawn_point":	2,
+				"enemy_type":	"Goblin"
 			},
 			{
 				"interval":	1,
@@ -77,18 +87,8 @@
 				"enemy_type":	"Slime"
 			},
 			{
-				"interval":	0,
-				"spawn_point":	2,
-				"enemy_type":	"Slime"
-			},
-			{
 				"interval":	1,
 				"spawn_point":	1,
-				"enemy_type":	"Slime"
-			},
-			{
-				"interval":	0,
-				"spawn_point":	2,
 				"enemy_type":	"Slime"
 			},
 			{
@@ -106,27 +106,27 @@
 			{
 				"interval":	1,
 				"spawn_point":	2,
-				"enemy_type":	"Slime"
+				"enemy_type":	"Goblin"
 			},
 			{
 				"interval":	1,
 				"spawn_point":	2,
-				"enemy_type":	"Slime"
+				"enemy_type":	"Goblin"
 			},
 			{
 				"interval":	1,
 				"spawn_point":	2,
-				"enemy_type":	"Slime"
+				"enemy_type":	"Goblin"
 			},
 			{
 				"interval":	1,
 				"spawn_point":	2,
-				"enemy_type":	"Slime"
+				"enemy_type":	"Skeleton"
 			},
 			{
 				"interval":	1,
 				"spawn_point":	2,
-				"enemy_type":	"Slime"
+				"enemy_type":	"Skeleton"
 			},
 			{
 				"interval":	0,

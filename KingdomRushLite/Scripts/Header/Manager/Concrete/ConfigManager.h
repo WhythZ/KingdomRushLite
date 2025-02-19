@@ -99,7 +99,7 @@ public:
 
 public:
 	bool LoadConfig(const std::string&);   //加载游戏的各项基本设置（json）
-	bool LoadLevel(const std::string&);    //加载关卡波次的具体信息（json）
+	bool LoadWaves(const std::string&);    //加载关卡波次的具体信息（json）
 
 private:
 	ConfigManager() = default;

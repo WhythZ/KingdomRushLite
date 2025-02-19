@@ -195,6 +195,9 @@
     <ClCompile Include="Scripts\Source\Manager\Concrete\DropManager.cpp">
       <Filter>源文件\Manager\Concrete</Filter>
     </ClCompile>
+    <ClCompile Include="Scripts\Source\Enemy\EnemyType.cpp">
+      <Filter>源文件\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Map\Tile.h">

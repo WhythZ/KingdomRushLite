@@ -7,7 +7,13 @@ WaveManager::WaveManager()
 {
 	//获取波次列表
 	waveList = ConfigManager::Instance()->waveList;
+	//std::cout << "Wave[0]EventList.size()=" << waveList[0].spawnEventList.size() << "\n";
+	//std::cout << "Wave[1]EventList.size()=" << waveList[1].spawnEventList.size() << "\n";
+	//std::cout << "Wave[2]EventList.size()=" << waveList[2].spawnEventList.size() << "\n";
+	//std::cout << "Wave[3]EventList.size()=" << waveList[3].spawnEventList.size() << "\n";
+	//std::cout << "Wave[0]EventList[0].enemyType=" << waveList[0].spawnEventList[0].enemyType << "\n";
 
+	#pragma region BigWaveTimer
 	//每次生成新波次敌人时，启用该计时器以开启波次
 	waveStartTimer.SetOneShot(true);
 	//初始化等待时间为第一个波次的interval
@@ -19,14 +25,15 @@ WaveManager::WaveManager()
 		{
 			//开启某个波次（注意不是单指第一次）
 			isWaveStarted = true;
-			isWaveEnded = false;
 			//每当新的波次开始时，才会开始对应的各个生成事件，初始化等待时间为当前波次的第一个生成事件的interval
 			eventStartTimer.SetWaitTime(waveList[waveIdx].spawnEventList[0].interval);
 			//每次触发波次计时器的回调函数时，将生成事件计时器归零重启，以触发第一个生成事件
 			eventStartTimer.Restart();
 		}
 	);
+	#pragma endregion
 
+	#pragma region SmallEventTimer
 	//将生成事件计时器设置成单次触发，因为我们要对当前波次内的生成事件是否全部执行完毕进行检测，若没完成就重启计时器即可
 	eventStartTimer.SetOneShot(true);
 	eventStartTimer.SetTimeOutTrigger(
@@ -55,15 +62,12 @@ WaveManager::WaveManager()
 			eventStartTimer.Restart();
 		}
 	);
+	#pragma endregion
 }
 
 void WaveManager::OnUpdate(double _delta)
-{
+{	
 	ProcessManager* _process = ProcessManager::Instance();
-
-	//如果游戏结束，就不需更新了
-	if (_process->isGameOver)
-		return;
 
 	//若当前波次开始了，那就更新生成事件计时器，否则进行波次计时器的更新
 	if (!isWaveStarted)
@@ -71,14 +75,18 @@ void WaveManager::OnUpdate(double _delta)
 	else
 		eventStartTimer.OnUpdate(_delta);
 
-	//若波次结束，不能立刻重置波次计时器生成下一波，得等场上敌人都清空了再开始
+	//若波次结束，且场上敌人已清空，则重置波次计时器以生成下一波
 	if (isWaveEnded && EnemyManager::Instance()->IsEnemyCleaned())
 	{
+		//防止在waveStartTimer触发回调函数前重复执行当前作用域的内容，导致不断递增波次索引
+		isWaveEnded = false;
+
 		//发放波次奖励
 		ProcessManager::Instance()->IncreaseCoinNumBy(waveList[waveIdx].rewards);
 
 		//递增波次索引（注意先发奖励再递增，否则会奖励错）
 		waveIdx++;
+		std::cout << "CurrentWaveIdx=" << waveIdx << "\n";
 		//若超出范围，则说明所有波次结束，游戏结束
 		if (waveIdx >= waveList.size())
 		{

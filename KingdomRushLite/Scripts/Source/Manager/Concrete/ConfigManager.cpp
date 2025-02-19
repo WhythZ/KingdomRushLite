@@ -45,7 +45,7 @@ bool ConfigManager::LoadConfig(const std::string& _path)
 	return true;
 }
 
-bool ConfigManager::LoadLevel(const std::string& _path)
+bool ConfigManager::LoadWaves(const std::string& _path)
 {
 	#pragma region GetJsonRoot
 	//从传入路径读取文件，并判断是否读取失败
@@ -76,8 +76,7 @@ bool ConfigManager::LoadLevel(const std::string& _path)
 	cJSON_ArrayForEach(_jsonWave, _jsonRoot)
 	{
 		//对拿到的对象的类型进行判断（此处需要是花括号的json对象）若不是就跳过此对象
-		if (_jsonWave->type != cJSON_Object)
-			continue;
+		if (_jsonWave->type != cJSON_Object) continue;
 
 		//拿到新增到波次列表尾部的空元素，准备对其录入此循环读取到的波次信息
 		waveList.emplace_back();
@@ -100,8 +99,7 @@ bool ConfigManager::LoadLevel(const std::string& _path)
 			cJSON_ArrayForEach(_jsonSpawnEvent, _jsonSpawnList)
 			{
 				//检测拿到的对象的类型
-				if (_jsonWave->type != cJSON_Object)
-					continue;
+				if (_jsonWave->type != cJSON_Object) continue;
 
 				//拿到_wave.spawnEventList末尾新增的空元素，准备对其进行数据录入
 				_wave.spawnEventList.emplace_back();
@@ -119,11 +117,12 @@ bool ConfigManager::LoadLevel(const std::string& _path)
 				cJSON* _jsonEnemyType = cJSON_GetObjectItem(_jsonSpawnEvent, "enemy_type");
 				if (_jsonEnemyType && _jsonEnemyType->type == cJSON_String)
 				{
-					if (_jsonEnemyType->valuestring == "Slime") { _spawnEvent.enemyType = EnemyType::Slime; }
-					else if (_jsonEnemyType->valuestring == "SlimeKing") { _spawnEvent.enemyType = EnemyType::SlimeKing; }
-					else if (_jsonEnemyType->valuestring == "Skeleton") { _spawnEvent.enemyType = EnemyType::Skeleton; }
-					else if (_jsonEnemyType->valuestring == "Goblin") { _spawnEvent.enemyType = EnemyType::Goblin; }
-					else if (_jsonEnemyType->valuestring == "GoblinPriest") { _spawnEvent.enemyType = EnemyType::GoblinPriest; }
+					//_jsonEnemyType->valuestring是C风格字符串即字符指针，不能直接用==进行判等（这样实际比较的是地址），故使用strcmp函数进行比较
+					if (strcmp(_jsonEnemyType->valuestring, "Slime") == 0) { _spawnEvent.enemyType = EnemyType::Slime; }
+					else if (strcmp(_jsonEnemyType->valuestring, "SlimeKing") == 0) { _spawnEvent.enemyType = EnemyType::SlimeKing; }
+					else if (strcmp(_jsonEnemyType->valuestring, "Skeleton") == 0) { _spawnEvent.enemyType = EnemyType::Skeleton; }
+					else if (strcmp(_jsonEnemyType->valuestring, "Goblin") == 0) { _spawnEvent.enemyType = EnemyType::Goblin; }
+					else if (strcmp(_jsonEnemyType->valuestring, "GoblinPriest") == 0) { _spawnEvent.enemyType = EnemyType::GoblinPriest; }
 				}
 			}
 		}

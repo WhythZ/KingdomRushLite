@@ -16,10 +16,12 @@
 int GameManager::Run(int _argc, char** _argv)
 {
 	#pragma region Testing
-	TowerManager::Instance()->BuildTower(TowerType::Archer, { 4,7 });
-	TowerManager::Instance()->BuildTower(TowerType::Axeman, { 5,7 });
-	TowerManager::Instance()->BuildTower(TowerType::Gunner, { 6,7 });
-	DropManager::Instance()->SpawnDrop(DropType::Coin, { 200,200 });
+	TowerManager::Instance()->BuildTower(TowerType::Archer, { 10,7 });
+	TowerManager::Instance()->BuildTower(TowerType::Axeman, { 10,8 });
+	TowerManager::Instance()->BuildTower(TowerType::Gunner, { 10,9 });
+	TowerManager::Instance()->BuildTower(TowerType::Archer, { 15,7 });
+	TowerManager::Instance()->BuildTower(TowerType::Axeman, { 15,8 });
+	TowerManager::Instance()->BuildTower(TowerType::Gunner, { 15,9 });
 	#pragma endregion
 
 	#pragma region LimitFPS
@@ -89,7 +91,7 @@ GameManager::GameManager()
 	//使用初始化断言，加载地图文件、主配置文件（其内包含窗口配置信息，故而放在窗口初始化之前）、关卡文件
 	InitAssert(_process->map.Load("Data/map.csv"), u8"Failed To Load map.csv");
 	InitAssert(_config->LoadConfig("Data/config.json"), u8"Failed To Load config.json");
-	InitAssert(_config->LoadLevel("Data/level.json"), u8"Failed To Load level.json");
+	InitAssert(_config->LoadWaves("Data/waves.json"), u8"Failed To Load waves.json");
 	#pragma endregion
 
 	#pragma region Window&Renderer

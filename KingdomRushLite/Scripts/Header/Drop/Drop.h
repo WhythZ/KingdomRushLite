@@ -19,10 +19,10 @@ protected:
 	#pragma region Properties
 	Vector2 velocity;                  //掉落物是从初始位置向上弹出来的，故需控制其速度向量
 	double gravity = 10;               //掉落物的重力加速度
-	double popDuration = 0.75;         //掉落物上升的时间
+	double popDuration = 1;            //掉落物上升的时间
 	double existDuration = 10;         //掉落物存在的时间
 	double initSpeedX = 2;             //掉落物生成时的初始水平速率
-	double initSpeedY = 3;             //掉落物生成时的初始纵向速率
+	double initSpeedY = 4;             //掉落物生成时的初始纵向速率
 	double floatingFrequency = 4;      //与三角函数自变量相乘，控制掉落物在地面上的波动频率
 	double floatingAmplitude = 16;     //与三角函数值相乘，控制掉落物在地面上的波动振幅
 	#pragma endregion

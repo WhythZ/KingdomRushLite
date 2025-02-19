@@ -23,6 +23,7 @@
     <ClCompile Include="Scripts\Source\Animation\Animation.cpp" />
     <ClCompile Include="Scripts\Source\Drop\Concrete\Coin.cpp" />
     <ClCompile Include="Scripts\Source\Drop\Drop.cpp" />
+    <ClCompile Include="Scripts\Source\Enemy\EnemyType.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\DropManager.cpp" />
     <ClCompile Include="Scripts\Source\Tower\Concrete\Archer.cpp" />
     <ClCompile Include="Scripts\Source\Bullet\Concrete\Arrow.cpp" />
