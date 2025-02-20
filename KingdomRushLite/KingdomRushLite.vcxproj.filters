@@ -22,14 +22,8 @@
     <Filter Include="头文件\Enemy">
       <UniqueIdentifier>{ee40717e-9d95-474e-8bbc-76cf994ba3ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\Animation">
-      <UniqueIdentifier>{dfea80e2-b32a-4fd1-805c-8d0ee42f2773}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Enemy\Concrete">
       <UniqueIdentifier>{24526127-b1c0-4520-bfdf-41c71cba3a05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="头文件\Math">
-      <UniqueIdentifier>{9e552c3e-7e00-4808-94f5-9e4dffe5a5fe}</UniqueIdentifier>
     </Filter>
     <Filter Include="头文件\Bullet">
       <UniqueIdentifier>{53df255b-f1a3-44cd-b7d0-38ce5fdc0248}</UniqueIdentifier>
@@ -46,9 +40,6 @@
     <Filter Include="头文件\Tower\Concrete">
       <UniqueIdentifier>{67760b45-db56-44e6-9c5f-586c5100f353}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\Animation">
-      <UniqueIdentifier>{094f630e-3b81-4c1d-8c3f-87282c0d38ac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\_Dependencies">
       <UniqueIdentifier>{ae9f0ac5-07aa-43fa-a4e1-9fcfe7e05988}</UniqueIdentifier>
     </Filter>
@@ -63,9 +54,6 @@
     </Filter>
     <Filter Include="源文件\Map">
       <UniqueIdentifier>{f82986b4-4447-4c17-9e51-4764b3e3920b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\Math">
-      <UniqueIdentifier>{fa8bf10d-19a2-49be-9b20-27787df29e46}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\Tower">
       <UniqueIdentifier>{b94dad9d-46ec-44dc-95bc-15dcc98bff3c}</UniqueIdentifier>
@@ -100,6 +88,12 @@
     <Filter Include="源文件\UI">
       <UniqueIdentifier>{a5b2cf47-d1bd-4772-9e46-70e6bdacf476}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Infra">
+      <UniqueIdentifier>{f0e8e22d-0994-4d64-b79d-dad9ba26b696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Infra">
+      <UniqueIdentifier>{4cbf46e3-9780-417d-a971-3b29b8dfc882}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -107,9 +101,6 @@
     </ClCompile>
     <ClCompile Include="Scripts\Source\Main.cpp">
       <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\Source\Animation\Animation.cpp">
-      <Filter>源文件\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\Source\Bullet\Bullet.cpp">
       <Filter>源文件\Bullet</Filter>
@@ -174,12 +165,6 @@
     <ClCompile Include="Scripts\Source\Map\Route.cpp">
       <Filter>源文件\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\Source\Math\Vector2.cpp">
-      <Filter>源文件\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\Source\Math\Timer.cpp">
-      <Filter>源文件\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\Source\Tower\Tower.cpp">
       <Filter>源文件\Tower</Filter>
     </ClCompile>
@@ -207,6 +192,15 @@
     <ClCompile Include="Scripts\Source\UI\StatusBar.cpp">
       <Filter>源文件\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Scripts\Source\Infra\Timer.cpp">
+      <Filter>源文件\Infra</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Infra\Vector2.cpp">
+      <Filter>源文件\Infra</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Infra\Animation.cpp">
+      <Filter>源文件\Infra</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Map\Tile.h">
@@ -230,12 +224,6 @@
     <ClInclude Include="Scripts\Header\Map\Route.h">
       <Filter>头文件\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Animation\Animation.h">
-      <Filter>头文件\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Header\Math\Vector2.h">
-      <Filter>头文件\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Goblin.h">
       <Filter>头文件\Enemy\Concrete</Filter>
     </ClInclude>
@@ -253,9 +241,6 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Bullet\Bullet.h">
       <Filter>头文件\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Header\Math\Timer.h">
-      <Filter>头文件\Math</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Bullet\Concrete\Arrow.h">
       <Filter>头文件\Bullet\Concrete</Filter>
@@ -308,9 +293,6 @@
     <ClInclude Include="Scripts\Header\Tower\Concrete\Archer.h">
       <Filter>头文件\Tower\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Math\FacingDir.h">
-      <Filter>头文件\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\Header\Manager\Concrete\TowerManager.h">
       <Filter>头文件\Manager\Concrete</Filter>
     </ClInclude>
@@ -328,6 +310,18 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\UI\StatusBar.h">
       <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Infra\FacingDir.h">
+      <Filter>头文件\Infra</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Infra\Timer.h">
+      <Filter>头文件\Infra</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Infra\Vector2.h">
+      <Filter>头文件\Infra</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Infra\Animation.h">
+      <Filter>头文件\Infra</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

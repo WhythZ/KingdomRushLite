@@ -2,8 +2,8 @@
 #define _BULLET_H_
 
 #include "BulletType.h"
-#include "../Math/Vector2.h"
-#include "../Animation/Animation.h"
+#include "../Infra/Vector2.h"
+#include "../Infra/Animation.h"
 #include "../Enemy/Enemy.h"
 
 class Bullet

@@ -2,9 +2,9 @@
 #define _DROP_H_
 
 #include "DropType.h"
-#include "../Math/Vector2.h"
-#include "../Math/Timer.h"
-#include "../Animation/Animation.h"
+#include "../Infra/Vector2.h"
+#include "../Infra/Timer.h"
+#include "../Infra/Animation.h"
 
 class Drop
 {

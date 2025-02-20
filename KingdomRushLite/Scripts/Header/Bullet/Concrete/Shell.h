@@ -2,7 +2,7 @@
 #define _SHELL_H_
 
 #include "../Bullet.h"
-#include "../../Animation/Animation.h"
+#include "../../Infra/Animation.h"
 
 #define BULLET_SHELL_DAMAGE_RADIUS 72
 

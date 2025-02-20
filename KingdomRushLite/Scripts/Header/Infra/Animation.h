@@ -4,12 +4,12 @@
 #include <functional>
 #include <vector>
 #include <SDL.h>
-#include "../Math/Timer.h"
+#include "../Infra/Timer.h"
 
 //动画播放的默认帧间隔
 #define ANIMATION_DEFAULT_FRAME_INTERVAL 0.1
 //动画播放的较大帧间隔
-#define ANIMATION_LARGER_FRAME_INTERVAL 0.25
+#define ANIMATION_LARGER_FRAME_INTERVAL 0.2
 
 class Animation
 {

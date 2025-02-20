@@ -2,10 +2,10 @@
 #define _TOWER_H_
 
 #include "TowerType.h"
-#include "../Math/Vector2.h"
-#include "../Math/Timer.h"
-#include "../Math/FacingDir.h"
-#include "../Animation/Animation.h"
+#include "../Infra/Vector2.h"
+#include "../Infra/Timer.h"
+#include "../Infra/FacingDir.h"
+#include "../Infra/Animation.h"
 #include "../Bullet/BulletType.h"
 #include "../Enemy/Enemy.h"
 

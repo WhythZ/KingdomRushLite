@@ -2,9 +2,8 @@
 #define _ENEMY_H_
 
 #include <functional>
-#include "../Animation/Animation.h"
-#include "../Math/Vector2.h"
-#include "../Math/Timer.h"
+#include "../Infra/Animation.h"
+#include "../Infra/Vector2.h"
 #include "../Map/Route.h"
 #include "EnemyType.h"
 

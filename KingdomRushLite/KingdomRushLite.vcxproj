@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c" />
-    <ClCompile Include="Scripts\Source\Animation\Animation.cpp" />
+    <ClCompile Include="Scripts\Source\Infra\Animation.cpp" />
     <ClCompile Include="Scripts\Source\Drop\Concrete\Coin.cpp" />
     <ClCompile Include="Scripts\Source\Drop\Drop.cpp" />
     <ClCompile Include="Scripts\Source\Enemy\EnemyType.cpp" />
@@ -47,16 +47,16 @@
     <ClCompile Include="Scripts\Source\Enemy\Concrete\Skeleton.cpp" />
     <ClCompile Include="Scripts\Source\Enemy\Concrete\Slime.cpp" />
     <ClCompile Include="Scripts\Source\Enemy\Concrete\SlimeKing.cpp" />
-    <ClCompile Include="Scripts\Source\Math\Timer.cpp" />
+    <ClCompile Include="Scripts\Source\Infra\Timer.cpp" />
     <ClCompile Include="Scripts\Source\Tower\Tower.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\TowerManager.cpp" />
-    <ClCompile Include="Scripts\Source\Math\Vector2.cpp" />
+    <ClCompile Include="Scripts\Source\Infra\Vector2.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\WaveManager.cpp" />
     <ClCompile Include="Scripts\Source\Main.cpp" />
     <ClCompile Include="Scripts\Source\UI\StatusBar.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Scripts\Header\Animation\Animation.h" />
+    <ClInclude Include="Scripts\Header\Infra\Animation.h" />
     <ClInclude Include="Scripts\Header\Bullet\BulletType.h" />
     <ClInclude Include="Scripts\Header\Bullet\Concrete\Arrow.h" />
     <ClInclude Include="Scripts\Header\Bullet\Concrete\Axe.h" />
@@ -87,9 +87,9 @@
     <ClInclude Include="Scripts\Header\Enemy\Wave.h" />
     <ClInclude Include="Scripts\Header\Map\Route.h" />
     <ClInclude Include="Scripts\Header\Map\Tile.h" />
-    <ClInclude Include="Scripts\Header\Math\FacingDir.h" />
-    <ClInclude Include="Scripts\Header\Math\Timer.h" />
-    <ClInclude Include="Scripts\Header\Math\Vector2.h" />
+    <ClInclude Include="Scripts\Header\Infra\FacingDir.h" />
+    <ClInclude Include="Scripts\Header\Infra\Timer.h" />
+    <ClInclude Include="Scripts\Header\Infra\Vector2.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Archer.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Axeman.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Gunner.h" />

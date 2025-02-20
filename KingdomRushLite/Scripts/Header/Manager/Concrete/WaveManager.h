@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "../Manager.hpp"
-#include "../../Math/Timer.h"
+#include "../../Infra/Timer.h"
 #include "../../Enemy/Wave.h"
 
 //波次管理器，每个波次由多个生成事件构成
