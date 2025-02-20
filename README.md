@@ -6,11 +6,11 @@ This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 ## About
 In this tower defence game inspired by KingdomRush series, you can not only build different towers using coins earned by defeating waves of enemies, but also control a dragon with skills to battle, [click to play online](https://whythz-debug.github.io/KingdomRushLite/)
 
-You can edit the files in `root\KingdomRushLite\Data\` to modify your own game experience if you clone this repo in your VS locally
+You can edit the files in `root\KingdomRushLite\Data\` to modify your own game experience after you clone this repo locally and run in Release x64 mode
 - `map.csv`: Defines tilemap, each tile is denotd in `a/b/c/d` form, see `Tile.h`
 - `config.json`: Defines window resolution and stats of player, towers and enemies
 - `waves.json`: Defines the amount and details of multiple enemy waves
-```json
+```javascript
 // List of spawn waves for series of enemies
 [
     // Wave 0
