@@ -311,7 +311,7 @@
     <ClInclude Include="Scripts\Header\UI\StatusBar.h">
       <Filter>头文件\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Infra\FacingDir.h">
+    <ClInclude Include="Scripts\Header\Infra\DirectionType.h">
       <Filter>头文件\Infra</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Infra\Timer.h">

@@ -152,8 +152,8 @@ void Map::LoadTileFromString(const std::string _tileBuf, Tile& _tile)
 	_tile.terrainLayer = (_values.size() < 1 || _values[0] < 0) ? 0 : _values[0];
 	//数组尺寸为1的话，说明除了地形层有数据外其他层的数据均缺失，后面依此类推；小于-1无意义，等于-1表示无装饰
 	_tile.decorationLayer = (_values.size() < 2 || _values[0] < -1) ? -1 : _values[1];
-	//依据枚举内的映射进行强制类型转换；小于0无意义，0对应Tile::TileDir::None，表示无方向
-	_tile.directionLayer = (Tile::TileDir)((_values.size() < 3 || _values[0] < 0) ? 0 : _values[2]);
+	//依据枚举内的映射进行强制类型转换；小于0无意义，0对应TileDir::None，表示无方向
+	_tile.directionLayer = (TileDir)((_values.size() < 3 || _values[0] < 0) ? 0 : _values[2]);
 	//小于-1无意义，等于-1表示无特殊建筑
 	_tile.specialFlagLayer = (_values.size() < 4 || _values[0] < -1) ? -1 : _values[3];
 }

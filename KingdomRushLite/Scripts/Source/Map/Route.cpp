@@ -35,16 +35,16 @@ Route::Route(const TileMap& _map, const SDL_Point& _beginPoint)
 		//按照瓦片的方向性进行索引的移动
 		switch (_map[_nextPoint.y][_nextPoint.x].directionLayer)
 		{
-		case Tile::TileDir::Up:
+		case TileDir::Up:
 			_nextPoint.y--;
 			break;
-		case Tile::TileDir::Down:
+		case TileDir::Down:
 			_nextPoint.y++;
 			break;
-		case Tile::TileDir::Left:
+		case TileDir::Left:
 			_nextPoint.x--;
 			break;
-		case Tile::TileDir::Right:
+		case TileDir::Right:
 			_nextPoint.x++;
 			break;
 		default:

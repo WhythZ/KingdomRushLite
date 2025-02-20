@@ -87,7 +87,7 @@
     <ClInclude Include="Scripts\Header\Enemy\Wave.h" />
     <ClInclude Include="Scripts\Header\Map\Route.h" />
     <ClInclude Include="Scripts\Header\Map\Tile.h" />
-    <ClInclude Include="Scripts\Header\Infra\FacingDir.h" />
+    <ClInclude Include="Scripts\Header\Infra\DirectionType.h" />
     <ClInclude Include="Scripts\Header\Infra\Timer.h" />
     <ClInclude Include="Scripts\Header\Infra\Vector2.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Archer.h" />

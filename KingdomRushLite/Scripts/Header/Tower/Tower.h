@@ -4,7 +4,7 @@
 #include "TowerType.h"
 #include "../Infra/Vector2.h"
 #include "../Infra/Timer.h"
-#include "../Infra/FacingDir.h"
+#include "../Infra/DirectionType.h"
 #include "../Infra/Animation.h"
 #include "../Bullet/BulletType.h"
 #include "../Enemy/Enemy.h"

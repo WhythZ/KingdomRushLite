@@ -6,7 +6,40 @@ This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 ## About
 In this tower defence game inspired by KingdomRush series, you can not only build different towers using coins earned by defeating waves of enemies, but also control a dragon with skills to battle, [click to play online](https://whythz-debug.github.io/KingdomRushLite/)
 
-This prototype is implemented by multiple extensible systems, short descriptions about the core functional classes are listed below, notice that all managers are derived from singleton `Manager` base class
+You can edit the files in `root\KingdomRushLite\Data\` to modify your own game experience if you clone this repo in your VS locally
+- `map.csv`: Defines tilemap, each tile is denotd in `a/b/c/d` form, see `Tile.h`
+- `config.json`: Defines window resolution and stats of player, towers and enemies
+- `waves.json`: Defines the amount and details of multiple enemy waves
+```json
+// List of spawn waves for series of enemies
+[
+    // Wave 0
+    {
+        // Wave properties
+		"rewards":	300,
+		"interval":	10,
+        // List of spawn events for one enemy of particular type
+        "spawn_list":
+        [
+            // Event 0 
+            {
+                // Event properties
+                "interval":	1,
+				"spawn_point":	2,
+                "enemy_type": "Slime"
+            },
+            // Event n
+            {
+            }
+        ]
+    },
+    // Wave n
+    {
+    }
+]
+```
+
+This game is data-driven and implemented by multiple extensible systems, short descriptions about the core functional classes are listed below, notice that all managers are derived from singleton `Manager` base class
 - General Game Management
     - `GameManager`: Maintains game loop that handles all updating, rendering and inputs
     - `ProcessManager`: Maintains the in-game runtime data and offers related interfaces
@@ -17,7 +50,7 @@ This prototype is implemented by multiple extensible systems, short descriptions
 - Resource Assets Loading
     - `ResourceManager`: Loads assets by paths into particular resource pools including textures, sounds, musics and fonts
 - Configuration Files Loading
-    - `ConfigManager`: Loads json and csv configs files including basic game properties, enemy waves info and tilemap info
+    - `ConfigManager`: Loads json and csv files including configs for basic game properties, enemy waves info and tilemap info
 - Tile-based Map
     - `Tile`: Struct of single tile that forms tilemap
     - `Map`: Stores basic tilemap and other info including home and enemy spawn points
