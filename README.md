@@ -4,16 +4,16 @@
 This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 
 ## About
-This tower defence game prototype is inspired by KingdomRush series, you can not only build different towers using coins earned by defeating waves of enemies, but also control a dragon character with skills to battle, [click to play online](https://whythz-debug.github.io/KingdomRushLite/)
+In this tower defence game inspired by KingdomRush series, you can not only build different towers using coins earned by defeating waves of enemies, but also control a dragon with skills to battle, [click to play online](https://whythz-debug.github.io/KingdomRushLite/)
 
 This prototype is implemented by multiple extensible systems, short descriptions about the core functional classes are listed below, notice that all managers are derived from singleton `Manager` base class
 - General Game Management
     - `GameManager`: Maintains game loop that handles all updating, rendering and inputs
     - `ProcessManager`: Maintains the in-game runtime data and offers related interfaces
 - Infrastructure Classes
-    - `Vector2`: 2D vector with mathematical operators overloaded
+    - `Vector2`: Basic 2D vector with mathematical operators overloaded
     - `Timer`: Will trigger self-defined callback function when time out
-    - `Animation`: Implemented by SDL2 and can be rendered with rotation, also offers spritesheet cutting
+    - `Animation`: Can be rendered with rotation, also offers spritesheet cutting
 - Resource Assets Loading
     - `ResourceManager`: Loads assets by paths into particular resource pools including textures, sounds, musics and fonts
 - Configuration Files Loading
