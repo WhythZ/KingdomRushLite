@@ -40,7 +40,7 @@ public:
 	void DecreaseCoinNumBy(double);      //减少金币数
 
 	double GetCurrentHealth() const;     //获取当前家血量
-	double GetCurrentCoin() const;       //获取当前金币数
+	double GetCurrentCoinNum() const;    //获取当前金币数
 
 private:
 	ProcessManager();

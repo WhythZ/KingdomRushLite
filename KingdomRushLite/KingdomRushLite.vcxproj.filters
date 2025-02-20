@@ -189,7 +189,7 @@
     <ClCompile Include="Scripts\Source\Enemy\EnemyType.cpp">
       <Filter>源文件\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\Source\UI\StatusBar.cpp">
+    <ClCompile Include="Scripts\Source\UI\StatusUI.cpp">
       <Filter>源文件\UI</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\Source\Infra\Timer.cpp">
@@ -308,7 +308,7 @@
     <ClInclude Include="Scripts\Header\Drop\DropType.h">
       <Filter>头文件\Drop</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\UI\StatusBar.h">
+    <ClInclude Include="Scripts\Header\UI\StatusUI.h">
       <Filter>头文件\UI</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Infra\DirectionType.h">

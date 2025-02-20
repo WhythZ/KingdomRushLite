@@ -35,7 +35,7 @@ double ProcessManager::GetCurrentHealth() const
 	return healthCurrent;
 }
 
-double ProcessManager::GetCurrentCoin() const
+double ProcessManager::GetCurrentCoinNum() const
 {
 	return coinNum;
 }
