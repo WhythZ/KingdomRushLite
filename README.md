@@ -16,8 +16,8 @@ You can edit the files in `root\KingdomRushLite\Data\` to modify your own game e
     // Wave 0
     {
         // Wave properties
-		"rewards":	300,
-		"interval":	10,
+        "rewards":	300,
+        "interval":	10,
         // List of spawn events for one enemy of particular type
         "spawn_list":
         [
@@ -25,7 +25,7 @@ You can edit the files in `root\KingdomRushLite\Data\` to modify your own game e
             {
                 // Event properties
                 "interval":	1,
-				"spawn_point":	2,
+                "spawn_point":	2,
                 "enemy_type": "Slime"
             },
             // Event n
