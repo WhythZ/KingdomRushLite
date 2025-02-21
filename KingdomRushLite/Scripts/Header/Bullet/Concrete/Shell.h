@@ -4,7 +4,7 @@
 #include "../Bullet.h"
 #include "../../Infra/Animation.h"
 
-#define BULLET_SHELL_DAMAGE_RADIUS 72
+#define BULLET_SHELL_DAMAGE_RADIUS 96
 
 class Shell : public Bullet
 {

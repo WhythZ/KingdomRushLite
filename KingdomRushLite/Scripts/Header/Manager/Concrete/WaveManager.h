@@ -9,7 +9,7 @@
 //波次管理器，每个波次由多个生成事件构成
 class WaveManager :public Manager<WaveManager>
 {
-	friend Manager<WaveManager>;
+	friend class Manager<WaveManager>;
 
 private:
 	std::vector<Wave> waveList;     //记录波次列表

@@ -25,6 +25,7 @@
     <ClCompile Include="Scripts\Source\Drop\Drop.cpp" />
     <ClCompile Include="Scripts\Source\Enemy\EnemyType.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\DropManager.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\UIManager.cpp" />
     <ClCompile Include="Scripts\Source\Tower\Concrete\Archer.cpp" />
     <ClCompile Include="Scripts\Source\Bullet\Concrete\Arrow.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\AudioManager.cpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="Scripts\Header\Manager\Concrete\GameManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\ProcessManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\TowerManager.h" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\UIManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Manager.hpp" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\ResourceManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\WaveManager.h" />

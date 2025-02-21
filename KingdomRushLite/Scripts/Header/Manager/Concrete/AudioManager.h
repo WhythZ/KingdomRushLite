@@ -7,7 +7,7 @@
 
 class AudioManager :public Manager<AudioManager>
 {
-	friend Manager<AudioManager>;
+	friend class Manager<AudioManager>;
 	
 private:
 	const MusicPool* musicPool;   //“Ù¿÷≥ÿ

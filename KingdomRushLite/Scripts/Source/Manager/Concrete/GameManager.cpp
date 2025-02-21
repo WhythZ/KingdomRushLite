@@ -12,6 +12,7 @@
 #include "../../../Header/Manager/Concrete/BulletManager.h"
 #include "../../../Header/Manager/Concrete/TowerManager.h"
 #include "../../../Header/Manager/Concrete/DropManager.h"
+#include "../../../Header/Manager/Concrete/UIManager.h"
 
 int GameManager::Run(int _argc, char** _argv)
 {
@@ -167,6 +168,7 @@ void GameManager::OnUpdate(double _delta)
 		BulletManager::Instance()->OnUpdate(_delta);
 		TowerManager::Instance()->OnUpdate(_delta);
 		DropManager::Instance()->OnUpdate(_delta);
+		UIManager::Instance()->OnUpdate(renderer);
 	}
 }
 
@@ -179,11 +181,12 @@ void GameManager::OnRender()
 	SDL_RenderCopy(renderer, mapTexture, nullptr, &_dst);
 	#pragma endregion
 
-	//äÖÈ¾µĞÈË¡¢×Óµ¯¡¢·ÀÓùËş¡¢µôÂäÎï
+	//äÖÈ¾µĞÈË¡¢×Óµ¯¡¢·ÀÓùËş¡¢µôÂäÎï¡¢UI
 	EnemyManager::Instance()->OnRender(renderer);
 	BulletManager::Instance()->OnRender(renderer);
 	TowerManager::Instance()->OnRender(renderer);
 	DropManager::Instance()->OnRender(renderer);
+	UIManager::Instance()->OnRender(renderer);
 }
 
 bool GameManager::GenerateTileMapTexture()

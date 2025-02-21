@@ -4,28 +4,30 @@
 #include <SDL.h>
 #include "../Infra/Vector2.h"
 
+//各渲染元素间的间距设置
+#define STATUSUI_HOME_RIGHT_DISTANCE 15          //家图标与右侧的渲染元素（首个血量图标与金币图标）的左右间距
+#define STATUSUI_HEALTH_ICON_BETWEEN_DISTANCE 3  //每个血量图标的左右间距
+#define STATUSUI_COIN_ICON_NUMTEXT_DISTANCE 5    //金币图标与金币数量文本的左右间距
+#define STATUSUI_HOME_PLAYER_ICON_DISTANCE 15    //家图标与玩家图标间的上下间距
+
+//状态栏UI，第一排是家头像+等于生命值的血量图标（实时）+金币图标+金币数值（实时），第二排是玩家头像+玩家技能冷却条（实时）
 class StatusUI
 {
 private:
 	SDL_Point position = { 0 };                                //左上顶点的坐标位置
 
-	#pragma region Text
-	SDL_Texture* coinTextTexture = nullptr;                    //暂存 金币数量文本转化而来的渲染纹理
-	int coinTextWidth = 0;                                     //暂存金币文本渲染的宽度
-	int coinTextHeight = 0;                                    //暂存金币文本渲染的长度
-
+	#pragma region CoinNumText
+	SDL_Texture* coinNumTextTexture = nullptr;                 //暂存 金币数量文本转化而来的渲染纹理
+	int coinNumTextWidth = 0;                                  //暂存金币文本渲染的宽度
+	int coinNumTextHeight = 0;                                 //暂存金币文本渲染的长度
 	const SDL_Color coinTextColor = { 255,255,255,255 };       //金币数量文本的固定颜色（纯白色）
 	#pragma endregion
 
-	#pragma region Bar
+	#pragma region mpBar
 	const Vector2 mpBarSize = { 200, 20 };                     //玩家操控的角色的法力值条的尺寸
 	const int mpBarBorderThickness = 3;                        //法力值条边框的厚度
 	const SDL_Color mpBarContentColor = { 145,120,170,255 };   //法力值条内容颜色
 	const SDL_Color mpBarContentBackColor = { 50,40,50,255 };  //法力值条内容背景颜色
-	#pragma endregion
-
-	#pragma region Icon
-	const Vector2 hpIconSize = { 32,32 };                      //血量数值文本旁图标的尺寸
 	#pragma endregion
 
 public:
@@ -33,7 +35,7 @@ public:
 	~StatusUI() = default;
 	void SetPosition(SDL_Point);
 
-	void OnUpdate(double, SDL_Renderer*);                      //更新文本的纹理渲染数据，故需传入渲染器
+	void OnUpdate(SDL_Renderer*);                              //更新文本的纹理渲染数据，故需传入渲染器
 	void OnRender(SDL_Renderer*);
 };
 

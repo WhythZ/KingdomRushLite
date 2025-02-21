@@ -7,7 +7,7 @@
 //记录一局游戏中的各项动态属性
 class ProcessManager :public Manager<ProcessManager>
 {
-	friend Manager<ProcessManager>;
+	friend class Manager<ProcessManager>;
 
 public:
 	bool isGameOver = false;             //波次全部结束，则游戏结束

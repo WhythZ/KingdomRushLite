@@ -201,6 +201,9 @@
     <ClCompile Include="Scripts\Source\Infra\Animation.cpp">
       <Filter>源文件\Infra</Filter>
     </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\UIManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Map\Tile.h">
@@ -322,6 +325,9 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Infra\Animation.h">
       <Filter>头文件\Infra</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\UIManager.h">
+      <Filter>头文件\Manager\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

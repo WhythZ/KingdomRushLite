@@ -37,12 +37,12 @@
 			{
 				"interval":	1,
 				"spawn_point":	1,
-				"enemy_type":	"Goblin"
+				"enemy_type":	"Slime"
 			},
 			{
 				"interval":	1,
 				"spawn_point":	1,
-				"enemy_type":	"Goblin"
+				"enemy_type":	"Slime"
 			}
 		]
 	},
