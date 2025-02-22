@@ -94,6 +94,18 @@
     <Filter Include="源文件\Infra">
       <UniqueIdentifier>{4cbf46e3-9780-417d-a971-3b29b8dfc882}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\UI\TowerPanel">
+      <UniqueIdentifier>{56ffd157-92b8-4a75-95ce-9643cd3b9a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\UI\TowerPanel\Concrete">
+      <UniqueIdentifier>{f0e5cd85-3793-4941-ae17-8311f2aa9d56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\UI\TowerPanel">
+      <UniqueIdentifier>{c68bffee-c6e7-4b93-a3a4-7d1485247337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\UI\TowerPanel\Concrete">
+      <UniqueIdentifier>{28f721a6-e353-4315-99ed-6a747ef79ebb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -203,6 +215,15 @@
     </ClCompile>
     <ClCompile Include="Scripts\Source\Manager\Concrete\UIManager.cpp">
       <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\UI\TowerPanel\TowerPanel.cpp">
+      <Filter>源文件\UI\TowerPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\UI\TowerPanel\Concrete\TowerBuildPanel.cpp">
+      <Filter>源文件\UI\TowerPanel\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\UI\TowerPanel\Concrete\TowerUpgradePanel.cpp">
+      <Filter>源文件\UI\TowerPanel\Concrete</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -328,6 +349,15 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Manager\Concrete\UIManager.h">
       <Filter>头文件\Manager\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\UI\TowerPanel\TowerPanel.h">
+      <Filter>头文件\UI\TowerPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\UI\TowerPanel\Concrete\TowerBuildPanel.h">
+      <Filter>头文件\UI\TowerPanel\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\UI\TowerPanel\Concrete\TowerUpgradePanel.h">
+      <Filter>头文件\UI\TowerPanel\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

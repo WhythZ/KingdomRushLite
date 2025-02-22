@@ -125,6 +125,6 @@ void StatusUI::OnRender(SDL_Renderer* _renderer)
 	_dstRect.w = mpBarSize.x - 2 * mpBarBorderThickness;
 	_dstRect.h = mpBarSize.y - 2 * mpBarBorderThickness;
 	roundedBoxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
-		4, mpBarContentColor.r, mpBarContentColor.g, mpBarContentColor.b, mpBarContentColor.a);
+		4, mpBarContentForeColor.r, mpBarContentForeColor.g, mpBarContentForeColor.b, mpBarContentForeColor.a);
 	#pragma endregion
 }

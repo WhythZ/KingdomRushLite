@@ -55,6 +55,9 @@
     <ClCompile Include="Scripts\Source\Manager\Concrete\WaveManager.cpp" />
     <ClCompile Include="Scripts\Source\Main.cpp" />
     <ClCompile Include="Scripts\Source\UI\StatusUI.cpp" />
+    <ClCompile Include="Scripts\Source\UI\TowerPanel\Concrete\TowerBuildPanel.cpp" />
+    <ClCompile Include="Scripts\Source\UI\TowerPanel\Concrete\TowerUpgradePanel.cpp" />
+    <ClCompile Include="Scripts\Source\UI\TowerPanel\TowerPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Infra\Animation.h" />
@@ -98,6 +101,9 @@
     <ClInclude Include="Scripts\Header\Tower\Tower.h" />
     <ClInclude Include="Scripts\Header\Tower\TowerType.h" />
     <ClInclude Include="Scripts\Header\UI\StatusUI.h" />
+    <ClInclude Include="Scripts\Header\UI\TowerPanel\Concrete\TowerBuildPanel.h" />
+    <ClInclude Include="Scripts\Header\UI\TowerPanel\Concrete\TowerUpgradePanel.h" />
+    <ClInclude Include="Scripts\Header\UI\TowerPanel\TowerPanel.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
