@@ -20,11 +20,14 @@ private:
 	SDL_Texture* coinNumTextTexture = nullptr;                 //暂存 金币数量文本转化而来的渲染纹理
 	int coinNumTextWidth = 0;                                  //暂存金币文本渲染的宽度
 	int coinNumTextHeight = 0;                                 //暂存金币文本渲染的长度
+
 	const SDL_Color coinTextColor = { 255,255,255,255 };       //金币数量文本的固定颜色（纯白色）
 	#pragma endregion
 
-	#pragma region mpBar
-	const Vector2 mpBarSize = { 200, 20 };                     //玩家操控的角色的法力值条的尺寸
+	#pragma region PlayerMpBar
+	//double mpBarRatio = 0;                                     //玩家操控的角色法力值条的实时占比
+
+	const Vector2 mpBarSize = { 200, 20 };                     //法力值条的总体尺寸
 	const int mpBarBorderThickness = 3;                        //法力值条边框的厚度
 	const SDL_Color mpBarContentColor = { 145,120,170,255 };   //法力值条内容颜色
 	const SDL_Color mpBarContentBackColor = { 50,40,50,255 };  //法力值条内容背景颜色

@@ -1,6 +1,7 @@
 #include "../../Header/UI/StatusUI.h"
 #include <string>
 #include <SDL_ttf.h>
+#include <SDL2_gfxPrimitives.h>
 #include "../../Header/Manager/Concrete/ResourceManager.h"
 #include "../../Header/Manager/Concrete/ProcessManager.h"
 
@@ -114,9 +115,16 @@ void StatusUI::OnRender(SDL_Renderer* _renderer)
 	_dstRect.y = position.y + _homeIconSize.y + STATUSUI_HOME_PLAYER_ICON_DISTANCE;
 	_dstRect.w = mpBarSize.x;
 	_dstRect.h = mpBarSize.y;
+	//绘制填充的圆角矩形，先传入渲染器与左上顶点和右下顶点，然后是圆角半径，最后是颜色
+	roundedBoxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
+		4, mpBarContentBackColor.r, mpBarContentBackColor.g, mpBarContentBackColor.b, mpBarContentBackColor.a);
 
-	//然后再根据设置的粗细度绘制边框
-
-	//最后绘制法力值条的内容颜色，其水平宽度是实时更新的
+	//最后绘制法力值条的内容（其水平宽度实时更新），其依据边框宽度收窄，背景颜色就相当于在内容颜色的外围形成一圈边框
+	_dstRect.x = (position.x + _homeIconSize.x + STATUSUI_HOME_RIGHT_DISTANCE) + mpBarBorderThickness;
+	_dstRect.y = (position.y + _homeIconSize.y + STATUSUI_HOME_PLAYER_ICON_DISTANCE) + mpBarBorderThickness;
+	_dstRect.w = mpBarSize.x - 2 * mpBarBorderThickness;
+	_dstRect.h = mpBarSize.y - 2 * mpBarBorderThickness;
+	roundedBoxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
+		4, mpBarContentColor.r, mpBarContentColor.g, mpBarContentColor.b, mpBarContentColor.a);
 	#pragma endregion
 }
