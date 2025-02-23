@@ -40,8 +40,8 @@ void PlayerManager::InstantiatePlayer()
 
 	//生成在家的位置
 	Vector2 _homePosition = {
-		ProcessManager::Instance()->map.GetHomeIdx().x * TILE_SIZE,
-		ProcessManager::Instance()->map.GetHomeIdx().y * TILE_SIZE
+		(double)ProcessManager::Instance()->map.GetHomeIdx().x* TILE_SIZE,
+		(double)ProcessManager::Instance()->map.GetHomeIdx().y * TILE_SIZE
 	};
 	player->SetPosition(_homePosition);
 }

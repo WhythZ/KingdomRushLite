@@ -8,9 +8,9 @@
 #include "../Manager.hpp"
 
 //图像资源、音频资源、字体资源
-enum TextureResID
+enum class TextureResID
 {
-	Player,                      //玩家控制角色的帧动画
+	PlayerDragon,                //玩家控制角色的帧动画
 	VFX_Player_Flash_Up,         //玩家技能闪电，方向朝上
 	VFX_Player_Flash_Down,       //玩家技能闪电，方向朝下
 	VFX_Player_Flash_Left,       //玩家技能闪电，方向朝左
@@ -66,12 +66,12 @@ enum TextureResID
 	UI_GameOver                  //失败界面
 };
 
-enum MusicResID
+enum class MusicResID
 {
 	Main,                        //主背景音乐
 };
 
-enum SoundResID
+enum class SoundResID
 {
 	Player_Skill_Flash,          //玩家技能音效
 	Player_Skill_Impact,         //玩家技能音效
@@ -101,7 +101,7 @@ enum SoundResID
 	Loss,                        //游戏失败音效
 };
 
-enum FontResID
+enum class FontResID
 {
 	Pixel_CN,                   //游戏主字体（含中文）
 };

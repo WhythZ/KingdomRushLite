@@ -101,6 +101,7 @@
     <ClInclude Include="Scripts\Header\Infra\Vector2.h" />
     <ClInclude Include="Scripts\Header\Player\Concrete\PlayerDragon.h" />
     <ClInclude Include="Scripts\Header\Player\Player.h" />
+    <ClInclude Include="Scripts\Header\Player\PlayerType.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Archer.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Axeman.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Gunner.h" />

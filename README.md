@@ -58,10 +58,10 @@ This game is data-driven and implemented by multiple extensible systems, short d
 - Enemies and Their Drops
     - `Enemy`: Organized by `EnemyManager` and aims at attacking home
         - `Slime`: Weak vitality and slow
-        - `SlimeKing`: Medium vitality and slow
+        - `SlimeKing`: Medium vitality and slow, able to heal itself
         - `Skeleton`: Medium vitality and fast
         - `Goblin`: Medium vitality and fast
-        - `GoblinPriest`: Strong vitality and able to heal
+        - `GoblinPriest`: Strong vitality and slow, able to heal in range
     - `Drop`: Organized by `DropManager` and collides with Player with particular effects
         - `Coin`: Picked up by player to earn coins
     - `Wave`: Struct organized by `WaveManager` including multiple enemy spawn events

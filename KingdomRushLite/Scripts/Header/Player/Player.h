@@ -11,8 +11,6 @@ class Player
 protected:
 	PlayerType type = PlayerType::None;
 
-	FacingDir direction = FacingDir::Down;
-
 	#pragma region Animation
 	Animation animIdleUp;
 	Animation animIdleDown;
@@ -25,10 +23,12 @@ private:
 	Vector2 position;
 	Vector2 velocity;
 
+	FacingDir direction = FacingDir::Down;
+
 	Animation* animCurrent;
 
 public:
-	Player() = default;
+	Player();
 	~Player() = default;
 	void SetPosition(const Vector2&);
 

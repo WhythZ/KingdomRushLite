@@ -37,7 +37,7 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 	//SDL_Texture* _imgTexture = SDL_CreateTextureFromSurface(_renderer, _imgSurface);  //从内存加载到显存（GPU纹理数据）
 
 	//将图片资源加载存储在图像池（unordered_map类型的容器）
-	texturePool[TextureResID::Player] = IMG_LoadTexture(_renderer, "Assets/Sprite/Player/player.png");
+	texturePool[TextureResID::PlayerDragon] = IMG_LoadTexture(_renderer, "Assets/Sprite/Player/player.png");
 	texturePool[TextureResID::VFX_Player_Flash_Up] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_up.png");
 	texturePool[TextureResID::VFX_Player_Flash_Down] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_down.png");
 	texturePool[TextureResID::VFX_Player_Flash_Left] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_left.png");
