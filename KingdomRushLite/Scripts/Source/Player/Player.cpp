@@ -1,0 +1,28 @@
+#include "../../Header/Player/Player.h"
+
+void Player::SetPosition(const Vector2& _position)
+{
+	position = _position;
+}
+
+void Player::OnInput(const SDL_Event& _event)
+{
+	switch (_event.type)
+	{
+	default:
+		break;
+	}
+}
+
+void Player::OnUpdate(double _delta)
+{
+	animCurrent->OnUpdate(_delta);
+}
+
+void Player::OnRender(SDL_Renderer* _renderer)
+{
+	static SDL_Point _point;
+	_point.x = (int)(position.x - size.x / 2);
+	_point.y = (int)(position.y - size.y / 2);
+	animCurrent->OnRender(_renderer, _point);
+}

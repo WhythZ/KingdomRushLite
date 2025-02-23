@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -25,7 +25,10 @@
     <ClCompile Include="Scripts\Source\Drop\Drop.cpp" />
     <ClCompile Include="Scripts\Source\Enemy\EnemyType.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\DropManager.cpp" />
+    <ClCompile Include="Scripts\Source\Manager\Concrete\PlayerManager.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\UIManager.cpp" />
+    <ClCompile Include="Scripts\Source\Player\Concrete\PlayerDragon.cpp" />
+    <ClCompile Include="Scripts\Source\Player\Player.cpp" />
     <ClCompile Include="Scripts\Source\Tower\Concrete\Archer.cpp" />
     <ClCompile Include="Scripts\Source\Bullet\Concrete\Arrow.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\AudioManager.cpp" />
@@ -82,6 +85,7 @@
     <ClInclude Include="Scripts\Header\Manager\Concrete\DropManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\EnemyManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\GameManager.h" />
+    <ClInclude Include="Scripts\Header\Manager\Concrete\PlayerManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\ProcessManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\TowerManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\UIManager.h" />
@@ -95,6 +99,8 @@
     <ClInclude Include="Scripts\Header\Infra\DirectionType.h" />
     <ClInclude Include="Scripts\Header\Infra\Timer.h" />
     <ClInclude Include="Scripts\Header\Infra\Vector2.h" />
+    <ClInclude Include="Scripts\Header\Player\Concrete\PlayerDragon.h" />
+    <ClInclude Include="Scripts\Header\Player\Player.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Archer.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Axeman.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Gunner.h" />

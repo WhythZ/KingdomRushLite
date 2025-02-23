@@ -13,6 +13,7 @@
 #include "../../../Header/Manager/Concrete/TowerManager.h"
 #include "../../../Header/Manager/Concrete/DropManager.h"
 #include "../../../Header/Manager/Concrete/UIManager.h"
+#include "../../../Header/Manager/Concrete/PlayerManager.h"
 
 GameManager::GameManager()
 {
@@ -63,6 +64,9 @@ GameManager::GameManager()
 
 	//生成瓦片地图纹理
 	InitAssert(GenerateTileMapTexture(), u8"Failed To Genrate TileMap Texture");
+
+	//设置玩家类型，暂时只有龙
+	PlayerManager::Instance()->SetPlayerType(PlayerType::Dragon);
 }
 
 GameManager::~GameManager()
@@ -151,6 +155,7 @@ void GameManager::OnInput()
 	if (!ProcessManager::Instance()->isGameOver)
 	{
 		UIManager::Instance()->OnInput(event);
+		PlayerManager::Instance()->OnInput(event);
 	}
 
 	//点击窗口的退出键时触发的SDL_QUIT事件
@@ -176,6 +181,7 @@ void GameManager::OnUpdate(double _delta)
 		TowerManager::Instance()->OnUpdate(_delta);
 		DropManager::Instance()->OnUpdate(_delta);
 		UIManager::Instance()->OnUpdate(renderer);
+		PlayerManager::Instance()->OnUpdate(_delta);
 	}
 }
 
@@ -194,6 +200,7 @@ void GameManager::OnRender()
 	TowerManager::Instance()->OnRender(renderer);
 	DropManager::Instance()->OnRender(renderer);
 	UIManager::Instance()->OnRender(renderer);
+	PlayerManager::Instance()->OnUpdate(renderer);
 }
 
 bool GameManager::GenerateTileMapTexture()

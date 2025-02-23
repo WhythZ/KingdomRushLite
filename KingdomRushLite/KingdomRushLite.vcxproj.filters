@@ -106,6 +106,18 @@
     <Filter Include="源文件\UI\TowerPanel\Concrete">
       <UniqueIdentifier>{28f721a6-e353-4315-99ed-6a747ef79ebb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Player">
+      <UniqueIdentifier>{eba1e160-b90d-4997-9310-8848e88eb5ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Player">
+      <UniqueIdentifier>{79152c2e-e75d-4cd0-8f65-fb8547026934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Player\Concrete">
+      <UniqueIdentifier>{737c6e79-bd5b-45fa-85de-ae7fcfc30343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Player\Concrete">
+      <UniqueIdentifier>{c226ea72-1ee9-4002-be6e-4d3b4a3bf36d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -224,6 +236,15 @@
     </ClCompile>
     <ClCompile Include="Scripts\Source\UI\TowerPanel\Concrete\TowerUpgradePanel.cpp">
       <Filter>源文件\UI\TowerPanel\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Player\Player.cpp">
+      <Filter>源文件\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Player\Concrete\PlayerDragon.cpp">
+      <Filter>源文件\Player\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Manager\Concrete\PlayerManager.cpp">
+      <Filter>源文件\Manager\Concrete</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -358,6 +379,15 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\UI\TowerPanel\Concrete\TowerUpgradePanel.h">
       <Filter>头文件\UI\TowerPanel\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Player\Player.h">
+      <Filter>头文件\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Player\Concrete\PlayerDragon.h">
+      <Filter>头文件\Player\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Manager\Concrete\PlayerManager.h">
+      <Filter>头文件\Manager\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
