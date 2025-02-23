@@ -18,13 +18,13 @@ protected:
 	};
 
 protected:
-	bool isVisible = false;                                 //决定当前轮盘UI是否可见
+	bool isActive = false;                                  //决定当前轮盘UI是否可见
 	SDL_Point selectedTileIdx = { 0,0 };                    //当前轮盘UI显示在的瓦片索引坐标
 	SDL_Point centerPosition = { 0,0 };                     //轮盘UI中心点的像素坐标位置
 
-	int topCostValue = 0;                                   //实时记录正上方按钮对应防御塔花费
-	int leftCostValue = 0;                                  //实时记录左下方按钮对应防御塔花费
-	int rightCostValue = 0;                                 //实时记录右下方按钮对应防御塔花费
+	double topCostValue = 0;                                //实时记录正上方按钮对应防御塔花费
+	double leftCostValue = 0;                               //实时记录左下方按钮对应防御塔花费
+	double rightCostValue = 0;                              //实时记录右下方按钮对应防御塔花费
 
 	ButtonType hoveredButtonType = ButtonType::None;        //悬停选中的按钮的枚举
 
@@ -62,7 +62,11 @@ public:
 	virtual void OnUpdate(SDL_Renderer*);                   //更新文本的纹理渲染数据，故需传入渲染器
 	virtual void OnRender(SDL_Renderer*);
 
-	void ShowPanel();                                       //显示本轮盘
+	SDL_Point GetSelectedTileIdx() const;
+	bool IsActive() const;
+
+	virtual void ShowPanel();                               //显示本轮盘面板
+	virtual void ClosePanel();                              //关闭本轮盘面板
 
 protected:
 	virtual void OnClickTop() = 0;

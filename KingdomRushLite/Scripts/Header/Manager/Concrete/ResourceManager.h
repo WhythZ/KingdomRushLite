@@ -81,6 +81,7 @@ enum SoundResID
 
 	Tower_Build,                 //防御塔放置音效
 	Tower_Upgrade,               //防御塔升级音效
+	Tower_Error,                 //防御塔操作失败音效
 
 	Arrow_Fire_1,                //箭矢投射音效1
 	Arrow_Fire_2,                //箭矢投射音效2

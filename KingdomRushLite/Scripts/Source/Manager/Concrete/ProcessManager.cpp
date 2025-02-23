@@ -40,19 +40,30 @@ void ProcessManager::DecreaseCoinNumBy(double _cost)
 	coinNum = (coinNum - _cost > 0) ? (coinNum - _cost) : 0;
 }
 
-int ProcessManager::GetTowerLevel(TowerType _type)
+int ProcessManager::GetTowerLevel(TowerType _type) const
 {
+	int _val = -1;
+
 	switch (_type)
 	{
 	case TowerType::Archer:
-		return levelArcher;
+		_val = levelArcher;
+		break;
 	case TowerType::Axeman:
-		return levelAxeman;
+		_val = levelAxeman;
+		break;
 	case TowerType::Gunner:
-		return levelGunner;
+		_val = levelGunner;
+		break;
 	default:
+		_val = -1;
 		break;
 	}
+
+	if (_val < 0)
+		std::cout << "Method \"int ProcessManager::GetTowerLevel(TowerType)\" returned a meaningless negative value";
+
+	return _val;
 }
 
 void ProcessManager::IncreaseTowerLevelBy(TowerType _type, int _incre)

@@ -20,16 +20,17 @@ void TowerPanel::SetSelectedTileIdx(const SDL_Point& _idx)
 	selectedTileIdx = _idx;
 
 	//继而根据瓦片索引获取中心位置像素坐标
-	centerPosition = { _idx.x * TILE_SIZE,_idx.y * TILE_SIZE };
+	centerPosition = { _idx.x * TILE_SIZE + TILE_SIZE / 2,_idx.y * TILE_SIZE + TILE_SIZE / 2 };
 }
 
 void TowerPanel::OnInput(const SDL_Event& _event)
 {
-	if (!isVisible) return;
+	if (!isActive) return;
 
 	switch (_event.type)
 	{
 	case SDL_MOUSEMOTION:
+	//局部代码块，内部用return跳出
 	{
 		//获取实时鼠标位置，并检测其是否处于目标按钮范围内
 		SDL_Point _cursorPos = { _event.motion.x, _event.motion.y };
@@ -64,6 +65,7 @@ void TowerPanel::OnInput(const SDL_Event& _event)
 	}
 		break;
 	case SDL_MOUSEBUTTONUP:
+	//局部代码块，内部用return跳出
 	{
 		//该事件为鼠标的按键抬起（即按下无反应，而抬起时触发，相当于点击一次），出发对应点击函数
 		switch (hoveredButtonType)
@@ -82,7 +84,7 @@ void TowerPanel::OnInput(const SDL_Event& _event)
 		}
 
 		//完成点击后，取消轮盘显示
-		isVisible = false;
+		ClosePanel();
 	}
 		break;
 	default:
@@ -92,19 +94,21 @@ void TowerPanel::OnInput(const SDL_Event& _event)
 
 void TowerPanel::OnUpdate(SDL_Renderer* _renderer)
 {
-	if (hoveredButtonType == ButtonType::None) return;
-
 	#pragma region Clear
 	//由于每帧OnUpdate函数都会生成一张文本的纹理，故先清除掉上一帧的遗留垃圾
 	SDL_DestroyTexture(costTextTexture);
 	costTextTexture = nullptr;
 	#pragma endregion
 
-	#pragma region CostValidity
+	#pragma region GetCostValueString
 	//拿到花费数量
-	int _cost = -1;
+	double _cost = -1;
 	switch (hoveredButtonType)
 	{
+	case TowerPanel::ButtonType::None:
+		//如果未选中按钮，则
+		_cost = 0;
+		break;
 	case TowerPanel::ButtonType::Top:
 		_cost = topCostValue;
 		break;
@@ -117,14 +121,20 @@ void TowerPanel::OnUpdate(SDL_Renderer* _renderer)
 	default:
 		break;
 	}
-	//检测合法性后再转换为字符串，若小于零则说明当前花费无效，例如防御塔处于上限等级时无法继续升级
-	std::string _coinNumStr = (_cost < 0) ? "MAX" : std::to_string(rightCostValue);
+	//若小于零则说明当前花费无效（例如防御塔处于上限等级时无法继续升级），若等于0则什么都不显示
+	std::string _costStr = "";
+	if (_cost < 0)
+		_costStr = "MAX";
+	else if (_cost > 0)
+		_costStr = std::to_string((int)_cost); //先转浮点为整型防止丑陋小数，再转化为字符串
+	else
+		_costStr = " "; //注意是一个空格，否则会由于生成的文本纹理尺寸为0而报错
 	#pragma endregion
 
-	#pragma region CostText
+	#pragma region CostTextTexture
 	//先将文本以特定字体加载到内存中
 	static TTF_Font* _font = ResourceManager::Instance()->GetFontPool().find(FontResID::Pixel_CN)->second;
-	SDL_Surface* _costTextSurface = TTF_RenderText_Blended(_font, _coinNumStr.c_str(), costTextColor);
+	SDL_Surface* _costTextSurface = TTF_RenderText_Blended(_font, _costStr.c_str(), costTextColor);
 	//获取转化后的图片的长宽
 	costTextSize = { _costTextSurface->w, _costTextSurface->h };
 	//然后再将其转化为纹理格式
@@ -136,7 +146,7 @@ void TowerPanel::OnUpdate(SDL_Renderer* _renderer)
 
 void TowerPanel::OnRender(SDL_Renderer* _renderer)
 {
-	if (!isVisible) return;
+	if (!isActive) return;
 
 	//临时存储每个渲染元素，每次渲染单个元素时复用
 	static SDL_Rect _dstRect;
@@ -185,7 +195,26 @@ void TowerPanel::OnRender(SDL_Renderer* _renderer)
 	#pragma endregion
 }
 
+bool TowerPanel::IsActive() const
+{
+	return isActive;
+}
+
+SDL_Point TowerPanel::GetSelectedTileIdx() const
+{
+	//若当前面板未被显示，则返回一个无意义值，防止返回上一次该面板显示时的对应值
+	if (isActive)
+		return selectedTileIdx;
+	else
+		return { -1,-1 };
+}
+
 void TowerPanel::ShowPanel()
 {
-	isVisible = true;
+	isActive = true;
+}
+
+void TowerPanel::ClosePanel()
+{
+	isActive = false;
 }

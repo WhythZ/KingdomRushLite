@@ -66,7 +66,7 @@ const TileMap& Map::GetTileMap() const
 	return tileMap;
 }
 
-const SDL_Point& Map::GetHomePoint() const
+const SDL_Point& Map::GetHomeIdx() const
 {
 	return homePoint;
 }
@@ -92,15 +92,26 @@ size_t Map::GetWidthTileNum() const
 	return tileMap[0].size();
 }
 
+bool Map::IsInRouteAt(const SDL_Point& _idx) const
+{
+	return (tileMap[_idx.y][_idx.x].directionLayer == TileDir::None) ? false : true;
+}
+
 bool Map::IsTowerBuiltAt(const SDL_Point& _idx) const
 {
 	return tileMap[_idx.y][_idx.x].hasTower;
 }
 
-void Map::MarkTowerExistenceAt(const SDL_Point& _tileIdx)
+TowerType Map::GetTowerTypeAt(const SDL_Point& _tileIdx) const
+{
+	return tileMap[_tileIdx.y][_tileIdx.x].towerType;
+}
+
+void Map::MarkTowerBuiltAt(TowerType _type, const SDL_Point& _tileIdx)
 {
 	//注意先索引y再索引x
 	tileMap[_tileIdx.y][_tileIdx.x].hasTower = true;
+	tileMap[_tileIdx.y][_tileIdx.x].towerType = _type;
 }
 
 std::string Map::TrimString(const std::string _str)

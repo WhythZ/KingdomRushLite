@@ -1,6 +1,7 @@
 #include "../../../../Header/UI/TowerPanel/Concrete/TowerUpgradePanel.h"
 #include "../../../../Header/Manager/Concrete/ResourceManager.h"
 #include "../../../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../../../Header/Manager/Concrete/AudioManager.h"
 #include "../../../../Header/Manager/Concrete/TowerManager.h"
 
 TowerUpgradePanel::TowerUpgradePanel()
@@ -43,7 +44,13 @@ void TowerUpgradePanel::OnClickTop()
 		//扣除对应数额金币，然后升级对应种类的防御塔
 		_pm->DecreaseCoinNumBy(topCostValue);
 		TowerManager::Instance()->UpgradeTower(TowerType::Axeman);
+
+		//播放对应升级音效
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Upgrade);
 	}
+	//否则播放操作失败音效
+	else
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Error);
 }
 
 void TowerUpgradePanel::OnClickLeft()
@@ -54,7 +61,11 @@ void TowerUpgradePanel::OnClickLeft()
 	{
 		_pm->DecreaseCoinNumBy(leftCostValue);
 		TowerManager::Instance()->UpgradeTower(TowerType::Archer);
+
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Upgrade);
 	}
+	else
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Error);
 }
 
 void TowerUpgradePanel::OnClickRight()
@@ -65,5 +76,9 @@ void TowerUpgradePanel::OnClickRight()
 	{
 		_pm->DecreaseCoinNumBy(rightCostValue);
 		TowerManager::Instance()->UpgradeTower(TowerType::Gunner);
+
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Upgrade);
 	}
+	else
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Error);
 }

@@ -27,13 +27,15 @@ public:
 	bool Load(const std::string&);                      //从指定路径加载瓦片地图CSV文件，并返回成功与否
 	
 	const TileMap& GetTileMap() const;                  //获取瓦片地图的常引用
-	const SDL_Point& GetHomePoint() const;              //获取家瓦片的位置常引用
+	const SDL_Point& GetHomeIdx() const;                //获取家瓦片的位置常引用
 	const RoutePool& GetSpawnRoutePool() const;         //获取刷怪点路径池的常引用
 	size_t GetHeightTileNum() const;                    //获取地图的高（行瓦片数）
 	size_t GetWidthTileNum() const;                     //获取地图的宽（列瓦片数）
+	bool IsInRouteAt(const SDL_Point&) const;           //特定瓦片坐标位置上是否是路径
 	bool IsTowerBuiltAt(const SDL_Point&) const;        //在特定瓦片坐标位置上是否放置了防御塔
+	TowerType GetTowerTypeAt(const SDL_Point&) const;   //获取特定瓦片坐标位置上的防御塔种类
 
-	void MarkTowerExistenceAt(const SDL_Point&);        //标记防御塔在特定瓦片处
+	void MarkTowerBuiltAt(TowerType, const SDL_Point&); //标记特定种类防御塔在特定瓦片处
 
 private:
 	std::string TrimString(const std::string);          //剪切瓦片字符串以保证格式的统一以便读取

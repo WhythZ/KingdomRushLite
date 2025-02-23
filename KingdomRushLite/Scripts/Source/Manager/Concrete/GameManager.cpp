@@ -14,53 +14,6 @@
 #include "../../../Header/Manager/Concrete/DropManager.h"
 #include "../../../Header/Manager/Concrete/UIManager.h"
 
-int GameManager::Run(int _argc, char** _argv)
-{
-	#pragma region LimitFPS
-	//此函数获取一个高性能（精度较高）计时器，函数返回的值（计时器跳的总数）作为计时器的起点，通过作差后除以频率才有意义
-	Uint64 _lastCounter = SDL_GetPerformanceCounter();
-	//频率即每一秒此计时器会跳多少次
-	Uint64 _counterFreq = SDL_GetPerformanceFrequency();
-	#pragma endregion
-
-	//游戏主循环
-	while (!isQuit)
-	{
-		#pragma region LimitFPS
-		//获取当前的计时器跳的总数，用以与主循环前得到的计时器总数作差
-		Uint64 _currentCounter = SDL_GetPerformanceCounter();
-		//作差后转换为双精度浮点，除以频率得到每次循环的时间间隔（单位为秒）
-		double _delta = (double)(_currentCounter - _lastCounter) / _counterFreq;
-		//将当前的次数作为起点，进行下一次循环
-		_lastCounter = _currentCounter;
-		//动态延时控制帧率，若是帧率超过了限定值，那么就将多余的时间延迟掉防止主循环频率过快；乘以1000是将秒转化为毫秒，因为秒这个单位太大而精度不高
-		if (_delta * 1000 < 1000.0 / fps)
-			SDL_Delay((Uint32)(1000.0 / fps - _delta * 1000));
-		#pragma endregion
-
-		//拉取并处理事件以保证窗口正常交互
-		while (SDL_PollEvent(&event))
-			OnInput();
-
-		//数据更新检测
-		OnUpdate(_delta);
-
-		#pragma region Render
-		//确定渲染的颜色为纯黑（不透明），接收RGB三色与Alpha（记录图像的透明度信息的256级灰度）
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		//使用设定的不透明黑色填充整个窗口达到清屏的效果
-		SDL_RenderClear(renderer);
-
-		//在经历了上述准备后，进行具体的渲染绘图
-		OnRender();
-		//将渲染的内容更新到窗口缓冲区上
-		SDL_RenderPresent(renderer);
-		#pragma endregion
-	}
-
-	return 0;
-}
-
 GameManager::GameManager()
 {
 	#pragma region SDL-Libraries
@@ -124,6 +77,63 @@ GameManager::~GameManager()
 	SDL_Quit();
 }
 
+
+int GameManager::Run(int _argc, char** _argv)
+{
+	#pragma region LimitFPS
+	//此函数获取一个高性能（精度较高）计时器，函数返回的值（计时器跳的总数）作为计时器的起点，通过作差后除以频率才有意义
+	Uint64 _lastCounter = SDL_GetPerformanceCounter();
+	//频率即每一秒此计时器会跳多少次
+	Uint64 _counterFreq = SDL_GetPerformanceFrequency();
+	#pragma endregion
+
+	//游戏主循环
+	while (!isQuit)
+	{
+		#pragma region LimitFPS
+		//获取当前的计时器跳的总数，用以与主循环前得到的计时器总数作差
+		Uint64 _currentCounter = SDL_GetPerformanceCounter();
+		//作差后转换为双精度浮点，除以频率得到每次循环的时间间隔（单位为秒）
+		double _delta = (double)(_currentCounter - _lastCounter) / _counterFreq;
+		//将当前的次数作为起点，进行下一次循环
+		_lastCounter = _currentCounter;
+		//动态延时控制帧率，若是帧率超过了限定值，那么就将多余的时间延迟掉防止主循环频率过快；乘以1000是将秒转化为毫秒，因为秒这个单位太大而精度不高
+		if (_delta * 1000 < 1000.0 / fps)
+			SDL_Delay((Uint32)(1000.0 / fps - _delta * 1000));
+		#pragma endregion
+
+		//拉取并处理事件以保证窗口正常交互
+		while (SDL_PollEvent(&event))
+			OnInput();
+
+		//数据更新检测
+		OnUpdate(_delta);
+
+		#pragma region Render
+		//确定渲染的颜色为纯黑（不透明），接收RGB三色与Alpha（记录图像的透明度信息的256级灰度）
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		//使用设定的不透明黑色填充整个窗口达到清屏的效果
+		SDL_RenderClear(renderer);
+
+		//在经历了上述准备后，进行具体的渲染绘图
+		OnRender();
+		//将渲染的内容更新到窗口缓冲区上
+		SDL_RenderPresent(renderer);
+		#pragma endregion
+	}
+
+	return 0;
+}
+
+SDL_Point GameManager::GetCursorTileIdx() const
+{
+	static SDL_Point _pt;
+	_pt.x = (cursorPosition.x % TILE_SIZE == 0) ? cursorPosition.x / TILE_SIZE - 1 : cursorPosition.x / TILE_SIZE;
+	_pt.y = (cursorPosition.y % TILE_SIZE == 0) ? cursorPosition.y / TILE_SIZE - 1 : cursorPosition.y / TILE_SIZE;
+	//std::cout << "CursorPosition=(" << cursorPosition.x << "," << cursorPosition.y << "),CursorTileIdx=(" << _pt.x << "," << _pt.y << ")\n";
+	return _pt;
+}
+
 void GameManager::InitAssert(bool _flag, const char* _errMsg)
 {
 	//如果初始化成功，那么无事发生，直接返回
@@ -150,8 +160,8 @@ void GameManager::OnInput()
 	if (event.type == SDL_MOUSEMOTION)
 	{
 		//获取鼠标指针坐标
-		cursorPos.x = event.motion.x;
-		cursorPos.y = event.motion.y;
+		cursorPosition.x = event.motion.x;
+		cursorPosition.y = event.motion.y;
 	}
 }
 
@@ -299,7 +309,7 @@ bool GameManager::GenerateTileMapTexture()
 
 	#pragma region RenderHome
 	//获取家在瓦片地图中的位置索引（瓦片地图中应当渲染家的纹理的位置瓦片矩形的左上顶点的坐标）
-	const SDL_Point& _homeIdx = _map.GetHomePoint();
+	const SDL_Point& _homeIdx = _map.GetHomeIdx();
 	//通过索引锁定对应的纹理区域（SDL_Point的xy即是SDL_Rect的xy）
 	const SDL_Rect& _homeDst =
 	{

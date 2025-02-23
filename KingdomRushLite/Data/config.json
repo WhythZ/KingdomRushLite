@@ -88,9 +88,9 @@
 			"speed":				0.6,
 			"damage":				2,
 			"coin_ratio":			0.8,
-			"recover_cooldown":		5,
+			"recover_cooldown":		1,
 			"recover_range":		4,
-			"recover_intensity":	100
+			"recover_intensity":	10
 		}
 	}
 }

@@ -22,6 +22,8 @@ public:
 	void OnUpdate(SDL_Renderer*);
 	void OnRender(SDL_Renderer*);
 
+	bool IsTowerPanelActive() const;        //监测当前场景中是否正在显示防御塔相关轮盘UI
+
 private:
 	UIManager();
 	~UIManager();

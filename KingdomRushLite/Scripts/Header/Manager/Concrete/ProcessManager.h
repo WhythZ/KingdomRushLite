@@ -31,7 +31,7 @@ private:
 	#pragma endregion
 
 	#pragma region Coin
-	double coinNum = 0;                        //玩家持有的金币数量
+	double coinNum = 1000;                        //玩家持有的金币数量
 	#pragma endregion
 
 	#pragma region Tower
@@ -48,7 +48,7 @@ public:
 	void IncreaseCoinNumBy(double);            //增加金币数
 	void DecreaseCoinNumBy(double);            //减少金币数
 
-	int GetTowerLevel(TowerType);              //获取对应防御塔等级
+	int GetTowerLevel(TowerType) const;        //获取对应防御塔等级
 	void IncreaseTowerLevelBy(TowerType, int); //增加对应防御塔等级
 
 private:

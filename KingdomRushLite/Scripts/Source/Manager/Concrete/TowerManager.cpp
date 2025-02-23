@@ -63,7 +63,7 @@ void TowerManager::BuildTower(TowerType _type, const SDL_Point& _point)
 	towerList.push_back(_tower);
 
 	//调用地图方法标记特定瓦片处已经存在防御塔
-	ProcessManager::Instance()->map.MarkTowerExistenceAt(_point);
+	ProcessManager::Instance()->map.MarkTowerBuiltAt(_type, _point);
 
 	//播放放置防御塔的音效
 	AudioManager::Instance()->PlaySFX(SoundResID::Tower_Build);

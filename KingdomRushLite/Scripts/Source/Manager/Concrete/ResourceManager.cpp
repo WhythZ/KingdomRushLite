@@ -39,13 +39,13 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 	//将图片资源加载存储在图像池（unordered_map类型的容器）
 	texturePool[TextureResID::Player] = IMG_LoadTexture(_renderer, "Assets/Sprite/Player/player.png");
 	texturePool[TextureResID::VFX_Player_Flash_Up] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_up.png");
-	texturePool[TextureResID::VFX_Flash_Down] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_down.png");
-	texturePool[TextureResID::VFX_Flash_Left] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_left.png");
-	texturePool[TextureResID::VFX_Flash_Right] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_right.png");
-	texturePool[TextureResID::VFX_Impact_Up] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_up.png");
-	texturePool[TextureResID::VFX_Impact_Down] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_down.png");
-	texturePool[TextureResID::VFX_Impact_Left] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_left.png");
-	texturePool[TextureResID::VFX_Impact_Right] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_right.png");
+	texturePool[TextureResID::VFX_Player_Flash_Down] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_down.png");
+	texturePool[TextureResID::VFX_Player_Flash_Left] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_left.png");
+	texturePool[TextureResID::VFX_Player_Flash_Right] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_right.png");
+	texturePool[TextureResID::VFX_Player_Impact_Up] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_up.png");
+	texturePool[TextureResID::VFX_Player_Impact_Down] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_down.png");
+	texturePool[TextureResID::VFX_Player_Impact_Left] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_left.png");
+	texturePool[TextureResID::VFX_Player_Impact_Right] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/impact_right.png");
 	texturePool[TextureResID::Bullet_Shell_Explode] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/explode.png");
 
 	texturePool[TextureResID::Tile_TileSet] = IMG_LoadTexture(_renderer, "Assets/Sprite/Tile/tileset.png");
@@ -122,6 +122,7 @@ bool ResourceManager::LoadSoundRes()
 
 	soundPool[SoundResID::Tower_Build] = Mix_LoadWAV("Assets/Audio/SFX/place_tower.mp3");
 	soundPool[SoundResID::Tower_Upgrade] = Mix_LoadWAV("Assets/Audio/SFX/tower_level_up.mp3");
+	soundPool[SoundResID::Tower_Error] = Mix_LoadWAV("Assets/Audio/SFX/tower_error.mp3");
 
 	soundPool[SoundResID::Arrow_Fire_1] = Mix_LoadWAV("Assets/Audio/SFX/arrow_fire_1.mp3");
 	soundPool[SoundResID::Arrow_Fire_2] = Mix_LoadWAV("Assets/Audio/SFX/arrow_fire_2.mp3");

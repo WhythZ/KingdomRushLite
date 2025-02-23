@@ -205,7 +205,7 @@ void EnemyManager::UpdateCollisionHome()
 {
 	#pragma region GetHomePosition
 	//获取家所在的瓦片坐标点
-	static const SDL_Point& _homePt = ProcessManager::Instance()->map.GetHomePoint();
+	static const SDL_Point& _homePt = ProcessManager::Instance()->map.GetHomeIdx();
 	//获取瓦片地图相对于游戏窗口的渲染Rect
 	static const SDL_Rect& _mapRect = ProcessManager::Instance()->mapRect;
 	//通过上述两个东西，计算出家的贴图的左上角顶点的实际坐标（Vector2是连续的实际坐标点，而SDL_Point是离散的带单位的非实际坐标点）

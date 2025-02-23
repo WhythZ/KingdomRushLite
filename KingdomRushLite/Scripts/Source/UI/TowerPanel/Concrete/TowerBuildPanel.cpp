@@ -2,6 +2,7 @@
 #include <SDL2_gfxPrimitives.h>
 #include "../../../../Header/Manager/Concrete/ResourceManager.h"
 #include "../../../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../../../Header/Manager/Concrete/AudioManager.h"
 #include "../../../../Header/Manager/Concrete/TowerManager.h"
 
 TowerBuildPanel::TowerBuildPanel()
@@ -38,11 +39,9 @@ void TowerBuildPanel::OnUpdate(SDL_Renderer* _renderer)
 
 void TowerBuildPanel::OnRender(SDL_Renderer* _renderer)
 {
-	TowerPanel::OnRender(_renderer);
-
 	#pragma region FireCircle
 	//绘制攻击范围圆
-	int _radius = 0;
+	double _radius = 0;
 	switch (hoveredButtonType)
 	{
 	case TowerPanel::ButtonType::Top:
@@ -57,16 +56,37 @@ void TowerBuildPanel::OnRender(SDL_Renderer* _renderer)
 	default:
 		break;
 	}
-	if (_radius > 0)
+
+	//若半径有效且允许显示，则绘制攻击范围圆
+	if (isShowFireCircle && _radius > 0)
 	{
 		//绘制圆填充
-		filledCircleRGBA(_renderer, centerPosition.x, centerPosition.y, _radius,
+		filledCircleRGBA(_renderer, centerPosition.x, centerPosition.y, (Sint16)_radius,
 			fireCircleContentColor.r, fireCircleContentColor.g, fireCircleContentColor.b, fireCircleContentColor.a);
 		//绘制圆边框
-		aacircleRGBA(_renderer, centerPosition.x, centerPosition.y, _radius,
+		aacircleRGBA(_renderer, centerPosition.x, centerPosition.y, (Sint16)_radius,
 			fireCircleFrameColor.r, fireCircleFrameColor.g, fireCircleFrameColor.b, fireCircleFrameColor.a);
 	}
 	#pragma endregion
+
+	//在攻击范围圆后渲染，防止前者遮挡原本UI
+	TowerPanel::OnRender(_renderer);
+}
+
+void TowerBuildPanel::ShowPanel()
+{
+	TowerPanel::ShowPanel();
+
+	//同时打开攻击范围圆的显示许可
+	isShowFireCircle = true;
+}
+
+void TowerBuildPanel::ClosePanel()
+{
+	TowerPanel::ClosePanel();
+
+	//同时关闭攻击范围圆的显示许可
+	isShowFireCircle = false;
 }
 
 void TowerBuildPanel::OnClickTop()
@@ -79,7 +99,13 @@ void TowerBuildPanel::OnClickTop()
 		//扣除对应数额金币，然后实例化防御塔
 		_pm->DecreaseCoinNumBy(topCostValue);
 		TowerManager::Instance()->BuildTower(TowerType::Axeman, selectedTileIdx);
+
+		//播放对应建造音效
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Build);
 	}
+	//否则播放操作失败音效
+	else
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Error);
 }
 
 void TowerBuildPanel::OnClickLeft()
@@ -90,7 +116,11 @@ void TowerBuildPanel::OnClickLeft()
 	{
 		_pm->DecreaseCoinNumBy(leftCostValue);
 		TowerManager::Instance()->BuildTower(TowerType::Archer, selectedTileIdx);
+
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Build);
 	}
+	else
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Error);
 }
 
 void TowerBuildPanel::OnClickRight()
@@ -101,5 +131,9 @@ void TowerBuildPanel::OnClickRight()
 	{
 		_pm->DecreaseCoinNumBy(rightCostValue);
 		TowerManager::Instance()->BuildTower(TowerType::Gunner, selectedTileIdx);
+
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Build);
 	}
+	else
+		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Error);
 }
