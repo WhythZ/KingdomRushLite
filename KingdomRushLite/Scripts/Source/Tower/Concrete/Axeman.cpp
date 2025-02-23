@@ -44,5 +44,5 @@ void Axeman::OnFireBullet(Enemy* _target)
 	Tower::OnFireBullet(_target);
 
 	//播放特定的发射音效
-	AudioManager::Instance()->PlaySFX(SoundResID::Axe_Shoot);
+	AudioManager::Instance()->PlaySFX(SoundResID::Axe_Fire);
 }

@@ -6,7 +6,7 @@
 class TowerUpgradePanel :public TowerPanel
 {
 public:
-	TowerUpgradePanel() = default;
+	TowerUpgradePanel();
 	~TowerUpgradePanel() = default;
 
 	void OnUpdate(SDL_Renderer*) override;

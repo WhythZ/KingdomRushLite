@@ -22,7 +22,7 @@ void ProcessManager::DecreaseHealthBy(double _decre)
 		healthCurrent = 0;
 
 	//²¥·ÅÊÜ»÷ÒôÐ§
-	AudioManager::Instance()->PlaySFX(SoundResID::HomeHurt);
+	AudioManager::Instance()->PlaySFX(SoundResID::Home_Hurt);
 }
 
 double ProcessManager::GetCurrentCoinNum() const

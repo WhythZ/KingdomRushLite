@@ -41,10 +41,10 @@ void StatusUI::OnRender(SDL_Renderer* _renderer)
 	#pragma region GetLoadedAssets
 	static const TexturePool& _texPool = ResourceManager::Instance()->GetTexturePool();
 	//获取各图标的纹理
-	static SDL_Texture* _homeIconTex = _texPool.find(TextureResID::UI_Avatar_Home)->second;
-	static SDL_Texture* _playerIconTex = _texPool.find(TextureResID::UI_Avatar_Player)->second;
-	static SDL_Texture* _healthIconTex = _texPool.find(TextureResID::UI_Heart)->second;
-	static SDL_Texture* _coinIconTex = _texPool.find(TextureResID::UI_Coin)->second;
+	static SDL_Texture* _homeIconTex = _texPool.find(TextureResID::UI_Icon_HomeAvatar)->second;
+	static SDL_Texture* _playerIconTex = _texPool.find(TextureResID::UI_Icon_PlayerAvatar)->second;
+	static SDL_Texture* _healthIconTex = _texPool.find(TextureResID::UI_Icon_HealthHeart)->second;
+	static SDL_Texture* _coinIconTex = _texPool.find(TextureResID::UI_Icon_Coin)->second;
 
 	//依照实际图标图片的尺寸获取图标图片宽高
 	static SDL_Point _homeIconSize = { 78,78 };

@@ -38,7 +38,7 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 
 	//将图片资源加载存储在图像池（unordered_map类型的容器）
 	texturePool[TextureResID::Player] = IMG_LoadTexture(_renderer, "Assets/Sprite/Player/player.png");
-	texturePool[TextureResID::VFX_Flash_Up] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_up.png");
+	texturePool[TextureResID::VFX_Player_Flash_Up] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_up.png");
 	texturePool[TextureResID::VFX_Flash_Down] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_down.png");
 	texturePool[TextureResID::VFX_Flash_Left] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_left.png");
 	texturePool[TextureResID::VFX_Flash_Right] = IMG_LoadTexture(_renderer, "Assets/Sprite/VFX/flash_right.png");
@@ -73,16 +73,16 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 
 	texturePool[TextureResID::Item_Coin] = IMG_LoadTexture(_renderer, "Assets/Sprite/Item/coin.png");
 
-	texturePool[TextureResID::UI_Coin] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/coin.png");
-	texturePool[TextureResID::UI_Heart] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/heart.png");
-	texturePool[TextureResID::UI_Avatar_Player] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/player_avatar.png");
-	texturePool[TextureResID::UI_Avatar_Home] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/home_avatar.png");
+	texturePool[TextureResID::UI_Icon_Coin] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/coin.png");
+	texturePool[TextureResID::UI_Icon_HealthHeart] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/heart.png");
+	texturePool[TextureResID::UI_Icon_PlayerAvatar] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/player_avatar.png");
+	texturePool[TextureResID::UI_Icon_HomeAvatar] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/home_avatar.png");
 
 	texturePool[TextureResID::UI_SelectCursor] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/select_cursor.png");
-	texturePool[TextureResID::UI_Place_Idle] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_idle.png");
-	texturePool[TextureResID::UI_Place_HoveredTop] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_hovered_top.png");
-	texturePool[TextureResID::UI_Place_HoveredLeft] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_hovered_left.png");
-	texturePool[TextureResID::UI_Place_HoveredRight] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_hovered_right.png");
+	texturePool[TextureResID::UI_Build_Idle] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_idle.png");
+	texturePool[TextureResID::UI_Build_HoveredTop] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_hovered_top.png");
+	texturePool[TextureResID::UI_Build_HoveredLeft] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_hovered_left.png");
+	texturePool[TextureResID::UI_Build_HoveredRight] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/place_hovered_right.png");
 	texturePool[TextureResID::UI_Upgrade_Idle] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/upgrade_idle.png");
 	texturePool[TextureResID::UI_Upgrade_HoveredTop] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/upgrade_hovered_top.png");
 	texturePool[TextureResID::UI_Upgrade_HoveredLeft] = IMG_LoadTexture(_renderer, "Assets/Sprite/UI/upgrade_hovered_left.png");
@@ -114,27 +114,27 @@ bool ResourceManager::LoadMusicRes()
 bool ResourceManager::LoadSoundRes()
 {
 	//从文件中加载音效
-	soundPool[SoundResID::PlayerSkill_Flash] = Mix_LoadWAV("Assets/Audio/SFX/flash.wav");
-	soundPool[SoundResID::PlayerSkill_Impact] = Mix_LoadWAV("Assets/Audio/SFX/impact.wav");
+	soundPool[SoundResID::Player_Skill_Flash] = Mix_LoadWAV("Assets/Audio/SFX/flash.wav");
+	soundPool[SoundResID::Player_Skill_Impact] = Mix_LoadWAV("Assets/Audio/SFX/impact.wav");
 
 	soundPool[SoundResID::Pick_Coin] = Mix_LoadWAV("Assets/Audio/SFX/coin.mp3");
-	soundPool[SoundResID::HomeHurt] = Mix_LoadWAV("Assets/Audio/SFX/home_hurt.wav");
+	soundPool[SoundResID::Home_Hurt] = Mix_LoadWAV("Assets/Audio/SFX/home_hurt.wav");
 
-	soundPool[SoundResID::Tower_Place] = Mix_LoadWAV("Assets/Audio/SFX/place_tower.mp3");
+	soundPool[SoundResID::Tower_Build] = Mix_LoadWAV("Assets/Audio/SFX/place_tower.mp3");
 	soundPool[SoundResID::Tower_Upgrade] = Mix_LoadWAV("Assets/Audio/SFX/tower_level_up.mp3");
 
-	soundPool[SoundResID::Arrow_Shoot_1] = Mix_LoadWAV("Assets/Audio/SFX/arrow_fire_1.mp3");
-	soundPool[SoundResID::Arrow_Shoot_2] = Mix_LoadWAV("Assets/Audio/SFX/arrow_fire_2.mp3");
+	soundPool[SoundResID::Arrow_Fire_1] = Mix_LoadWAV("Assets/Audio/SFX/arrow_fire_1.mp3");
+	soundPool[SoundResID::Arrow_Fire_2] = Mix_LoadWAV("Assets/Audio/SFX/arrow_fire_2.mp3");
 	soundPool[SoundResID::Arrow_Hit_1] = Mix_LoadWAV("Assets/Audio/SFX/arrow_hit_1.mp3");
 	soundPool[SoundResID::Arrow_Hit_2] = Mix_LoadWAV("Assets/Audio/SFX/arrow_hit_2.mp3");
 	soundPool[SoundResID::Arrow_Hit_3] = Mix_LoadWAV("Assets/Audio/SFX/arrow_hit_3.mp3");
 
-	soundPool[SoundResID::Axe_Shoot] = Mix_LoadWAV("Assets/Audio/SFX/axe_fire.wav");
+	soundPool[SoundResID::Axe_Fire] = Mix_LoadWAV("Assets/Audio/SFX/axe_fire.wav");
 	soundPool[SoundResID::Axe_Hit_1] = Mix_LoadWAV("Assets/Audio/SFX/axe_hit_1.mp3");
 	soundPool[SoundResID::Axe_Hit_2] = Mix_LoadWAV("Assets/Audio/SFX/axe_hit_2.mp3");
 	soundPool[SoundResID::Axe_Hit_3] = Mix_LoadWAV("Assets/Audio/SFX/axe_hit_3.mp3");
 
-	soundPool[SoundResID::Shell_Shoot] = Mix_LoadWAV("Assets/Audio/SFX/shell_fire.wav");
+	soundPool[SoundResID::Shell_Fire] = Mix_LoadWAV("Assets/Audio/SFX/shell_fire.wav");
 	soundPool[SoundResID::Shell_Hit] = Mix_LoadWAV("Assets/Audio/SFX/shell_hit.mp3");
 
 	soundPool[SoundResID::Win] = Mix_LoadWAV("Assets/Audio/SFX/win.wav");

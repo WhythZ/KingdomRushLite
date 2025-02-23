@@ -47,10 +47,10 @@ void Archer::OnFireBullet(Enemy* _target)
 	switch (rand() % 2)
 	{
 	case 0:
-		AudioManager::Instance()->PlaySFX(SoundResID::Arrow_Shoot_1);
+		AudioManager::Instance()->PlaySFX(SoundResID::Arrow_Fire_1);
 		break;
 	case 1:
-		AudioManager::Instance()->PlaySFX(SoundResID::Arrow_Shoot_2);
+		AudioManager::Instance()->PlaySFX(SoundResID::Arrow_Fire_2);
 		break;
 	default:
 		break;

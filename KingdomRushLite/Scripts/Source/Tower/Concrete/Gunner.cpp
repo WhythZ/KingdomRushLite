@@ -44,5 +44,5 @@ void Gunner::OnFireBullet(Enemy* _target)
 	Tower::OnFireBullet(_target);
 
 	//播放特定的发射音效
-	AudioManager::Instance()->PlaySFX(SoundResID::Shell_Shoot);
+	AudioManager::Instance()->PlaySFX(SoundResID::Shell_Fire);
 }

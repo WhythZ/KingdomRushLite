@@ -16,15 +16,6 @@
 
 int GameManager::Run(int _argc, char** _argv)
 {
-	#pragma region Testing
-	TowerManager::Instance()->BuildTower(TowerType::Archer, { 10,7 });
-	TowerManager::Instance()->BuildTower(TowerType::Axeman, { 10,8 });
-	TowerManager::Instance()->BuildTower(TowerType::Gunner, { 10,9 });
-	TowerManager::Instance()->BuildTower(TowerType::Archer, { 15,7 });
-	TowerManager::Instance()->BuildTower(TowerType::Axeman, { 15,8 });
-	TowerManager::Instance()->BuildTower(TowerType::Gunner, { 15,9 });
-	#pragma endregion
-
 	#pragma region LimitFPS
 	//此函数获取一个高性能（精度较高）计时器，函数返回的值（计时器跳的总数）作为计时器的起点，通过作差后除以频率才有意义
 	Uint64 _lastCounter = SDL_GetPerformanceCounter();

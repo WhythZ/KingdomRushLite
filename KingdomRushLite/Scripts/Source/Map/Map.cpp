@@ -61,12 +61,6 @@ bool Map::Load(const std::string& _csvPath)
 	return true;
 }
 
-void Map::MarkTowerExistenceAt(const SDL_Point& _tileIdx)
-{
-	//注意先索引y再索引x
-	tileMap[_tileIdx.y][_tileIdx.x].hasTower = true;
-}
-
 const TileMap& Map::GetTileMap() const
 {
 	return tileMap;
@@ -96,6 +90,17 @@ size_t Map::GetWidthTileNum() const
 		return 0;
 	//即返回第一行的列数
 	return tileMap[0].size();
+}
+
+bool Map::IsTowerBuiltAt(const SDL_Point& _idx) const
+{
+	return tileMap[_idx.y][_idx.x].hasTower;
+}
+
+void Map::MarkTowerExistenceAt(const SDL_Point& _tileIdx)
+{
+	//注意先索引y再索引x
+	tileMap[_tileIdx.y][_tileIdx.x].hasTower = true;
 }
 
 std::string Map::TrimString(const std::string _str)

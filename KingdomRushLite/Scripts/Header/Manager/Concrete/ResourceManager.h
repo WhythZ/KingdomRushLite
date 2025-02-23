@@ -11,14 +11,14 @@
 enum TextureResID
 {
 	Player,                      //玩家控制角色的帧动画
-	VFX_Flash_Up,                //玩家技能闪电，方向朝上
-	VFX_Flash_Down,              //玩家技能闪电，方向朝下
-	VFX_Flash_Left,              //玩家技能闪电，方向朝左
-	VFX_Flash_Right,             //玩家技能闪电，方向朝右
-	VFX_Impact_Up,               //
-	VFX_Impact_Down,             //
-	VFX_Impact_Left,             //
-	VFX_Impact_Right,            //
+	VFX_Player_Flash_Up,         //玩家技能闪电，方向朝上
+	VFX_Player_Flash_Down,       //玩家技能闪电，方向朝下
+	VFX_Player_Flash_Left,       //玩家技能闪电，方向朝左
+	VFX_Player_Flash_Right,      //玩家技能闪电，方向朝右
+	VFX_Player_Impact_Up,        //玩家技能震慑，方向朝右
+	VFX_Player_Impact_Down,      //玩家技能震慑，方向朝右
+	VFX_Player_Impact_Left,      //玩家技能震慑，方向朝右
+	VFX_Player_Impact_Right,     //玩家技能震慑，方向朝右
 
 	Tile_TileSet,                //瓦片素材图集
 	Tile_Home,                   //家瓦片
@@ -46,16 +46,16 @@ enum TextureResID
 
 	Item_Coin,                   //掉落的金币
 
-	UI_Coin,                     //玩家金币总额
-	UI_Heart,                    //玩家血量红心
-	UI_Avatar_Player,            //玩家头像
-	UI_Avatar_Home,              //家头像
+	UI_Icon_Coin,                //玩家金币总额
+	UI_Icon_HealthHeart,         //玩家血量红心
+	UI_Icon_PlayerAvatar,        //玩家头像
+	UI_Icon_HomeAvatar,          //家头像
 
-	UI_SelectCursor,             //选中对象的视效
-	UI_Place_Idle,               //放置防御塔的轮盘UI
-	UI_Place_HoveredTop,         //指针悬浮在放置轮盘上部时的反馈视效
-	UI_Place_HoveredLeft,        //指针悬浮在放置轮盘左部时的反馈视效
-	UI_Place_HoveredRight,       //指针悬浮在放置轮盘右部时的反馈视效
+	UI_SelectCursor,             //选中瓦片的效果
+	UI_Build_Idle,               //放置防御塔的轮盘UI
+	UI_Build_HoveredTop,         //指针悬浮在放置轮盘上部时的反馈视效
+	UI_Build_HoveredLeft,        //指针悬浮在放置轮盘左部时的反馈视效
+	UI_Build_HoveredRight,       //指针悬浮在放置轮盘右部时的反馈视效
 	UI_Upgrade_Idle,             //升级防御塔的轮盘UI
 	UI_Upgrade_HoveredTop,       //指针悬浮在升级轮盘上部时的反馈视效
 	UI_Upgrade_HoveredLeft,      //指针悬浮在升级轮盘左部时的反馈视效
@@ -73,27 +73,27 @@ enum MusicResID
 
 enum SoundResID
 {
-	PlayerSkill_Flash,           //玩家技能音效
-	PlayerSkill_Impact,          //玩家技能音效
+	Player_Skill_Flash,          //玩家技能音效
+	Player_Skill_Impact,         //玩家技能音效
 
 	Pick_Coin,                   //硬币捡拾音效
-	HomeHurt,                    //家被攻击音效
+	Home_Hurt,                   //家被攻击音效
 
-	Tower_Place,                 //防御塔放置音效
+	Tower_Build,                 //防御塔放置音效
 	Tower_Upgrade,               //防御塔升级音效
 
-	Arrow_Shoot_1,               //箭矢投射音效1
-	Arrow_Shoot_2,               //箭矢投射音效2
+	Arrow_Fire_1,                //箭矢投射音效1
+	Arrow_Fire_2,                //箭矢投射音效2
 	Arrow_Hit_1,                 //箭矢命中音效1
 	Arrow_Hit_2,                 //箭矢命中音效2
 	Arrow_Hit_3,                 //箭矢命中音效3
 
-	Axe_Shoot,                   //斧头投射音效
+	Axe_Fire,                    //斧头投射音效
 	Axe_Hit_1,                   //斧头命中音效1
 	Axe_Hit_2,                   //斧头命中音效2
 	Axe_Hit_3,                   //斧头命中音效3
 
-	Shell_Shoot,                 //炸弹投射音效
+	Shell_Fire,                  //炸弹投射音效
 	Shell_Hit,                   //炸弹命中音效
 
 	Win,                         //游戏胜利音效

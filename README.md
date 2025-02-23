@@ -75,10 +75,9 @@ This game is data-driven and implemented by multiple extensible systems, short d
         - `Axe`: Attacks single enemy with slowdown effect
         - `Shell`: Attacks range of enemies with high damage
 - User Interface
-    - `StatusUI`: 
-    - `TowerPanel`: Derives `TowerBuildPanel` and `TowerUpgradePanel`
+    - `StatusUI`: Render the real-time status of health, coin number and cooldown of player skills
+    - `TowerPanel`: Derives `TowerBuildPanel` and `TowerUpgradePanel` for corresponding function
 - Controlable Character
-    - WIP
     - WIP
 
 ## Dependency

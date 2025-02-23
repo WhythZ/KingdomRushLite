@@ -66,7 +66,7 @@ void TowerManager::BuildTower(TowerType _type, const SDL_Point& _point)
 	ProcessManager::Instance()->map.MarkTowerExistenceAt(_point);
 
 	//播放放置防御塔的音效
-	AudioManager::Instance()->PlaySFX(SoundResID::Tower_Place);
+	AudioManager::Instance()->PlaySFX(SoundResID::Tower_Build);
 }
 
 void TowerManager::UpgradeTower(TowerType _type)
