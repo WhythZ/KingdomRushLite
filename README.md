@@ -57,11 +57,11 @@ This game is data-driven and implemented by multiple extensible systems, short d
     - `Route`: Set of indices of consecutive acyclic tiles on which is for enemies to move
 - Enemies and Their Drops
     - `Enemy`: Organized by `EnemyManager` and aims at attacking home
-        - `Slime`: Weak and slow
-        - `SlimeKing`: Medium and slow
-        - `Skeleton`: Medium and fast
-        - `Goblin`: Medium and fast
-        - `GoblinPriest`: Strong and able to heal
+        - `Slime`: Weak vitality and slow
+        - `SlimeKing`: Medium vitality and slow
+        - `Skeleton`: Medium vitality and fast
+        - `Goblin`: Medium vitality and fast
+        - `GoblinPriest`: Strong vitality and able to heal
     - `Drop`: Organized by `DropManager` and collides with Player with particular effects
         - `Coin`: Picked up by player to earn coins
     - `Wave`: Struct organized by `WaveManager` including multiple enemy spawn events
@@ -75,8 +75,8 @@ This game is data-driven and implemented by multiple extensible systems, short d
         - `Axe`: Attacks single enemy with slowdown effect
         - `Shell`: Attacks range of enemies with high damage
 - User Interface
-    - WIP
-    - WIP
+    - `StatusUI`: 
+    - `TowerPanel`: Derives `TowerBuildPanel` and `TowerUpgradePanel`
 - Controlable Character
     - WIP
     - WIP

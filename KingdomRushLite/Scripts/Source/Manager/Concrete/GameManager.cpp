@@ -146,6 +146,12 @@ void GameManager::InitAssert(bool _flag, const char* _errMsg)
 
 void GameManager::OnInput()
 {
+	//游戏没结束时，才会进行下列游戏内玩法相关管理器的输入检测
+	if (!ProcessManager::Instance()->isGameOver)
+	{
+		UIManager::Instance()->OnInput(event);
+	}
+
 	//点击窗口的退出键时触发的SDL_QUIT事件
 	if (event.type == SDL_QUIT)
 		isQuit = true;
@@ -160,7 +166,7 @@ void GameManager::OnInput()
 
 void GameManager::OnUpdate(double _delta)
 {
-	//游戏没结束才会进行下列管理器的更新
+	//游戏没结束时，才会进行下列管理器的更新
 	if (!ProcessManager::Instance()->isGameOver)
 	{
 		WaveManager::Instance()->OnUpdate(_delta);

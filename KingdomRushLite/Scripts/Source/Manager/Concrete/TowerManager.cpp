@@ -77,13 +77,13 @@ void TowerManager::UpgradeTower(TowerType _type)
 	switch (_type)
 	{
 	case TowerType::Archer:
-		_process->levelArcher = (_process->levelArcher >= 9) ? 9 : (_process->levelArcher + 1);
+		_process->IncreaseTowerLevelBy(TowerType::Archer, 1);
 		break;
 	case TowerType::Axeman:
-		_process->levelAxeman = (_process->levelAxeman >= 9) ? 9 : (_process->levelAxeman + 1);
+		_process->IncreaseTowerLevelBy(TowerType::Axeman, 1);
 		break;
 	case TowerType::Gunner:
-		_process->levelGunner = (_process->levelGunner >= 9) ? 9 : (_process->levelGunner + 1);
+		_process->IncreaseTowerLevelBy(TowerType::Gunner, 1);
 		break;
 	default:
 		break;
@@ -101,13 +101,13 @@ double TowerManager::GetBuildCostOf(TowerType _type) const
 	switch (_type)
 	{
 	case TowerType::Archer:
-		return _config->archerPrefab.buildCost[_process->levelArcher];
+		return _config->archerPrefab.buildCost[_process->GetTowerLevel(TowerType::Archer)];
 		break;
 	case TowerType::Axeman:
-		return _config->axemanPrefab.buildCost[_process->levelAxeman];
+		return _config->axemanPrefab.buildCost[_process->GetTowerLevel(TowerType::Axeman)];
 		break;
 	case TowerType::Gunner:
-		return _config->gunnerPrefab.buildCost[_process->levelGunner];
+		return _config->gunnerPrefab.buildCost[_process->GetTowerLevel(TowerType::Gunner)];
 		break;
 	default:
 		return -1;
@@ -123,13 +123,16 @@ double TowerManager::GetUpgradeCostOf(TowerType _type) const
 	switch (_type)
 	{
 	case TowerType::Archer:
-		return (_process->levelArcher == 9) ? -1 : _config->archerPrefab.upgradeCost[_process->levelArcher];
+		return (_process->GetTowerLevel(TowerType::Archer) == 9) ? -1 : 
+			_config->archerPrefab.upgradeCost[_process->GetTowerLevel(TowerType::Archer)];
 		break;
 	case TowerType::Axeman:
-		return (_process->levelAxeman == 9) ? -1 : _config->axemanPrefab.upgradeCost[_process->levelAxeman];
+		return (_process->GetTowerLevel(TowerType::Axeman) == 9) ? -1 :
+			_config->axemanPrefab.upgradeCost[_process->GetTowerLevel(TowerType::Axeman)];
 		break;
 	case TowerType::Gunner:
-		return (_process->levelGunner == 9) ? -1 : _config->gunnerPrefab.upgradeCost[_process->levelGunner];
+		return (_process->GetTowerLevel(TowerType::Gunner) == 9) ? -1 :
+			_config->gunnerPrefab.upgradeCost[_process->GetTowerLevel(TowerType::Gunner)];
 		break;
 	default:
 		return -1;
@@ -144,13 +147,13 @@ double TowerManager::GetFireCooldownOf(TowerType _type) const
 	switch (_type)
 	{
 	case TowerType::Archer:
-		return _config->archerPrefab.cooldown[_process->levelArcher];
+		return _config->archerPrefab.cooldown[_process->GetTowerLevel(TowerType::Archer)];
 		break;
 	case TowerType::Axeman:
-		return _config->axemanPrefab.cooldown[_process->levelAxeman];
+		return _config->axemanPrefab.cooldown[_process->GetTowerLevel(TowerType::Axeman)];
 		break;
 	case TowerType::Gunner:
-		return _config->gunnerPrefab.cooldown[_process->levelGunner];
+		return _config->gunnerPrefab.cooldown[_process->GetTowerLevel(TowerType::Gunner)];
 		break;
 	default:
 		return -1;
@@ -166,13 +169,13 @@ double TowerManager::GetFireRadiusOf(TowerType _type) const
 	switch (_type)
 	{
 	case TowerType::Archer:
-		return _config->archerPrefab.viewRange[_process->levelArcher] * TILE_SIZE;
+		return _config->archerPrefab.viewRange[_process->GetTowerLevel(TowerType::Archer)] * TILE_SIZE;
 		break;
 	case TowerType::Axeman:
-		return _config->axemanPrefab.viewRange[_process->levelAxeman] * TILE_SIZE;
+		return _config->axemanPrefab.viewRange[_process->GetTowerLevel(TowerType::Axeman)] * TILE_SIZE;
 		break;
 	case TowerType::Gunner:
-		return _config->gunnerPrefab.viewRange[_process->levelGunner] * TILE_SIZE;
+		return _config->gunnerPrefab.viewRange[_process->GetTowerLevel(TowerType::Gunner)] * TILE_SIZE;
 		break;
 	default:
 		return -1;
@@ -187,13 +190,13 @@ double TowerManager::GetBulletDamageOf(TowerType _type) const
 	switch (_type)
 	{
 	case TowerType::Archer:
-		return _config->archerPrefab.damage[_process->levelArcher];
+		return _config->archerPrefab.damage[_process->GetTowerLevel(TowerType::Archer)];
 		break;
 	case TowerType::Axeman:
-		return _config->axemanPrefab.damage[_process->levelAxeman];
+		return _config->axemanPrefab.damage[_process->GetTowerLevel(TowerType::Axeman)];
 		break;
 	case TowerType::Gunner:
-		return _config->gunnerPrefab.damage[_process->levelGunner];
+		return _config->gunnerPrefab.damage[_process->GetTowerLevel(TowerType::Gunner)];
 		break;
 	default:
 		return -1;

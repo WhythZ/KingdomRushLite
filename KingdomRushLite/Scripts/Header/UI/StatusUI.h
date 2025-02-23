@@ -19,8 +19,7 @@ private:
 
 	#pragma region CoinNumText
 	SDL_Texture* coinNumTextTexture = nullptr;                     //暂存 金币数量文本转化而来的渲染纹理
-	int coinNumTextWidth = 0;                                      //暂存金币文本渲染的宽度
-	int coinNumTextHeight = 0;                                     //暂存金币文本渲染的长度
+	SDL_Point coinNumTextSize = { 0, 0 };                          //暂存金币文本渲染的宽度与长度
 
 	const SDL_Color coinTextColor = { 255,255,255,255 };           //金币数量文本的固定颜色（纯白色）
 	#pragma endregion

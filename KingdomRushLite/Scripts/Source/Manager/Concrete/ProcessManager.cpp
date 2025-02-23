@@ -9,6 +9,11 @@ ProcessManager::ProcessManager()
 	healthCurrent = healthMaximum;
 }
 
+double ProcessManager::GetCurrentHealth() const
+{
+	return healthCurrent;
+}
+
 void ProcessManager::DecreaseHealthBy(double _decre)
 {
 	//减少血量
@@ -18,6 +23,11 @@ void ProcessManager::DecreaseHealthBy(double _decre)
 
 	//播放受击音效
 	AudioManager::Instance()->PlaySFX(SoundResID::HomeHurt);
+}
+
+double ProcessManager::GetCurrentCoinNum() const
+{
+	return coinNum;
 }
 
 void ProcessManager::IncreaseCoinNumBy(double _reward)
@@ -30,12 +40,35 @@ void ProcessManager::DecreaseCoinNumBy(double _cost)
 	coinNum = (coinNum - _cost > 0) ? (coinNum - _cost) : 0;
 }
 
-double ProcessManager::GetCurrentHealth() const
+int ProcessManager::GetTowerLevel(TowerType _type)
 {
-	return healthCurrent;
+	switch (_type)
+	{
+	case TowerType::Archer:
+		return levelArcher;
+	case TowerType::Axeman:
+		return levelAxeman;
+	case TowerType::Gunner:
+		return levelGunner;
+	default:
+		break;
+	}
 }
 
-double ProcessManager::GetCurrentCoinNum() const
+void ProcessManager::IncreaseTowerLevelBy(TowerType _type, int _incre)
 {
-	return coinNum;
+	switch (_type)
+	{
+	case TowerType::Archer:
+		levelArcher = (levelArcher + _incre >= TOWER_ARCHER_MAX_LEVEL) ? TOWER_ARCHER_MAX_LEVEL : (levelArcher + _incre);
+		break;
+	case TowerType::Axeman:
+		levelAxeman = (levelAxeman + _incre >= TOWER_AXEMAN_MAX_LEVEL) ? TOWER_AXEMAN_MAX_LEVEL : (levelAxeman + _incre);
+		break;
+	case TowerType::Gunner:
+		levelGunner = (levelGunner + _incre >= TOWER_GUNNER_MAX_LEVEL) ? TOWER_GUNNER_MAX_LEVEL : (levelGunner + _incre);
+		break;
+	default:
+		break;
+	}
 }

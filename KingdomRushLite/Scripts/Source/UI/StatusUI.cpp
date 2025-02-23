@@ -12,9 +12,6 @@ void StatusUI::SetPosition(SDL_Point _position)
 
 void StatusUI::OnUpdate(SDL_Renderer* _renderer)
 {
-	//获取字体
-	static TTF_Font* _font = ResourceManager::Instance()->GetFontPool().find(FontResID::Pixel_CN)->second;
-
 	#pragma region Clear
 	//由于每帧OnUpdate函数都会生成一张文本的纹理，故先清除掉上一帧的遗留垃圾
 	SDL_DestroyTexture(coinNumTextTexture);
@@ -25,9 +22,10 @@ void StatusUI::OnUpdate(SDL_Renderer* _renderer)
 	//拿到金币数量，强转为整形后转化为字符串
 	std::string _coinNumStr = std::to_string((int)ProcessManager::Instance()->GetCurrentCoinNum());
 	//先将文本以特定字体加载到内存中
+	static TTF_Font* _font = ResourceManager::Instance()->GetFontPool().find(FontResID::Pixel_CN)->second;
 	SDL_Surface* _coinTextSurface = TTF_RenderText_Blended(_font, _coinNumStr.c_str(), coinTextColor);
 	//获取转化后的图片的长宽
-	coinNumTextWidth = _coinTextSurface->w; coinNumTextHeight = _coinTextSurface->h;
+	coinNumTextSize = { _coinTextSurface->w, _coinTextSurface->h };
 	//然后再将其转化为纹理格式
 	coinNumTextTexture = SDL_CreateTextureFromSurface(_renderer, _coinTextSurface);
 	//然后清理已经无用了的Surface垃圾
@@ -95,8 +93,8 @@ void StatusUI::OnRender(SDL_Renderer* _renderer)
 	_dstRect.x = (position.x + _homeIconSize.x + STATUSUI_HOME_RIGHT_DISTANCE)
 		+ _coinIconSize.x + STATUSUI_COIN_ICON_NUMTEXT_DISTANCE;
 	_dstRect.y = position.y + _healthIconSize.y + _healthCoinIconDistance;
-	_dstRect.w = coinNumTextWidth;
-	_dstRect.h = coinNumTextHeight;
+	_dstRect.w = coinNumTextSize.x;
+	_dstRect.h = coinNumTextSize.y;
 	SDL_RenderCopy(_renderer, coinNumTextTexture, nullptr, &_dstRect);
 	#pragma endregion
 
