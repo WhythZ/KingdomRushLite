@@ -249,7 +249,7 @@ bool ConfigManager::ParseEnemyConfigPrefab(EnemyConfigPrefab& _prefab, cJSON* _j
 
 	cJSON* _jsonRecoverRange = cJSON_GetObjectItem(_jsonRoot, "recover_range");
 	if (!_jsonRecoverRange || _jsonRecoverRange->type != cJSON_Number) return false;
-	_prefab.recoverRange = _jsonRecoverRange->valuedouble;
+	_prefab.recoverRadius = _jsonRecoverRange->valuedouble;
 
 	cJSON* _jsonRecoveIntensity = cJSON_GetObjectItem(_jsonRoot, "recover_intensity");
 	if (!_jsonRecoveIntensity || _jsonRecoveIntensity->type != cJSON_Number) return false;

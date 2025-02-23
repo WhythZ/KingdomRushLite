@@ -45,11 +45,14 @@ GoblinPriest::GoblinPriest()
 	coinRatio = _configPrefab.coinRatio;
 	#pragma endregion
 
-	#pragma region SkillStats
+	#pragma region Skill
 	//设置技能相关数值属性
 	skillRecoverCooldown = _configPrefab.recoverCooldown;
-	skillRecoverRange = _configPrefab.recoverRange;
+	skillRecoverRadius = _configPrefab.recoverRadius * TILE_SIZE;
 	skillRecoverIntensity = _configPrefab.recoverIntensity;
+
+	//设置冷却时间
+	skillRecoverCooldowndTimer.SetWaitTime(skillRecoverCooldown);
 	#pragma endregion
 
 	//尺寸和瓦片大小保持一致

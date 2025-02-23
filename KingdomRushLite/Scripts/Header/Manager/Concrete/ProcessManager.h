@@ -31,7 +31,7 @@ private:
 	#pragma endregion
 
 	#pragma region Coin
-	double coinNum = 1000;                        //玩家持有的金币数量
+	double coinNum = 500;                       //玩家持有的金币数量
 	#pragma endregion
 
 	#pragma region Tower

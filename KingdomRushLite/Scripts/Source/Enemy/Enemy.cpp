@@ -25,7 +25,12 @@ Enemy::Enemy()
 	//恢复技能冷却一结束就会再次释放，所以并非单次触发
 	skillRecoverCooldowndTimer.SetOneShot(false);
 	//冷却结束就释放恢复技能（技能的释放者为自己），即传入了包装其对应回调函数的匿名函数
-	skillRecoverCooldowndTimer.SetTimeOutTrigger([&]() {skillRecoverTrigger(this); });
+	skillRecoverCooldowndTimer.SetTimeOutTrigger(
+		[&]()
+		{
+			skillRecoverTrigger(this);
+		}
+	);
 	#pragma endregion
 }
 
@@ -242,7 +247,7 @@ double Enemy::GetSkillRecoverCooldown() const
 double Enemy::GetSkillRecoverRadius() const
 {
 	//配置文件中关于长度的数据的单位均以[每单元格]为单位，所以要乘上瓦片长度
-	return skillRecoverRange * TILE_SIZE;
+	return skillRecoverRadius;
 }
 
 double Enemy::GetSkillRecoverIntensity() const

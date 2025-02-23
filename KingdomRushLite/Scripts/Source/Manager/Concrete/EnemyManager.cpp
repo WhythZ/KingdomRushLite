@@ -100,6 +100,7 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 	_enemy->SetPosition(_pos);
 	#pragma endregion
 
+	#pragma region SetSkillTrigger
 	//设置怪物的技能
 	_enemy->SetRecoverSkillTrigger(
 		//接收一个技能释放者的参数
@@ -125,6 +126,7 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 			}
 		}
 	);
+	#pragma endregion
 
 	//将怪物添加到统计列表
 	enemyList.push_back(_enemy);

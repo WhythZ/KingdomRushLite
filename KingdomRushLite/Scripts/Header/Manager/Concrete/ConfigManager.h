@@ -68,9 +68,9 @@ public:
 		double damage = 1;
 		//敌人爆金币的概率
 		double coinRatio = 0.5;
-		//敌人恢复技能的冷却、范围（-1为不恢复，0为只恢复自己）与恢复强度
+		//敌人恢复技能的冷却、范围半径（-1为不恢复，0为只恢复自己）与恢复强度
 		double recoverCooldown = 10;
-		double recoverRange = -1;
+		double recoverRadius = -1;
 		double recoverIntensity = 25;
 	};
 

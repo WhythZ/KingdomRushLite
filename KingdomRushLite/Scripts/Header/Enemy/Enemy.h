@@ -45,10 +45,12 @@ protected:
 	double coinRatio = 0;                       //奖励掉落概率
 	#pragma endregion
 
-	#pragma region SkillStats
+	#pragma region Skill
 	double skillRecoverCooldown = 0;            //恢复技能的冷却
-	double skillRecoverRange = 0;               //恢复技能的范围
+	double skillRecoverRadius = 0;              //恢复技能的范围半径
 	double skillRecoverIntensity = 0;           //恢复技能的强度
+
+	Timer skillRecoverCooldowndTimer;           //恢复技能释放冷却的计时器
 	#pragma endregion
 
 private:
@@ -74,7 +76,6 @@ private:
 
 	#pragma region Skill
 	SkillCallBack skillRecoverTrigger;          //释放恢复技能的回调函数
-	Timer skillRecoverCooldowndTimer;           //恢复技能释放冷却的计时器
 	#pragma endregion
 
 public:
