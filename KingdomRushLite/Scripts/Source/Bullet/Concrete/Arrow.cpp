@@ -29,13 +29,13 @@ void Arrow::OnCollide(Enemy* _enemy)
 	switch (rand() % 3)
 	{
 	case 0:
-		AudioManager::Instance()->PlaySFX(SoundResID::Arrow_Hit_1);
+		AudioManager::Instance()->PlaySFX(SoundResID::Bullet_Arrow_Hit_1);
 		break;
 	case 1:
-		AudioManager::Instance()->PlaySFX(SoundResID::Arrow_Hit_2);
+		AudioManager::Instance()->PlaySFX(SoundResID::Bullet_Arrow_Hit_2);
 		break;
 	case 2:
-		AudioManager::Instance()->PlaySFX(SoundResID::Arrow_Hit_3);
+		AudioManager::Instance()->PlaySFX(SoundResID::Bullet_Arrow_Hit_3);
 		break;
 	default:
 		break;

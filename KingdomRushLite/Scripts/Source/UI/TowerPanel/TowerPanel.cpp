@@ -133,7 +133,7 @@ void TowerPanel::OnUpdate(SDL_Renderer* _renderer)
 
 	#pragma region CostTextTexture
 	//先将文本以特定字体加载到内存中
-	static TTF_Font* _font = ResourceManager::Instance()->GetFontPool().find(FontResID::Pixel_CN)->second;
+	static TTF_Font* _font = ResourceManager::Instance()->GetFontPool().find(FontResID::Ipix)->second;
 	SDL_Surface* _costTextSurface = TTF_RenderText_Blended(_font, _costStr.c_str(), costTextColor);
 	//获取转化后的图片的长宽
 	costTextSize = { _costTextSurface->w, _costTextSurface->h };

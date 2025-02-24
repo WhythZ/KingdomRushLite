@@ -77,5 +77,5 @@ void Shell::OnCollide(Enemy* _enemy)
 	DisableCollide();
 
 	//²¥·ÅÃüÖÐÒôÐ§
-	AudioManager::Instance()->PlaySFX(SoundResID::Shell_Hit);
+	AudioManager::Instance()->PlaySFX(SoundResID::Bullet_Shell_Hit);
 }

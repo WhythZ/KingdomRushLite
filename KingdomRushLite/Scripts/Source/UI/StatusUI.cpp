@@ -22,7 +22,7 @@ void StatusUI::OnUpdate(SDL_Renderer* _renderer)
 	//拿到金币数量，强转为整形后转化为字符串
 	std::string _coinNumStr = std::to_string((int)ProcessManager::Instance()->GetCurrentCoinNum());
 	//先将文本以特定字体加载到内存中
-	static TTF_Font* _font = ResourceManager::Instance()->GetFontPool().find(FontResID::Pixel_CN)->second;
+	static TTF_Font* _font = ResourceManager::Instance()->GetFontPool().find(FontResID::Ipix)->second;
 	SDL_Surface* _coinTextSurface = TTF_RenderText_Blended(_font, _coinNumStr.c_str(), coinTextColor);
 	//获取转化后的图片的长宽
 	coinNumTextSize = { _coinTextSurface->w, _coinTextSurface->h };
@@ -41,8 +41,8 @@ void StatusUI::OnRender(SDL_Renderer* _renderer)
 	#pragma region GetLoadedAssets
 	static const TexturePool& _texPool = ResourceManager::Instance()->GetTexturePool();
 	//获取各图标的纹理
-	static SDL_Texture* _homeIconTex = _texPool.find(TextureResID::UI_Icon_HomeAvatar)->second;
-	static SDL_Texture* _playerIconTex = _texPool.find(TextureResID::UI_Icon_PlayerAvatar)->second;
+	static SDL_Texture* _homeIconTex = _texPool.find(TextureResID::UI_Icon_Home)->second;
+	static SDL_Texture* _playerIconTex = _texPool.find(TextureResID::UI_Icon_Player_Dragon)->second;
 	static SDL_Texture* _healthIconTex = _texPool.find(TextureResID::UI_Icon_HealthHeart)->second;
 	static SDL_Texture* _coinIconTex = _texPool.find(TextureResID::UI_Icon_Coin)->second;
 
