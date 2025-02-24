@@ -1,20 +1,18 @@
-# Set default behavior to automatically normalize line endings
 * text=auto
 
-# Force to always use LF line endings
+# Force to use LF line endings
 .gitattributes eol=lf
 .gitignore eol=lf
 *.json text eol=lf
 *.csv text eol=lf
 
-# Mark resource files as nontext
-# Images
+# Mark textures as nontext
 *.png binary
 *.jpg binary
 *.ico binary
 *.svg binary
-# Audio
+# Mark audios as nontext
 *.mp3 binary
 *.wav binary
-#Fonts
+# Mark fonts as nontext
 *.ttf binary
