@@ -1,0 +1,96 @@
+{
+	"basic":
+	{
+		"window_width":	    1344,
+		"window_height":	720,
+		"window_title":	    "KingdomRushLite"
+	},
+	"player":
+	{
+		"speed":	               5,
+		"normal_attack_cooldown":  0.8,
+		"normal_attack_damage":	   10,
+		"skill_cooldown":	       3,
+		"skill_damage":	           20
+	},
+	"tower":
+	{
+		"archer":
+		{
+			"cooldown":	    [1, 0.89, 0.89, 0.8, 0.8, 0.69, 0.69, 0.6, 0.6, 0.5],
+			"damage":	    [10, 12, 14, 16, 18, 20, 22, 24, 25, 25],
+			"fire_radius":	[5, 5, 5, 5, 6, 6, 6, 6, 6, 7],
+			"build_cost":   [50, 50, 50, 50, 50, 50, 50, 50, 50, 50],
+			"upgrade_cost":	[30, 40, 50, 60, 70, 80, 90, 100, 100]
+		},
+		"axeman":
+		{
+			"cooldown":	    [2, 2, 2, 2, 2, 1.5, 1.5, 1.5, 1.5, 1.5],
+			"damage":	    [15, 17, 19, 21, 23, 25, 27, 29, 31, 35],
+			"fire_radius":	[3, 3, 3, 3, 3, 4, 4, 4, 4, 5],
+			"build_cost":	[70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+			"upgrade_cost":	[50, 60, 70, 80, 90, 100, 100, 100, 100]
+		},
+		"gunner":
+		{
+			"cooldown":	    [2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5],
+			"damage":	    [25, 28, 30, 32, 35, 38, 40, 42, 45, 50],
+			"fire_radius":	[4, 4, 4, 4, 4, 5, 5, 5, 5, 6],
+			"build_cost":   [120, 120, 120, 120, 120, 120, 120, 120, 120, 120],
+			"upgrade_cost":	[80, 90, 100, 100, 100, 100, 100, 100, 100]
+		}
+	},
+	"enemy":
+	{
+		"slime":
+		{
+			"health":	   		    	80,
+			"speed":					0.6,
+			"damage":					1,
+			"coin_ratio":				0.5,
+			"skill_recover_cooldown":	10,
+			"skill_recover_radius":		-1,
+			"skill_recover_intensity":	25
+		},
+		"slime_king":
+		{
+			"health":					200,
+			"speed":					0.8,
+			"damage":					1,
+			"coin_ratio":				0.5,
+			"skill_recover_cooldown":	10,
+			"skill_recover_radius":		0,
+			"skill_recover_intensity":	25
+		},
+		"skeleton":
+		{
+			"health":					200,
+			"speed":					1,
+			"damage":					2,
+			"coin_ratio":				0.5,
+			"skill_recover_cooldown":	10,
+			"skill_recover_radius":		-1,
+			"skill_recover_intensity":	25
+		},
+		"goblin":
+		{
+			"health":					400,
+			"speed":					1,
+			"damage":					2,
+			"coin_ratio":				0.8,
+			"skill_recover_cooldown":	10,
+			"skill_recover_radius":		-1,
+			"skill_recover_intensity":	25
+		},
+		"goblin_priest":
+		{
+			"health":					999,
+			"speed":					0.6,
+			"damage":					3,
+			"coin_ratio":				0.8,
+			"skill_recover_cooldown":	5,
+			"skill_recover_radius":		1,
+			"skill_recover_intensity":	100
+		}
+	}
+}

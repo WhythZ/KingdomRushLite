@@ -34,7 +34,7 @@ Goblin::Goblin()
 
 	#pragma region BasicStats
 	//设置基本的数值属性
-	healthMaximum = _configPrefab.hp;
+	healthMaximum = _configPrefab.health;
 	healthCurrent = healthMaximum;
 
 	speedMaximum = _configPrefab.speed;
@@ -47,9 +47,9 @@ Goblin::Goblin()
 
 	#pragma region Skill
 	//设置技能相关数值属性
-	skillRecoverCooldown = _configPrefab.recoverCooldown;
-	skillRecoverRadius = _configPrefab.recoverRadius * TILE_SIZE;
-	skillRecoverIntensity = _configPrefab.recoverIntensity;
+	skillRecoverCooldown = _configPrefab.skillRecoverCooldown;
+	skillRecoverRadius = _configPrefab.skillRecoverRadius * TILE_SIZE;
+	skillRecoverIntensity = _configPrefab.skillRecoverIntensity;
 
 	//设置冷却时间
 	skillRecoverCooldowndTimer.SetWaitTime(skillRecoverCooldown);

@@ -7,26 +7,26 @@ This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 In this tower defence game inspired by KingdomRush series, you can not only build different towers using coins earned by defeating waves of enemies, but also control a dragon with skills to battle, [click to play online](https://whythz-debug.github.io/KingdomRushLite/)
 
 You can edit the files in `root\KingdomRushLite\Data\` to modify your own game experience after you clone this repo locally and run in Release x64 mode
-- `map.csv`: Defines tilemap, each tile is denotd in `a/b/c/d` form, see `Tile.h`
-- `config.json`: Defines window resolution and stats of player, towers and enemies
-- `waves.json`: Defines the amount and details of multiple enemy waves
+- `Map00.csv`: Defines tilemap, each tile is denotd in `a/b/c/d` form, see `Tile.h`
+- `Configs.json`: Defines window resolution and stats of player, towers and enemies
+- `Waves00.json`: Defines the amount and details of multiple enemy waves
 ```javascript
 // List of spawn waves for series of enemies
 [
     // Wave 0
     {
         // Wave properties
-        "rewards":	300,
-        "interval":	10,
+        "coin_rewards":     300,
+        "wave_interval":    10,
         // List of spawn events for one enemy of particular type
         "spawn_list":
         [
             // Event 0 
             {
                 // Event properties
-                "interval":	1,
-                "spawn_point":	2,
-                "enemy_type": "Slime"
+                "event_interval":   1,
+                "spawn_point":      2,
+                "enemy_type":       "slime"
             },
             // Event n
             {
@@ -78,7 +78,8 @@ This game is data-driven and implemented by multiple extensible systems, short d
     - `StatusUI`: Organized by `UIManager` and renders the real-time status of health, coin number and cooldown of player skills
     - `TowerPanel`: Organized by `UIManager` and derives `TowerBuildPanel` and `TowerUpgradePanel` for corresponding function
 - Controlable Character
-    - WIP
+    - `Player`: Organized by `PlayerManager` and can move or use skills
+        - `PlayerDragon`: Can attack enemy by skills flashing and impacting
 
 ## Dependency
 |Lib|Version|

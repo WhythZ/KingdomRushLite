@@ -82,7 +82,7 @@ void WaveManager::OnUpdate(double _delta)
 		isWaveEnded = false;
 
 		//发放波次奖励
-		ProcessManager::Instance()->IncreaseCoinNumBy(waveList[waveIdx].rewards);
+		ProcessManager::Instance()->IncreaseCoinNumBy(waveList[waveIdx].coinRewards);
 
 		//递增波次索引（注意先发奖励再递增，否则会奖励错）
 		waveIdx++;

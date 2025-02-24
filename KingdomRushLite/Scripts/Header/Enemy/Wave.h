@@ -18,7 +18,7 @@ struct Wave
 		EnemyType enemyType = EnemyType::Slime;
 	};
 
-	double rewards = 0;			             //该波次结束后的奖励
+	double coinRewards = 0;			         //该波次结束后的金币奖励
 	double interval = 0;			         //该波次的时间间隔
 	std::vector<SpawnEvent> spawnEventList;  //该波次的生成事件列表
 };

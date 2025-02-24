@@ -50,8 +50,8 @@ public:
 		//攻击伤害
 		double damage[10] = { 25 };
 		//视野范围
-		double viewRange[10] = { 5 };
-		//建造花费（为什么是数组？）
+		double fireRadius[10] = { 5 };
+		//建造花费
 		double buildCost[10] = { 50 };
 		//升级花费
 		double upgradeCost[10] = { 75 };
@@ -61,7 +61,7 @@ public:
 	struct EnemyConfigPrefab
 	{
 		//敌人血量
-		double hp = 100;
+		double health = 100;
 		//敌人移动速度
 		double speed = 1;
 		//敌人造成的伤害
@@ -69,9 +69,9 @@ public:
 		//敌人爆金币的概率
 		double coinRatio = 0.5;
 		//敌人恢复技能的冷却、范围半径（-1为不恢复，0为只恢复自己）与恢复强度
-		double recoverCooldown = 10;
-		double recoverRadius = -1;
-		double recoverIntensity = 25;
+		double skillRecoverCooldown = 10;
+		double skillRecoverRadius = -1;
+		double skillRecoverIntensity = 25;
 	};
 
 public:

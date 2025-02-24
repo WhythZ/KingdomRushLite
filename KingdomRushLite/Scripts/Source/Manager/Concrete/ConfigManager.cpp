@@ -33,12 +33,12 @@ bool ConfigManager::LoadConfig(const std::string& _path)
 	if (!ParseTowerConfigPrefab(gunnerPrefab, cJSON_GetObjectItem(_jsonTower, "gunner"))) return false;
 
 	//解析各敌人配置
-	cJSON* _jsonEnemyType = cJSON_GetObjectItem(_jsonRoot, "enemy_type");
+	cJSON* _jsonEnemyType = cJSON_GetObjectItem(_jsonRoot, "enemy");
 	if (!ParseEnemyConfigPrefab(slimePrefab, cJSON_GetObjectItem(_jsonEnemyType, "slime"))) return false;
-	if (!ParseEnemyConfigPrefab(slimeKingPrefab, cJSON_GetObjectItem(_jsonEnemyType, "king_slime"))) return false;
+	if (!ParseEnemyConfigPrefab(slimeKingPrefab, cJSON_GetObjectItem(_jsonEnemyType, "slime_king"))) return false;
 	if (!ParseEnemyConfigPrefab(skeletonPrefab, cJSON_GetObjectItem(_jsonEnemyType, "skeleton"))) return false;
 	if (!ParseEnemyConfigPrefab(goblinPrefab, cJSON_GetObjectItem(_jsonEnemyType, "goblin"))) return false;
-	if (!ParseEnemyConfigPrefab(goblinPriestPrefab, cJSON_GetObjectItem(_jsonEnemyType, "priest_goblin"))) return false;
+	if (!ParseEnemyConfigPrefab(goblinPriestPrefab, cJSON_GetObjectItem(_jsonEnemyType, "goblin_priest"))) return false;
 
 	//释放内存并返回
 	cJSON_Delete(_jsonRoot);
@@ -83,11 +83,11 @@ bool ConfigManager::LoadWaves(const std::string& _path)
 		Wave& _wave = waveList.back();
 
 		//对第一个值（应为double数字）进行检测
-		cJSON* _jsonRewards = cJSON_GetObjectItem(_jsonWave, "rewards");
+		cJSON* _jsonRewards = cJSON_GetObjectItem(_jsonWave, "coin_rewards");
 		if (_jsonRewards && _jsonRewards->type == cJSON_Number)
-			_wave.rewards = _jsonRewards->valuedouble;
+			_wave.coinRewards = _jsonRewards->valuedouble;
 		//对第二个值（应为double数字）进行检测
-		cJSON* _jsonWaveInterval = cJSON_GetObjectItem(_jsonWave, "interval");
+		cJSON* _jsonWaveInterval = cJSON_GetObjectItem(_jsonWave, "wave_interval");
 		if (_jsonWaveInterval && _jsonWaveInterval->type == cJSON_Number)
 			_wave.interval = _jsonWaveInterval->valuedouble;
 		//对第三个值（应为生成事件的数组）
@@ -106,9 +106,9 @@ bool ConfigManager::LoadWaves(const std::string& _path)
 				Wave::SpawnEvent& _spawnEvent = _wave.spawnEventList.back();
 
 				//检测第一个值（应为double）
-				cJSON* _jsonSEventInterval = cJSON_GetObjectItem(_jsonSpawnEvent, "interval");
-				if (_jsonSEventInterval && _jsonSEventInterval->type == cJSON_Number)
-					_spawnEvent.interval = _jsonSEventInterval->valuedouble;
+				cJSON* _jsonEventInterval = cJSON_GetObjectItem(_jsonSpawnEvent, "event_interval");
+				if (_jsonEventInterval && _jsonEventInterval->type == cJSON_Number)
+					_spawnEvent.interval = _jsonEventInterval->valuedouble;
 				//检测第二个值（应为int）
 				cJSON* _jsonSpawnPoint = cJSON_GetObjectItem(_jsonSpawnEvent, "spawn_point");
 				if (_jsonSpawnPoint && _jsonSpawnPoint->type == cJSON_Number)
@@ -118,11 +118,11 @@ bool ConfigManager::LoadWaves(const std::string& _path)
 				if (_jsonEnemyType && _jsonEnemyType->type == cJSON_String)
 				{
 					//_jsonEnemyType->valuestring是C风格字符串即字符指针，不能直接用==进行判等（这样实际比较的是地址），故使用strcmp函数进行比较
-					if (strcmp(_jsonEnemyType->valuestring, "Slime") == 0) { _spawnEvent.enemyType = EnemyType::Slime; }
-					else if (strcmp(_jsonEnemyType->valuestring, "SlimeKing") == 0) { _spawnEvent.enemyType = EnemyType::SlimeKing; }
-					else if (strcmp(_jsonEnemyType->valuestring, "Skeleton") == 0) { _spawnEvent.enemyType = EnemyType::Skeleton; }
-					else if (strcmp(_jsonEnemyType->valuestring, "Goblin") == 0) { _spawnEvent.enemyType = EnemyType::Goblin; }
-					else if (strcmp(_jsonEnemyType->valuestring, "GoblinPriest") == 0) { _spawnEvent.enemyType = EnemyType::GoblinPriest; }
+					if (strcmp(_jsonEnemyType->valuestring, "slime") == 0) { _spawnEvent.enemyType = EnemyType::Slime; }
+					else if (strcmp(_jsonEnemyType->valuestring, "slime_king") == 0) { _spawnEvent.enemyType = EnemyType::SlimeKing; }
+					else if (strcmp(_jsonEnemyType->valuestring, "skeleton") == 0) { _spawnEvent.enemyType = EnemyType::Skeleton; }
+					else if (strcmp(_jsonEnemyType->valuestring, "goblin") == 0) { _spawnEvent.enemyType = EnemyType::Goblin; }
+					else if (strcmp(_jsonEnemyType->valuestring, "goblin_priest") == 0) { _spawnEvent.enemyType = EnemyType::GoblinPriest; }
 				}
 			}
 		}
@@ -208,8 +208,8 @@ bool ConfigManager::ParseTowerConfigPrefab(TowerConfigPrefab& _prefab, cJSON* _j
 	cJSON* _jsonDamage = cJSON_GetObjectItem(_jsonRoot, "damage");
 	if (!ParseNumberArray(_prefab.damage, TOWER_MAX_LEVEL, _jsonDamage)) return false;
 
-	cJSON* _jsonViewRange = cJSON_GetObjectItem(_jsonRoot, "view_range");
-	if (!ParseNumberArray(_prefab.viewRange, TOWER_MAX_LEVEL, _jsonViewRange)) return false;
+	cJSON* _jsonFireRadius = cJSON_GetObjectItem(_jsonRoot, "fire_radius");
+	if (!ParseNumberArray(_prefab.fireRadius, TOWER_MAX_LEVEL, _jsonFireRadius)) return false;
 
 	cJSON* _jsonBuildCost = cJSON_GetObjectItem(_jsonRoot, "build_cost");
 	if (!ParseNumberArray(_prefab.buildCost, TOWER_MAX_LEVEL, _jsonBuildCost)) return false;
@@ -227,9 +227,9 @@ bool ConfigManager::ParseEnemyConfigPrefab(EnemyConfigPrefab& _prefab, cJSON* _j
 	if (!_jsonRoot || _jsonRoot->type != cJSON_Object)
 		return false;
 
-	cJSON* _jsonHP = cJSON_GetObjectItem(_jsonRoot, "hp");
-	if (!_jsonHP || _jsonHP->type != cJSON_Number) return false;
-	_prefab.hp = _jsonHP->valuedouble;
+	cJSON* _jsonHealth = cJSON_GetObjectItem(_jsonRoot, "health");
+	if (!_jsonHealth || _jsonHealth->type != cJSON_Number) return false;
+	_prefab.health = _jsonHealth->valuedouble;
 
 	cJSON* _jsonSpeed = cJSON_GetObjectItem(_jsonRoot, "speed");
 	if (!_jsonSpeed || _jsonSpeed->type != cJSON_Number) return false;
@@ -243,17 +243,17 @@ bool ConfigManager::ParseEnemyConfigPrefab(EnemyConfigPrefab& _prefab, cJSON* _j
 	if (!_jsonCoinRatio || _jsonCoinRatio->type != cJSON_Number) return false;
 	_prefab.coinRatio = _jsonCoinRatio->valuedouble;
 
-	cJSON* _jsonRecoverCooldown = cJSON_GetObjectItem(_jsonRoot, "recover_cooldown");
-	if (!_jsonRecoverCooldown || _jsonRecoverCooldown->type != cJSON_Number) return false;
-	_prefab.recoverCooldown = _jsonRecoverCooldown->valuedouble;
+	cJSON* _jsonSkillRecoverCooldown = cJSON_GetObjectItem(_jsonRoot, "skill_recover_cooldown");
+	if (!_jsonSkillRecoverCooldown || _jsonSkillRecoverCooldown->type != cJSON_Number) return false;
+	_prefab.skillRecoverCooldown = _jsonSkillRecoverCooldown->valuedouble;
 
-	cJSON* _jsonRecoverRange = cJSON_GetObjectItem(_jsonRoot, "recover_range");
-	if (!_jsonRecoverRange || _jsonRecoverRange->type != cJSON_Number) return false;
-	_prefab.recoverRadius = _jsonRecoverRange->valuedouble;
+	cJSON* _jsonSkillRecoverRadius = cJSON_GetObjectItem(_jsonRoot, "skill_recover_radius");
+	if (!_jsonSkillRecoverRadius || _jsonSkillRecoverRadius->type != cJSON_Number) return false;
+	_prefab.skillRecoverRadius = _jsonSkillRecoverRadius->valuedouble;
 
-	cJSON* _jsonRecoveIntensity = cJSON_GetObjectItem(_jsonRoot, "recover_intensity");
-	if (!_jsonRecoveIntensity || _jsonRecoveIntensity->type != cJSON_Number) return false;
-	_prefab.recoverIntensity = _jsonRecoveIntensity->valuedouble;
+	cJSON* _jsonSkillRecoveIntensity = cJSON_GetObjectItem(_jsonRoot, "skill_recover_intensity");
+	if (!_jsonSkillRecoveIntensity || _jsonSkillRecoveIntensity->type != cJSON_Number) return false;
+	_prefab.skillRecoverIntensity = _jsonSkillRecoveIntensity->valuedouble;
 
 	return true;
 }

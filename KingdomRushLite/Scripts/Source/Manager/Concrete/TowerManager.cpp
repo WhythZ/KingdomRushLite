@@ -169,13 +169,13 @@ double TowerManager::GetFireRadiusOf(TowerType _type) const
 	switch (_type)
 	{
 	case TowerType::Archer:
-		return _config->archerPrefab.viewRange[_process->GetTowerLevel(TowerType::Archer)] * TILE_SIZE;
+		return _config->archerPrefab.fireRadius[_process->GetTowerLevel(TowerType::Archer)] * TILE_SIZE;
 		break;
 	case TowerType::Axeman:
-		return _config->axemanPrefab.viewRange[_process->GetTowerLevel(TowerType::Axeman)] * TILE_SIZE;
+		return _config->axemanPrefab.fireRadius[_process->GetTowerLevel(TowerType::Axeman)] * TILE_SIZE;
 		break;
 	case TowerType::Gunner:
-		return _config->gunnerPrefab.viewRange[_process->GetTowerLevel(TowerType::Gunner)] * TILE_SIZE;
+		return _config->gunnerPrefab.fireRadius[_process->GetTowerLevel(TowerType::Gunner)] * TILE_SIZE;
 		break;
 	default:
 		return -1;
