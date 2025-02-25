@@ -6,7 +6,7 @@ This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 ## About
 In this tower defence game prototype inspired by KingdomRush, you can not only build different towers using coins earned by defeating waves of enemies, but control a character with skills to battle, [click to play online](https://whythz-debug.github.io/KingdomRushLite/)
 
-This prototype is designed data-driven, you can create your personal experience by editing the corresponding files below in `root\KingdomRushLite\Data\` after you clone this repo locally (run the `Main.cpp` under the required IDE mode)
+This prototype is designed data-driven, you can create your personal experience by editing the corresponding files below in `root\KingdomRushLite\Data\` after you clone this repo locally (run `Main.cpp` under required IDE mode)
 - `Map00.csv`: Defines tilemap by denoting each tile in `a/b/c/d` form, see `Tile.h`
 - `Configs.json`: Defines window resolution and stats of player, towers and enemies
 - `Waves00.json`: Defines the details of enemy waves
@@ -56,30 +56,31 @@ This prototype is designed data-driven, you can create your personal experience 
     - `Map`: Stores basic tilemap and other info including home and enemy spawn points
     - `Route`: Set of indices of consecutive acyclic tiles on which is for enemies to move
 - Enemies and Their Drops
-    - `Enemy`: Organized by `EnemyManager` and aims at attacking home
-        - `Slime`: Weak vitality and slow
-        - `SlimeKing`: Medium vitality and slow, able to heal itself
-        - `Skeleton`: Medium vitality and fast
-        - `Goblin`: Medium vitality and fast
-        - `GoblinPriest`: Strong vitality and slow, able to heal in range
-    - `Drop`: Organized by `DropManager` and collides with Player with particular effects
-        - `Coin`: Picked up by player to earn coins
+    - `Enemy`: Organized by `EnemyManager`, aims at attacking home
+        - `Slime`: Derives from `Enemy`, weak vitality and slow
+        - `SlimeKing`: Derives from `Enemy`, medium vitality and slow, able to heal itself
+        - `Skeleton`: Derives from `Enemy`, medium vitality and fast
+        - `Goblin`: Derives from `Enemy`, medium vitality and fast
+        - `GoblinPriest`: Derives from `Enemy`, strong vitality and slow, able to heal in range
+    - `Drop`: Organized by `DropManager`, collides with Player with particular effects
+        - `Coin`: Derives from `Drop`, picked up by player to earn coins
     - `Wave`: Struct organized by `WaveManager` including multiple enemy spawn events
 - Towers and Their Bullets
-    - `Tower`: Organized by `TowerManager` and can be built for attacking and upgraded by coins
-        - `Archer`: Cheap price and shoots with arrows 
-        - `Axeman`: Medium price and shoots with axes
-        - `Gunner`: Expensive price and shoots with shells
+    - `Tower`: Organized by `TowerManager`, can be built for attacking and upgraded by coins
+        - `Archer`: Derives from `Tower`, cheap price and shoots with arrows 
+        - `Axeman`: Derives from `Tower`, medium price and shoots with axes
+        - `Gunner`: Derives from `Tower`, expensive price and shoots with shells
     - `Bullet`: Organized by `BulletManager` and collides with `Enemy` with damage and effects
-        - `Arrow`: Attacks single enemy with high frequency
-        - `Axe`: Attacks single enemy with slowdown effect
-        - `Shell`: Attacks range of enemies with high damage
+        - `Arrow`: Derives from `Bullet`, attacks single enemy with high frequency
+        - `Axe`: Derives from `Bullet`, attacks single enemy with slowdown effect
+        - `Shell`: Derives from `Bullet`, attacks multiple enemies in range with high damage
 - User Interface
-    - `StatusUI`: Organized by `UIManager` and renders the real-time status of health, coin number and cooldown of player skills
-    - `TowerPanel`: Organized by `UIManager` and derives `TowerBuildPanel` and `TowerUpgradePanel` for corresponding function
+    - `UIManager`: Offers general rendering methods and organizes all the UI components
+        - `StatusUI`: Renders the real-time status of health, coin number and cooldown of player skills
+        - `TowerPanel`: Derives `TowerBuildPanel` and `TowerUpgradePanel` for building or upgrading towers
 - Controlable Character
-    - `Player`: Organized by `PlayerManager` and can move or use skills
-        - `PlayerDragon`: Can attack enemy by skills flashing and impacting
+    - `Player`: Organized by `PlayerManager`, can move or use skills
+        - `PlayerDragon`: Derives from `Player`, can attack enemy by skills flashing and impacting
 
 ## Dependency
 |Lib|Version|
