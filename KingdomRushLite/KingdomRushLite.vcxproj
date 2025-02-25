@@ -24,6 +24,8 @@
     <ClCompile Include="Scripts\Source\Drop\Concrete\Coin.cpp" />
     <ClCompile Include="Scripts\Source\Drop\Drop.cpp" />
     <ClCompile Include="Scripts\Source\Enemy\EnemyType.cpp" />
+    <ClCompile Include="Scripts\Source\Infra\StateMachine\State.cpp" />
+    <ClCompile Include="Scripts\Source\Infra\StateMachine\StateMachine.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\DropManager.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\PlayerManager.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\UIManager.cpp" />
@@ -79,6 +81,8 @@
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Slime.h" />
     <ClInclude Include="Scripts\Header\Enemy\Enemy.h" />
     <ClInclude Include="Scripts\Header\Enemy\EnemyType.h" />
+    <ClInclude Include="Scripts\Header\Infra\StateMachine\State.h" />
+    <ClInclude Include="Scripts\Header\Infra\StateMachine\StateMachine.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\AudioManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\BulletManager.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\ConfigManager.h" />
@@ -100,6 +104,7 @@
     <ClInclude Include="Scripts\Header\Infra\Timer.h" />
     <ClInclude Include="Scripts\Header\Infra\Vector2.h" />
     <ClInclude Include="Scripts\Header\Player\Concrete\PlayerDragon.h" />
+    <ClInclude Include="Scripts\Header\Player\Concrete\PlayerDragonStates.hpp" />
     <ClInclude Include="Scripts\Header\Player\Player.h" />
     <ClInclude Include="Scripts\Header\Player\PlayerType.h" />
     <ClInclude Include="Scripts\Header\Tower\Concrete\Archer.h" />

@@ -118,6 +118,12 @@
     <Filter Include="头文件\Player\Concrete">
       <UniqueIdentifier>{c226ea72-1ee9-4002-be6e-4d3b4a3bf36d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Infra\StateMachine">
+      <UniqueIdentifier>{e5028630-bb3b-4f41-8a84-369fe1907552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Infra\StateMachine">
+      <UniqueIdentifier>{956d4788-5e47-4430-8355-4f48f14dcdbc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -245,6 +251,12 @@
     </ClCompile>
     <ClCompile Include="Scripts\Source\Manager\Concrete\PlayerManager.cpp">
       <Filter>源文件\Manager\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Infra\StateMachine\State.cpp">
+      <Filter>源文件\Infra\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Infra\StateMachine\StateMachine.cpp">
+      <Filter>源文件\Infra\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -391,6 +403,15 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Player\PlayerType.h">
       <Filter>头文件\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Infra\StateMachine\StateMachine.h">
+      <Filter>头文件\Infra\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Infra\StateMachine\State.h">
+      <Filter>头文件\Infra\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Player\Concrete\PlayerDragonStates.hpp">
+      <Filter>头文件\Player\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

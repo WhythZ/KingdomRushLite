@@ -3,19 +3,21 @@
 
 #include "../Infra/Vector2.h"
 #include "PlayerType.h"
-#include "../Infra/Animation.h"
+#include "../Infra/StateMachine/StateMachine.h"
 #include "../Infra/DirectionType.h"
+
 
 class Player
 {
 protected:
 	PlayerType type = PlayerType::None;
 
-	#pragma region Animation
-	Animation animIdleUp;
-	Animation animIdleDown;
-	Animation animIdleLeft;
-	Animation animIdleRight;
+	#pragma region State
+
+	bool isMovingUp = true;
+	bool isMovingDown = true;
+	bool isMovingLeft = true;
+	bool isMovingRight = true;
 	#pragma endregion
 
 private:
@@ -25,16 +27,21 @@ private:
 
 	FacingDir direction = FacingDir::Down;
 
-	Animation* animCurrent;
+	bool isIdling = true;
+	bool isSkilling = false;
 
 public:
 	Player();
-	~Player() = default;
+	~Player();
 	void SetPosition(const Vector2&);
 
 	virtual void OnInput(const SDL_Event&);
 	virtual void OnUpdate(double);
 	virtual void OnRender(SDL_Renderer*);
+
+protected:
+	virtual void ReleaseSkill00() = 0;
+	virtual void ReleaseSkill01() = 0;
 };
 
 #endif
