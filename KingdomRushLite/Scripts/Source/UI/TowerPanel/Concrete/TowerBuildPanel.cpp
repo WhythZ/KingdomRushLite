@@ -1,6 +1,6 @@
 #include "../../../../Header/UI/TowerPanel/Concrete/TowerBuildPanel.h"
-#include <SDL2_gfxPrimitives.h>
 #include "../../../../Header/Manager/Concrete/ResourceManager.h"
+#include "../../../../Header/Manager/Concrete/UIManager.h"
 #include "../../../../Header/Manager/Concrete/ProcessManager.h"
 #include "../../../../Header/Manager/Concrete/AudioManager.h"
 #include "../../../../Header/Manager/Concrete/TowerManager.h"
@@ -39,6 +39,9 @@ void TowerBuildPanel::OnUpdate(SDL_Renderer* _renderer)
 
 void TowerBuildPanel::OnRender(SDL_Renderer* _renderer)
 {
+	//引入纹理渲染相关方法
+	static UIManager* _ui = UIManager::Instance();
+
 	#pragma region FireCircle
 	//绘制攻击范围圆
 	double _radius = 0;
@@ -56,17 +59,9 @@ void TowerBuildPanel::OnRender(SDL_Renderer* _renderer)
 	default:
 		break;
 	}
-
 	//若半径有效且允许显示，则绘制攻击范围圆
 	if (isShowFireCircle && _radius > 0)
-	{
-		//绘制圆填充
-		filledCircleRGBA(_renderer, centerPosition.x, centerPosition.y, (Sint16)_radius,
-			fireCircleContentColor.r, fireCircleContentColor.g, fireCircleContentColor.b, fireCircleContentColor.a);
-		//绘制圆边框
-		aacircleRGBA(_renderer, centerPosition.x, centerPosition.y, (Sint16)_radius,
-			fireCircleFrameColor.r, fireCircleFrameColor.g, fireCircleFrameColor.b, fireCircleFrameColor.a);
-	}
+		_ui->DrawCircle(_renderer, centerPosition, _radius, fireCircleBorderColor, fireCircleContentColor);
 	#pragma endregion
 
 	//在攻击范围圆后渲染，防止前者遮挡原本UI

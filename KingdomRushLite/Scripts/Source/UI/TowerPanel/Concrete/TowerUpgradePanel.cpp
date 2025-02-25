@@ -1,5 +1,6 @@
 #include "../../../../Header/UI/TowerPanel/Concrete/TowerUpgradePanel.h"
 #include "../../../../Header/Manager/Concrete/ResourceManager.h"
+#include "../../../../Header/Manager/Concrete/UIManager.h"
 #include "../../../../Header/Manager/Concrete/ProcessManager.h"
 #include "../../../../Header/Manager/Concrete/AudioManager.h"
 #include "../../../../Header/Manager/Concrete/TowerManager.h"

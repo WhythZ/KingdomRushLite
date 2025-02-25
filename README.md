@@ -4,12 +4,12 @@
 This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 
 ## About
-In this tower defence game inspired by KingdomRush series, you can not only build different towers using coins earned by defeating waves of enemies, but also control a dragon with skills to battle, [click to play online](https://whythz-debug.github.io/KingdomRushLite/)
+In this tower defence game prototype inspired by KingdomRush, you can not only build different towers using coins earned by defeating waves of enemies, but control a character with skills to battle, [click to play online](https://whythz-debug.github.io/KingdomRushLite/)
 
-You can edit the files in `root\KingdomRushLite\Data\` to modify your own game experience after you clone this repo locally and run in Release x64 mode
-- `Map00.csv`: Defines tilemap, each tile is denotd in `a/b/c/d` form, see `Tile.h`
+This prototype is designed data-driven, you can create your personal experience by editing the corresponding files below in `root\KingdomRushLite\Data\` after you clone this repo locally (run the `Main.cpp` under the required IDE mode)
+- `Map00.csv`: Defines tilemap by denoting each tile in `a/b/c/d` form, see `Tile.h`
 - `Configs.json`: Defines window resolution and stats of player, towers and enemies
-- `Waves00.json`: Defines the amount and details of multiple enemy waves
+- `Waves00.json`: Defines the details of enemy waves
 ```javascript
 // List of spawn waves for series of enemies
 [
@@ -39,7 +39,7 @@ You can edit the files in `root\KingdomRushLite\Data\` to modify your own game e
 ]
 ```
 
-This game is data-driven and implemented by multiple extensible systems, short descriptions about the core functional classes are listed below, notice that all managers are derived from singleton `Manager` base class
+ Short descriptions about the core functional classes which forms multiple extensible gameplay systems are listed below, notice that all managers are derived from singleton `Manager` base class
 - General Game Management
     - `GameManager`: Maintains game loop that handles all updating, rendering and inputs
     - `ProcessManager`: Maintains the in-game runtime data and offers related interfaces

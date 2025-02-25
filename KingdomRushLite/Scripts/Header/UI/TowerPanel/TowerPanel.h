@@ -22,10 +22,6 @@ protected:
 	SDL_Point selectedTileIdx = { 0,0 };                    //当前轮盘UI显示在的瓦片索引坐标
 	SDL_Point centerPosition = { 0,0 };                     //轮盘UI中心点的像素坐标位置
 
-	double topCostValue = 0;                                //实时记录正上方按钮对应防御塔花费
-	double leftCostValue = 0;                               //实时记录左下方按钮对应防御塔花费
-	double rightCostValue = 0;                              //实时记录右下方按钮对应防御塔花费
-
 	ButtonType hoveredButtonType = ButtonType::None;        //悬停选中的按钮的枚举
 
 	#pragma region Texture
@@ -37,21 +33,31 @@ protected:
 	SDL_Texture* rightPanelTexture = nullptr;               //选中轮盘右下方按钮，高亮突出
 	#pragma endregion
 
+	#pragma region CostValue
+	double topCostValue = 0;                                //实时记录正上方按钮对应防御塔花费
+	double leftCostValue = 0;                               //实时记录左下方按钮对应防御塔花费
+	double rightCostValue = 0;                              //实时记录右下方按钮对应防御塔花费
+	#pragma endregion
+
 private:
+	#pragma region Setting
+	#pragma region Size
 	const SDL_Point panelSize = { 144,144 };                //轮盘的整体尺寸
-	
-	#pragma region Button
+
 	const SDL_Point buttonSize = { 48,48 };                 //轮盘中各个按钮的尺寸
 	const SDL_Point topButtonOffset = { 48,6 };             //正上方按钮偏移轮盘左上顶点的偏移量
 	const SDL_Point leftButtonOffset = { 8,80 };            //左下方按钮偏移轮盘左上顶点的偏移量
 	const SDL_Point rightButtonOffset = { 90,80 };          //右下方按钮偏移轮盘左上顶点的偏移量
+
+	SDL_Point costTextSize = { 0,0 };
 	#pragma endregion
 
-	#pragma region CostText
-	SDL_Point costTextSize = { 0,0 };
-	SDL_Texture* costTextTexture = nullptr;
+	#pragma region Color
 	const SDL_Color costTextColor = { 255,255 ,255 ,255 };
 	#pragma endregion
+	#pragma endregion
+	
+	SDL_Texture* costTextTexture = nullptr;
 
 public:
 	TowerPanel();

@@ -23,6 +23,8 @@ public:
 
 	void InstantiatePlayer();                    //设定好类型后，在家的位置实例化玩家
 
+	PlayerType GetPlayerType() const;
+
 private:
 	PlayerManager() = default;
 	~PlayerManager();

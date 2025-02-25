@@ -1,14 +1,11 @@
 #include "../../Header/UI/StatusUI.h"
 #include <string>
 #include <SDL_ttf.h>
-#include <SDL2_gfxPrimitives.h>
 #include "../../Header/Manager/Concrete/ResourceManager.h"
+#include "../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../Header/Manager/Concrete/UIManager.h"
 #include "../../Header/Manager/Concrete/ProcessManager.h"
-
-void StatusUI::SetPosition(SDL_Point _position)
-{
-	position = _position;
-}
+#include "../../Header/Manager/Concrete/PlayerManager.h"
 
 void StatusUI::OnUpdate(SDL_Renderer* _renderer)
 {
@@ -35,94 +32,64 @@ void StatusUI::OnUpdate(SDL_Renderer* _renderer)
 
 void StatusUI::OnRender(SDL_Renderer* _renderer)
 {
-	//临时存储每个渲染元素，每次渲染单个元素时复用
-	static SDL_Rect _dstRect;
+	//引入纹理渲染相关方法
+	static UIManager* _ui = UIManager::Instance();
 
-	#pragma region GetLoadedAssets
-	static const TexturePool& _texPool = ResourceManager::Instance()->GetTexturePool();
-	//获取各图标的纹理
-	static SDL_Texture* _homeIconTex = _texPool.find(TextureResID::UI_Icon_Home)->second;
-	static SDL_Texture* _playerIconTex = _texPool.find(TextureResID::UI_Icon_Player_Dragon)->second;
-	static SDL_Texture* _healthIconTex = _texPool.find(TextureResID::UI_Icon_HealthHeart)->second;
-	static SDL_Texture* _coinIconTex = _texPool.find(TextureResID::UI_Icon_Coin)->second;
+	//复用的左上顶点坐标
+	static SDL_Point _positionLeftUp = { 0,0 };
 
-	//依照实际图标图片的尺寸获取图标图片宽高
-	static SDL_Point _homeIconSize = { 78,78 };
-	static SDL_Point _playerIconSize = { 65,65 };
-	static SDL_Point _healthIconSize = { 32,32 };
-	static SDL_Point _coinIconSize = { 32,32 };
-	//使得血量图标上边与家图标上边平行、金币图标下边和家图标下边平行的二者间距
-	static int _healthCoinIconDistance = _homeIconSize.y - _healthIconSize.y - _coinIconSize.y;
-	#pragma endregion
-
-	#pragma region HomeIcon
-	//家的图标位于状态栏的左上角，故直接使用状态栏的左上角顶点坐标定位
-	_dstRect.x = position.x;
-	_dstRect.y = position.y;
-	//赋予对应图标的宽高后，直接渲染
-	_dstRect.w = _homeIconSize.x;
-	_dstRect.h = _homeIconSize.y;
-	SDL_RenderCopy(_renderer, _homeIconTex, nullptr, &_dstRect);
-	#pragma endregion
+	//获取屏幕宽高
+	static const SDL_Point _windowSize = { ConfigManager::Instance()->basicPrefab.windowWidth,
+		ConfigManager::Instance()->basicPrefab.windowHeight };
 
 	#pragma region MultipleHealthIcon
-	//有多少点血量就在家图标右侧渲染一排多少个血量图标
+	//有多少点血量就渲染一排多少个血量图标
 	for (int _i = 0; _i < ProcessManager::Instance()->GetCurrentHealth(); _i++)
 	{
-		//从家的图标右侧开始，以一定间距渲染生命值数量个图标
-		_dstRect.x = position.x + _homeIconSize.x + STATUSUI_HOME_RIGHT_DISTANCE
-			+ _i * (STATUSUI_HEALTH_ICON_BETWEEN_DISTANCE + _healthIconSize.x);
-		_dstRect.y = position.y;
-		_dstRect.w = _healthIconSize.x;
-		_dstRect.h = _healthIconSize.y;
-		SDL_RenderCopy(_renderer, _healthIconTex, nullptr, &_dstRect);
+		_positionLeftUp.x = 0 + _i * (healthHeartIconBetweenDistance + healthHeartIconSize.x);
+		_positionLeftUp.y = 0;
+		_ui->DrawTexture(_renderer, TextureResID::UI_Icon_HealthHeart, _positionLeftUp, healthHeartIconSize);
 	}
 	#pragma endregion
 
 	#pragma region CoinIcon
-	//金币图标置于家图标右侧、血量图标下方一定距离
-	_dstRect.x = position.x + _homeIconSize.x + STATUSUI_HOME_RIGHT_DISTANCE;
-	_dstRect.y = position.y + _healthIconSize.y + _healthCoinIconDistance;
-	_dstRect.w = _coinIconSize.x;
-	_dstRect.h = _coinIconSize.y;
-	SDL_RenderCopy(_renderer, _coinIconTex, nullptr, &_dstRect);
+	//金币图标置于血量图标下方一定距离
+	_positionLeftUp.x = 0;
+	_positionLeftUp.y = 0 + healthHeartIconSize.y + rowBetweenDistance;
+	_ui->DrawTexture(_renderer, TextureResID::UI_Icon_Coin, _positionLeftUp, coinIconSize);
 	#pragma endregion
 
 	#pragma region CoinNumText
 	//金币数量的实时更新文本，位置在金币图标右侧一定距离
-	_dstRect.x = (position.x + _homeIconSize.x + STATUSUI_HOME_RIGHT_DISTANCE)
-		+ _coinIconSize.x + STATUSUI_COIN_ICON_NUMTEXT_DISTANCE;
-	_dstRect.y = position.y + _healthIconSize.y + _healthCoinIconDistance;
-	_dstRect.w = coinNumTextSize.x;
-	_dstRect.h = coinNumTextSize.y;
-	SDL_RenderCopy(_renderer, coinNumTextTexture, nullptr, &_dstRect);
+	_positionLeftUp.x = 0 + coinIconSize.x + iconTextBetweenDistance;
+	_positionLeftUp.y = 0 + healthHeartIconSize.y + rowBetweenDistance;
+	_ui->DrawTexture(_renderer, coinNumTextTexture, _positionLeftUp, coinNumTextSize);
 	#pragma endregion
 
 	#pragma region PlayerIcon
-	//玩家头像图标的尺寸比家头像图标略小，要让二者中点在竖直上对齐
-	_dstRect.x = position.x + (_homeIconSize.x - _playerIconSize.x) / 2;
-	_dstRect.y = position.y + _homeIconSize.y + STATUSUI_HOME_PLAYER_ICON_DISTANCE;
-	_dstRect.w = _playerIconSize.x;
-	_dstRect.h = _playerIconSize.y;
-	SDL_RenderCopy(_renderer, _playerIconTex, nullptr, &_dstRect);
+	//将玩家图标渲染在屏幕左下角
+	_positionLeftUp.x = 0;
+	_positionLeftUp.y = 0 + _windowSize.y - playerIconSize.y;
+	//获取当前玩家种类，绘制对应图标
+	PlayerType _playerType = PlayerManager::Instance()->GetPlayerType();
+	TextureResID _playerIconTextureID;
+	switch (_playerType)
+	{
+	case PlayerType::Dragon:
+		_playerIconTextureID = TextureResID::UI_Icon_Player_Dragon;
+		break;
+	default:
+		//_playerIconTextureID = TextureResID::;
+		break;
+	}
+	_ui->DrawTexture(_renderer, _playerIconTextureID, _positionLeftUp, playerIconSize);
 	#pragma endregion
 
 	#pragma region PlayerMpBar
-	//玩家法力值条的左上顶点与血量图标/金币图标的左上顶点在竖直上对齐，先绘制法力值条内容的背景填充，形状为圆角矩形
-	_dstRect.x = position.x + _homeIconSize.x + STATUSUI_HOME_RIGHT_DISTANCE;
-	_dstRect.y = position.y + _homeIconSize.y + STATUSUI_HOME_PLAYER_ICON_DISTANCE;
-	_dstRect.w = mpBarSize.x;
-	_dstRect.h = mpBarSize.y;
-	//绘制填充的圆角矩形，先传入渲染器与左上顶点和右下顶点，然后是圆角半径，最后是颜色
-	roundedBoxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
-		4, mpBarContentBackColor.r, mpBarContentBackColor.g, mpBarContentBackColor.b, mpBarContentBackColor.a);
-
-	//最后绘制法力值条的内容（其水平宽度实时更新），其依据边框宽度收窄，背景颜色就相当于在内容颜色的外围形成一圈边框
-	_dstRect.x = (position.x + _homeIconSize.x + STATUSUI_HOME_RIGHT_DISTANCE) + mpBarBorderThickness;
-	_dstRect.y = (position.y + _homeIconSize.y + STATUSUI_HOME_PLAYER_ICON_DISTANCE) + mpBarBorderThickness;
-	_dstRect.w = mpBarSize.x - 2 * mpBarBorderThickness;
-	_dstRect.h = mpBarSize.y - 2 * mpBarBorderThickness;
-	roundedBoxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
-		4, mpBarContentForeColor.r, mpBarContentForeColor.g, mpBarContentForeColor.b, mpBarContentForeColor.a);
+	//绘制法力值条在玩家头像图标右侧
+	_positionLeftUp.x = 0 + playerIconSize.x + iconBarBetweenDistance;
+	_positionLeftUp.y = 0 + _windowSize.y - playerIconSize.y;
+	_ui->DrawDynamicBar(_renderer, _positionLeftUp, mpBarSize, mpBarBorderThickness,
+		mpBarBackgroundColor, mpBarContentColor, mpBarRatio);
 	#pragma endregion
 }

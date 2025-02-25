@@ -67,6 +67,7 @@ GameManager::GameManager()
 
 	//设置玩家类型，暂时只有龙
 	PlayerManager::Instance()->SetPlayerType(PlayerType::Dragon);
+	PlayerManager::Instance()->InstantiatePlayer();
 }
 
 GameManager::~GameManager()
@@ -154,7 +155,7 @@ void GameManager::OnInput()
 	if (!ProcessManager::Instance()->isGameOver)
 	{
 		UIManager::Instance()->OnInput(event);
-		//PlayerManager::Instance()->OnInput(event);
+		PlayerManager::Instance()->OnInput(event);
 	}
 
 	//点击窗口的退出键时触发的SDL_QUIT事件
@@ -180,7 +181,7 @@ void GameManager::OnUpdate(double _delta)
 		TowerManager::Instance()->OnUpdate(_delta);
 		DropManager::Instance()->OnUpdate(_delta);
 		UIManager::Instance()->OnUpdate(renderer);
-		//PlayerManager::Instance()->OnUpdate(_delta);
+		PlayerManager::Instance()->OnUpdate(_delta);
 	}
 }
 
@@ -199,7 +200,7 @@ void GameManager::OnRender()
 	TowerManager::Instance()->OnRender(renderer);
 	DropManager::Instance()->OnRender(renderer);
 	UIManager::Instance()->OnRender(renderer);
-	//PlayerManager::Instance()->OnRender(renderer);
+	PlayerManager::Instance()->OnRender(renderer);
 }
 
 bool GameManager::GenerateTileMapTexture()

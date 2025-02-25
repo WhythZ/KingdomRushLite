@@ -1,6 +1,7 @@
 #include "../../../Header/UI/TowerPanel/TowerPanel.h"
 #include <string>
 #include "../../../Header/Manager/Concrete/ResourceManager.h"
+#include "../../../Header/Manager/Concrete/UIManager.h"
 #include "../../../Header/Map/Tile.h"
 
 TowerPanel::TowerPanel()
@@ -148,37 +149,37 @@ void TowerPanel::OnRender(SDL_Renderer* _renderer)
 {
 	if (!isActive) return;
 
-	//临时存储每个渲染元素，每次渲染单个元素时复用
-	static SDL_Rect _dstRect;
+	//引入纹理渲染相关方法
+	static UIManager* _ui = UIManager::Instance();
+
+	//复用的左上顶点坐标
+	static SDL_Point _positionLeftUp = { 0,0 };
 
 	#pragma region SelectedTileCursor
 	//因为选中光标是包裹着瓦片，所以尺寸与瓦片一致
-	_dstRect.x = centerPosition.x - TILE_SIZE / 2;
-	_dstRect.y = centerPosition.y - TILE_SIZE / 2;
-	_dstRect.w = TILE_SIZE;
-	_dstRect.h = TILE_SIZE;
-	SDL_RenderCopy(_renderer, selectedTileCursorTexture, nullptr, &_dstRect);
+	static const SDL_Point _selectCursorSize = { TILE_SIZE, TILE_SIZE };
+	_positionLeftUp.x = centerPosition.x - TILE_SIZE / 2;
+	_positionLeftUp.y = centerPosition.y - TILE_SIZE / 2;
+	_ui->DrawTexture(_renderer, TextureResID::UI_SelectCursor, _positionLeftUp, _selectCursorSize);
 	#pragma endregion
 
 	#pragma region Panel
 	//依据悬停位置绘制对应的轮盘
-	_dstRect.x = centerPosition.x - panelSize.x / 2;
-	_dstRect.y = centerPosition.y - panelSize.y / 2;
-	_dstRect.w = panelSize.x;
-	_dstRect.h = panelSize.y;
+	_positionLeftUp.x = centerPosition.x - panelSize.x / 2;
+	_positionLeftUp.y = centerPosition.y - panelSize.y / 2;
 	switch (hoveredButtonType)
 	{
 	case TowerPanel::ButtonType::None:
-		SDL_RenderCopy(_renderer, idlePanelTexture, nullptr, &_dstRect);
+		_ui->DrawTexture(_renderer, idlePanelTexture, _positionLeftUp, panelSize);
 		break;
 	case TowerPanel::ButtonType::Top:
-		SDL_RenderCopy(_renderer, topPanelTexture, nullptr, &_dstRect);
+		_ui->DrawTexture(_renderer, topPanelTexture, _positionLeftUp, panelSize);
 		break;
 	case TowerPanel::ButtonType::Left:
-		SDL_RenderCopy(_renderer, leftPanelTexture, nullptr, &_dstRect);
+		_ui->DrawTexture(_renderer, leftPanelTexture, _positionLeftUp, panelSize);
 		break;
 	case TowerPanel::ButtonType::Right:
-		SDL_RenderCopy(_renderer, rightPanelTexture, nullptr, &_dstRect);
+		_ui->DrawTexture(_renderer, rightPanelTexture, _positionLeftUp, panelSize);
 		break;
 	default:
 		break;
@@ -187,11 +188,9 @@ void TowerPanel::OnRender(SDL_Renderer* _renderer)
 
 	#pragma region CostText
 	//绘制花费文本，在整个轮盘的正中下方
-	_dstRect.x = centerPosition.x - costTextSize.x / 2;
-	_dstRect.y = centerPosition.y - costTextSize.y / 2 + panelSize.y / 2;
-	_dstRect.w = costTextSize.x;
-	_dstRect.h = costTextSize.y;
-	SDL_RenderCopy(_renderer, costTextTexture, nullptr, &_dstRect);
+	_positionLeftUp.x = centerPosition.x - costTextSize.x / 2;
+	_positionLeftUp.y = centerPosition.y - costTextSize.y / 2 + panelSize.y / 2;
+	_ui->DrawTexture(_renderer, costTextTexture, _positionLeftUp, costTextSize);
 	#pragma endregion
 }
 

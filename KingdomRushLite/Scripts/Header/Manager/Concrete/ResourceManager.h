@@ -51,7 +51,6 @@ enum class TextureResID
 	UI_Icon_Coin,                   //玩家金币总额
 	UI_Icon_HealthHeart,            //玩家血量红心
 	UI_Icon_Player_Dragon,          //玩家龙头像图标
-	UI_Icon_Home,                   //家头像图标
 
 	UI_SelectCursor,                //选中瓦片的效果
 	UI_Build_Idle,                  //放置防御塔的轮盘UI
@@ -62,10 +61,6 @@ enum class TextureResID
 	UI_Upgrade_HoveredTop,          //指针悬浮在升级轮盘上部时的反馈视效
 	UI_Upgrade_HoveredLeft,         //指针悬浮在升级轮盘左部时的反馈视效
 	UI_Upgrade_HoveredRight,        //指针悬浮在升级轮盘右部时的反馈视效
-	
-	UI_Text_Win,                    //胜利文字显示
-	UI_Text_Loss,                   //失败文字显示
-	UI_Bar_GameOver                 //游戏结算界面条
 };
 
 enum class MusicResID

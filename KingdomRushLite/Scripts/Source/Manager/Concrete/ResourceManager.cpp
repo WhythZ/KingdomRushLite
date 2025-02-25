@@ -78,7 +78,6 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 	texturePool[TextureResID::UI_Icon_Coin] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Icon_Coin.png");
 	texturePool[TextureResID::UI_Icon_HealthHeart] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Icon_HealthHeart.png");
 	texturePool[TextureResID::UI_Icon_Player_Dragon] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Icon_Player_Dragon.png");
-	texturePool[TextureResID::UI_Icon_Home] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Icon_Home.png");
 
 	texturePool[TextureResID::UI_SelectCursor] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_SelectCursor.png");
 	texturePool[TextureResID::UI_Build_Idle] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Build_Idle.png");
@@ -89,10 +88,6 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 	texturePool[TextureResID::UI_Upgrade_HoveredTop] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Upgrade_HoveredTop.png");
 	texturePool[TextureResID::UI_Upgrade_HoveredLeft] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Upgrade_HoveredLeft.png");
 	texturePool[TextureResID::UI_Upgrade_HoveredRight] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Upgrade_HoveredRight.png");
-
-	texturePool[TextureResID::UI_Text_Win] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Text_Win.png");
-	texturePool[TextureResID::UI_Text_Loss] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Text_Loss.png");
-	texturePool[TextureResID::UI_Bar_GameOver] = IMG_LoadTexture(_renderer, "Assets/Sprites/UI/UI_Bar_GameOver.png");
 
 	//检查unordered_map容器中所有键值对的值是否有效；其中auto是自动类型推导，成员second访问的是键值对的值
 	for (const auto& _pair : texturePool)

@@ -45,3 +45,8 @@ void PlayerManager::InstantiatePlayer()
 	};
 	player->SetPosition(_homePosition);
 }
+
+PlayerType PlayerManager::GetPlayerType() const
+{
+	return playerType;
+}
