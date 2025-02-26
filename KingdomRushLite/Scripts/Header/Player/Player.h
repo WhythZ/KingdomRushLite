@@ -19,13 +19,16 @@ public:
 
 protected:
 	PlayerType type = PlayerType::None;
-
 	Vector2 size;
 	Vector2 position;
 	Vector2 velocity;
 
-	#pragma region Config
+	#pragma region Stats
 	double speed = 0;
+	double skill00Cooldown = 10;
+	double skill00Damage = 0;
+	double skill01Cooldown = 10;
+	double skill01Damage = 0;
 	#pragma endregion
 
 	#pragma region State

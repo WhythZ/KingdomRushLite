@@ -23,9 +23,9 @@ Enemy::Enemy()
 
 	#pragma region Skill
 	//恢复技能冷却一结束就会再次释放，所以并非单次触发
-	skillRecoverCooldowndTimer.SetOneShot(false);
+	skillRecoverCooldownTimer.SetOneShot(false);
 	//冷却结束就释放恢复技能（技能的释放者为自己），即传入了包装其对应回调函数的匿名函数
-	skillRecoverCooldowndTimer.SetTimeOutTrigger(
+	skillRecoverCooldownTimer.SetTimeOutTrigger(
 		[&]()
 		{
 			skillRecoverTrigger(this);
@@ -59,7 +59,7 @@ void Enemy::OnUpdate(double _delta)
 
 	//更新各计时器
 	sketchTimer.OnUpdate(_delta);
-	skillRecoverCooldowndTimer.OnUpdate(_delta);
+	skillRecoverCooldownTimer.OnUpdate(_delta);
 	speedRestoreTimer.OnUpdate(_delta);
 
 	#pragma region RefreshAfterMoving
@@ -113,8 +113,8 @@ void Enemy::OnRender(SDL_Renderer* _renderer)
 	#pragma region SpriteAnimation
 	//怪物贴图的左上角顶点坐标，position是瓦片中心点的世界坐标，注意减去的不是TILE_SIZE / 2
 	static SDL_Point _point;
-	_point.x = (int)(position.x - spriteSize.x / 2);
-	_point.y = (int)(position.y - spriteSize.y / 2);
+	_point.x = (int)(position.x - size.x / 2);
+	_point.y = (int)(position.y - size.y / 2);
 
 	//调用当前动画的渲染
 	animCurrent->OnRender(_renderer, _point);
@@ -137,7 +137,7 @@ void Enemy::OnRender(SDL_Renderer* _renderer)
 		//让血条的中心点水平上对齐怪物贴图的中心
 		_healthBarRect.x = (int)(position.x - _healthBarSize.x / 2);
 		//竖直上在怪物贴图的正上方，注意是减法（坐标轴y轴正方向朝下的缘故）
-		_healthBarRect.y = (int)(position.y - spriteSize.y / 2 - _healthBarVerticalOffset - _healthBarSize.y);
+		_healthBarRect.y = (int)(position.y - size.y / 2 - _healthBarVerticalOffset - _healthBarSize.y);
 		//宽度表示生命条的长度
 		_healthBarRect.w = (int)(_healthBarSize.x * (healthCurrent / healthMaximum));
 		//高度不变
@@ -216,22 +216,12 @@ double Enemy::GetHealth() const
 const Vector2& Enemy::GetSize() const
 {
 	//比如碰撞检测的时候，就需要获取碰撞箱尺寸（此处简化其为贴图尺寸）
-	return spriteSize;
+	return size;
 }
 
 const Vector2& Enemy::GetPosition() const
 {
 	return position;
-}
-
-const Vector2& Enemy::GetTargetPosition() const
-{
-	return targetTilePosition;
-}
-
-const Vector2& Enemy::GetVelocity() const
-{
-	return velocity;
 }
 
 double Enemy::GetAttackDamage() const

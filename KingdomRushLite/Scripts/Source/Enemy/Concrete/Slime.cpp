@@ -7,6 +7,10 @@ Slime::Slime()
 	//设置怪物类型
 	type = EnemyType::Slime;
 
+	//尺寸和瓦片大小保持一致
+	size.x = TILE_SIZE;
+	size.y = TILE_SIZE;
+
 	//获取配置数据
 	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::Instance()->slimePrefab;
 
@@ -35,7 +39,7 @@ Slime::Slime()
 	animLeftSketch.SetLoop(true); animLeftSketch.SetAnimFrames(_spritesSketch, 6, 4, _spriteIdxListLeft);
 	#pragma endregion
 
-	#pragma region BasicStats
+	#pragma region SetBasicStats
 	//设置基本的数值属性
 	healthMaximum = _configPrefab.health;
 	healthCurrent = healthMaximum;
@@ -48,17 +52,13 @@ Slime::Slime()
 	coinRatio = _configPrefab.coinRatio;
 	#pragma endregion
 
-	#pragma region Skill
+	#pragma region SetSkillStats
 	//设置技能相关数值属性
 	skillRecoverCooldown = _configPrefab.skillRecoverCooldown;
 	skillRecoverRadius = _configPrefab.skillRecoverRadius * TILE_SIZE;
 	skillRecoverIntensity = _configPrefab.skillRecoverIntensity;
 
 	//设置冷却时间
-	skillRecoverCooldowndTimer.SetWaitTime(skillRecoverCooldown);
+	skillRecoverCooldownTimer.SetWaitTime(skillRecoverCooldown);
 	#pragma endregion
-
-	//尺寸和瓦片大小保持一致
-	spriteSize.x = TILE_SIZE;
-	spriteSize.y = TILE_SIZE;
 }

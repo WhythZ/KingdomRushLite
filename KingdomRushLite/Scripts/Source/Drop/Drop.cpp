@@ -23,7 +23,7 @@ Drop::Drop()
 	);
 	#pragma endregion
 
-	#pragma region InitVelocity
+	#pragma region Velocity
 	//当掉落物生成时，随机（rand()%2随机返回0或1作布尔值）赋予水平向左或向右的水平速度，根据本项目速度定义乘上瓦片尺寸
 	velocity.x = (rand() % 2 ? 1 : -1) * initSpeedX * TILE_SIZE;
 	//再赋予初始的向上（所以有负号）的纵向速度

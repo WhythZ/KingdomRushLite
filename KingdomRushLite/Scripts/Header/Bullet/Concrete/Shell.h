@@ -4,12 +4,11 @@
 #include "../Bullet.h"
 #include "../../Infra/Animation.h"
 
-#define BULLET_SHELL_DAMAGE_RADIUS 96
-
 class Shell : public Bullet
 {
 private:
-	Vector2 explodingSize;                    //炮弹爆炸后的动画的尺寸
+	Vector2 explodeSize = { 96,96 };          //炮弹爆炸后的动画的尺寸，也用于计算爆炸伤害半径
+
 	Animation animExploding;                  //炮弹爆炸后的动画
 
 public:

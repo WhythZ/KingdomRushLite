@@ -33,9 +33,9 @@ void PlayerManager::InstantiatePlayer(PlayerType _playerType)
 		break;
 	}
 
-	//生成在家的位置
+	//生成在家的位置附近，该位置处于家的中心位置偏上
 	Vector2 _homePosition = {
-		(double)ProcessManager::Instance()->map.GetHomeIdx().x* TILE_SIZE,
+		(double)ProcessManager::Instance()->map.GetHomeIdx().x * TILE_SIZE + TILE_SIZE / 2,
 		(double)ProcessManager::Instance()->map.GetHomeIdx().y * TILE_SIZE
 	};
 	player->SetPosition(_homePosition);

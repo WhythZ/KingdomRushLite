@@ -7,14 +7,16 @@ Axe::Axe()
 	//设置子弹类型
 	type = BulletType::Axe;
 
+	//根据每帧动画的图片文件实际尺寸设置
+	size.x = 48; size.y = 48;
+
+	#pragma region SetAnimation
 	//获取图片资源并设置动画帧
 	static SDL_Texture* _animSprites = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Bullet_Axe)->second;
 	static const std::vector<int> _animSpritesIdices = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 	animFlying.SetAnimFrames(_animSprites, 4, 2, _animSpritesIdices);
 	animFlying.SetLoop(true);
-
-	//根据每帧动画的图片文件实际尺寸设置
-	size.x = 48; size.y = 48;
+	#pragma endregion
 }
 
 void Axe::OnCollide(Enemy* _enemy)

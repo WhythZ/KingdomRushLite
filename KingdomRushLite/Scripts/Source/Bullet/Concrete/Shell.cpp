@@ -7,6 +7,13 @@ Shell::Shell()
 	//设置子弹类型
 	type = BulletType::Shell;
 
+	//根据每帧动画的图片文件实际尺寸设置
+	size.x = 48; size.y = 48;
+
+	//设置炮弹的爆炸范围
+	damageRadius = (explodeSize.x + explodeSize.y) / 2;
+
+	#pragma region SetAnimation
 	//获取炮弹飞行的图片资源并设置动画帧
 	static SDL_Texture* _animFlyingSprites = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Bullet_Shell)->second;
 	static const std::vector<int> _animFlyingSpritesIdices = { 0, 1 };
@@ -26,14 +33,7 @@ Shell::Shell()
 			Invalidate();
 		}
 	);
-
-	//根据每帧动画的图片文件实际尺寸设置
-	size.x = 48; size.y = 48;
-	//设置爆炸动画帧的尺寸
-	explodingSize.x = 96; explodingSize.y = 96;
-	
-	//设置炮弹的爆炸范围
-	damageRadius = BULLET_SHELL_DAMAGE_RADIUS;
+	#pragma endregion
 }
 
 void Shell::OnUpdate(double _delta)
@@ -65,8 +65,8 @@ void Shell::OnRender(SDL_Renderer* _renderer)
 	#pragma region ExplosionAnimRender
 	//否则说明炮弹当前处于爆炸后状态，此时需渲染爆炸动画，由于爆炸动画帧的尺寸不同于子弹尺寸，故需要重新确定渲染位置
 	static SDL_Point _point;
-	_point.x = (int)(position.x - explodingSize.x / 2);
-	_point.y = (int)(position.y - explodingSize.y / 2);
+	_point.x = (int)(position.x - explodeSize.x / 2);
+	_point.y = (int)(position.y - explodeSize.y / 2);
 	animExploding.OnRender(_renderer, _point);
 	#pragma endregion
 }

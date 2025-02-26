@@ -10,14 +10,11 @@ class Drop
 {
 protected:
 	DropType type = DropType::None;
-
-	#pragma region Transform
 	Vector2 size;                      //掉落物的尺寸
 	Vector2 position;                  //掉落物出现的位置
-	#pragma endregion
+	Vector2 velocity;                  //掉落物是从初始位置向上弹出来的，故需控制其速度向量
 
 	#pragma region Properties
-	Vector2 velocity;                  //掉落物是从初始位置向上弹出来的，故需控制其速度向量
 	double gravity = 10;               //掉落物的重力加速度
 	double popDuration = 1;            //掉落物上升的时间
 	double existDuration = 10;         //掉落物存在的时间

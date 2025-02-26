@@ -177,21 +177,21 @@ bool ConfigManager::ParsePlayerConfigPrefab(PlayerConfigPrefab& _prefab, cJSON* 
 	if (!_jsonSpeed || _jsonSpeed->type != cJSON_Number) return false;
 	_prefab.speed = _jsonSpeed->valuedouble;
 
-	cJSON* _jsonNormalAtkCd = cJSON_GetObjectItem(_jsonRoot, "normal_attack_cooldown");
+	cJSON* _jsonNormalAtkCd = cJSON_GetObjectItem(_jsonRoot, "skill_00_cooldown");
 	if (!_jsonNormalAtkCd || _jsonNormalAtkCd->type != cJSON_Number) return false;
-	_prefab.normalAttackCooldown = _jsonNormalAtkCd->valuedouble;
+	_prefab.skill00Cooldown = _jsonNormalAtkCd->valuedouble;
 
-	cJSON* _jsonNormalAtkDmg = cJSON_GetObjectItem(_jsonRoot, "normal_attack_damage");
+	cJSON* _jsonNormalAtkDmg = cJSON_GetObjectItem(_jsonRoot, "skill_00_damage");
 	if (!_jsonNormalAtkDmg || _jsonNormalAtkDmg->type != cJSON_Number) return false;
-	_prefab.normalAttackDamage = _jsonNormalAtkDmg->valuedouble;
+	_prefab.skill00Damage = _jsonNormalAtkDmg->valuedouble;
 
-	cJSON* _jsonSkillCd = cJSON_GetObjectItem(_jsonRoot, "skill_cooldown");
+	cJSON* _jsonSkillCd = cJSON_GetObjectItem(_jsonRoot, "skill_01_cooldown");
 	if (!_jsonSkillCd || _jsonSkillCd->type != cJSON_Number) return false;
-	_prefab.skillCooldown = _jsonSkillCd->valuedouble;
+	_prefab.skill01Cooldown = _jsonSkillCd->valuedouble;
 
-	cJSON* _jsonSkillDmg = cJSON_GetObjectItem(_jsonRoot, "skill_damage");
+	cJSON* _jsonSkillDmg = cJSON_GetObjectItem(_jsonRoot, "skill_01_damage");
 	if (!_jsonSkillDmg || _jsonSkillDmg->type != cJSON_Number) return false;
-	_prefab.skillDamage = _jsonSkillDmg->valuedouble;
+	_prefab.skill01Damage = _jsonSkillDmg->valuedouble;
 
 	return true;
 }

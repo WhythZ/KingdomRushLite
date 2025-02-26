@@ -13,10 +13,8 @@ class Tower
 {
 protected:
 	TowerType type = TowerType::None;          //防御塔的种类
-
-	#pragma region Transform
 	Vector2 size;                              //用于渲染与碰撞的尺寸
-	#pragma endregion
+	Vector2 position;                          //防御塔所在位置
 
 	#pragma region Animation
 	Animation animIdleUp;              //待机朝上的动画
@@ -39,8 +37,6 @@ protected:
 	#pragma endregion
 
 private:
-	Vector2 position;                          //防御塔所在位置
-	
 	Animation* animCurrent = &animIdleDown;    //防御塔默认动画
 	FacingDir facingDir = FacingDir::Down;     //防御塔默认动画的朝向
 

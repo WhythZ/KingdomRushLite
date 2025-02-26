@@ -7,11 +7,11 @@
 	},
 	"player_dragon":
 	{
-		"speed":	               5,
-		"normal_attack_cooldown":  0.8,
-		"normal_attack_damage":	   10,
-		"skill_cooldown":	       3,
-		"skill_damage":	           20
+		"speed":				5,
+		"skill_00_cooldown":	3,
+		"skill_00_damage":		10,
+		"skill_01_cooldown":	5,
+		"skill_01_damage":		20
 	},
 	"tower":
 	{

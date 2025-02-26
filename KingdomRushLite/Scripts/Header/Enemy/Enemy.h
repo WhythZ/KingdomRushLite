@@ -20,9 +20,13 @@ public:
 
 protected:
 	EnemyType type = EnemyType::None;           //敌人的种类
+	Vector2 size;                               //敌人的尺寸大小
 
 	#pragma region Animation
-	Vector2 spriteSize;                         //敌人图片的二维尺寸大小
+	Animation* animCurrent;                     //指向当前调用的动画
+	bool isShowSketch = false;                  //是否处于受击变白（即绘制剪影）的状态
+	Timer sketchTimer;                          //管理受击变白特效持续时长
+
 	Animation animUp;                           //朝上方向的动画
 	Animation animDown;                         //朝下方向的动画
 	Animation animLeft;                         //朝左方向的动画
@@ -45,37 +49,32 @@ protected:
 	double coinRatio = 0;                       //奖励掉落概率
 	#pragma endregion
 
-	#pragma region Skill
+	#pragma region SkillStats
 	double skillRecoverCooldown = 0;            //恢复技能的冷却
 	double skillRecoverRadius = 0;              //恢复技能的范围半径
 	double skillRecoverIntensity = 0;           //恢复技能的强度
+	#pragma endregion
 
-	Timer skillRecoverCooldowndTimer;           //恢复技能释放冷却的计时器
+	#pragma region Timer
+	Timer skillRecoverCooldownTimer;            //恢复技能释放冷却的计时器
+	Timer speedRestoreTimer;                    //控制怪物恢复初始移速
 	#pragma endregion
 
 private:
+	bool isAlive = true;                        //记录怪物是否存活
+
 	Vector2 position;                           //怪物位置
 	Vector2 velocity;                           //速度矢量
 	Vector2 direction;                          //行进朝向
 
-	bool isAlive = true;                        //记录怪物是否存活
-
-	Timer speedRestoreTimer;                    //控制怪物恢复初始移速
-
-	#pragma region Animation
-	Animation* animCurrent;                     //指向当前调用的动画
-	bool isShowSketch = false;                  //是否处于受击变白（即绘制剪影）的状态
-	Timer sketchTimer;                          //管理受击变白特效持续时长
+	#pragma region SkillCallBack
+	SkillCallBack skillRecoverTrigger;          //释放恢复技能的回调函数
 	#pragma endregion
 
 	#pragma region Route
 	const Route* route = nullptr;               //该怪物行进的瓦片路径
 	size_t targetTileIdx = 0;                   //怪物的目标瓦片索引
 	Vector2 targetTilePosition;                 //将要驶入的下一个瓦片的坐标位置
-	#pragma endregion
-
-	#pragma region Skill
-	SkillCallBack skillRecoverTrigger;          //释放恢复技能的回调函数
 	#pragma endregion
 
 public:
@@ -99,8 +98,6 @@ public:
 	double GetHealth() const;                   //获取当前血量
 	const Vector2& GetSize() const;             //获取贴图（碰撞箱）尺寸
 	const Vector2& GetPosition() const;         //获取怪物位置
-	const Vector2& GetTargetPosition() const;   //获取怪物的目标位置
-	const Vector2& GetVelocity() const;         //获取怪物速度矢量
 	double GetAttackDamage() const;             //获取怪物能对家造成的伤害
 
 	double GetSkillRecoverCooldown() const;     //获取恢复技能的冷却

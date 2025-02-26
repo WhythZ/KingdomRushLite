@@ -8,8 +8,8 @@ PlayerDragon::PlayerDragon()
 	//设定类型
 	type = PlayerType::Dragon;
 
-	//获取配置数据
-	static const ConfigManager::PlayerConfigPrefab& _configPrefab = ConfigManager::Instance()->playerDragonPrefab;
+	//根据纹理图片实际尺寸设定
+	size = { 96,96 };
 
 	#pragma region SetAnimation
 	//获取纹理
@@ -47,11 +47,15 @@ PlayerDragon::PlayerDragon()
 	skillState->animRight.SetLoop(false); skillState->animRight.SetAnimFrames(_spriteSheet, 4, 8, _skillIndiciesRight);
 	#pragma endregion
 
-	//根据纹理图片实际尺寸设定
-	size = { 96,96 };
+	#pragma region SetStats
+	//获取配置数据
+	static const ConfigManager::PlayerConfigPrefab& _configPrefab = ConfigManager::Instance()->playerDragonPrefab;
 
-	#pragma region SetConfigs
 	speed = _configPrefab.speed * TILE_SIZE;
+	skill00Cooldown = _configPrefab.skill00Cooldown;
+	skill00Damage = _configPrefab.skill00Damage;
+	skill01Cooldown = _configPrefab.skill01Cooldown;
+	skill01Damage = _configPrefab.skill01Damage;
 	#pragma endregion
 }
 

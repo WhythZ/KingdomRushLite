@@ -10,14 +10,11 @@ class Bullet
 {
 protected:
 	BulletType type = BulletType::None;     //子弹的类型
-
-	#pragma region Transform
 	Vector2 size;                           //子弹的尺寸
 	Vector2 position;                       //子弹的位置
-	#pragma endregion
-
-	#pragma region Properties
 	Vector2 velocity;                       //子弹运动的速度
+
+	#pragma region Stats
 	double damage = 0;                      //子弹能对敌人造成的伤害
 	double damageRadius = -1;               //子弹造成伤害的AOE范围半径
 	#pragma endregion

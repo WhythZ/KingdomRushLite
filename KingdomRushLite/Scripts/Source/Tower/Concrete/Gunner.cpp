@@ -6,16 +6,17 @@ Gunner::Gunner()
 	//指定防御塔类型
 	type = TowerType::Gunner;
 	//设置防御塔尺寸
-	size.x = 48; size.y = 48;
+	size.x = TILE_SIZE;
+	size.y = TILE_SIZE;
 
-	#pragma region Bullet
+	#pragma region SetBullet
 	//设置子弹类型
 	bulletType = BulletType::Shell;
 	//设置子弹发射速度
 	bulletSpeed = TOWER_GUNNER_BULLET_SPEED;
 	#pragma endregion
 
-	#pragma region Animation
+	#pragma region SetAnimation
 	//获取并设置防御塔的各动画帧图片
 	static SDL_Texture* _sprites = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Tower_Gunner)->second;
 	//根据该纹理资源图片的构造，此处的闲置状态动画第三、四帧为空，所以要避开类似2与3、6与7之类的索引

@@ -34,12 +34,11 @@ public:
 	{
 		//玩家移动速度
 		double speed = 3;
-		//玩家普攻
-		double normalAttackCooldown = 0.5;
-		double normalAttackDamage = 0;
-		//玩家技能
-		double skillCooldown = 10;
-		double skillDamage = 0;
+		//玩家多个技能的冷却与伤害
+		double skill00Cooldown = 5;
+		double skill00Damage = 0;
+		double skill01Cooldown = 10;
+		double skill01Damage = 0;
 	};
 
 	//防御塔预制体
