@@ -2,12 +2,14 @@
 
 void StateMachine::OnUpdate(double _delta)
 {
-	currentState->OnUpdate(_delta);
+	if (currentState != nullptr)
+		currentState->OnUpdate(_delta);
 }
 
 void StateMachine::OnRender(SDL_Renderer* _renderer)
 {
-	currentState->OnRender(_renderer);
+	if (currentState != nullptr)
+		currentState->OnRender(_renderer);
 }
 
 void StateMachine::ChangeState(State* _state)

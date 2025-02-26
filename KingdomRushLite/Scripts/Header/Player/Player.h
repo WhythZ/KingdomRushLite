@@ -34,6 +34,11 @@ protected:
 	bool isIdle = true;
 	PlayerIdleState* idleState;
 	
+	//通过四个布尔值决定isMove的值
+	bool isMoveUp = false;
+	bool isMoveDown = false;
+	bool isMoveLeft = false;
+	bool isMoveRight = false;
 	bool isMove = false;
 	PlayerMoveState* moveState;
 
@@ -45,6 +50,7 @@ public:
 	Player();
 	~Player();
 	void SetPosition(const Vector2&);
+	void SetVelocity(const Vector2&);
 
 	void OnInput(const SDL_Event&);
 	void OnUpdate(double);
@@ -53,6 +59,7 @@ public:
 	PlayerType GetType() const;
 	const Vector2& GetSize() const;
 	const Vector2& GetPosition() const;
+	double GetSpeed() const;
 
 protected:
 	virtual void ReleaseSkill00() = 0;

@@ -7,12 +7,15 @@ PlayerIdleState::PlayerIdleState() :PlayerState::PlayerState()
 
 void PlayerIdleState::OnBegin()
 {
-	std::cout << "PlayerIdleState::OnBegin()\n";
+	//std::cout << "PlayerIdleState::OnBegin()\n";
 }
 
 void PlayerIdleState::OnUpdate(double _delta)
 {
 	PlayerState::OnUpdate(_delta);
+
+	//归零速度以刹车
+	PlayerManager::Instance()->player->SetVelocity({ 0,0 });
 }
 
 void PlayerIdleState::OnRender(SDL_Renderer* _renderer)
@@ -22,5 +25,5 @@ void PlayerIdleState::OnRender(SDL_Renderer* _renderer)
 
 void PlayerIdleState::OnEnd()
 {
-	std::cout << "PlayerIdleState::OnEnd()\n";
+	//std::cout << "PlayerIdleState::OnEnd()\n";
 }
