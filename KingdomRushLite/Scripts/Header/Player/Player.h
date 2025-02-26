@@ -50,13 +50,9 @@ public:
 	void OnUpdate(double);
 	void OnRender(SDL_Renderer*);
 
-	void UpdateVelocity(const Vector2&);
-	void UpdateVelocity(double, double);
-
 	PlayerType GetType() const;
 	const Vector2& GetSize() const;
 	const Vector2& GetPosition() const;
-	double GetSpeed() const;
 
 protected:
 	virtual void ReleaseSkill00() = 0;

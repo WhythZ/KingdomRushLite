@@ -13,9 +13,6 @@ void PlayerIdleState::OnBegin()
 void PlayerIdleState::OnUpdate(double _delta)
 {
 	PlayerState::OnUpdate(_delta);
-
-	//¾²Ö¹ÔÚÔ­µØ
-	PlayerManager::Instance()->player->UpdateVelocity(0, 0);
 }
 
 void PlayerIdleState::OnRender(SDL_Renderer* _renderer)

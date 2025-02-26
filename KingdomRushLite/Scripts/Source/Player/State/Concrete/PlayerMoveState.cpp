@@ -13,13 +13,6 @@ void PlayerMoveState::OnBegin()
 void PlayerMoveState::OnUpdate(double _delta)
 {
 	PlayerState::OnUpdate(_delta);
-
-	static Player* _player = PlayerManager::Instance()->player;
-
-	//设定速度向量，注意归一化输入方向
-	static Vector2 _direction = { _player->xInput, _player->yInput };
-	_direction = _direction.Normalized();
-	_player->UpdateVelocity(_direction * _player->GetSpeed());
 }
 
 void PlayerMoveState::OnRender(SDL_Renderer* _renderer)
