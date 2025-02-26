@@ -6,6 +6,7 @@ PlayerMoveState::PlayerMoveState(Player* _player) :PlayerState(_player)
 
 void PlayerMoveState::OnBegin()
 {
+	std::cout << "PlayerMoveState::OnBegin()\n";
 }
 
 void PlayerMoveState::OnUpdate(double _delta)
@@ -23,4 +24,5 @@ void PlayerMoveState::OnRender(SDL_Renderer* _renderer)
 
 void PlayerMoveState::OnEnd()
 {
+	std::cout << "PlayerMoveState::OnEnd()\n";
 }

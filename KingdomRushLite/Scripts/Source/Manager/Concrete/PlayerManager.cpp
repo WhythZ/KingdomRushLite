@@ -50,3 +50,13 @@ PlayerType PlayerManager::GetPlayerType() const
 {
 	return playerType;
 }
+
+const Vector2& PlayerManager::GetPlayerSize() const
+{
+	return player->GetSize();
+}
+
+const Vector2& PlayerManager::GetPlayerPosition() const
+{
+	return player->GetPosition();
+}

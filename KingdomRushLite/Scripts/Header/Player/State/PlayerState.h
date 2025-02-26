@@ -26,9 +26,9 @@ public:
 	~PlayerState() = default;
 
 	virtual void OnBegin() = 0;
-	void OnUpdate(double) override;
-	void OnRender(SDL_Renderer*) override;
-	virtual void OnEnd() override = 0;
+	virtual void OnUpdate(double) override;
+	virtual void OnRender(SDL_Renderer*) override;
+	virtual void OnEnd() = 0;
 };
 
 #endif

@@ -6,6 +6,7 @@ PlayerIdleState::PlayerIdleState(Player* _player) :PlayerState::PlayerState(_pla
 
 void PlayerIdleState::OnBegin()
 {
+	std::cout << "PlayerIdleState::OnBegin()\n";
 }
 
 void PlayerIdleState::OnUpdate(double _delta)
@@ -23,4 +24,5 @@ void PlayerIdleState::OnRender(SDL_Renderer* _renderer)
 
 void PlayerIdleState::OnEnd()
 {
+	std::cout << "PlayerIdleState::OnEnd()\n";
 }

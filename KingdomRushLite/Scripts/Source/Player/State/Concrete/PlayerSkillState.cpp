@@ -6,6 +6,7 @@ PlayerSkillState::PlayerSkillState(Player* _player) :PlayerState::PlayerState(_p
 
 void PlayerSkillState::OnBegin()
 {
+	std::cout << "PlayerSkillState::OnBegin()\n";
 }
 
 void PlayerSkillState::OnUpdate(double _delta)
@@ -20,4 +21,5 @@ void PlayerSkillState::OnRender(SDL_Renderer* _renderer)
 
 void PlayerSkillState::OnEnd()
 {
+	std::cout << "PlayerSkillState::OnEnd()\n";
 }

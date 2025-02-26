@@ -5,41 +5,19 @@ Player::Player()
 	//优先创建被后面的指针所依赖的状态机
 	stateMachine = new StateMachine();
 
-	idleUpState = new PlayerIdleUpState(this);
-	idleDownState = new PlayerIdleDownState(this);
-	idleLeftState = new PlayerIdleLeftState(this);
-	idleRightState = new PlayerIdleRightState(this);
-	
-	moveUpState = new PlayerMoveUpState(this);
-	moveDownState = new PlayerMoveDownState(this);
-	moveLeftState = new PlayerMoveLeftState(this);
-	moveRightState = new PlayerMoveRightState(this);
+	idleState = new PlayerIdleState(this);
+	moveState = new PlayerMoveState(this);
+	skillState = new PlayerSkillState(this);
 
-	skillUpState = new PlayerSkillUpState(this);
-	skillDownState = new PlayerSkillDownState(this);
-	skillLeftState = new PlayerSkillLeftState(this);
-	skillRightState = new PlayerSkillRightState(this);
-
-	//以向下的Idle状态初始化
-	stateMachine->ChangeState(idleDownState);
+	//以Idle状态初始化状态机
+	stateMachine->ChangeState(idleState);
 }
 
 Player::~Player()
 {
-	delete idleUpState;
-	delete idleDownState;
-	delete idleLeftState;
-	delete idleRightState;
-
-	delete moveUpState;
-	delete moveDownState;
-	delete moveLeftState;
-	delete moveRightState;
-
-	delete skillUpState;
-	delete skillDownState;
-	delete skillLeftState;
-	delete skillRightState;
+	delete idleState;
+	delete moveState;
+	delete skillState;
 
 	//最后销毁被前面的指针所依赖的状态机
 	delete stateMachine;
