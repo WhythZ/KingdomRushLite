@@ -111,7 +111,7 @@ void Player::OnUpdate(double _delta)
 	stateMachine->OnUpdate(_delta);
 
 	//移动逻辑
-	position += velocity.Normalized() * _delta;
+	position += velocity * _delta;
 
 	//朝向的改变逻辑
 	if (abs(xInput) >= abs(yInput))
@@ -126,11 +126,18 @@ void Player::OnUpdate(double _delta)
 		stateMachine->ChangeState(moveState);
 	else if (isSkill && stateMachine->GetCurrentState() != skillState)
 		stateMachine->ChangeState(skillState);
+
+	//std::cout << "xInput=" << xInput << ",yInput=" << yInput << "\n";
 }
 
 void Player::OnRender(SDL_Renderer* _renderer)
 {
 	stateMachine->OnRender(_renderer);
+}
+
+void Player::UpdateVelocity(const Vector2& _velocity)
+{
+	velocity = _velocity;
 }
 
 void Player::UpdateVelocity(double _x, double _y)

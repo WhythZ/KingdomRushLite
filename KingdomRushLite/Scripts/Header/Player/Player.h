@@ -50,6 +50,7 @@ public:
 	void OnUpdate(double);
 	void OnRender(SDL_Renderer*);
 
+	void UpdateVelocity(const Vector2&);
 	void UpdateVelocity(double, double);
 
 	PlayerType GetType() const;

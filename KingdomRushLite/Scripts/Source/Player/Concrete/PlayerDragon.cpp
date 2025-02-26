@@ -1,6 +1,7 @@
 #include "../../../Header/Player/Concrete/PlayerDragon.h"
 #include "../../../Header/Manager/Concrete/ResourceManager.h"
 #include "../../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../../Header/Map/Tile.h"
 
 PlayerDragon::PlayerDragon()
 {
@@ -17,18 +18,18 @@ PlayerDragon::PlayerDragon()
 
 	static const std::vector<int> _idleIndiciesUp = { 4,5,6,7 };
 	static const std::vector<int> _idleIndiciesDown = { 0,1,2,3 };
-	static const std::vector<int> _idleIndiciesLeft = { 12,13,14,15 };
-	static const std::vector<int> _idleIndiciesRight = { 8,9,10,11 };
+	static const std::vector<int> _idleIndiciesLeft = { 8,9,10,11 };
+	static const std::vector<int> _idleIndiciesRight = { 12,13,14,15 };
 
 	static const std::vector<int> _moveIndiciesUp = { 4,5,6,7 };
 	static const std::vector<int> _moveIndiciesDown = { 0,1,2,3 };
-	static const std::vector<int> _moveIndiciesLeft = { 12,13,14,15 };
-	static const std::vector<int> _moveIndiciesRight = { 8,9,10,11 };
+	static const std::vector<int> _moveIndiciesLeft = { 8,9,10,11 };
+	static const std::vector<int> _moveIndiciesRight = { 12,13,14,15 };
 
 	static const std::vector<int> _skillIndiciesUp = { 20,21 };
 	static const std::vector<int> _skillIndiciesDown = { 16,17 };
-	static const std::vector<int> _skillIndiciesLeft = { 28,29 };
-	static const std::vector<int> _skillIndiciesRight = { 24,25 };
+	static const std::vector<int> _skillIndiciesLeft = { 24,25 };
+	static const std::vector<int> _skillIndiciesRight = { 28,29 };
 
 	idleState->animUp.SetLoop(true); idleState->animUp.SetAnimFrames(_spriteSheet, 4, 8, _idleIndiciesUp);
 	idleState->animDown.SetLoop(true); idleState->animDown.SetAnimFrames(_spriteSheet, 4, 8, _idleIndiciesDown);
@@ -50,7 +51,7 @@ PlayerDragon::PlayerDragon()
 	size = { 96,96 };
 
 	#pragma region SetConfigs
-	speed = _configPrefab.speed;
+	speed = _configPrefab.speed * TILE_SIZE;
 	#pragma endregion
 }
 
