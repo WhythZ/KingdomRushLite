@@ -65,9 +65,8 @@ GameManager::GameManager()
 	//生成瓦片地图纹理
 	InitAssert(GenerateTileMapTexture(), u8"Failed To Genrate TileMap Texture");
 
-	//设置玩家类型，暂时只有龙
-	PlayerManager::Instance()->SetPlayerType(PlayerType::Dragon);
-	PlayerManager::Instance()->InstantiatePlayer();
+	//实例化玩家，暂时只有龙类型
+	PlayerManager::Instance()->InstantiatePlayer(PlayerType::Dragon);
 }
 
 GameManager::~GameManager()

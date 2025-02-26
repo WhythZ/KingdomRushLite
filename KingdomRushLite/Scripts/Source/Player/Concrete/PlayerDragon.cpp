@@ -4,6 +4,7 @@
 
 PlayerDragon::PlayerDragon()
 {
+	//设定类型
 	type = PlayerType::Dragon;
 
 	//获取配置数据
@@ -29,20 +30,27 @@ PlayerDragon::PlayerDragon()
 	static const std::vector<int> _skillIndiciesLeft = { 28,29 };
 	static const std::vector<int> _skillIndiciesRight = { 24,25 };
 
-	idleState->animUp.SetLoop(true); idleState->animUp.SetAnimFrames(_spriteSheet, 5, 4, _idleIndiciesUp);
-	idleState->animDown.SetLoop(true); idleState->animDown.SetAnimFrames(_spriteSheet, 5, 4, _idleIndiciesDown);
-	idleState->animLeft.SetLoop(true); idleState->animLeft.SetAnimFrames(_spriteSheet, 5, 4, _idleIndiciesLeft);
-	idleState->animRight.SetLoop(true); idleState->animRight.SetAnimFrames(_spriteSheet, 5, 4, _idleIndiciesRight);
+	idleState->animUp.SetLoop(true); idleState->animUp.SetAnimFrames(_spriteSheet, 4, 8, _idleIndiciesUp);
+	idleState->animDown.SetLoop(true); idleState->animDown.SetAnimFrames(_spriteSheet, 4, 8, _idleIndiciesDown);
+	idleState->animLeft.SetLoop(true); idleState->animLeft.SetAnimFrames(_spriteSheet, 4, 8, _idleIndiciesLeft);
+	idleState->animRight.SetLoop(true); idleState->animRight.SetAnimFrames(_spriteSheet, 4, 8, _idleIndiciesRight);
 
-	moveState->animUp.SetLoop(true); moveState->animUp.SetAnimFrames(_spriteSheet, 5, 4, _moveIndiciesUp);
-	moveState->animDown.SetLoop(true); moveState->animDown.SetAnimFrames(_spriteSheet, 5, 4, _moveIndiciesDown);
-	moveState->animLeft.SetLoop(true); moveState->animLeft.SetAnimFrames(_spriteSheet, 5, 4, _moveIndiciesLeft);
-	moveState->animRight.SetLoop(true); moveState->animRight.SetAnimFrames(_spriteSheet, 5, 4, _moveIndiciesRight);
+	moveState->animUp.SetLoop(true); moveState->animUp.SetAnimFrames(_spriteSheet, 4, 8, _moveIndiciesUp);
+	moveState->animDown.SetLoop(true); moveState->animDown.SetAnimFrames(_spriteSheet, 4, 8, _moveIndiciesDown);
+	moveState->animLeft.SetLoop(true); moveState->animLeft.SetAnimFrames(_spriteSheet, 4, 8, _moveIndiciesLeft);
+	moveState->animRight.SetLoop(true); moveState->animRight.SetAnimFrames(_spriteSheet, 4, 8, _moveIndiciesRight);
 
-	skillState->animUp.SetLoop(false); skillState->animUp.SetAnimFrames(_spriteSheet, 5, 4, _skillIndiciesUp);
-	skillState->animDown.SetLoop(false); skillState->animDown.SetAnimFrames(_spriteSheet, 5, 4, _skillIndiciesDown);
-	skillState->animLeft.SetLoop(false); skillState->animLeft.SetAnimFrames(_spriteSheet, 5, 4, _skillIndiciesLeft);
-	skillState->animRight.SetLoop(false); skillState->animRight.SetAnimFrames(_spriteSheet, 5, 4, _skillIndiciesRight);
+	skillState->animUp.SetLoop(false); skillState->animUp.SetAnimFrames(_spriteSheet, 4, 8, _skillIndiciesUp);
+	skillState->animDown.SetLoop(false); skillState->animDown.SetAnimFrames(_spriteSheet, 4, 8, _skillIndiciesDown);
+	skillState->animLeft.SetLoop(false); skillState->animLeft.SetAnimFrames(_spriteSheet, 4, 8, _skillIndiciesLeft);
+	skillState->animRight.SetLoop(false); skillState->animRight.SetAnimFrames(_spriteSheet, 4, 8, _skillIndiciesRight);
+	#pragma endregion
+
+	//根据纹理图片实际尺寸设定
+	size = { 96,96 };
+
+	#pragma region SetConfigs
+	speed = _configPrefab.speed;
 	#pragma endregion
 }
 

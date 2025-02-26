@@ -5,9 +5,9 @@ Player::Player()
 	//优先创建被后面的指针所依赖的状态机
 	stateMachine = new StateMachine();
 
-	idleState = new PlayerIdleState(this);
-	moveState = new PlayerMoveState(this);
-	skillState = new PlayerSkillState(this);
+	idleState = new PlayerIdleState();
+	moveState = new PlayerMoveState();
+	skillState = new PlayerSkillState();
 
 	//以Idle状态初始化状态机
 	stateMachine->ChangeState(idleState);
@@ -120,11 +120,11 @@ void Player::OnUpdate(double _delta)
 		facingDir = (yInput <= 0) ? FacingDir::Up : FacingDir::Down;
 
 	//状态转换逻辑
-	if (isIdle)
+	if (isIdle && stateMachine->GetCurrentState() != idleState)
 		stateMachine->ChangeState(idleState);
-	else if (isMove)
+	else if (isMove && stateMachine->GetCurrentState() != moveState)
 		stateMachine->ChangeState(moveState);
-	else if (isSkill)
+	else if (isSkill && stateMachine->GetCurrentState() != skillState)
 		stateMachine->ChangeState(skillState);
 }
 
@@ -152,4 +152,9 @@ const Vector2& Player::GetSize() const
 const Vector2& Player::GetPosition() const
 {
 	return position;
+}
+
+double Player::GetSpeed() const
+{
+	return speed;
 }

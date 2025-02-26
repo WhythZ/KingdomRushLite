@@ -6,7 +6,8 @@
 class PlayerMoveState :public PlayerState
 {
 public:
-	PlayerMoveState(Player*);
+	PlayerMoveState();
+	~PlayerMoveState() = default;
 
 	void OnBegin() override;
 	void OnUpdate(double) override;

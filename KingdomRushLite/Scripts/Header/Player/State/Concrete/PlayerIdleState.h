@@ -6,7 +6,8 @@
 class PlayerIdleState :public PlayerState
 {
 public:
-	PlayerIdleState(Player*);
+	PlayerIdleState();
+	~PlayerIdleState() = default;
 
 	void OnBegin() override;
 	void OnUpdate(double) override;

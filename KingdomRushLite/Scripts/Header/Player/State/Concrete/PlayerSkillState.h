@@ -6,7 +6,8 @@
 class PlayerSkillState :public PlayerState
 {
 public:
-	PlayerSkillState(Player*);
+	PlayerSkillState();
+	~PlayerSkillState() = default;
 
 	void OnBegin() override;
 	void OnUpdate(double) override;

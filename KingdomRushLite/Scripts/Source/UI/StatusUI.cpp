@@ -71,7 +71,7 @@ void StatusUI::OnRender(SDL_Renderer* _renderer)
 	_positionLeftUp.x = 0;
 	_positionLeftUp.y = 0 + _windowSize.y - playerIconSize.y;
 	//获取当前玩家种类，绘制对应图标
-	PlayerType _playerType = PlayerManager::Instance()->GetPlayerType();
+	PlayerType _playerType = PlayerManager::Instance()->player->GetType();
 	TextureResID _playerIconTextureID;
 	switch (_playerType)
 	{

@@ -1,6 +1,6 @@
 #include "../../../../Header/Player/State/Concrete/PlayerSkillState.h"
 
-PlayerSkillState::PlayerSkillState(Player* _player) :PlayerState::PlayerState(_player)
+PlayerSkillState::PlayerSkillState() :PlayerState::PlayerState()
 {
 }
 

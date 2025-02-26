@@ -1,6 +1,7 @@
 #include "../../../../Header/Player/State/Concrete/PlayerIdleState.h"
+#include "../../../../Header/Manager/Concrete/PlayerManager.h"
 
-PlayerIdleState::PlayerIdleState(Player* _player) :PlayerState::PlayerState(_player)
+PlayerIdleState::PlayerIdleState() :PlayerState::PlayerState()
 {
 }
 
@@ -14,7 +15,7 @@ void PlayerIdleState::OnUpdate(double _delta)
 	PlayerState::OnUpdate(_delta);
 
 	//¾²Ö¹ÔÚÔ­µØ
-	player->UpdateVelocity(0, 0);
+	PlayerManager::Instance()->player->UpdateVelocity(0, 0);
 }
 
 void PlayerIdleState::OnRender(SDL_Renderer* _renderer)

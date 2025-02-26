@@ -1,6 +1,7 @@
 #include "../../../../Header/Player/State/Concrete/PlayerMoveState.h"
+#include "../../../../Header/Manager/Concrete/PlayerManager.h"
 
-PlayerMoveState::PlayerMoveState(Player* _player) :PlayerState(_player)
+PlayerMoveState::PlayerMoveState() :PlayerState()
 {
 }
 
@@ -13,8 +14,10 @@ void PlayerMoveState::OnUpdate(double _delta)
 {
 	PlayerState::OnUpdate(_delta);
 
+	static Player* _player = PlayerManager::Instance()->player;
+
 	//设定速度向量
-	player->UpdateVelocity(player->xInput * speed, player->yInput * speed);
+	_player->UpdateVelocity(_player->xInput * _player->GetSpeed(), _player->yInput * _player->GetSpeed());
 }
 
 void PlayerMoveState::OnRender(SDL_Renderer* _renderer)

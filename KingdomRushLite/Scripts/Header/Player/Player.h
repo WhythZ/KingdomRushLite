@@ -24,6 +24,10 @@ protected:
 	Vector2 position;
 	Vector2 velocity;
 
+	#pragma region Config
+	double speed = 0;
+	#pragma endregion
+
 	#pragma region State
 	StateMachine* stateMachine;
 
@@ -51,6 +55,7 @@ public:
 	PlayerType GetType() const;
 	const Vector2& GetSize() const;
 	const Vector2& GetPosition() const;
+	double GetSpeed() const;
 
 protected:
 	virtual void ReleaseSkill00() = 0;

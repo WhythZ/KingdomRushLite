@@ -7,11 +7,6 @@ PlayerManager::~PlayerManager()
 	delete player;
 }
 
-void PlayerManager::SetPlayerType(PlayerType _type)
-{
-	playerType = _type;
-}
-
 void PlayerManager::OnInput(const SDL_Event& _event)
 {
 	player->OnInput(_event);
@@ -27,9 +22,9 @@ void PlayerManager::OnRender(SDL_Renderer* _renderer)
 	player->OnRender(_renderer);
 }
 
-void PlayerManager::InstantiatePlayer()
+void PlayerManager::InstantiatePlayer(PlayerType _playerType)
 {
-	switch (playerType)
+	switch (_playerType)
 	{
 	case PlayerType::Dragon:
 		player = new PlayerDragon();
@@ -44,19 +39,4 @@ void PlayerManager::InstantiatePlayer()
 		(double)ProcessManager::Instance()->map.GetHomeIdx().y * TILE_SIZE
 	};
 	player->SetPosition(_homePosition);
-}
-
-PlayerType PlayerManager::GetPlayerType() const
-{
-	return playerType;
-}
-
-const Vector2& PlayerManager::GetPlayerSize() const
-{
-	return player->GetSize();
-}
-
-const Vector2& PlayerManager::GetPlayerPosition() const
-{
-	return player->GetPosition();
 }
