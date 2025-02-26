@@ -9,11 +9,14 @@ GoblinPriest::GoblinPriest()
 
 	//获取配置数据
 	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::Instance()->goblinPriestPrefab;
-	//获取纹理
-	static SDL_Texture* _sprite = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Enemy_GoblinPriest)->second;
-	static SDL_Texture* _spriteSketch = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Enemy_GoblinPriest_Sketch)->second;
 
 	#pragma region SetAnimation
+	//获取纹理
+	static SDL_Texture* _sprite = ResourceManager::Instance()->
+		GetTexturePool().find(TextureResID::Enemy_GoblinPriest)->second;
+	static SDL_Texture* _spriteSketch = ResourceManager::Instance()->
+		GetTexturePool().find(TextureResID::Enemy_GoblinPriest_Sketch)->second;
+
 	static const std::vector<int> _spriteIdxListDown = { 0,1,2,3,4 };
 	static const std::vector<int> _spriteIdxListUp = { 5,6,7,8,9 };
 	static const std::vector<int> _spriteIdxListRight = { 10,11,12,13,14 };

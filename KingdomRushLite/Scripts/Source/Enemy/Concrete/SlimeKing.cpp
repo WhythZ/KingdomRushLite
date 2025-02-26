@@ -9,11 +9,14 @@ SlimeKing::SlimeKing()
 
 	//获取配置数据
 	static const ConfigManager::EnemyConfigPrefab& _configPrefab = ConfigManager::Instance()->slimeKingPrefab;
-	//获取纹理
-	static SDL_Texture* _sprite = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Enemy_SlimeKing)->second;
-	static SDL_Texture* _spriteSketch = ResourceManager::Instance()->GetTexturePool().find(TextureResID::Enemy_SlimeKing_Sketch)->second;
 
 	#pragma region SetAnimation
+	//获取纹理
+	static SDL_Texture* _sprite = ResourceManager::Instance()->
+		GetTexturePool().find(TextureResID::Enemy_SlimeKing)->second;
+	static SDL_Texture* _spriteSketch = ResourceManager::Instance()->
+		GetTexturePool().find(TextureResID::Enemy_SlimeKing_Sketch)->second;
+
 	static const std::vector<int> _spriteIdxListDown = { 0,1,2,3,4,5 };
 	static const std::vector<int> _spriteIdxListUp = { 6,7,8,9,10,11 };
 	static const std::vector<int> _spriteIdxListRight = { 12,13,14,15,16,17 };

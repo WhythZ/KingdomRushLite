@@ -1,43 +1,56 @@
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 
-#include "../Infra/Vector2.h"
 #include "PlayerType.h"
-#include "../Infra/StateMachine/StateMachine.h"
+#include "../Infra/Vector2.h"
 #include "../Infra/DirectionType.h"
-
+#include "../Infra/StateMachine/StateMachine.h"
+#include "State/Concrete/PlayerIdleState.h"
+#include "State/Concrete/PlayerMoveState.h"
+#include "State/Concrete/PlayerSkillState.h"
 
 class Player
 {
+public:
+	FacingDir facingDir = FacingDir::Down;
+
+	double xInput = 0;
+	double yInput = 0;
+
 protected:
 	PlayerType type = PlayerType::None;
 
-	#pragma region State
-
-	bool isMovingUp = true;
-	bool isMovingDown = true;
-	bool isMovingLeft = true;
-	bool isMovingRight = true;
-	#pragma endregion
-
-private:
 	Vector2 size;
 	Vector2 position;
 	Vector2 velocity;
 
-	FacingDir direction = FacingDir::Down;
+	#pragma region State
+	StateMachine* stateMachine;
 
-	bool isIdling = true;
-	bool isSkilling = false;
+	bool isIdle = true;
+	PlayerIdleState* idleState;
+	
+	bool isMove = false;
+	PlayerMoveState* moveState;
+
+	bool isSkill = false;
+	PlayerSkillState* skillState;
+	#pragma endregion
 
 public:
 	Player();
 	~Player();
 	void SetPosition(const Vector2&);
 
-	virtual void OnInput(const SDL_Event&);
-	virtual void OnUpdate(double);
-	virtual void OnRender(SDL_Renderer*);
+	void OnInput(const SDL_Event&);
+	void OnUpdate(double);
+	void OnRender(SDL_Renderer*);
+
+	void UpdateVelocity(double, double);
+
+	PlayerType GetType() const;
+	const Vector2& GetSize() const;
+	const Vector2& GetPosition() const;
 
 protected:
 	virtual void ReleaseSkill00() = 0;

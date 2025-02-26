@@ -124,6 +124,18 @@
     <Filter Include="源文件\Infra\StateMachine">
       <UniqueIdentifier>{956d4788-5e47-4430-8355-4f48f14dcdbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Player\State">
+      <UniqueIdentifier>{d88c8749-9fe0-4630-b396-1648fbd5996e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Player\State\Concrete">
+      <UniqueIdentifier>{b024c362-35c0-4e71-8471-52d4cbeb5d12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Player\State">
+      <UniqueIdentifier>{70cc81d9-8f13-4df2-9fef-a3813d5a828b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Player\State\Concrete">
+      <UniqueIdentifier>{2318ab4e-6d1b-4ed1-9e94-4862747259d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -252,11 +264,20 @@
     <ClCompile Include="Scripts\Source\Manager\Concrete\PlayerManager.cpp">
       <Filter>源文件\Manager\Concrete</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\Source\Infra\StateMachine\State.cpp">
-      <Filter>源文件\Infra\StateMachine</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\Source\Infra\StateMachine\StateMachine.cpp">
       <Filter>源文件\Infra\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Player\State\Concrete\PlayerIdleState.cpp">
+      <Filter>源文件\Player\State\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Player\State\Concrete\PlayerMoveState.cpp">
+      <Filter>源文件\Player\State\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Player\State\Concrete\PlayerSkillState.cpp">
+      <Filter>源文件\Player\State\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Player\State\PlayerState.cpp">
+      <Filter>源文件\Player\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,8 +431,17 @@
     <ClInclude Include="Scripts\Header\Infra\StateMachine\State.h">
       <Filter>头文件\Infra\StateMachine</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Player\Concrete\PlayerDragonStates.hpp">
-      <Filter>头文件\Player\Concrete</Filter>
+    <ClInclude Include="Scripts\Header\Player\State\Concrete\PlayerIdleState.h">
+      <Filter>头文件\Player\State\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Player\State\Concrete\PlayerMoveState.h">
+      <Filter>头文件\Player\State\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Player\State\Concrete\PlayerSkillState.h">
+      <Filter>头文件\Player\State\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Player\State\PlayerState.h">
+      <Filter>头文件\Player\State</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

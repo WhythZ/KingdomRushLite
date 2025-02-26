@@ -1,11 +1,5 @@
 #include "../../../Header/Infra/StateMachine/StateMachine.h"
 
-StateMachine::StateMachine(Vector2* _position, Vector2* _size)
-{
-	position = _position;
-	size = _size;
-}
-
 void StateMachine::OnUpdate(double _delta)
 {
 	currentState->OnUpdate(_delta);

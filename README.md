@@ -44,6 +44,7 @@ This prototype is designed data-driven, you can create your personal experience 
     - `GameManager`: Maintains game loop that handles all updating, rendering and inputs
     - `ProcessManager`: Maintains the in-game runtime data and offers related interfaces
 - Infrastructure Classes
+    - `StateMachine`: Acts as component of entity to control its changing of states derived from `State`
     - `Vector2`: Basic 2D vector with mathematical operators overloaded
     - `Timer`: Will trigger self-defined callback function when time out
     - `Animation`: Can be rendered with rotation, also offers spritesheet cutting
@@ -79,8 +80,8 @@ This prototype is designed data-driven, you can create your personal experience 
         - `StatusUI`: Renders the real-time status of health, coin number and cooldown of player skills
         - `TowerPanel`: Derives `TowerBuildPanel` and `TowerUpgradePanel` for building or upgrading towers
 - Controlable Character
-    - `Player`: Organized by `PlayerManager`, can move or use skills
-        - `PlayerDragon`: Derives from `Player`, can attack enemy by skills flashing and impacting
+    - `Player`: Organized by `PlayerManager`, controled by state machine
+        - `PlayerDragon`: Derives from `Player`, can attack enemy by skills including flash and impact
 
 ## Dependency
 |Lib|Version|

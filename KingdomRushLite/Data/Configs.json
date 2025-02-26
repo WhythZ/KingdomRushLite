@@ -5,7 +5,7 @@
 		"window_height":	720,
 		"window_title":	    "KingdomRushLite"
 	},
-	"player":
+	"player_dragon":
 	{
 		"speed":	               5,
 		"normal_attack_cooldown":  0.8,

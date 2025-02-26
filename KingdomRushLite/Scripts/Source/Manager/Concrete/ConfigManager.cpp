@@ -24,7 +24,7 @@ bool ConfigManager::LoadConfig(const std::string& _path)
 	if (!ParseBasicConfigPrefab(basicPrefab, cJSON_GetObjectItem(_jsonRoot, "basic"))) return false;
 
 	//½âÎöÍæ¼ÒÅäÖÃ
-	if (!ParsePlayerConfigPrefab(playerPrefab, cJSON_GetObjectItem(_jsonRoot, "player"))) return false;
+	if (!ParsePlayerConfigPrefab(playerDragonPrefab, cJSON_GetObjectItem(_jsonRoot, "player_dragon"))) return false;
 
 	//½âÎö¸÷·ÀÓùËşÅäÖÃ
 	cJSON* _jsonTower = cJSON_GetObjectItem(_jsonRoot, "tower");
