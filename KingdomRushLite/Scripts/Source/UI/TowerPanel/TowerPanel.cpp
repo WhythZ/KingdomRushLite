@@ -1,6 +1,7 @@
 #include "../../../Header/UI/TowerPanel/TowerPanel.h"
 #include <string>
 #include "../../../Header/Manager/Concrete/ResourceManager.h"
+#include "../../../Header/Manager/Concrete/AudioManager.h"
 #include "../../../Header/Manager/Concrete/UIManager.h"
 #include "../../../Header/Map/Tile.h"
 
@@ -42,6 +43,7 @@ void TowerPanel::OnInput(const SDL_Event& _event)
 		if (SDL_PointInRect(&_cursorPos, &_buttonRect))
 		{
 			hoveredButtonType = ButtonType::Top;
+			AudioManager::Instance()->PlaySFX(SoundResID::UI_Hover_Button);
 			return;
 		}
 
@@ -50,6 +52,7 @@ void TowerPanel::OnInput(const SDL_Event& _event)
 		if (SDL_PointInRect(&_cursorPos, &_buttonRect))
 		{
 			hoveredButtonType = ButtonType::Left;
+			AudioManager::Instance()->PlaySFX(SoundResID::UI_Hover_Button);
 			return;
 		}
 
@@ -58,6 +61,7 @@ void TowerPanel::OnInput(const SDL_Event& _event)
 		if (SDL_PointInRect(&_cursorPos, &_buttonRect))
 		{
 			hoveredButtonType = ButtonType::Right;
+			AudioManager::Instance()->PlaySFX(SoundResID::UI_Hover_Button);
 			return;
 		}
 
@@ -210,6 +214,9 @@ SDL_Point TowerPanel::GetSelectedTileIdx() const
 
 void TowerPanel::ShowPanel()
 {
+	//²¥·ÅUIÒôÐ§
+	AudioManager::Instance()->PlaySFX(SoundResID::UI_Tower_Show_Panel);
+
 	isActive = true;
 }
 

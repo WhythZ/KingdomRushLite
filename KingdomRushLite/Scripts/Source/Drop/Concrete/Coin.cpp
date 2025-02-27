@@ -1,5 +1,7 @@
 #include "../../../Header/Drop/Concrete/Coin.h"
 #include "../../../Header/Manager/Concrete/ResourceManager.h"
+#include "../../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../../Header/Manager/Concrete/AudioManager.h"
 
 //注意构造函数的多态写法
 Coin::Coin() : Drop::Drop()
@@ -17,5 +19,11 @@ Coin::Coin() : Drop::Drop()
 
 void Coin::OnCollide()
 {
+	//给予金币递增后再清除
+	ProcessManager::Instance()->IncreaseCoinNumBy(coinReward);
 
+	//拾取音效
+	AudioManager::Instance()->PlaySFX(SoundResID::Pick_Coin);
+
+	Drop::OnCollide();
 }

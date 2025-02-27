@@ -27,6 +27,8 @@ private:
 	DropManager() = default;
 	~DropManager();
 
+	void UpdateCollisionPlayer();                         //处理掉落物与玩家的碰撞
+
 	void RemoveInvalidDrops();                            //移除所有无效掉落物
 };
 

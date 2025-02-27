@@ -5,6 +5,9 @@
 
 class Coin :public Drop
 {
+private:
+	double coinReward = 10;        //奖励的金币数量
+
 public:
 	Coin();
 	~Coin() = default;

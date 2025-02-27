@@ -1,5 +1,6 @@
 #include "../../../Header/Manager/Concrete/DropManager.h"
 #include "../../../Header/Drop/Concrete/Coin.h"
+#include "../../../Header/Manager/Concrete/PlayerManager.h"
 
 DropManager::~DropManager()
 {
@@ -9,6 +10,10 @@ DropManager::~DropManager()
 
 void DropManager::OnUpdate(double _delta)
 {
+	//处理与玩家的碰撞监测
+	UpdateCollisionPlayer();
+
+	//清除无效掉落物
 	for (Drop* _drop : dropList)
 		_drop->OnUpdate(_delta);
 
@@ -50,6 +55,22 @@ void DropManager::TrySpawnDrop(DropType _type, const Vector2& _position, double 
 const DropManager::DropList& DropManager::GetDropList() const
 {
 	return dropList;
+}
+
+void DropManager::UpdateCollisionPlayer()
+{
+	static Player* _player = PlayerManager::Instance()->player;
+	Vector2 _pSize = _player->GetSize();
+	Vector2 _pPosition = _player->GetPosition();
+
+	for (Drop* _drop : dropList)
+	{
+		if (_pPosition.x + _pSize.x >= _drop->GetPosition().x - _drop->GetSize().x
+			|| _pPosition.x - _pSize.x <= _drop->GetPosition().x + _drop->GetSize().x
+			|| _pPosition.y + _pSize.y >= _drop->GetPosition().y - _drop->GetSize().y
+			|| _pPosition.y - _pSize.y <= _drop->GetPosition().y + _drop->GetSize().y)
+			_drop->OnCollide();
+	}
 }
 
 void DropManager::RemoveInvalidDrops()

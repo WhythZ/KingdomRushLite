@@ -66,7 +66,7 @@ void TowerManager::BuildTower(TowerType _type, const SDL_Point& _point)
 	ProcessManager::Instance()->map.MarkTowerBuiltAt(_type, _point);
 
 	//播放放置防御塔的音效
-	AudioManager::Instance()->PlaySFX(SoundResID::Tower_Build);
+	AudioManager::Instance()->PlaySFX(SoundResID::UI_Tower_Build);
 }
 
 void TowerManager::UpgradeTower(TowerType _type)
@@ -90,7 +90,7 @@ void TowerManager::UpgradeTower(TowerType _type)
 	}
 
 	//播放升级防御塔的音效
-	AudioManager::Instance()->PlaySFX(SoundResID::Tower_Upgrade);
+	AudioManager::Instance()->PlaySFX(SoundResID::UI_Tower_Upgrade);
 }
 
 double TowerManager::GetBuildCostOf(TowerType _type) const

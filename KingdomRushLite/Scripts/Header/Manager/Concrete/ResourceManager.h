@@ -76,26 +76,27 @@ enum class SoundResID
 	Pick_Coin,                      //硬币捡拾音效
 	Home_Hurt,                      //家被攻击音效
 
-	Tower_Build,                    //防御塔放置音效
-	Tower_Upgrade,                  //防御塔升级音效
-	Tower_Error,                    //防御塔操作失败音效
-
 	Bullet_Arrow_Fire_1,            //箭矢投射音效1
 	Bullet_Arrow_Fire_2,            //箭矢投射音效2
 	Bullet_Arrow_Hit_1,             //箭矢命中音效1
 	Bullet_Arrow_Hit_2,             //箭矢命中音效2
 	Bullet_Arrow_Hit_3,             //箭矢命中音效3
-
 	Bullet_Axe_Fire,                //斧头投射音效
 	Bullet_Axe_Hit_1,               //斧头命中音效1
 	Bullet_Axe_Hit_2,               //斧头命中音效2
 	Bullet_Axe_Hit_3,               //斧头命中音效3
-
 	Bullet_Shell_Fire,              //炸弹投射音效
 	Bullet_Shell_Hit,               //炸弹命中音效
 
-	Game_Win,                       //游戏胜利音效
-	Game_Loss,                      //游戏失败音效
+	UI_Hover_Button,                //鼠标悬浮在按钮上音效
+
+	UI_Tower_Show_Panel,            //打开防御塔面板音效
+	UI_Tower_Build,                 //防御塔放置音效
+	UI_Tower_Upgrade,               //防御塔升级音效
+	UI_Tower_Error,                 //防御塔操作失败音效
+
+	UI_Game_Win,                    //游戏胜利音效
+	UI_Game_Loss,                   //游戏失败音效
 };
 
 enum class FontResID

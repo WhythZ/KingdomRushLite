@@ -47,11 +47,11 @@ void TowerUpgradePanel::OnClickTop()
 		TowerManager::Instance()->UpgradeTower(TowerType::Axeman);
 
 		//播放对应升级音效
-		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Upgrade);
+		AudioManager::Instance()->PlaySFX(SoundResID::UI_Tower_Upgrade);
 	}
 	//否则播放操作失败音效
 	else
-		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Error);
+		AudioManager::Instance()->PlaySFX(SoundResID::UI_Tower_Error);
 }
 
 void TowerUpgradePanel::OnClickLeft()
@@ -63,10 +63,10 @@ void TowerUpgradePanel::OnClickLeft()
 		_pm->DecreaseCoinNumBy(leftCostValue);
 		TowerManager::Instance()->UpgradeTower(TowerType::Archer);
 
-		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Upgrade);
+		AudioManager::Instance()->PlaySFX(SoundResID::UI_Tower_Upgrade);
 	}
 	else
-		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Error);
+		AudioManager::Instance()->PlaySFX(SoundResID::UI_Tower_Error);
 }
 
 void TowerUpgradePanel::OnClickRight()
@@ -78,8 +78,8 @@ void TowerUpgradePanel::OnClickRight()
 		_pm->DecreaseCoinNumBy(rightCostValue);
 		TowerManager::Instance()->UpgradeTower(TowerType::Gunner);
 
-		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Upgrade);
+		AudioManager::Instance()->PlaySFX(SoundResID::UI_Tower_Upgrade);
 	}
 	else
-		AudioManager::Instance()->PlaySFX(SoundResID::Tower_Error);
+		AudioManager::Instance()->PlaySFX(SoundResID::UI_Tower_Error);
 }

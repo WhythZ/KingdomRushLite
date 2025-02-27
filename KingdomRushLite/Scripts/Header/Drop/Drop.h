@@ -42,7 +42,7 @@ public:
 
 	void OnUpdate(double);
 	void OnRender(SDL_Renderer*);
-	void virtual OnCollide();
+	virtual void OnCollide();
 
 	void Invalidate();
 

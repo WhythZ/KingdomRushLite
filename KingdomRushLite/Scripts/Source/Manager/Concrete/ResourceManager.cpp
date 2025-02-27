@@ -117,10 +117,6 @@ bool ResourceManager::LoadSoundRes()
 	soundPool[SoundResID::Pick_Coin] = Mix_LoadWAV("Assets/Audios/Sounds/Pick_Coin.mp3");
 	soundPool[SoundResID::Home_Hurt] = Mix_LoadWAV("Assets/Audios/Sounds/Home_Hurt.wav");
 
-	soundPool[SoundResID::Tower_Build] = Mix_LoadWAV("Assets/Audios/Sounds/Tower_Build.mp3");
-	soundPool[SoundResID::Tower_Upgrade] = Mix_LoadWAV("Assets/Audios/Sounds/Tower_Upgrade.mp3");
-	soundPool[SoundResID::Tower_Error] = Mix_LoadWAV("Assets/Audios/Sounds/Tower_Error.mp3");
-
 	soundPool[SoundResID::Bullet_Arrow_Fire_1] = Mix_LoadWAV("Assets/Audios/Sounds/Bullet_Arrow_Fire_1.mp3");
 	soundPool[SoundResID::Bullet_Arrow_Fire_2] = Mix_LoadWAV("Assets/Audios/Sounds/Bullet_Arrow_Fire_2.mp3");
 	soundPool[SoundResID::Bullet_Arrow_Hit_1] = Mix_LoadWAV("Assets/Audios/Sounds/Bullet_Arrow_Hit_1.mp3");
@@ -135,8 +131,15 @@ bool ResourceManager::LoadSoundRes()
 	soundPool[SoundResID::Bullet_Shell_Fire] = Mix_LoadWAV("Assets/Audios/Sounds/Bullet_Shell_Fire.wav");
 	soundPool[SoundResID::Bullet_Shell_Hit] = Mix_LoadWAV("Assets/Audios/Sounds/Bullet_Shell_Hit.mp3");
 
-	soundPool[SoundResID::Game_Win] = Mix_LoadWAV("Assets/Audios/Sounds/Game_Win.wav");
-	soundPool[SoundResID::Game_Loss] = Mix_LoadWAV("Assets/Audios/Sounds/Game_Loss.mp3");
+	soundPool[SoundResID::UI_Hover_Button] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Hover_Button.wav");
+
+	soundPool[SoundResID::UI_Tower_Show_Panel] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Tower_Show_Panel.mp3");
+	soundPool[SoundResID::UI_Tower_Build] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Tower_Build.mp3");
+	soundPool[SoundResID::UI_Tower_Upgrade] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Tower_Upgrade.wav");
+	soundPool[SoundResID::UI_Tower_Error] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Tower_Error.mp3");
+
+	soundPool[SoundResID::UI_Game_Win] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Game_Win.wav");
+	soundPool[SoundResID::UI_Game_Loss] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Game_Loss.mp3");
 
 	//检查unordered_map容器中所有键值对的值是否有效；其中auto是自动类型推导，成员second访问的是键值对的值
 	for (const auto& _pair : soundPool)

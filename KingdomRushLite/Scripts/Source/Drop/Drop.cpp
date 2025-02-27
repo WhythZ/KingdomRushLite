@@ -72,7 +72,8 @@ void Drop::OnRender(SDL_Renderer* _renderer)
 
 void Drop::OnCollide()
 {
-
+	//Çå³ı×ÔÉí
+	Invalidate();
 }
 
 void Drop::Invalidate()
