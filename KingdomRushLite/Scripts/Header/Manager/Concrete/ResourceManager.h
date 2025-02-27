@@ -12,14 +12,14 @@ enum class TextureResID
 {
 	Player_Dragon,                  //玩家控制的龙角色的帧动画
 	
-	VFX_Player_Dragon_Flash_Up,     //玩家龙技能闪电，方向朝上
-	VFX_Player_Dragon_Flash_Down,   //玩家龙技能闪电，方向朝下
-	VFX_Player_Dragon_Flash_Left,   //玩家龙技能闪电，方向朝左
-	VFX_Player_Dragon_Flash_Right,  //玩家龙技能闪电，方向朝右
-	VFX_Player_Dragon_Impact_Up,    //玩家龙技能震慑，方向朝右
-	VFX_Player_Dragon_Impact_Down,  //玩家龙技能震慑，方向朝右
-	VFX_Player_Dragon_Impact_Left,  //玩家龙技能震慑，方向朝右
-	VFX_Player_Dragon_Impact_Right, //玩家龙技能震慑，方向朝右
+	Player_Dragon_VFX_Flash_Up,     //玩家龙技能闪电，方向朝上
+	Player_Dragon_VFX_Flash_Down,   //玩家龙技能闪电，方向朝下
+	Player_Dragon_VFX_Flash_Left,   //玩家龙技能闪电，方向朝左
+	Player_Dragon_VFX_Flash_Right,  //玩家龙技能闪电，方向朝右
+	Player_Dragon_VFX_Impact_Up,    //玩家龙技能震慑，方向朝右
+	Player_Dragon_VFX_Impact_Down,  //玩家龙技能震慑，方向朝右
+	Player_Dragon_VFX_Impact_Left,  //玩家龙技能震慑，方向朝右
+	Player_Dragon_VFX_Impact_Right, //玩家龙技能震慑，方向朝右
 
 	Tile_TileSet,                   //瓦片素材图集
 	Tile_Home,                      //家瓦片
@@ -87,8 +87,6 @@ enum class SoundResID
 	Bullet_Axe_Hit_3,               //斧头命中音效3
 	Bullet_Shell_Fire,              //炸弹投射音效
 	Bullet_Shell_Hit,               //炸弹命中音效
-
-	UI_Hover_Button,                //鼠标悬浮在按钮上音效
 
 	UI_Tower_Show_Panel,            //打开防御塔面板音效
 	UI_Tower_Build,                 //防御塔放置音效

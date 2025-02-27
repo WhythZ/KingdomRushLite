@@ -6,7 +6,7 @@
 class Coin :public Drop
 {
 private:
-	double coinReward = 10;        //奖励的金币数量
+	double coinReward = 20;        //奖励的金币数量
 
 public:
 	Coin();

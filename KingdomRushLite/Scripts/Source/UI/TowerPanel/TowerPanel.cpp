@@ -43,7 +43,6 @@ void TowerPanel::OnInput(const SDL_Event& _event)
 		if (SDL_PointInRect(&_cursorPos, &_buttonRect))
 		{
 			hoveredButtonType = ButtonType::Top;
-			AudioManager::Instance()->PlaySFX(SoundResID::UI_Hover_Button);
 			return;
 		}
 
@@ -52,7 +51,6 @@ void TowerPanel::OnInput(const SDL_Event& _event)
 		if (SDL_PointInRect(&_cursorPos, &_buttonRect))
 		{
 			hoveredButtonType = ButtonType::Left;
-			AudioManager::Instance()->PlaySFX(SoundResID::UI_Hover_Button);
 			return;
 		}
 
@@ -61,7 +59,6 @@ void TowerPanel::OnInput(const SDL_Event& _event)
 		if (SDL_PointInRect(&_cursorPos, &_buttonRect))
 		{
 			hoveredButtonType = ButtonType::Right;
-			AudioManager::Instance()->PlaySFX(SoundResID::UI_Hover_Button);
 			return;
 		}
 

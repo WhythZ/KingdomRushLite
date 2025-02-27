@@ -37,16 +37,16 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 	//SDL_Texture* _imgTexture = SDL_CreateTextureFromSurface(_renderer, _imgSurface);  //从内存加载到显存（GPU纹理数据）
 
 	//将图片资源加载存储在图像池（unordered_map类型的容器）
-	texturePool[TextureResID::Player_Dragon] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/Player_Dragon.png");
+	texturePool[TextureResID::Player_Dragon] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon.png");
 
-	texturePool[TextureResID::VFX_Player_Dragon_Flash_Up] = IMG_LoadTexture(_renderer, "Assets/Sprites/VFX/VFX_Player_Dragon_Flash_Up.png");
-	texturePool[TextureResID::VFX_Player_Dragon_Flash_Down] = IMG_LoadTexture(_renderer, "Assets/Sprites/VFX/VFX_Player_Dragon_Flash_Down.png");
-	texturePool[TextureResID::VFX_Player_Dragon_Flash_Left] = IMG_LoadTexture(_renderer, "Assets/Sprites/VFX/VFX_Player_Dragon_Flash_Left.png");
-	texturePool[TextureResID::VFX_Player_Dragon_Flash_Right] = IMG_LoadTexture(_renderer, "Assets/Sprites/VFX/VFX_Player_Dragon_Flash_Right.png");
-	texturePool[TextureResID::VFX_Player_Dragon_Impact_Up] = IMG_LoadTexture(_renderer, "Assets/Sprites/VFX/VFX_Player_Dragon_Impact_Up.png");
-	texturePool[TextureResID::VFX_Player_Dragon_Impact_Down] = IMG_LoadTexture(_renderer, "Assets/Sprites/VFX/VFX_Player_Dragon_Impact_Down.png");
-	texturePool[TextureResID::VFX_Player_Dragon_Impact_Left] = IMG_LoadTexture(_renderer, "Assets/Sprites/VFX/VFX_Player_Dragon_Impact_Left.png");
-	texturePool[TextureResID::VFX_Player_Dragon_Impact_Right] = IMG_LoadTexture(_renderer, "Assets/Sprites/VFX/VFX_Player_Dragon_Impact_Right.png");
+	texturePool[TextureResID::Player_Dragon_VFX_Flash_Up] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Flash_Up.png");
+	texturePool[TextureResID::Player_Dragon_VFX_Flash_Down] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Flash_Down.png");
+	texturePool[TextureResID::Player_Dragon_VFX_Flash_Left] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Flash_Left.png");
+	texturePool[TextureResID::Player_Dragon_VFX_Flash_Right] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Flash_Right.png");
+	texturePool[TextureResID::Player_Dragon_VFX_Impact_Up] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Impact_Up.png");
+	texturePool[TextureResID::Player_Dragon_VFX_Impact_Down] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Impact_Down.png");
+	texturePool[TextureResID::Player_Dragon_VFX_Impact_Left] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Impact_Left.png");
+	texturePool[TextureResID::Player_Dragon_VFX_Impact_Right] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Impact_Right.png");
 
 	texturePool[TextureResID::Tile_TileSet] = IMG_LoadTexture(_renderer, "Assets/Sprites/Tile/Tile_TileSet.png");
 	texturePool[TextureResID::Tile_Home] = IMG_LoadTexture(_renderer, "Assets/Sprites/Tile/Tile_Home.png");
@@ -131,9 +131,7 @@ bool ResourceManager::LoadSoundRes()
 	soundPool[SoundResID::Bullet_Shell_Fire] = Mix_LoadWAV("Assets/Audios/Sounds/Bullet_Shell_Fire.wav");
 	soundPool[SoundResID::Bullet_Shell_Hit] = Mix_LoadWAV("Assets/Audios/Sounds/Bullet_Shell_Hit.mp3");
 
-	soundPool[SoundResID::UI_Hover_Button] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Hover_Button.wav");
-
-	soundPool[SoundResID::UI_Tower_Show_Panel] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Tower_Show_Panel.mp3");
+	soundPool[SoundResID::UI_Tower_Show_Panel] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Tower_Show_Panel.wav");
 	soundPool[SoundResID::UI_Tower_Build] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Tower_Build.mp3");
 	soundPool[SoundResID::UI_Tower_Upgrade] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Tower_Upgrade.wav");
 	soundPool[SoundResID::UI_Tower_Error] = Mix_LoadWAV("Assets/Audios/Sounds/UI_Tower_Error.mp3");

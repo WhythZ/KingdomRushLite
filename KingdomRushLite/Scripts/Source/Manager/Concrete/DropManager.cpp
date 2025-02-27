@@ -65,10 +65,10 @@ void DropManager::UpdateCollisionPlayer()
 
 	for (Drop* _drop : dropList)
 	{
-		if (_pPosition.x + _pSize.x >= _drop->GetPosition().x - _drop->GetSize().x
-			|| _pPosition.x - _pSize.x <= _drop->GetPosition().x + _drop->GetSize().x
-			|| _pPosition.y + _pSize.y >= _drop->GetPosition().y - _drop->GetSize().y
-			|| _pPosition.y - _pSize.y <= _drop->GetPosition().y + _drop->GetSize().y)
+		if (_pPosition.x + _pSize.x / 2 >= _drop->GetPosition().x - _drop->GetSize().x / 2
+			&& _pPosition.x - _pSize.x / 2 <= _drop->GetPosition().x + _drop->GetSize().x / 2
+			&& _pPosition.y + _pSize.y / 2 >= _drop->GetPosition().y - _drop->GetSize().y / 2
+			&& _pPosition.y - _pSize.y / 2 <= _drop->GetPosition().y + _drop->GetSize().y / 2)
 			_drop->OnCollide();
 	}
 }
