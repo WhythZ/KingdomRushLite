@@ -70,8 +70,6 @@ WaveManager::WaveManager()
 			const std::vector<Wave::SpawnEvent> _eventList = waveList[waveIdx].spawnEventList;
 			const Wave::SpawnEvent _event = _eventList[eventIdx];
 
-			std::cout << _event.enemyType << "\n";
-
 			//按照当前生成事件的设置，在对应出生点路径上生成对应种类的敌人
 			EnemyManager::Instance()->SpawnEnemy(_event.enemyType, _event.spawnPoint);
 

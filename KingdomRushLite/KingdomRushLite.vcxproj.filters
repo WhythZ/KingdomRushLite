@@ -231,9 +231,6 @@
     <ClCompile Include="Scripts\Source\Enemy\EnemyType.cpp">
       <Filter>源文件\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\Source\UI\StatusUI.cpp">
-      <Filter>源文件\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\Source\Infra\Timer.cpp">
       <Filter>源文件\Infra</Filter>
     </ClCompile>
@@ -284,6 +281,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\Source\Infra\StateMachine\State.cpp">
       <Filter>源文件\Infra\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\UI\StatusUI.cpp">
+      <Filter>源文件\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

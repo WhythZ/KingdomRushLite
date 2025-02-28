@@ -5,6 +5,7 @@
 #include "../../Header/Manager/Concrete/ResourceManager.h"
 #include "../../Header/Manager/Concrete/ConfigManager.h"
 #include "../../Header/Manager/Concrete/ProcessManager.h"
+#include "../../Header/Manager/Concrete/WaveManager.h"
 #include "../../Header/Manager/Concrete/PlayerManager.h"
 
 void StatusUI::OnUpdate(SDL_Renderer* _renderer)
@@ -13,21 +14,36 @@ void StatusUI::OnUpdate(SDL_Renderer* _renderer)
 	//由于每帧OnUpdate函数都会生成一张文本的纹理，故先清除掉上一帧的遗留垃圾
 	SDL_DestroyTexture(coinNumTextTexture);
 	coinNumTextTexture = nullptr;
+	SDL_DestroyTexture(waveNumTextTexture);
+	waveNumTextTexture = nullptr;
 	#pragma endregion
 
-	#pragma region CoinText
+	#pragma region CoinNumText
 	//拿到金币数量，强转为整形后转化为字符串
 	static ProcessManager* _pm = ProcessManager::Instance();
 	std::string _coinNumStr = std::to_string((int)_pm->GetCurrentCoinNum());
 	//先将文本以特定字体加载到内存中
 	static TTF_Font* _font = ResourceManager::Instance()->GetFontPool().find(FontResID::Ipix)->second;
-	SDL_Surface* _coinTextSurface = TTF_RenderText_Blended(_font, _coinNumStr.c_str(), coinTextColor);
+	SDL_Surface* _coinTextSurface = TTF_RenderText_Blended(_font, _coinNumStr.c_str(), coinNumTextColor);
 	//获取转化后的图片的长宽
 	coinNumTextSize = { _coinTextSurface->w, _coinTextSurface->h };
 	//然后再将其转化为纹理格式
 	coinNumTextTexture = SDL_CreateTextureFromSurface(_renderer, _coinTextSurface);
 	//然后清理已经无用了的Surface垃圾
 	SDL_FreeSurface(_coinTextSurface);
+	#pragma endregion
+
+	#pragma region WaveNumText
+	static WaveManager* _wm = WaveManager::Instance();
+	std::string _waveNumStr = "WAVE " + std::to_string(_wm->GetCurrentWaveIdx() + 1);
+	//先将文本以特定字体加载到内存中
+	SDL_Surface* _waveNumTextSurface = TTF_RenderText_Blended(_font, _waveNumStr.c_str(), waveNumTextColor);
+	//获取转化后的图片的长宽
+	waveNumTextSize = { _waveNumTextSurface->w, _waveNumTextSurface->h };
+	//然后再将其转化为纹理格式
+	waveNumTextTexture = SDL_CreateTextureFromSurface(_renderer, _waveNumTextSurface);
+	//然后清理已经无用了的Surface垃圾
+	SDL_FreeSurface(_waveNumTextSurface);
 	#pragma endregion
 
 	#pragma region MpBarRatio
@@ -71,6 +87,13 @@ void StatusUI::OnRender(SDL_Renderer* _renderer)
 	_positionLeftUp.x = 0 + coinIconSize.x + iconTextBetweenDistance;
 	_positionLeftUp.y = 0 + healthHeartIconSize.y + rowBetweenDistance;
 	_ui->DrawTexture(_renderer, coinNumTextTexture, _positionLeftUp, coinNumTextSize);
+	#pragma endregion
+
+	#pragma region WaveNumText
+	//渲染在屏幕右上角
+	_positionLeftUp.x = 0 + _windowSize.x - waveNumTextSize.x;
+	_positionLeftUp.y = 0;
+	_ui->DrawTexture(_renderer, waveNumTextTexture, _positionLeftUp, waveNumTextSize);
 	#pragma endregion
 
 	#pragma region PlayerIcon

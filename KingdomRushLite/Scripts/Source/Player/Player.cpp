@@ -59,6 +59,8 @@ void Player::SetVelocity(const Vector2& _velocity)
 void Player::OnInput(const SDL_Event& _event)
 {
 	stateMachine->OnInput(_event);
+
+	std::cout << "xInput=" << xInput << ", yInput=" << yInput << "\n";
 }
 
 void Player::OnUpdate(double _delta)

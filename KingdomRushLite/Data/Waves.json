@@ -48,7 +48,7 @@
 	},
 	{
 		"coin_rewards":			200,
-		"wave_interval":		2,
+		"wave_interval":		8,
 		"spawn_list":
 		[
 			{
@@ -95,7 +95,7 @@
 	},
 	{
 		"coin_rewards":			400,
-		"wave_interval":		4,
+		"wave_interval":		8,
 		"spawn_list":
 		[
 			{
@@ -142,7 +142,7 @@
 	},
 	{
 		"coin_rewards":			400,
-		"wave_interval":		4,
+		"wave_interval":		8,
 		"spawn_list":
 		[
 			{
@@ -189,7 +189,7 @@
 	},
 	{
 		"coin_rewards":			600,
-		"wave_interval":		6,
+		"wave_interval":		8,
 		"spawn_list":
 		[
 			{
