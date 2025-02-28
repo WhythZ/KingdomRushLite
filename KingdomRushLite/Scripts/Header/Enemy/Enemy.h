@@ -20,7 +20,7 @@ public:
 
 protected:
 	EnemyType type = EnemyType::None;           //敌人的种类
-	Vector2 size;                               //敌人的尺寸大小
+	SDL_Point size;                             //敌人的尺寸大小
 
 	#pragma region Animation
 	Animation* animCurrent;                     //指向当前调用的动画
@@ -96,7 +96,7 @@ public:
 	double GetRouteProcess() const;             //获取怪物行进状况
 
 	double GetHealth() const;                   //获取当前血量
-	const Vector2& GetSize() const;             //获取贴图（碰撞箱）尺寸
+	const SDL_Point& GetSize() const;           //获取贴图（碰撞箱）尺寸
 	const Vector2& GetPosition() const;         //获取怪物位置
 	double GetAttackDamage() const;             //获取怪物能对家造成的伤害
 

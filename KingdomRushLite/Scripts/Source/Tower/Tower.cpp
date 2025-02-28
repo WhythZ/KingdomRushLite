@@ -108,7 +108,7 @@ void Tower::OnRender(SDL_Renderer* _renderer)
 	animCurrent->OnRender(_renderer, _point);
 }
 
-const Vector2& Tower::GetSize() const
+const SDL_Point& Tower::GetSize() const
 {
 	return size;
 }

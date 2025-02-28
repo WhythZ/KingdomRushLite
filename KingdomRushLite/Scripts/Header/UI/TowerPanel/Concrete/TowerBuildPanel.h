@@ -9,7 +9,7 @@ private:
 	#pragma region Setting
 	#pragma region Color
 	SDL_Color fireCircleBorderColor = { 30,50,160,180 };     //攻击范围圆的边框颜色，有一定透明度
-	SDL_Color fireCircleContentColor = { 0,149,217,180 };    //攻击范围圆的填充颜色，有一定透明度
+	SDL_Color fireCircleContentColor = { 0,149,217,75 };    //攻击范围圆的填充颜色，有一定透明度
 	#pragma endregion
 	#pragma endregion
 

@@ -213,7 +213,7 @@ double Enemy::GetHealth() const
 	return healthCurrent;
 }
 
-const Vector2& Enemy::GetSize() const
+const SDL_Point& Enemy::GetSize() const
 {
 	//比如碰撞检测的时候，就需要获取碰撞箱尺寸（此处简化其为贴图尺寸）
 	return size;

@@ -6,10 +6,11 @@
 class PlayerIdleState :public PlayerState
 {
 public:
-	PlayerIdleState();
+	PlayerIdleState(bool*);
 	~PlayerIdleState() = default;
 
 	void OnBegin() override;
+	void OnInput(const SDL_Event&) override;
 	void OnUpdate(double) override;
 	void OnRender(SDL_Renderer*) override;
 	void OnEnd() override;

@@ -80,7 +80,7 @@ void Bullet::Invalidate()
 	DisableCollide();
 }
 
-const Vector2& Bullet::GetSize() const
+const SDL_Point& Bullet::GetSize() const
 {
 	return size;
 }

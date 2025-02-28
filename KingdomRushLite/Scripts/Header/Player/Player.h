@@ -12,6 +12,14 @@
 class Player
 {
 public:
+	#pragma region State
+	StateMachine* stateMachine;
+	
+	PlayerIdleState* idleState;
+	PlayerMoveState* moveState;
+	PlayerSkillState* skillState;
+	#pragma endregion
+
 	FacingDir facingDir = FacingDir::Down;
 
 	double xInput = 0;
@@ -23,6 +31,12 @@ protected:
 	Vector2 position;
 	Vector2 velocity;
 
+	#pragma region StateBool
+	bool isIdle = true;
+	bool isMove = false;
+	bool isSkill = false;
+	#pragma endregion
+
 	#pragma region Stats
 	double speed = 0;
 	double skill00Cooldown = 10;
@@ -31,22 +45,12 @@ protected:
 	double skill01Damage = 0;
 	#pragma endregion
 
-	#pragma region State
-	StateMachine* stateMachine;
+	#pragma region Skill
+	bool canReleaseSkill00 = true;
+	bool canReleaseSkill01 = true;
 
-	bool isIdle = true;
-	PlayerIdleState* idleState;
-	
-	//通过四个布尔值决定isMove的值
-	bool isMoveUp = false;
-	bool isMoveDown = false;
-	bool isMoveLeft = false;
-	bool isMoveRight = false;
-	bool isMove = false;
-	PlayerMoveState* moveState;
-
-	bool isSkill = false;
-	PlayerSkillState* skillState;
+	Timer skill00Timer;
+	Timer skill01Timer;
 	#pragma endregion
 
 public:
@@ -56,8 +60,11 @@ public:
 	void SetVelocity(const Vector2&);
 
 	void OnInput(const SDL_Event&);
-	void OnUpdate(double);
-	void OnRender(SDL_Renderer*);
+	virtual void OnUpdate(double);
+	virtual void OnRender(SDL_Renderer*);
+
+	void HandleMovementInput(const SDL_Event&);      //OnInput函数并非在每个状态都处理用户输入
+	void HandleSkillInput(const SDL_Event&);
 
 	PlayerType GetType() const;
 	const Vector2& GetSize() const;
@@ -65,8 +72,8 @@ public:
 	double GetSpeed() const;
 
 protected:
-	virtual void ReleaseSkill00() = 0;
-	virtual void ReleaseSkill01() = 0;
+	virtual void TryReleaseSkill00() = 0;
+	virtual void TryReleaseSkill01() = 0;
 };
 
 #endif

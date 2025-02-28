@@ -10,7 +10,7 @@ class Drop
 {
 protected:
 	DropType type = DropType::None;
-	Vector2 size;                      //掉落物的尺寸
+	SDL_Point size;                    //掉落物的尺寸
 	Vector2 position;                  //掉落物出现的位置
 	Vector2 velocity;                  //掉落物是从初始位置向上弹出来的，故需控制其速度向量
 
@@ -48,7 +48,7 @@ public:
 
 	bool IsValid() const;
 	const Vector2& GetPosition() const;
-	const Vector2& GetSize() const;
+	const SDL_Point& GetSize() const;
 };
 
 #endif

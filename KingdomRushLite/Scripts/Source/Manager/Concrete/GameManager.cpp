@@ -198,8 +198,9 @@ void GameManager::OnRender()
 	BulletManager::Instance()->OnRender(renderer);
 	TowerManager::Instance()->OnRender(renderer);
 	DropManager::Instance()->OnRender(renderer);
-	UIManager::Instance()->OnRender(renderer);
 	PlayerManager::Instance()->OnRender(renderer);
+	//注意函数调用的顺序，UI应当是最后渲染的，以保证始终在最上层
+	UIManager::Instance()->OnRender(renderer);
 }
 
 bool GameManager::GenerateTileMapTexture()

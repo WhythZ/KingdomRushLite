@@ -91,7 +91,7 @@ const Vector2& Drop::GetPosition() const
 	return position;
 }
 
-const Vector2& Drop::GetSize() const
+const SDL_Point& Drop::GetSize() const
 {
 	return size;
 }

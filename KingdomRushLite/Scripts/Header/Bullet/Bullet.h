@@ -10,7 +10,7 @@ class Bullet
 {
 protected:
 	BulletType type = BulletType::None;     //子弹的类型
-	Vector2 size;                           //子弹的尺寸
+	SDL_Point size;                         //子弹的尺寸
 	Vector2 position;                       //子弹的位置
 	Vector2 velocity;                       //子弹运动的速度
 
@@ -43,7 +43,7 @@ public:
 	void DisableCollide();                  //取消子弹的可碰撞，以造成瞬时伤害而非持续伤害
 	void Invalidate();                      //使得子弹消失
 
-	const Vector2& GetSize() const;         //获取子弹尺寸，用于命中碰撞检测
+	const SDL_Point& GetSize() const;       //获取子弹尺寸，用于命中碰撞检测
 	const Vector2& GetPosition() const;     //获取子弹位置
 	double GetDamage() const;               //获取子弹伤害
 	double GetDamageRadius() const;         //获取子弹伤害范围，用于伤害碰撞检测

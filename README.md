@@ -41,7 +41,7 @@ This prototype is designed data-driven, you can create your personal experience 
 
  Short descriptions about the core functional classes which forms multiple extensible gameplay systems are listed below, notice that all managers are derived from singleton `Manager` base class
 - General Game Management
-    - `GameManager`: Maintains game loop that handles all updating, rendering and inputs
+    - `GameManager`: Maintains game main loop that handles all updating, rendering and inputs
     - `ProcessManager`: Maintains the in-game runtime data and offers related interfaces
 - Infrastructure Classes
     - `StateMachine`: Acts as component of entity to control its changing of states derived from `State`

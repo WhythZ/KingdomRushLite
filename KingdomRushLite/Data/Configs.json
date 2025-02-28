@@ -8,9 +8,9 @@
 	"player_dragon":
 	{
 		"speed":				5,
-		"skill_00_cooldown":	3,
+		"skill_00_cooldown":	2,
 		"skill_00_damage":		10,
-		"skill_01_cooldown":	5,
+		"skill_01_cooldown":	10,
 		"skill_01_damage":		20
 	},
 	"tower":

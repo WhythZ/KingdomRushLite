@@ -76,9 +76,12 @@ void UIManager::OnUpdate(SDL_Renderer* _renderer)
 
 void UIManager::OnRender(SDL_Renderer* _renderer)
 {
-	statusUI->OnRender(_renderer);
-	towerBuildPanel->OnRender(_renderer);
-	towerUpgradePanel->OnRender(_renderer);
+	if (!ProcessManager::Instance()->isGameOver)
+	{
+		statusUI->OnRender(_renderer);
+		towerBuildPanel->OnRender(_renderer);
+		towerUpgradePanel->OnRender(_renderer);
+	}
 }
 
 void UIManager::DrawTexture(SDL_Renderer* _renderer, SDL_Texture* _texture, const SDL_Point& _LeftUpPosition, const SDL_Point& _size)

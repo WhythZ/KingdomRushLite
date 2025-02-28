@@ -155,7 +155,7 @@ void EnemyManager::UpdateCollisionBullet()
 
 		//获取敌人位置与尺寸
 		const Vector2& _enemyPosition = _enemy->GetPosition();
-		const Vector2& _enemySize = _enemy->GetSize();
+		const SDL_Point& _enemySize = _enemy->GetSize();
 
 		//遍历场上所有子弹
 		static const BulletManager::BulletList& _bulletList = BulletManager::Instance()->GetBulletList();
@@ -176,12 +176,9 @@ void EnemyManager::UpdateCollisionBullet()
 				double _damage = _bullet->GetDamage();
 				double _damageRadius = _bullet->GetDamageRadius();
 
-				//若范围为非正数，则说明是单体伤害
+				//若范围为非正数，则说明是单体伤害，直接对敌人造成子弹的减血效果（该函数内置死亡检测以及爆金币等逻辑）
 				if (_damageRadius <= 0)
-				{
-					//处理敌人被子弹碰撞后的减血效果（该函数内置死亡检测以及爆金币等逻辑）
 					_enemy->DecreaseHealthBy(_damage);
-				}
 				//否则造成范围伤害
 				else
 				{
@@ -189,10 +186,7 @@ void EnemyManager::UpdateCollisionBullet()
 					for (Enemy* _target : enemyList)
 					{
 						if ((_target->GetPosition() - _bulletPosition).Length() <= _damageRadius)
-						{
-							//处理敌人被子弹碰撞后的减血效果（该函数内置死亡检测以及爆金币等逻辑）
 							_target->DecreaseHealthBy(_damage);
-						}
 					}
 				}
 

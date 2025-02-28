@@ -1,5 +1,11 @@
 #include "../../../Header/Infra/StateMachine/StateMachine.h"
 
+void StateMachine::OnInput(const SDL_Event& _event)
+{
+	if (currentState != nullptr)
+		currentState->OnInput(_event);
+}
+
 void StateMachine::OnUpdate(double _delta)
 {
 	if (currentState != nullptr)

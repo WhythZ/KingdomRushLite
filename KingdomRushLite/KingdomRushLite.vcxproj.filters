@@ -279,6 +279,9 @@
     <ClCompile Include="Scripts\Source\Player\State\PlayerState.cpp">
       <Filter>源文件\Player\State</Filter>
     </ClCompile>
+    <ClCompile Include="Scripts\Source\Infra\StateMachine\State.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Map\Tile.h">
