@@ -18,7 +18,6 @@ private:
 public:
 	Timer() = default;
 	~Timer() = default;
-
 	void SetWaitTime(double);                       //设置等待时间
 	void SetOneShot(bool);                          //设置是否可以多次触发
 	void SetTimeOutTrigger(std::function<void()>);  //设置<void()>即无参无返的回调函数

@@ -192,15 +192,22 @@ double Player::GetSpeed() const
 double Player::GetSkill00CooldownRatio() const
 {
 	double _ratio = skill00Timer.GetPassTime() / skill00Cooldown;
-	if (_ratio <= 0 || _ratio > 1)
+	if (_ratio <= 0.01 || _ratio > 1)
 		_ratio = 1;
 	return _ratio;
+
+	//把Timer::OnUpdate函数的逻辑中的passTime-=waitTime使得下面的代码会在技能恢复冷却后，_ratio变为某个>0但是很小的数
+	//若改为passTime=0则可以解决该问题，但这会导致WaveManager中波次生成产生莫名其妙的混乱，暂时不明原因
+	//double _ratio = skill00Timer.GetPassTime() / skill00Cooldown;
+	//if (_ratio <= 0 || _ratio > 1)
+	//	_ratio = 1;
+	//return _ratio;
 }
 
 double Player::GetSkill01CooldownRatio() const
 {
 	double _ratio = skill01Timer.GetPassTime() / skill01Cooldown;
-	if (_ratio <= 0 || _ratio > 1)
+	if (_ratio <= 0.01 || _ratio > 1)
 		_ratio = 1;
 	return _ratio;
 }

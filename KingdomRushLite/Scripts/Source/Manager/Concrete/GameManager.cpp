@@ -35,9 +35,9 @@ GameManager::GameManager()
 	ConfigManager* _config = ConfigManager::Instance();
 	ProcessManager* _process = ProcessManager::Instance();
 	//使用初始化断言，加载地图文件、主配置文件（其内包含窗口配置信息，故而放在窗口初始化之前）、关卡文件
-	InitAssert(_process->map.Load("Data/Map00.csv"), u8"Failed To Load map.csv");
-	InitAssert(_config->LoadConfig("Data/Configs.json"), u8"Failed To Load config.json");
-	InitAssert(_config->LoadWaves("Data/Waves00.json"), u8"Failed To Load waves.json");
+	InitAssert(_process->map.Load("Data/Map.csv"), u8"Failed To Load Map.csv");
+	InitAssert(_config->LoadConfig("Data/Configs.json"), u8"Failed To Load Configs.json");
+	InitAssert(_config->LoadWaves("Data/Waves.json"), u8"Failed To Load Waves.json");
 	#pragma endregion
 
 	#pragma region Window&Renderer

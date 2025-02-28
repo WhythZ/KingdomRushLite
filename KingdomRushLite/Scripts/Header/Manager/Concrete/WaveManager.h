@@ -13,14 +13,13 @@ class WaveManager :public Manager<WaveManager>
 
 private:
 	std::vector<Wave> waveList;     //记录波次列表
-	int waveIdx = 0;                //当前正在进行的宏观波次索引
+	int waveIdx = -1;               //当前正在进行的宏观波次索引
 	int eventIdx = 0;               //当前波次进行的微观生成事件的索引
 	
-	Timer waveStartTimer;           //用于唤醒宏观波次的计时器
-	Timer eventStartTimer;          //用于唤醒微观生成事件的计时器
+	Timer newWaveTimer;             //用于唤起宏观波次的计时器
+	Timer newEventTimer;            //用于唤起微观生成事件的计时器
 
-	bool isWaveStarted = false;     //波次开始
-	bool isWaveEnded = false;       //当前波次的所有生成事件执行完毕
+	bool isWaveEnded = true;        //当前波次的所有生成事件执行完毕
 
 public:
 	void OnUpdate(double);          //帧更新函数

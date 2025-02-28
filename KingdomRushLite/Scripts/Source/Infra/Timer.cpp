@@ -26,16 +26,15 @@ void Timer::OnUpdate(double _delta)
 	//若达到了等待时间，计时器就被触发了
 	if (passTime >= waitTime)
 	{
-		//若只能触发一次且没被触发过，或者能被多次触发，则该计时器才可以被触发
+		//若能被多次触发，或者只能触发一次且没被触发过，则该计时器才可以被触发
 		bool _canShot = (!isOneShot || (isOneShot && !isShotted));
 
 		//如果可触发，且回调函数存在，则触发回调函数
 		if (_canShot && trigger)
 			trigger();
 
-		//如果可多次触发，则消费掉一个等待时间周期，以便下一次触发
-		if (!isOneShot)
-			passTime -= waitTime;
+		//消费掉一个等待时间周期，以便下一次触发
+		passTime -= waitTime;
 	}
 }
 

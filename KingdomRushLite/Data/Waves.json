@@ -1,7 +1,7 @@
 [
 	{
-		"coin_rewards":			100,
-		"wave_interval":		3,
+		"coin_rewards":			200,
+		"wave_interval":		2,
 		"spawn_list":
 		[
 			{
@@ -12,22 +12,22 @@
 			{
 				"event_interval":	1,
 				"spawn_point":		1,
-				"enemy_type":		"slime_king"
+				"enemy_type":		"slime"
 			},
 			{
 				"event_interval":	1,
 				"spawn_point":		1,
-				"enemy_type":		"skeleton"
+				"enemy_type":		"slime"
 			},
 			{
 				"event_interval":	1,
 				"spawn_point":		1,
-				"enemy_type":		"goblin"
+				"enemy_type":		"slime"
 			},
 			{
 				"event_interval":	1,
 				"spawn_point":		1,
-				"enemy_type":		"goblin_priest"
+				"enemy_type":		"slime"
 			},
 			{
 				"event_interval":	1,
@@ -48,48 +48,43 @@
 	},
 	{
 		"coin_rewards":			200,
-		"wave_interval":		5,
+		"wave_interval":		2,
 		"spawn_list":
 		[
 			{
-				"event_interval":	1,
-				"spawn_point":		1,
-				"enemy_type":		"slime"
-			},
-			{
-				"event_interval":	1,
-				"spawn_point":		1,
-				"enemy_type":		"slime"
-			},
-			{
-				"event_interval":	1,
-				"spawn_point":		1,
-				"enemy_type":		"slime"
-			},
-			{
 				"event_interval":	0,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
-			},
-			{
-				"event_interval":	1,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
-			},
-			{
-				"event_interval":	1,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
+				"spawn_point":		1,
+				"enemy_type":		"slime_king"
 			},
 			{
 				"event_interval":	1,
 				"spawn_point":		1,
-				"enemy_type":		"slime"
+				"enemy_type":		"slime_king"
 			},
 			{
 				"event_interval":	1,
 				"spawn_point":		1,
-				"enemy_type":		"slime"
+				"enemy_type":		"slime_king"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		1,
+				"enemy_type":		"slime_king"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		1,
+				"enemy_type":		"slime_king"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		1,
+				"enemy_type":		"slime_king"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		1,
+				"enemy_type":		"slime_king"
 			},
 			{
 				"event_interval":	1,
@@ -99,141 +94,143 @@
 		]
 	},
 	{
-		"coin_rewards":			300,
-		"wave_interval":		10,
+		"coin_rewards":			400,
+		"wave_interval":		4,
 		"spawn_list":
 		[
 			{
-				"event_interval":	1,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
-			},
-			{
-				"event_interval":	1,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
-			},
-			{
-				"event_interval":	1,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
-			},
-			{
-				"event_interval":	1,
-				"spawn_point":		2,
-				"enemy_type":		"skeleton"
-			},
-			{
-				"event_interval":	1,
-				"spawn_point":		2,
-				"enemy_type":		"skeleton"
-			},
-			{
 				"event_interval":	0,
-				"spawn_point":		1,
+				"spawn_point":		2,
 				"enemy_type":		"skeleton"
 			},
 			{
 				"event_interval":	1,
 				"spawn_point":		2,
-				"enemy_type":		"slime"
-			},
-			{
-				"event_interval":	0,
-				"spawn_point":		1,
 				"enemy_type":		"skeleton"
 			},
 			{
 				"event_interval":	1,
 				"spawn_point":		2,
-				"enemy_type":		"slime_king"
-			},
-			{
-				"event_interval":	0,
-				"spawn_point":		1,
 				"enemy_type":		"skeleton"
 			},
 			{
 				"event_interval":	1,
-				"spawn_point":		1,
+				"spawn_point":		2,
 				"enemy_type":		"skeleton"
 			},
 			{
 				"event_interval":	1,
-				"spawn_point":		1,
+				"spawn_point":		2,
 				"enemy_type":		"skeleton"
 			},
 			{
 				"event_interval":	1,
-				"spawn_point":		1,
+				"spawn_point":		2,
+				"enemy_type":		"skeleton"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		2,
+				"enemy_type":		"skeleton"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		2,
 				"enemy_type":		"skeleton"
 			}
 		]
 	},
 	{
-		"coin_rewards":			300,
+		"coin_rewards":			400,
+		"wave_interval":		4,
+		"spawn_list":
+		[
+			{
+				"event_interval":	0,
+				"spawn_point":		3,
+				"enemy_type":		"goblin"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		3,
+				"enemy_type":		"goblin"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		3,
+				"enemy_type":		"goblin"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		3,
+				"enemy_type":		"goblin"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		3,
+				"enemy_type":		"goblin"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		3,
+				"enemy_type":		"goblin"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		3,
+				"enemy_type":		"goblin"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		3,
+				"enemy_type":		"goblin"
+			}
+		]
+	},
+	{
+		"coin_rewards":			600,
 		"wave_interval":		6,
 		"spawn_list":
 		[
 			{
-				"event_interval":	1,
-				"spawn_point":		1,
-				"enemy_type":		"skeleton"
-			},
-			{
 				"event_interval":	0,
-				"spawn_point":		2,
+				"spawn_point":		4,
 				"enemy_type":		"goblin_priest"
 			},
 			{
 				"event_interval":	1,
-				"spawn_point":		1,
-				"enemy_type":		"skeleton"
-			},
-			{
-				"event_interval":	0,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
+				"spawn_point":		4,
+				"enemy_type":		"goblin_priest"
 			},
 			{
 				"event_interval":	1,
-				"spawn_point":		1,
-				"enemy_type":		"skeleton"
-			},
-			{
-				"event_interval":	0,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
+				"spawn_point":		4,
+				"enemy_type":		"goblin_priest"
 			},
 			{
 				"event_interval":	1,
-				"spawn_point":		1,
-				"enemy_type":		"skeleton"
-			},
-			{
-				"event_interval":	0,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
+				"spawn_point":		4,
+				"enemy_type":		"goblin_priest"
 			},
 			{
 				"event_interval":	1,
-				"spawn_point":		1,
-				"enemy_type":		"skeleton"
-			},
-			{
-				"event_interval":	0,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
+				"spawn_point":		4,
+				"enemy_type":		"goblin_priest"
 			},
 			{
 				"event_interval":	1,
-				"spawn_point":		1,
-				"enemy_type":		"skeleton"
+				"spawn_point":		4,
+				"enemy_type":		"goblin_priest"
 			},
 			{
-				"event_interval":	0,
-				"spawn_point":		2,
-				"enemy_type":		"goblin"
+				"event_interval":	1,
+				"spawn_point":		4,
+				"enemy_type":		"goblin_priest"
+			},
+			{
+				"event_interval":	1,
+				"spawn_point":		4,
+				"enemy_type":		"goblin_priest"
 			}
 		]
 	}
