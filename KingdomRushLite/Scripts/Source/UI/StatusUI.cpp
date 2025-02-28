@@ -1,9 +1,9 @@
 #include "../../Header/UI/StatusUI.h"
 #include <string>
 #include <SDL_ttf.h>
+#include "../../Header/Manager/Concrete/UIManager.h"
 #include "../../Header/Manager/Concrete/ResourceManager.h"
 #include "../../Header/Manager/Concrete/ConfigManager.h"
-#include "../../Header/Manager/Concrete/UIManager.h"
 #include "../../Header/Manager/Concrete/ProcessManager.h"
 #include "../../Header/Manager/Concrete/PlayerManager.h"
 
@@ -17,7 +17,8 @@ void StatusUI::OnUpdate(SDL_Renderer* _renderer)
 
 	#pragma region CoinText
 	//拿到金币数量，强转为整形后转化为字符串
-	std::string _coinNumStr = std::to_string((int)ProcessManager::Instance()->GetCurrentCoinNum());
+	static ProcessManager* _pm = ProcessManager::Instance();
+	std::string _coinNumStr = std::to_string((int)_pm->GetCurrentCoinNum());
 	//先将文本以特定字体加载到内存中
 	static TTF_Font* _font = ResourceManager::Instance()->GetFontPool().find(FontResID::Ipix)->second;
 	SDL_Surface* _coinTextSurface = TTF_RenderText_Blended(_font, _coinNumStr.c_str(), coinTextColor);

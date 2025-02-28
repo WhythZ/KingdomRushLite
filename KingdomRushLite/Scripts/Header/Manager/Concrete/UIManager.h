@@ -7,6 +7,7 @@
 #include "../../UI/StatusUI.h"
 #include "../../UI/TowerPanel/Concrete/TowerBuildPanel.h"
 #include "../../UI/TowerPanel/Concrete/TowerUpgradePanel.h"
+#include "../../UI/GameOverUI.h"
 
 class UIManager :public Manager<UIManager>
 {
@@ -17,6 +18,8 @@ private:
 
 	TowerBuildPanel* towerBuildPanel;            //建造防御塔的轮盘UI
 	TowerUpgradePanel* towerUpgradePanel;        //升级防御塔的轮盘UI
+
+	GameOverUI* gameOverUI;                      //游戏结束时的UI
 
 public:
 	void OnInput(const SDL_Event&);
@@ -30,12 +33,14 @@ public:
 	void DrawDynamicBar(SDL_Renderer*, const SDL_Point&, const SDL_Point&, int, const SDL_Color&, const SDL_Color&, double);
 	//根据左上顶点位置、圆半径、边框颜色、内容颜色，绘制带边框的圆
 	void DrawCircle(SDL_Renderer*, const SDL_Point&, double, const SDL_Color&, const SDL_Color&);
-
-	bool IsTowerPanelActive() const;             //监测当前场景中是否正在显示防御塔相关轮盘UI
+	//根据左上顶点位置、矩形尺寸、矩形颜色，绘制一个矩形色块
+	void DrawBox(SDL_Renderer*, const SDL_Point&, const SDL_Point&, const SDL_Color&);
 
 private:
 	UIManager();
 	~UIManager();
+
+	bool IsTowerPanelActive() const;             //监测当前场景中是否正在显示防御塔相关轮盘UI
 };
 
 #endif

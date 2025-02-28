@@ -19,7 +19,12 @@ void ProcessManager::DecreaseHealthBy(double _decre)
 	//减少血量
 	healthCurrent -= _decre;
 	if (healthCurrent <= 0)
+	{
 		healthCurrent = 0;
+		//游戏结束且失败
+		isGameOver = true;
+		isWin = false;
+	}
 
 	//播放受击音效
 	AudioManager::Instance()->PlaySFX(SoundResID::Home_Hurt);

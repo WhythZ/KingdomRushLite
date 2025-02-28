@@ -106,3 +106,14 @@ void WaveManager::OnUpdate(double _delta)
 		}
 	}
 }
+
+
+int WaveManager::GetCurrentWaveIdx() const
+{
+	return waveIdx;
+}
+
+int WaveManager::GetTotalWaveNum() const
+{
+	return waveList.size();
+}

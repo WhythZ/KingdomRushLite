@@ -10,13 +10,18 @@ UIManager::UIManager()
 
 	towerBuildPanel = new TowerBuildPanel();
 	towerUpgradePanel = new TowerUpgradePanel();
+
+	gameOverUI = new GameOverUI();
 }
 
 UIManager::~UIManager()
 {
 	delete statusUI;
+
 	delete towerBuildPanel;
 	delete towerUpgradePanel;
+
+	delete gameOverUI;
 }
 
 void UIManager::OnInput(const SDL_Event& _event)
@@ -69,19 +74,29 @@ void UIManager::OnInput(const SDL_Event& _event)
 
 void UIManager::OnUpdate(SDL_Renderer* _renderer)
 {
-	statusUI->OnUpdate(_renderer);
-	towerBuildPanel->OnUpdate(_renderer);
-	towerUpgradePanel->OnUpdate(_renderer);
+	static ProcessManager* _pm = ProcessManager::Instance();
+	if (!_pm->isGameOver)
+	{
+		statusUI->OnUpdate(_renderer);
+		towerBuildPanel->OnUpdate(_renderer);
+		towerUpgradePanel->OnUpdate(_renderer);
+	}
+	else
+		gameOverUI->OnUpdate(_renderer);
+
 }
 
 void UIManager::OnRender(SDL_Renderer* _renderer)
 {
-	if (!ProcessManager::Instance()->isGameOver)
+	static ProcessManager* _pm = ProcessManager::Instance();
+	if (!_pm->isGameOver)
 	{
 		statusUI->OnRender(_renderer);
 		towerBuildPanel->OnRender(_renderer);
 		towerUpgradePanel->OnRender(_renderer);
 	}
+	else
+		gameOverUI->OnRender(_renderer);
 }
 
 void UIManager::DrawTexture(SDL_Renderer* _renderer, SDL_Texture* _texture, const SDL_Point& _LeftUpPosition, const SDL_Point& _size)
@@ -116,16 +131,21 @@ void UIManager::DrawDynamicBar(SDL_Renderer* _renderer, const SDL_Point& _LeftUp
 	double _ratio = (_contentRatio < 0) ? 0 : _contentRatio;
 	_ratio = (_ratio > 1) ? 1 : _ratio;
 
-	//数值值条先绘制背景颜色填充，再绘制内容颜色填充，先传入渲染器与左上顶点和右下顶点，然后是圆角半径，最后是颜色
+	//数值值条先绘制背景颜色填充，再绘制内容颜色填充，先传入渲染器与左上顶点和右下顶点，然后是颜色
 	_dstRect = { _LeftUpPosition.x, _LeftUpPosition.y, _size.x, _size.y };
-	roundedBoxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
-		4, _backgroundColor.r, _backgroundColor.g, _backgroundColor.b, _backgroundColor.a);
+	boxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
+		_backgroundColor.r, _backgroundColor.g, _backgroundColor.b, _backgroundColor.a);
+	//如果是如下绘制圆角矩形，则还需传入圆角半径
+	//roundedBoxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
+	//	4, _backgroundColor.r, _backgroundColor.g, _backgroundColor.b, _backgroundColor.a);
 
-	//绘制内容的填充圆角矩形（其水平宽度按照比例实时更新），其依据边框宽度收窄，背景颜色就相当于在内容颜色的外围形成一圈边框
+	//绘制内容的填充矩形（其水平宽度按照比例实时更新），其依据边框宽度收窄，背景颜色就相当于在内容颜色的外围形成一圈边框
 	_dstRect = { _LeftUpPosition.x + _borderThickness, _LeftUpPosition.y + _borderThickness,
 		(int)((_size.x - 2 * _borderThickness) * _ratio), _size.y - 2 * _borderThickness };
-	roundedBoxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
-		4, _contentColor.r, _contentColor.g, _contentColor.b, _contentColor.a);
+	boxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
+		_contentColor.r, _contentColor.g, _contentColor.b, _contentColor.a);
+	//roundedBoxRGBA(_renderer, _dstRect.x, _dstRect.y, _dstRect.x + _dstRect.w, _dstRect.y + _dstRect.h,
+	//	4, _contentColor.r, _contentColor.g, _contentColor.b, _contentColor.a);
 }
 
 void UIManager::DrawCircle(SDL_Renderer* _renderer, const SDL_Point& _LeftUpPosition, double _radius,
@@ -137,6 +157,12 @@ void UIManager::DrawCircle(SDL_Renderer* _renderer, const SDL_Point& _LeftUpPosi
 	//绘制圆边框
 	aacircleRGBA(_renderer, _LeftUpPosition.x, _LeftUpPosition.y, (Sint16)_radius,
 		_borderColor.r, _borderColor.g, _borderColor.b, _borderColor.a);
+}
+
+void UIManager::DrawBox(SDL_Renderer* _renderer, const SDL_Point& _LeftUpPosition, const SDL_Point& _size, const SDL_Color& _color)
+{
+	boxRGBA(_renderer, _LeftUpPosition.x, _LeftUpPosition.y, _LeftUpPosition.x + _size.x, _LeftUpPosition.y + _size.y,
+		_color.r, _color.g, _color.b, _color.a);
 }
 
 bool UIManager::IsTowerPanelActive() const

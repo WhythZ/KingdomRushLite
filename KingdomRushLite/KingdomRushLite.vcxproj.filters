@@ -279,8 +279,11 @@
     <ClCompile Include="Scripts\Source\Player\State\PlayerState.cpp">
       <Filter>源文件\Player\State</Filter>
     </ClCompile>
+    <ClCompile Include="Scripts\Source\UI\GameOverUI.cpp">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
     <ClCompile Include="Scripts\Source\Infra\StateMachine\State.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Infra\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -445,6 +448,9 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Player\State\PlayerState.h">
       <Filter>头文件\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\UI\GameOverUI.h">
+      <Filter>头文件\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

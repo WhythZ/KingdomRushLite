@@ -25,6 +25,9 @@ private:
 public:
 	void OnUpdate(double);          //帧更新函数
 
+	int GetCurrentWaveIdx() const;  //获取当前进行到的波次数
+	int GetTotalWaveNum() const;    //获取总波次数
+
 private:
 	WaveManager();
 	~WaveManager() = default;
