@@ -8,7 +8,7 @@ PlayerMoveState::PlayerMoveState(bool* _flag) :PlayerState(_flag)
 void PlayerMoveState::OnBegin()
 {
 	PlayerState::OnBegin();
-	//std::cout << "PlayerMoveState::OnBegin()\n";
+	std::cout << "PlayerMoveState::OnBegin()\n";
 }
 
 void PlayerMoveState::OnInput(const SDL_Event& _event)
@@ -27,8 +27,6 @@ void PlayerMoveState::OnUpdate(double _delta)
 	static Player* _player = PlayerManager::Instance()->player;
 	Vector2 _direction = { _player->xInput, _player->yInput };
 	_player->SetVelocity(_direction.Normalized() * _player->GetSpeed());
-
-
 
 	//¸üÐÂµ½ÏÐÖÃ×´Ì¬
 	if (_player->xInput == 0 && _player->yInput == 0)

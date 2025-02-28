@@ -15,6 +15,8 @@ void PlayerState::OnBegin()
 
 void PlayerState::OnUpdate(double _delta)
 {
+	State::OnUpdate(_delta);
+
 	//将当前动画指针指向对应方向的动画
 	switch (PlayerManager::Instance()->player->facingDir)
 	{

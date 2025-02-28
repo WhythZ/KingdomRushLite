@@ -27,6 +27,8 @@ public:
 	void Pause();                                   //暂停计时
 	void Resume();                                  //继续计时
 	void Restart();                                 //完全重置计时状态
+
+	double GetPassTime() const;                     //获取已经过去的时间
 };
 
 #endif

@@ -54,3 +54,8 @@ void Timer::Restart()
 	//重置已被触发过的状态
 	isShotted = false;
 }
+
+double Timer::GetPassTime() const
+{
+	return passTime;
+}

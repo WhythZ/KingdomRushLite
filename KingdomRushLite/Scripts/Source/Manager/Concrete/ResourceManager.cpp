@@ -39,14 +39,14 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 	//将图片资源加载存储在图像池（unordered_map类型的容器）
 	texturePool[TextureResID::Player_Dragon] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon.png");
 
-	texturePool[TextureResID::Player_Dragon_VFX_Flash_Up] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Flash_Up.png");
-	texturePool[TextureResID::Player_Dragon_VFX_Flash_Down] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Flash_Down.png");
-	texturePool[TextureResID::Player_Dragon_VFX_Flash_Left] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Flash_Left.png");
-	texturePool[TextureResID::Player_Dragon_VFX_Flash_Right] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Flash_Right.png");
-	texturePool[TextureResID::Player_Dragon_VFX_Impact_Up] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Impact_Up.png");
-	texturePool[TextureResID::Player_Dragon_VFX_Impact_Down] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Impact_Down.png");
-	texturePool[TextureResID::Player_Dragon_VFX_Impact_Left] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Impact_Left.png");
-	texturePool[TextureResID::Player_Dragon_VFX_Impact_Right] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_VFX_Impact_Right.png");
+	texturePool[TextureResID::Player_Dragon_Skill_Flash_Up] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_Skill_Flash_Up.png");
+	texturePool[TextureResID::Player_Dragon_Skill_Flash_Down] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_Skill_Flash_Down.png");
+	texturePool[TextureResID::Player_Dragon_Skill_Flash_Left] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_Skill_Flash_Left.png");
+	texturePool[TextureResID::Player_Dragon_Skill_Flash_Right] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_Skill_Flash_Right.png");
+	texturePool[TextureResID::Player_Dragon_Skill_Impact_Up] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_Skill_Impact_Up.png");
+	texturePool[TextureResID::Player_Dragon_Skill_Impact_Down] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_Skill_Impact_Down.png");
+	texturePool[TextureResID::Player_Dragon_Skill_Impact_Left] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_Skill_Impact_Left.png");
+	texturePool[TextureResID::Player_Dragon_Skill_Impact_Right] = IMG_LoadTexture(_renderer, "Assets/Sprites/Player/PlayerDragon/Player_Dragon_Skill_Impact_Right.png");
 
 	texturePool[TextureResID::Tile_TileSet] = IMG_LoadTexture(_renderer, "Assets/Sprites/Tile/Tile_TileSet.png");
 	texturePool[TextureResID::Tile_Home] = IMG_LoadTexture(_renderer, "Assets/Sprites/Tile/Tile_Home.png");

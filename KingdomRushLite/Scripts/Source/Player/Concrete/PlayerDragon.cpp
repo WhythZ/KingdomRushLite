@@ -74,16 +74,16 @@ PlayerDragon::PlayerDragon()
 
 	//设置动画帧纹理图片
 	static SDL_Texture* _flashSkillUpSS = ResourceManager::Instance()->
-		GetTexturePool().find(TextureResID::Player_Dragon_VFX_Flash_Up)->second;
+		GetTexturePool().find(TextureResID::Player_Dragon_Skill_Flash_Up)->second;
 	flashSkillAnimUp.SetLoop(false); flashSkillAnimUp.SetAnimFrames(_flashSkillUpSS, 5, 1, _flashSkillIndiciesUp);
 	static SDL_Texture* _flashSkillDownSS = ResourceManager::Instance()->
-		GetTexturePool().find(TextureResID::Player_Dragon_VFX_Flash_Down)->second;
+		GetTexturePool().find(TextureResID::Player_Dragon_Skill_Flash_Down)->second;
 	flashSkillAnimDown.SetLoop(false); flashSkillAnimDown.SetAnimFrames(_flashSkillDownSS, 5, 1, _flashSkillIndiciesDown);
 	static SDL_Texture* _flashSkillLeftSS = ResourceManager::Instance()->
-		GetTexturePool().find(TextureResID::Player_Dragon_VFX_Flash_Left)->second;
+		GetTexturePool().find(TextureResID::Player_Dragon_Skill_Flash_Left)->second;
 	flashSkillAnimLeft.SetLoop(false); flashSkillAnimLeft.SetAnimFrames(_flashSkillLeftSS, 1, 5, _flashSkillIndiciesLeft);
 	static SDL_Texture* _flashSkillRightSS = ResourceManager::Instance()->
-		GetTexturePool().find(TextureResID::Player_Dragon_VFX_Flash_Right)->second;
+		GetTexturePool().find(TextureResID::Player_Dragon_Skill_Flash_Right)->second;
 	flashSkillAnimRight.SetLoop(false); flashSkillAnimRight.SetAnimFrames(_flashSkillRightSS, 1, 5, _flashSkillIndiciesRight);
 
 	//设置回调函数
@@ -131,16 +131,16 @@ PlayerDragon::PlayerDragon()
 	static const std::vector<int> _impactSkillIndiciesRight = { 0,1,2,3,4 };
 
 	static SDL_Texture* _impactSkillUpSS = ResourceManager::Instance()->
-		GetTexturePool().find(TextureResID::Player_Dragon_VFX_Impact_Up)->second;
+		GetTexturePool().find(TextureResID::Player_Dragon_Skill_Impact_Up)->second;
 	impactSkillAnimUp.SetLoop(false); impactSkillAnimUp.SetAnimFrames(_impactSkillUpSS, 5, 1, _impactSkillIndiciesUp);
 	static SDL_Texture* _impactSkillDownSS = ResourceManager::Instance()->
-		GetTexturePool().find(TextureResID::Player_Dragon_VFX_Impact_Down)->second;
+		GetTexturePool().find(TextureResID::Player_Dragon_Skill_Impact_Down)->second;
 	impactSkillAnimDown.SetLoop(false); impactSkillAnimDown.SetAnimFrames(_impactSkillDownSS, 5, 1, _impactSkillIndiciesDown);
 	static SDL_Texture* _impactSkillLeftSS = ResourceManager::Instance()->
-		GetTexturePool().find(TextureResID::Player_Dragon_VFX_Impact_Left)->second;
+		GetTexturePool().find(TextureResID::Player_Dragon_Skill_Impact_Left)->second;
 	impactSkillAnimLeft.SetLoop(false); impactSkillAnimLeft.SetAnimFrames(_impactSkillLeftSS, 1, 5, _impactSkillIndiciesLeft);
 	static SDL_Texture* _impactSkillRightSS = ResourceManager::Instance()->
-		GetTexturePool().find(TextureResID::Player_Dragon_VFX_Impact_Right)->second;
+		GetTexturePool().find(TextureResID::Player_Dragon_Skill_Impact_Right)->second;
 	impactSkillAnimRight.SetLoop(false); impactSkillAnimRight.SetAnimFrames(_impactSkillRightSS, 1, 5, _impactSkillIndiciesRight);
 
 	impactSkillAnimUp.SetOnAnimFinished(
@@ -223,42 +223,42 @@ void PlayerDragon::OnUpdate(double _delta)
 		}
 		flashSkillAnimCurrent->OnUpdate(_delta);
 	}
-	else if (isReleaseImpactSkill)
+	if (isReleaseImpactSkill)
 	{
 		switch (facingDir)
 		{
 		case FacingDir::Up:
 			impactSkillAnimCurrent = &impactSkillAnimUp;
-			impactSkillRect.w = flashSkillSize.y;
-			impactSkillRect.h = flashSkillSize.x;
+			impactSkillRect.w = impactSkillSize.y;
+			impactSkillRect.h = impactSkillSize.x;
 			impactSkillRect.x = (int)(position.x - impactSkillSize.y / 2);
 			impactSkillRect.y = (int)(position.y - size.y / 2 - impactSkillSize.x);
 			break;
 		case FacingDir::Down:
 			impactSkillAnimCurrent = &impactSkillAnimDown;
-			impactSkillRect.w = flashSkillSize.y;
-			impactSkillRect.h = flashSkillSize.x;
+			impactSkillRect.w = impactSkillSize.y;
+			impactSkillRect.h = impactSkillSize.x;
 			impactSkillRect.x = (int)(position.x - impactSkillSize.y / 2);
 			impactSkillRect.y = (int)(position.y + size.y / 2);
 			break;
 		case FacingDir::Left:
 			impactSkillAnimCurrent = &impactSkillAnimLeft;
-			impactSkillRect.w = flashSkillSize.x;
-			impactSkillRect.h = flashSkillSize.y;
+			impactSkillRect.w = impactSkillSize.x;
+			impactSkillRect.h = impactSkillSize.y;
 			impactSkillRect.x = (int)(position.x - size.x / 2 - impactSkillSize.x);
 			impactSkillRect.y = (int)(position.y - impactSkillSize.y / 2);
 			break;
 		case FacingDir::Right:
 			impactSkillAnimCurrent = &impactSkillAnimRight;
-			impactSkillRect.w = flashSkillSize.x;
-			impactSkillRect.h = flashSkillSize.y;
+			impactSkillRect.w = impactSkillSize.x;
+			impactSkillRect.h = impactSkillSize.y;
 			impactSkillRect.x = (int)(position.x + size.x / 2);
 			impactSkillRect.y = (int)(position.y - impactSkillSize.y / 2);
 			break;
 		default:
 			break;
 		}
-		flashSkillAnimCurrent->OnUpdate(_delta);
+		impactSkillAnimCurrent->OnUpdate(_delta);
 	}
 }
 

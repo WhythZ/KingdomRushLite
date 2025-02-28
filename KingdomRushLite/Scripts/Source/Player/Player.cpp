@@ -26,7 +26,6 @@ Player::Player()
 		}
 	);
 
-
 	skill01Timer.SetOneShot(true);
 	skill01Timer.SetTimeOutTrigger(
 		[&]()
