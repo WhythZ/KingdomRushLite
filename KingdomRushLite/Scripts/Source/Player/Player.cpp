@@ -66,8 +66,10 @@ void Player::OnUpdate(double _delta)
 	stateMachine->OnUpdate(_delta);
 
 	#pragma region Skill
-	skill00Timer.OnUpdate(_delta);
-	skill01Timer.OnUpdate(_delta);
+	if (!canReleaseSkill00)
+		skill00Timer.OnUpdate(_delta);
+	if (!canReleaseSkill01)
+		skill01Timer.OnUpdate(_delta);
 	#pragma endregion
 
 	#pragma region Facing
@@ -185,4 +187,20 @@ const Vector2& Player::GetPosition() const
 double Player::GetSpeed() const
 {
 	return speed;
+}
+
+double Player::GetSkill00CooldownRatio() const
+{
+	double _ratio = skill00Timer.GetPassTime() / skill00Cooldown;
+	if (_ratio <= 0 || _ratio > 1)
+		_ratio = 1;
+	return _ratio;
+}
+
+double Player::GetSkill01CooldownRatio() const
+{
+	double _ratio = skill01Timer.GetPassTime() / skill01Cooldown;
+	if (_ratio <= 0 || _ratio > 1)
+		_ratio = 1;
+	return _ratio;
 }

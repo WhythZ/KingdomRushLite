@@ -70,6 +70,8 @@ public:
 	const Vector2& GetSize() const;
 	const Vector2& GetPosition() const;
 	double GetSpeed() const;
+	double GetSkill00CooldownRatio() const;          //获取技能恢复冷却的进度
+	double GetSkill01CooldownRatio() const;
 
 protected:
 	virtual void TryReleaseSkill00() = 0;

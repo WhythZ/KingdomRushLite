@@ -29,6 +29,12 @@ void StatusUI::OnUpdate(SDL_Renderer* _renderer)
 	//然后清理已经无用了的Surface垃圾
 	SDL_FreeSurface(_coinTextSurface);
 	#pragma endregion
+
+	#pragma region MpBarRatio
+	static Player* _player = PlayerManager::Instance()->player;
+	skill00MpBarRatio = _player->GetSkill00CooldownRatio();
+	skill01MpBarRatio = _player->GetSkill01CooldownRatio();
+	#pragma endregion
 }
 
 void StatusUI::OnRender(SDL_Renderer* _renderer)
@@ -87,10 +93,16 @@ void StatusUI::OnRender(SDL_Renderer* _renderer)
 	#pragma endregion
 
 	#pragma region PlayerMpBar
-	//绘制法力值条在玩家头像图标右侧
+	//绘制法力值条在玩家头像图标右侧，分别绘制两个技能
 	_positionLeftUp.x = 0 + playerIconSize.x + iconBarBetweenDistance;
 	_positionLeftUp.y = 0 + _windowSize.y - playerIconSize.y;
 	_ui->DrawDynamicBar(_renderer, _positionLeftUp, mpBarSize, mpBarBorderThickness,
-		mpBarBackgroundColor, mpBarContentColor, mpBarRatio);
+		mpBarBackgroundColor, mpBarContentColor, skill00MpBarRatio);
+
+	//第二个法力值条在第一个的下方
+	_positionLeftUp.x = 0 + playerIconSize.x + iconBarBetweenDistance;
+	_positionLeftUp.y = (0 + _windowSize.y - playerIconSize.y) + mpBarSize.y + rowBetweenDistance;
+	_ui->DrawDynamicBar(_renderer, _positionLeftUp, mpBarSize, mpBarBorderThickness,
+		mpBarBackgroundColor, mpBarContentColor, skill01MpBarRatio);
 	#pragma endregion
 }

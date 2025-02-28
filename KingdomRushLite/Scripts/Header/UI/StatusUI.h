@@ -27,7 +27,7 @@ private:
 
 	const int iconTextBetweenDistance = 5;                         //图标与文本的左右间距
 
-	const int rowBetweenDistance = 15;                             //两行渲染元素的上下间距
+	const int rowBetweenDistance = 10;                             //两行渲染元素的上下间距
 
 	const int iconBarBetweenDistance = 5;                          //图标与数值条的左右间距
 	#pragma endregion
@@ -42,7 +42,8 @@ private:
 
 	SDL_Texture* coinNumTextTexture = nullptr;                     //暂存金币数量文本转化而来的渲染纹理
 	
-	double mpBarRatio = 1;                                         //玩家操控的角色法力值条的实时占比
+	double skill00MpBarRatio = 1;                                  //玩家操控的角色法力值条的实时占比
+	double skill01MpBarRatio = 1;
 
 public:
 	StatusUI() = default;

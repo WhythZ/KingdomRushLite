@@ -30,10 +30,12 @@ void Timer::OnUpdate(double _delta)
 		bool _canShot = (!isOneShot || (isOneShot && !isShotted));
 
 		//如果可触发，且回调函数存在，则触发回调函数
-		if (_canShot && trigger) trigger();
+		if (_canShot && trigger)
+			trigger();
 
-		//消费掉一个等待时间周期，以便下一次触发
-		passTime -= waitTime;
+		//如果可多次触发，则消费掉一个等待时间周期，以便下一次触发
+		if (!isOneShot)
+			passTime -= waitTime;
 	}
 }
 
