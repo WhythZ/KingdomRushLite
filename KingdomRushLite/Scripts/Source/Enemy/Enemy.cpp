@@ -182,12 +182,15 @@ void Enemy::DecreaseHealthBy(double _decre)
 	sketchTimer.Restart();
 }
 
-void Enemy::SlowDown()
+void Enemy::SlowDownBy(double _speedLossPercentage, double _lastDuration)
 {
-	//注意不是speedCurrent -= SLOW_DOWN_SPEED_LOST，后者会导致速度损失直到为零，这是不对的
-	speedCurrent = speedMaximum - SLOW_DOWN_SPEED_LOST;
+	//限定传入值在合法范围内后，以一定的百分比减缓怪物速度
+	double _percentage = (_speedLossPercentage < 0) ? 0 : _speedLossPercentage;
+	_percentage = (_percentage >= 1) ? 0.99 : _percentage;
+	speedCurrent = speedMaximum * (1 - _percentage);
+
 	//经过一定时长后恢复初始最大移速
-	speedRestoreTimer.SetWaitTime(SLOW_DOWN_DURATION);
+	speedRestoreTimer.SetWaitTime(_lastDuration);
 	speedRestoreTimer.Restart();
 }
 

@@ -8,7 +8,7 @@ PlayerMoveState::PlayerMoveState(bool* _flag) :PlayerState(_flag)
 void PlayerMoveState::OnBegin()
 {
 	PlayerState::OnBegin();
-	std::cout << "PlayerMoveState::OnBegin()\n";
+	//std::cout << "PlayerMoveState::OnBegin()\n";
 }
 
 void PlayerMoveState::OnInput(const SDL_Event& _event)

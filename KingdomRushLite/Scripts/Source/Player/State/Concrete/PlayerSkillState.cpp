@@ -8,7 +8,7 @@ PlayerSkillState::PlayerSkillState(bool* _flag) :PlayerState::PlayerState(_flag)
 void PlayerSkillState::OnBegin()
 {
 	PlayerState::OnBegin();
-	std::cout << "PlayerSkillState::OnBegin()\n";
+	//std::cout << "PlayerSkillState::OnBegin()\n";
 }
 
 void PlayerSkillState::OnInput(const SDL_Event& _event)

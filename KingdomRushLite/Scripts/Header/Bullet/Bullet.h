@@ -38,6 +38,7 @@ public:
 
 	virtual void OnUpdate(double);
 	virtual void OnRender(SDL_Renderer*);
+
 	virtual void OnCollide(Enemy*);         //子弹碰撞检测的函数
 
 	void DisableCollide();                  //取消子弹的可碰撞，以造成瞬时伤害而非持续伤害

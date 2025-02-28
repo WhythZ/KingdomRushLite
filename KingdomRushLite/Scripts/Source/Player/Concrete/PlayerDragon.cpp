@@ -1,6 +1,8 @@
 #include "../../../Header/Player/Concrete/PlayerDragon.h"
 #include "../../../Header/Manager/Concrete/ResourceManager.h"
+#include "../../../Header/Manager/Concrete/AudioManager.h"
 #include "../../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../../Header/Manager/Concrete/EnemyManager.h"
 #include "../../../Header/Map/Tile.h"
 
 PlayerDragon::PlayerDragon()
@@ -192,31 +194,52 @@ void PlayerDragon::OnUpdate(double _delta)
 		{
 		case FacingDir::Up:
 			flashSkillAnimCurrent = &flashSkillAnimUp;
-			flashSkillRect.w = flashSkillSize.y;
-			flashSkillRect.h = flashSkillSize.x;
-			flashSkillRect.x = (int)(position.x - flashSkillSize.y / 2);
-			flashSkillRect.y = (int)(position.y - size.y / 2 - flashSkillSize.x);
+			flashSkillAnimRect.w = flashSkillSize.y;
+			flashSkillAnimRect.h = flashSkillSize.x;
+			flashSkillAnimRect.x = (int)(position.x - flashSkillSize.y / 2);
+			flashSkillAnimRect.y = (int)(position.y - size.y / 2 - flashSkillSize.x);
+
+			//此处将碰撞检测范围向玩家动画扩大了一些，使得攻击判定范围比用于动画渲染的Rect更大，手感更好
+			flashSkillCollideRect.w = flashSkillAnimRect.w;
+			flashSkillCollideRect.h = flashSkillAnimRect.h + (int)(size.y / 2);
+			flashSkillCollideRect.x = flashSkillAnimRect.x;
+			flashSkillCollideRect.y = flashSkillAnimRect.y;
 			break;
 		case FacingDir::Down:
 			flashSkillAnimCurrent = &flashSkillAnimDown;
-			flashSkillRect.w = flashSkillSize.y;
-			flashSkillRect.h = flashSkillSize.x;
-			flashSkillRect.x = (int)(position.x - flashSkillSize.y / 2);
-			flashSkillRect.y = (int)(position.y + size.y / 2);
+			flashSkillAnimRect.w = flashSkillSize.y;
+			flashSkillAnimRect.h = flashSkillSize.x;
+			flashSkillAnimRect.x = (int)(position.x - flashSkillSize.y / 2);
+			flashSkillAnimRect.y = (int)(position.y + size.y / 2);
+
+			flashSkillCollideRect.w = flashSkillAnimRect.w;
+			flashSkillCollideRect.h = flashSkillAnimRect.h + (int)(size.y / 2);
+			flashSkillCollideRect.x = flashSkillAnimRect.x;
+			flashSkillCollideRect.y = flashSkillAnimRect.y - (int)(size.y / 2);
 			break;
 		case FacingDir::Left:
 			flashSkillAnimCurrent = &flashSkillAnimLeft;
-			flashSkillRect.w = flashSkillSize.x;
-			flashSkillRect.h = flashSkillSize.y;
-			flashSkillRect.x = (int)(position.x - size.x / 2 - flashSkillSize.x);
-			flashSkillRect.y = (int)(position.y - flashSkillSize.y / 2);
+			flashSkillAnimRect.w = flashSkillSize.x;
+			flashSkillAnimRect.h = flashSkillSize.y;
+			flashSkillAnimRect.x = (int)(position.x - size.x / 2 - flashSkillSize.x);
+			flashSkillAnimRect.y = (int)(position.y - flashSkillSize.y / 2);
+
+			flashSkillCollideRect.w = flashSkillAnimRect.w + (int)(size.x / 2);
+			flashSkillCollideRect.h = flashSkillAnimRect.h;
+			flashSkillCollideRect.x = flashSkillAnimRect.x;
+			flashSkillCollideRect.y = flashSkillAnimRect.y;
 			break;
 		case FacingDir::Right:
 			flashSkillAnimCurrent = &flashSkillAnimRight;
-			flashSkillRect.w = flashSkillSize.x;
-			flashSkillRect.h = flashSkillSize.y;
-			flashSkillRect.x = (int)(position.x + size.x / 2);
-			flashSkillRect.y = (int)(position.y - flashSkillSize.y / 2);
+			flashSkillAnimRect.w = flashSkillSize.x;
+			flashSkillAnimRect.h = flashSkillSize.y;
+			flashSkillAnimRect.x = (int)(position.x + size.x / 2);
+			flashSkillAnimRect.y = (int)(position.y - flashSkillSize.y / 2);
+
+			flashSkillCollideRect.w = flashSkillAnimRect.w + (int)(size.x / 2);
+			flashSkillCollideRect.h = flashSkillAnimRect.h;
+			flashSkillCollideRect.x = flashSkillAnimRect.x - (int)(size.x / 2);
+			flashSkillCollideRect.y = flashSkillAnimRect.y;
 			break;
 		default:
 			break;
@@ -229,36 +252,68 @@ void PlayerDragon::OnUpdate(double _delta)
 		{
 		case FacingDir::Up:
 			impactSkillAnimCurrent = &impactSkillAnimUp;
-			impactSkillRect.w = impactSkillSize.y;
-			impactSkillRect.h = impactSkillSize.x;
-			impactSkillRect.x = (int)(position.x - impactSkillSize.y / 2);
-			impactSkillRect.y = (int)(position.y - size.y / 2 - impactSkillSize.x);
+			impactSkillAnimRect.w = impactSkillSize.y;
+			impactSkillAnimRect.h = impactSkillSize.x;
+			impactSkillAnimRect.x = (int)(position.x - impactSkillSize.y / 2);
+			impactSkillAnimRect.y = (int)(position.y - size.y / 2 - impactSkillSize.x);
+
+			impactSkillCollideRect.w = impactSkillAnimRect.w;
+			impactSkillCollideRect.h = impactSkillAnimRect.h + (int)(size.y / 2);
+			impactSkillCollideRect.x = impactSkillAnimRect.x;
+			impactSkillCollideRect.y = impactSkillAnimRect.y;
 			break;
 		case FacingDir::Down:
 			impactSkillAnimCurrent = &impactSkillAnimDown;
-			impactSkillRect.w = impactSkillSize.y;
-			impactSkillRect.h = impactSkillSize.x;
-			impactSkillRect.x = (int)(position.x - impactSkillSize.y / 2);
-			impactSkillRect.y = (int)(position.y + size.y / 2);
+			impactSkillAnimRect.w = impactSkillSize.y;
+			impactSkillAnimRect.h = impactSkillSize.x;
+			impactSkillAnimRect.x = (int)(position.x - impactSkillSize.y / 2);
+			impactSkillAnimRect.y = (int)(position.y + size.y / 2);
+
+			impactSkillCollideRect.w = impactSkillAnimRect.w;
+			impactSkillCollideRect.h = impactSkillAnimRect.h + (int)(size.y / 2);
+			impactSkillCollideRect.x = impactSkillAnimRect.x;
+			impactSkillCollideRect.y = impactSkillAnimRect.y - (int)(size.y / 2);
 			break;
 		case FacingDir::Left:
 			impactSkillAnimCurrent = &impactSkillAnimLeft;
-			impactSkillRect.w = impactSkillSize.x;
-			impactSkillRect.h = impactSkillSize.y;
-			impactSkillRect.x = (int)(position.x - size.x / 2 - impactSkillSize.x);
-			impactSkillRect.y = (int)(position.y - impactSkillSize.y / 2);
+			impactSkillAnimRect.w = impactSkillSize.x;
+			impactSkillAnimRect.h = impactSkillSize.y;
+			impactSkillAnimRect.x = (int)(position.x - size.x / 2 - impactSkillSize.x);
+			impactSkillAnimRect.y = (int)(position.y - impactSkillSize.y / 2);
+
+			impactSkillCollideRect.w = impactSkillAnimRect.w + (int)(size.x / 2);
+			impactSkillCollideRect.h = impactSkillAnimRect.h;
+			impactSkillCollideRect.x = impactSkillAnimRect.x;
+			impactSkillCollideRect.y = impactSkillAnimRect.y;
 			break;
 		case FacingDir::Right:
 			impactSkillAnimCurrent = &impactSkillAnimRight;
-			impactSkillRect.w = impactSkillSize.x;
-			impactSkillRect.h = impactSkillSize.y;
-			impactSkillRect.x = (int)(position.x + size.x / 2);
-			impactSkillRect.y = (int)(position.y - impactSkillSize.y / 2);
+			impactSkillAnimRect.w = impactSkillSize.x;
+			impactSkillAnimRect.h = impactSkillSize.y;
+			impactSkillAnimRect.x = (int)(position.x + size.x / 2);
+			impactSkillAnimRect.y = (int)(position.y - impactSkillSize.y / 2);
+
+			impactSkillCollideRect.w = impactSkillAnimRect.w + (int)(size.x / 2);
+			impactSkillCollideRect.h = impactSkillAnimRect.h;
+			impactSkillCollideRect.x = impactSkillAnimRect.x - (int)(size.x / 2);
+			impactSkillCollideRect.y = impactSkillAnimRect.y;
 			break;
 		default:
 			break;
 		}
 		impactSkillAnimCurrent->OnUpdate(_delta);
+	}
+
+	//技能Rect更新后执行技能的碰撞
+	if (canFlashSkillCollide)
+	{
+		canFlashSkillCollide = false;
+		OnFlashCollide();
+	}
+	if (canImpactSkillCollide)
+	{
+		canImpactSkillCollide = false;
+		OnImpactCollide();
 	}
 }
 
@@ -270,12 +325,12 @@ void PlayerDragon::OnRender(SDL_Renderer* _renderer)
 	static SDL_Point _point;
 	if (isReleaseFlashSkill)
 	{
-		_point.x = flashSkillRect.x; _point.y = flashSkillRect.y;
+		_point.x = flashSkillAnimRect.x; _point.y = flashSkillAnimRect.y;
 		flashSkillAnimCurrent->OnRender(_renderer, _point);
 	}
 	else if (isReleaseImpactSkill)
 	{
-		_point.x = impactSkillRect.x; _point.y = impactSkillRect.y;
+		_point.x = impactSkillAnimRect.x; _point.y = impactSkillAnimRect.y;
 		impactSkillAnimCurrent->OnRender(_renderer, _point);
 	}
 }
@@ -286,6 +341,11 @@ void PlayerDragon::TryReleaseSkill00()
 	{
 		isReleaseFlashSkill = true;
 		stateMachine->ChangeState(skillState);
+
+		//释放技能音效
+		AudioManager::Instance()->PlaySFX(SoundResID::Player_Dragon_Skill_Flash);
+		//允许碰撞，然后等到Rect数据更新后执行碰撞
+		canFlashSkillCollide = true;
 
 		//技能进入冷却
 		canReleaseSkill00 = false;
@@ -300,8 +360,63 @@ void PlayerDragon::TryReleaseSkill01()
 		isReleaseImpactSkill = true;
 		stateMachine->ChangeState(skillState);
 
+		//释放技能效果
+		AudioManager::Instance()->PlaySFX(SoundResID::Player_Dragon_Skill_Impact);
+		//允许碰撞，然后等到Rect数据更新后执行碰撞
+		canImpactSkillCollide = true;
+
 		//技能进入冷却
 		canReleaseSkill01 = false;
 		skill01Timer.Restart();
+	}
+}
+
+void PlayerDragon::OnFlashCollide()
+{
+	//std::cout << "FlashSkillCollideRect=(" << flashSkillCollideRect.x << "," << flashSkillCollideRect.y << ","
+	//	<< flashSkillCollideRect.w << "," << flashSkillCollideRect.h << ",)\n";
+
+	//遍历场上所有敌人，进行与技能范围的碰撞检测
+	for (Enemy* _enemy : EnemyManager::Instance()->GetEnemyList())
+	{
+		//若该敌人已死则跳过，防止无意义地继续后续运算（因程序仍处于此循环语句，无法及时在外部将其移除）
+		if (!_enemy->IsAlive()) continue;
+
+		//获取敌人中心点位置，判断其是否处于技能范围Rect内
+		const Vector2& _enemyPosition = _enemy->GetPosition();
+		if (_enemyPosition.x >= flashSkillCollideRect.x
+			&& _enemyPosition.x <= flashSkillCollideRect.x + flashSkillCollideRect.w
+			&& _enemyPosition.y >= flashSkillCollideRect.y
+			&& _enemyPosition.y <= flashSkillCollideRect.y + flashSkillCollideRect.h)
+		{
+			//造成伤害，该函数内置死亡检测以及掉落物概率生成逻辑
+			_enemy->DecreaseHealthBy(skill00Damage);
+
+			//std::cout << "Flash Hit\n";
+		}
+	}
+}
+
+void PlayerDragon::OnImpactCollide()
+{
+	//std::cout << "ImpactSkillCollideRect=(" << impactSkillCollideRect.x << "," << impactSkillCollideRect.y << ","
+	//	<< impactSkillCollideRect.w << "," << impactSkillCollideRect.h << ",)\n";
+
+	for (Enemy* _enemy : EnemyManager::Instance()->GetEnemyList())
+	{
+		if (!_enemy->IsAlive()) continue;
+
+		const Vector2& _enemyPosition = _enemy->GetPosition();
+		if (_enemyPosition.x >= impactSkillCollideRect.x
+			&& _enemyPosition.x <= impactSkillCollideRect.x + impactSkillCollideRect.w
+			&& _enemyPosition.y >= impactSkillCollideRect.y
+			&& _enemyPosition.y <= impactSkillCollideRect.y + impactSkillCollideRect.h)
+		{
+			_enemy->DecreaseHealthBy(skill01Damage);
+			//造成伤害的同时，将敌人眩晕（暂停其移动，但不能传入1，那会使得速度完全为0导致动画异常）
+			_enemy->SlowDownBy(0.99, impactSkillSlowDownDuration);
+
+			//std::cout << "Impact Hit\n";
+		}
 	}
 }

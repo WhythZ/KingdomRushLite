@@ -65,8 +65,10 @@ void Player::OnUpdate(double _delta)
 {
 	stateMachine->OnUpdate(_delta);
 
+	#pragma region Skill
 	skill00Timer.OnUpdate(_delta);
 	skill01Timer.OnUpdate(_delta);
+	#pragma endregion
 
 	#pragma region Facing
 	//不能判断等于0，不然可能导致静止的时候突兀转向某个方向

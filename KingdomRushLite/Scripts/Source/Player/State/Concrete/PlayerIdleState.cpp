@@ -8,7 +8,7 @@ PlayerIdleState::PlayerIdleState(bool* _flag) :PlayerState::PlayerState(_flag)
 void PlayerIdleState::OnBegin()
 {
 	PlayerState::OnBegin();
-	std::cout << "PlayerIdleState::OnBegin()\n";
+	//std::cout << "PlayerIdleState::OnBegin()\n";
 }
 
 void PlayerIdleState::OnInput(const SDL_Event& _event)

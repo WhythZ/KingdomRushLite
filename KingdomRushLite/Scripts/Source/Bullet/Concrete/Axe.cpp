@@ -42,6 +42,6 @@ void Axe::OnCollide(Enemy* _enemy)
 
 	#pragma region Effect
 	//斧头子弹命中敌人的特殊效果，即给敌人减速（若干时间后自动恢复原速）
-	_enemy->SlowDown();
+	_enemy->SlowDownBy(slowDownPercentage, slowDownDuration);
 	#pragma endregion
 }

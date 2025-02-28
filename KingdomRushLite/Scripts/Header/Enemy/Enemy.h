@@ -7,11 +7,6 @@
 #include "../Map/Route.h"
 #include "EnemyType.h"
 
-//怪物减速丢失的速度（单位：每格瓦片）
-#define SLOW_DOWN_SPEED_LOST 0.3
-//怪物被减速的持续时间
-#define SLOW_DOWN_DURATION 1
-
 class Enemy
 {
 public:
@@ -20,7 +15,7 @@ public:
 
 protected:
 	EnemyType type = EnemyType::None;           //敌人的种类
-	SDL_Point size;                             //敌人的尺寸大小
+	SDL_Point size = { 0 };                     //敌人的尺寸大小
 
 	#pragma region Animation
 	Animation* animCurrent;                     //指向当前调用的动画
@@ -89,7 +84,7 @@ public:
 
 	void IncreaseHealthBy(double);              //增加生命值
 	void DecreaseHealthBy(double);              //减少生命值
-	void SlowDown();                            //移速减缓
+	void SlowDownBy(double, double);            //移速减缓，传入减缓百分比以及持续时间
 	void Kill();                                //无效化该怪物
 
 	bool IsAlive() const;                       //获取怪物存活状态

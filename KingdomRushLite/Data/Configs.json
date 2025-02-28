@@ -9,9 +9,9 @@
 	{
 		"speed":				5,
 		"skill_00_cooldown":	2,
-		"skill_00_damage":		10,
-		"skill_01_cooldown":	10,
-		"skill_01_damage":		20
+		"skill_00_damage":		25,
+		"skill_01_cooldown":	5,
+		"skill_01_damage":		50
 	},
 	"tower":
 	{
@@ -44,7 +44,7 @@
 	{
 		"slime":
 		{
-			"health":	   		    	80,
+			"health":	   		    	100,
 			"speed":					0.6,
 			"damage":					1,
 			"coin_ratio":				0.5,
