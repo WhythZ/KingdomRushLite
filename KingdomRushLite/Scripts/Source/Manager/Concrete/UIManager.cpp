@@ -45,10 +45,12 @@ void UIManager::OnInput(const SDL_Event& _event)
 				towerUpgradePanel->SetSelectedTileIdx(_selectedTileIdx);
 				towerUpgradePanel->ShowPanel();
 			}
-			//若不是家，且不存在防御塔、不是路径，则可以显示建造UI
+			//若不是家，且不存在防御塔、不是路径、不存在装饰，则可以显示建造UI
 			else
 			{
-				if (!_map.IsTowerBuiltAt(_selectedTileIdx) && !_map.IsInRouteAt(_selectedTileIdx))
+				if (!_map.IsTowerBuiltAt(_selectedTileIdx)
+					&& !_map.IsInRouteAt(_selectedTileIdx)
+					&& !_map.IsDecorationAt(_selectedTileIdx))
 				{
 					towerBuildPanel->SetSelectedTileIdx(_selectedTileIdx);
 					towerBuildPanel->ShowPanel();

@@ -32,6 +32,7 @@ public:
 	size_t GetHeightTileNum() const;                    //获取地图的高（行瓦片数）
 	size_t GetWidthTileNum() const;                     //获取地图的宽（列瓦片数）
 	bool IsInRouteAt(const SDL_Point&) const;           //特定瓦片坐标位置上是否是路径
+	bool IsDecorationAt(const SDL_Point&) const;        //特定瓦片坐标位置上是否存在装饰
 	bool IsTowerBuiltAt(const SDL_Point&) const;        //在特定瓦片坐标位置上是否放置了防御塔
 	TowerType GetTowerTypeAt(const SDL_Point&) const;   //获取特定瓦片坐标位置上的防御塔种类
 

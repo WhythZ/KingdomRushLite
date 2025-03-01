@@ -13,7 +13,7 @@ class Tower
 {
 protected:
 	TowerType type = TowerType::None;          //防御塔的种类
-	SDL_Point size;                            //用于渲染与碰撞的尺寸
+	SDL_Point size = { 0 };                    //用于渲染与碰撞的尺寸
 	Vector2 position;                          //防御塔所在位置
 
 	#pragma region Animation

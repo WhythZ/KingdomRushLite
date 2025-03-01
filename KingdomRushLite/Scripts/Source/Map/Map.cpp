@@ -97,6 +97,11 @@ bool Map::IsInRouteAt(const SDL_Point& _idx) const
 	return (tileMap[_idx.y][_idx.x].directionLayer == TileDir::None) ? false : true;
 }
 
+bool Map::IsDecorationAt(const SDL_Point& _idx) const
+{
+	return (tileMap[_idx.y][_idx.x].decorationLayer == -1) ? false : true;
+}
+
 bool Map::IsTowerBuiltAt(const SDL_Point& _idx) const
 {
 	return tileMap[_idx.y][_idx.x].hasTower;
