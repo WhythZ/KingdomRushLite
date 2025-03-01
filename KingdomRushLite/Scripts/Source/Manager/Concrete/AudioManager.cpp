@@ -9,7 +9,8 @@ AudioManager::AudioManager()
 
 void AudioManager::PlayBGM(MusicResID _id)
 {
-	//混音播放Mix_Music*音效
+	//混音播放Mix_Music*音效，第二参数位-1表示循环播放
+	Mix_PlayMusic(musicPool->find(_id)->second, -1);
 }
 
 void AudioManager::PlaySFX(SoundResID _id)

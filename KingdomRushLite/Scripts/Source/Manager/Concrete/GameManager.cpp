@@ -8,6 +8,7 @@
 #include "../../../Header/Manager/Concrete/ConfigManager.h"
 #include "../../../Header/Manager/Concrete/ResourceManager.h"
 #include "../../../Header/Manager/Concrete/WaveManager.h"
+#include "../../../Header/Manager/Concrete/AudioManager.h"
 #include "../../../Header/Manager/Concrete/EnemyManager.h"
 #include "../../../Header/Manager/Concrete/BulletManager.h"
 #include "../../../Header/Manager/Concrete/TowerManager.h"
@@ -59,14 +60,18 @@ GameManager::GameManager()
 	//SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
 	#pragma endregion
 
+	#pragma region LoadResource
 	//加载资源
 	InitAssert(ResourceManager::Instance()->LoadResource(renderer), u8"Failed To Load Resources");
-
-	//生成瓦片地图纹理
+	//获取资源后，根据TileSet生成瓦片地图纹理
 	InitAssert(GenerateTileMapTexture(), u8"Failed To Genrate TileMap Texture");
+	#pragma endregion
 
 	//实例化玩家，暂时只有龙类型
 	PlayerManager::Instance()->InstantiatePlayer(PlayerType::Dragon);
+
+	//播放背景音乐
+	AudioManager::Instance()->PlayBGM(MusicResID::BGM_InLevel_0);
 }
 
 GameManager::~GameManager()

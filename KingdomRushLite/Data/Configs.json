@@ -45,52 +45,52 @@
 		"slime":
 		{
 			"health":	   		    	100,
-			"speed":					0.6,
+			"speed":					0.5,
 			"damage":					1,
 			"coin_ratio":				0.5,
 			"skill_recover_cooldown":	10,
 			"skill_recover_radius":		-1,
-			"skill_recover_intensity":	25
+			"skill_recover_intensity":	0
 		},
 		"slime_king":
 		{
 			"health":					200,
-			"speed":					0.8,
+			"speed":					0.4,
 			"damage":					1,
 			"coin_ratio":				0.5,
-			"skill_recover_cooldown":	10,
+			"skill_recover_cooldown":	4,
 			"skill_recover_radius":		0,
 			"skill_recover_intensity":	25
 		},
 		"skeleton":
 		{
 			"health":					200,
-			"speed":					1,
+			"speed":					0.7,
 			"damage":					2,
 			"coin_ratio":				0.5,
 			"skill_recover_cooldown":	10,
 			"skill_recover_radius":		-1,
-			"skill_recover_intensity":	25
+			"skill_recover_intensity":	0
 		},
 		"goblin":
 		{
 			"health":					400,
-			"speed":					1,
+			"speed":					0.7,
 			"damage":					2,
 			"coin_ratio":				0.8,
 			"skill_recover_cooldown":	10,
 			"skill_recover_radius":		-1,
-			"skill_recover_intensity":	25
+			"skill_recover_intensity":	0
 		},
 		"goblin_priest":
 		{
 			"health":					999,
-			"speed":					0.6,
+			"speed":					0.2,
 			"damage":					3,
 			"coin_ratio":				0.8,
-			"skill_recover_cooldown":	5,
+			"skill_recover_cooldown":	2,
 			"skill_recover_radius":		1,
-			"skill_recover_intensity":	100
+			"skill_recover_intensity":	30
 		}
 	}
 }

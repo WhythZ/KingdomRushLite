@@ -99,7 +99,7 @@ bool ResourceManager::LoadTextureRes(SDL_Renderer* _renderer)
 bool ResourceManager::LoadMusicRes()
 {
 	//从文件中加载音乐
-	musicPool[MusicResID::BGM_InLevel_0] = Mix_LoadMUS("Assets/Audios/Musics/BGM_InLevel_0.mp3");
+	musicPool[MusicResID::BGM_InLevel_0] = Mix_LoadMUS("Assets/Audios/Musics/BGM_InLevel_0.flac");
 
 	//检查unordered_map容器中所有键值对的值是否有效；其中auto是自动类型推导，成员second访问的是键值对的值
 	for (const auto& _pair : musicPool)

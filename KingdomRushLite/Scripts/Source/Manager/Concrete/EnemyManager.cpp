@@ -106,11 +106,19 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 		//接收一个技能释放者的参数
 		[&](Enemy* _src)
 		{
-			//获取恢复技能的影响半径，如果非正，那就说明该怪物没有这个技能，直接结束
+			//获取恢复技能的影响半径，如果为负，则说明该怪物没有这个技能，直接结束
 			double _radius = _src->GetSkillRecoverRadius();
-			if (_radius <= 0) return;
+			if (_radius < 0)
+				return;
 
-			//获取技能释放者的位置
+			//如果是0，则说明治疗仅对自己生效
+			if (_radius == 0)
+			{
+				_src->IncreaseHealthBy(_src->GetSkillRecoverIntensity());
+				return;
+			}
+
+			//为正则对包括自己在内的范围内敌人生效，先需获取技能释放者的位置
 			const Vector2& _srcPos = _src->GetPosition();
 			//遍历场上的所有敌人，检测其是否在技能影响半径范围内
 			for (Enemy* _dst : enemyList)

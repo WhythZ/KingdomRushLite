@@ -97,10 +97,11 @@ WaveManager::WaveManager()
 
 void WaveManager::OnUpdate(double _delta)
 {	
-	//由isWaveEnded决定更新波次计时器还是生成事件计时器
-	if (isWaveEnded)
+	//由isWaveEnded决定更新波次计时器还是生成事件计时器，更新波次计时器还需要场上敌人清空
+	static EnemyManager* _em = EnemyManager::Instance();
+	if (isWaveEnded && _em->IsEnemyCleaned())
 		newWaveTimer.OnUpdate(_delta);
-	else
+	if (!isWaveEnded)
 		newEventTimer.OnUpdate(_delta);
 }
 
