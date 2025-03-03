@@ -92,3 +92,8 @@ This prototype is designed data-driven, you can create your personal experience 
 |[SDL_gfx](https://www.ferzkopp.net/wordpress/2016/01/02/sdl_gfx-sdl2_gfx/)|[SDL2_gfx-1.0.4-VC](https://github.com/giroletm/SDL2_gfx/releases/tag/release-1.0.4)|
 |[SDL_ttf](https://github.com/libsdl-org/SDL_ttf)|SDL2_ttf-devel-2.22.0-VC|
 |[SDL_mixer](https://github.com/libsdl-org/SDL_mixer)|SDL2_mixer-devel-2.8.0-VC|
+
+## Todo
+- Change textures in minimalist style
+- Enable upgrading towers seperately
+- Rewrite player's movement input
