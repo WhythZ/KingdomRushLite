@@ -6,40 +6,7 @@ This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 ## About
 In this tower defence game prototype inspired by KingdomRush, you can not only build different towers using coins earned by defeating waves of enemies, but control a character with skills to battle, [click to play online](https://whythz-debug.github.io/KingdomRushLite/)
 
-This prototype is designed data-driven, you can create your personal experience by editing the corresponding files below in `root\KingdomRushLite\Data\` after you clone this repo locally (Run `Main.cpp` under required IDE mode)
-- `Map.csv`: Defines tilemap by denoting each tile in `a/b/c/d` form, see `Tile.h`
-- `Configs.json`: Defines window resolution and stats of player, towers and enemies
-- `Waves.json`: Defines the details of enemy waves spawned in game
-```javascript
-// List of spawn waves for series of enemies
-[
-    // Wave 0
-    {
-        // Wave properties
-        "coin_rewards":     300,
-        "wave_interval":    10,
-        // List of spawn events for one enemy of particular type
-        "spawn_list":
-        [
-            // Event 0 
-            {
-                // Event properties
-                "event_interval":   1,
-                "spawn_point":      2,
-                "enemy_type":       "slime"
-            },
-            // Event n
-            {
-            }
-        ]
-    },
-    // Wave n
-    {
-    }
-]
-```
-
- Short descriptions about the core functional classes which forms multiple extensible gameplay systems are listed below, notice that all managers are derived from singleton `Manager` base class
+Short descriptions about the core functional classes which forms multiple extensible gameplay systems are listed below, notice that all managers are derived from singleton `Manager` base class
 - General Game Management
     - `GameManager`: Maintains game main loop that handles all updating, rendering and inputs
     - `ProcessManager`: Maintains the in-game runtime data and offers related interfaces
@@ -83,6 +50,40 @@ This prototype is designed data-driven, you can create your personal experience 
 - Controlable Character
     - `Player`: Organized by `PlayerManager`, controled by state machine
         - `PlayerDragon`: Derives from `Player`, can attack enemy by skills including flash and impact
+
+## Modify
+This prototype is designed data-driven, you can create your personal experience by editing the corresponding files below in `root\KingdomRushLite\Data\` after you clone this repo locally (Run `Main.cpp` under required IDE mode)
+- `Map.csv`: Defines tilemap by denoting each tile in `a/b/c/d` form, see `Tile.h`
+- `Configs.json`: Defines window resolution and stats of player, towers and enemies
+- `Waves.json`: Defines the details of enemy waves spawned in game
+```javascript
+// List of spawn waves for series of enemies
+[
+    // Wave 0
+    {
+        // Wave properties
+        "coin_rewards":     300,
+        "wave_interval":    10,
+        // List of spawn events for one enemy of particular type
+        "spawn_list":
+        [
+            // Event 0 
+            {
+                // Event properties
+                "event_interval":   1,
+                "spawn_point":      2,
+                "enemy_type":       "slime"
+            },
+            // Event n
+            {
+            }
+        ]
+    },
+    // Wave n
+    {
+    }
+]
+```
 
 ## Dependency
 |Lib|Version|
