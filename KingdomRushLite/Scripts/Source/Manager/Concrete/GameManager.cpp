@@ -56,8 +56,8 @@ GameManager::GameManager()
 	//检测渲染器是否初始化成功
 	InitAssert(renderer, "Failed To Create Renderer");
 
-	//向SDL提出建议，使得在打开SDL窗口的时候若是输入中文可以显示候选词列表
-	//SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
+	//使得在打开SDL窗口时若是输入中文可以显示候选词列表，以提醒玩家切换为英文输入法，因为中文输入无法被正常捕获
+	SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
 	#pragma endregion
 
 	#pragma region LoadResource

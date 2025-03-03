@@ -79,6 +79,7 @@ This prototype is designed data-driven, you can create your personal experience 
     - `UIManager`: Offers general rendering methods and organizes all the UI components
         - `StatusUI`: Renders the real-time status of health, coin number and cooldown of player skills
         - `TowerPanel`: Derives `TowerBuildPanel` and `TowerUpgradePanel` for building or upgrading towers
+        - `GameOverUI`: Notice whether win or not when game is over
 - Controlable Character
     - `Player`: Organized by `PlayerManager`, controled by state machine
         - `PlayerDragon`: Derives from `Player`, can attack enemy by skills including flash and impact
@@ -97,3 +98,7 @@ This prototype is designed data-driven, you can create your personal experience 
 - Change textures in minimalist style
 - Enable upgrading towers seperately
 - Rewrite player's movement input
+- Enable game pause and acceleration
+- More UI tips for game stats
+- More enemies to fit properties of specific tower
+- More game levels
