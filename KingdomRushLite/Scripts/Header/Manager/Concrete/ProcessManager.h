@@ -5,11 +5,6 @@
 #include "../../Map/Map.h"
 #include "../../Tower/TowerType.h"
 
-//依据配置文件设置各类防御塔的等级上限
-#define TOWER_ARCHER_MAX_LEVEL 9
-#define TOWER_AXEMAN_MAX_LEVEL 9
-#define TOWER_GUNNER_MAX_LEVEL 9
-
 //记录一局游戏中的各项动态属性
 class ProcessManager :public Manager<ProcessManager>
 {

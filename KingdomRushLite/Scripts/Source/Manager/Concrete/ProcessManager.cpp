@@ -76,13 +76,14 @@ void ProcessManager::IncreaseTowerLevelBy(TowerType _type, int _incre)
 	switch (_type)
 	{
 	case TowerType::Archer:
-		levelArcher = (levelArcher + _incre >= TOWER_ARCHER_MAX_LEVEL) ? TOWER_ARCHER_MAX_LEVEL : (levelArcher + _incre);
+		//从1级开始最高TOWER_MAX_LEVEL级别，对应数组中索引最大(TOWER_MAX_LEVEL - 1)
+		levelArcher = (levelArcher + _incre >= TOWER_MAX_LEVEL - 1) ? (TOWER_MAX_LEVEL - 1) : (levelArcher + _incre);
 		break;
 	case TowerType::Axeman:
-		levelAxeman = (levelAxeman + _incre >= TOWER_AXEMAN_MAX_LEVEL) ? TOWER_AXEMAN_MAX_LEVEL : (levelAxeman + _incre);
+		levelAxeman = (levelAxeman + _incre >= TOWER_MAX_LEVEL - 1) ? (TOWER_MAX_LEVEL - 1) : (levelAxeman + _incre);
 		break;
 	case TowerType::Gunner:
-		levelGunner = (levelGunner + _incre >= TOWER_GUNNER_MAX_LEVEL) ? TOWER_GUNNER_MAX_LEVEL : (levelGunner + _incre);
+		levelGunner = (levelGunner + _incre >= TOWER_MAX_LEVEL - 1) ? (TOWER_MAX_LEVEL - 1) : (levelGunner + _incre);
 		break;
 	default:
 		break;

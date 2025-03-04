@@ -85,7 +85,6 @@ void UIManager::OnUpdate(SDL_Renderer* _renderer)
 	}
 	else
 		gameOverUI->OnUpdate(_renderer);
-
 }
 
 void UIManager::OnRender(SDL_Renderer* _renderer)

@@ -10,10 +10,10 @@
 #include "../Manager.hpp"
 #include "../../Enemy/Wave.h"
 
-//防御塔最高等级
+//防御塔最高等级，从1开始
 #define TOWER_MAX_LEVEL 10
 
-//用于处理游戏配置文件config.json内的预制体信息
+//用于处理游戏配置文件数据
 class ConfigManager :public Manager<ConfigManager>
 {
 	friend class Manager<ConfigManager>;
