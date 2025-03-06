@@ -42,7 +42,7 @@ GameManager::GameManager()
 	#pragma endregion
 
 	#pragma region Window&Renderer
-	//从屏幕中心显示一个标题为"KingdomRushLite"的1280x720的一般样式的窗口
+	//从屏幕中心显示一个带标题的特定尺寸的一般样式的窗口
 	window = SDL_CreateWindow(_config->basicPrefab.windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		_config->basicPrefab.windowWidth, _config->basicPrefab.windowHeight, SDL_WINDOW_SHOWN);
 	//检测窗口是否初始化成功
