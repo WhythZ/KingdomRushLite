@@ -120,7 +120,7 @@ void Map::MarkTowerBuiltAt(TowerType _type, const SDL_Point& _tileIdx)
 }
 
 std::string Map::TrimString(const std::string _str)
-//若字符串的首尾出现了空格，会很难被发现，所以提供一个剪切操作以统一，如"   x\x\x\x,y\y\y\y   "被剪切后得到"x\x\x\x.y\y\y\y"
+//若字符串的首尾出现了空格，会很难被发现，所以提供一个剪切操作以统一，如"   x\x\x\x,y\y\y\y   "被剪切后得到"x\x\x\x,y\y\y\y"
 {
 	//找到字符串中的第一个非空字符（非空格、非制表符）的索引；注意使用的是size_t类型
 	size_t _beginIdx = _str.find_first_not_of(" \t");
@@ -161,7 +161,7 @@ void Map::LoadTileFromString(const std::string _tileBuf, Tile& _tile)
 		//若是抛出了std::invalid_argument&异常（出现了非数值字符），就执行以下内部的语句
 		catch (const std::invalid_argument&)
 		{
-			//在瓦片成员变量的取值中，-1要么是无意义值，要么是默认值
+			//在Tile类的成员变量的取值意义设定中，-1要么是无意义值，要么是默认值
 			_value = -1;
 		}
 
@@ -169,14 +169,14 @@ void Map::LoadTileFromString(const std::string _tileBuf, Tile& _tile)
 		_values.push_back(_value);
 	}
 
-	//检测数组尺寸，空的话表示数据缺失；地形层的值小于0无意义，等于0表示取默认地形
+	//检测数组尺寸，空的话表示数据缺失；地形层的值小于0无意义，等于0表示取Tileset中首个纹理
 	_tile.terrainLayer = (_values.size() < 1 || _values[0] < 0) ? 0 : _values[0];
 	//数组尺寸为1的话，说明除了地形层有数据外其他层的数据均缺失，后面依此类推；小于-1无意义，等于-1表示无装饰
-	_tile.decorationLayer = (_values.size() < 2 || _values[0] < -1) ? -1 : _values[1];
+	_tile.decorationLayer = (_values.size() < 2 || _values[1] < -1) ? -1 : _values[1];
 	//依据枚举内的映射进行强制类型转换；小于0无意义，0对应TileDir::None，表示无方向
-	_tile.directionLayer = (TileDir)((_values.size() < 3 || _values[0] < 0) ? 0 : _values[2]);
+	_tile.directionLayer = (TileDir)((_values.size() < 3 || _values[2] < 0) ? 0 : _values[2]);
 	//小于-1无意义，等于-1表示无特殊建筑
-	_tile.specialFlagLayer = (_values.size() < 4 || _values[0] < -1) ? -1 : _values[3];
+	_tile.specialFlagLayer = (_values.size() < 4 || _values[3] < -1) ? -1 : _values[3];
 }
 
 void Map::GenerateMapCache()
@@ -199,12 +199,9 @@ void Map::GenerateMapCache()
 				homePoint.x = x;
 				homePoint.y = y;
 			}
-			//剩下的情况均为刷怪点
+			//剩下的情况均为刷怪点，生成对应编号刷怪点位置的Route洋流图
 			else
-			{
-				//生成对应编号刷怪点位置的Route洋流图
-				spawnRoutePool[_tile.specialFlagLayer] = Route(tileMap, { x, y });
-			}
+				spawnRoutePool[_tile.specialFlagLayer] = Route(tileMap, { x,y });
 		}
 	}
 }
