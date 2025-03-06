@@ -29,8 +29,8 @@ public:
 	const TileMap& GetTileMap() const;                  //获取瓦片地图的常引用
 	const SDL_Point& GetHomeIdx() const;                //获取家瓦片的位置常引用
 	const RoutePool& GetSpawnRoutePool() const;         //获取刷怪点路径池的常引用
-	size_t GetHeightTileNum() const;                    //获取地图的高（行瓦片数）
 	size_t GetWidthTileNum() const;                     //获取地图的宽（列瓦片数）
+	size_t GetHeightTileNum() const;                    //获取地图的高（行瓦片数）
 	bool IsInRouteAt(const SDL_Point&) const;           //特定瓦片坐标位置上是否是路径
 	bool IsDecorationAt(const SDL_Point&) const;        //特定瓦片坐标位置上是否存在装饰
 	bool IsTowerBuiltAt(const SDL_Point&) const;        //在特定瓦片坐标位置上是否放置了防御塔

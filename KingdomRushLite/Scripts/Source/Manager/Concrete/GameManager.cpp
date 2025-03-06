@@ -18,7 +18,7 @@
 
 GameManager::GameManager()
 {
-	#pragma region SDL-Libraries
+	#pragma region SDL
 	//初始化SDL库的所有子系统；因为SDL_Init函数返回0表示成功，所以此处第一个传入参数取反
 	InitAssert(!SDL_Init(SDL_INIT_EVERYTHING), u8"Failed To Init SDL");
 	//初始化SDL_ttf库；TTF_Init函数返回0表示成功
@@ -32,11 +32,9 @@ GameManager::GameManager()
 	#pragma endregion
 
 	#pragma region LoadData
-	//加载配置文件（文件会被加载到这个指针指向的单例管理器上）与游戏进程文件
+	//使用初始化断言，加载主配置文件（其内包含窗口配置信息，故而放在窗口初始化之前）、关卡文件、地图文件
 	ConfigManager* _config = ConfigManager::Instance();
-	ProcessManager* _process = ProcessManager::Instance();
-	//使用初始化断言，加载地图文件、主配置文件（其内包含窗口配置信息，故而放在窗口初始化之前）、关卡文件
-	InitAssert(_process->map.Load("Data/Map.csv"), u8"Failed To Load Map.csv");
+	InitAssert(_config->LoadMap("Data/Map.csv"), u8"Failed To Load Map.csv");
 	InitAssert(_config->LoadConfig("Data/Configs.json"), u8"Failed To Load Configs.json");
 	InitAssert(_config->LoadWaves("Data/Waves.json"), u8"Failed To Load Waves.json");
 	#pragma endregion

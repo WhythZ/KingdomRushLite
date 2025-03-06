@@ -1,4 +1,5 @@
 #include "../../../Header/Manager/Concrete/ConfigManager.h"
+#include "../../../Header/Manager/Concrete/ProcessManager.h"
 
 bool ConfigManager::LoadConfig(const std::string& _path)
 {
@@ -140,6 +141,11 @@ bool ConfigManager::LoadWaves(const std::string& _path)
 	if (waveList.empty()) return false;
 	//一切都没毛病的话，就最终返回成功的信号
 	return true;
+}
+
+bool ConfigManager::LoadMap(const std::string& _path)
+{
+	return ProcessManager::Instance()->map.Load(_path);
 }
 
 bool ConfigManager::ParseBasicConfigPrefab(BasicConfigPrefab& _prefab, cJSON* _jsonRoot)

@@ -76,20 +76,20 @@ const RoutePool& Map::GetSpawnRoutePool() const
 	return spawnRoutePool;
 }
 
-size_t Map::GetHeightTileNum() const
-{
-	if (tileMap.empty())
-		return 0;
-	//即返回行的数量
-	return tileMap.size();
-}
-
 size_t Map::GetWidthTileNum() const
 {
 	if (tileMap.empty())
 		return 0;
 	//即返回第一行的列数
 	return tileMap[0].size();
+}
+
+size_t Map::GetHeightTileNum() const
+{
+	if (tileMap.empty())
+		return 0;
+	//即返回行的数量
+	return tileMap.size();
 }
 
 bool Map::IsInRouteAt(const SDL_Point& _idx) const
