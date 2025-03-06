@@ -105,12 +105,12 @@ void WaveManager::OnUpdate(double _delta)
 		newEventTimer.OnUpdate(_delta);
 }
 
-int WaveManager::GetCurrentWaveIdx() const
+size_t WaveManager::GetCurrentWaveIdx() const
 {
 	return waveIdx;
 }
 
-int WaveManager::GetTotalWaveNum() const
+size_t WaveManager::GetTotalWaveNum() const
 {
 	return waveList.size();
 }

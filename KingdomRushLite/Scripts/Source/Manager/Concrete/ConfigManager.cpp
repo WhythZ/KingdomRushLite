@@ -1,7 +1,10 @@
 #include "../../../Header/Manager/Concrete/ConfigManager.h"
+#include <iostream>
+#include <sstream>
+#include <fstream>
 #include "../../../Header/Manager/Concrete/ProcessManager.h"
 
-bool ConfigManager::LoadConfig(const std::string& _path)
+bool ConfigManager::LoadConfigs(const std::string& _path)
 {
 	#pragma region GetJsonRoot
 	//从传入路径读取文件，并判断是否读取失败

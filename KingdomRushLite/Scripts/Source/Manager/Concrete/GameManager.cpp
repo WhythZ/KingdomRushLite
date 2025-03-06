@@ -35,7 +35,7 @@ GameManager::GameManager()
 	//使用初始化断言，加载主配置文件（其内包含窗口配置信息，故而放在窗口初始化之前）、关卡文件、地图文件
 	ConfigManager* _config = ConfigManager::Instance();
 	InitAssert(_config->LoadMap("Data/Map.csv"), u8"Failed To Load Map.csv");
-	InitAssert(_config->LoadConfig("Data/Configs.json"), u8"Failed To Load Configs.json");
+	InitAssert(_config->LoadConfigs("Data/Configs.json"), u8"Failed To Load Configs.json");
 	InitAssert(_config->LoadWaves("Data/Waves.json"), u8"Failed To Load Waves.json");
 	#pragma endregion
 

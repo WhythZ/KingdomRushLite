@@ -1,9 +1,6 @@
 #ifndef _CONFIG_MANAGER_H_
 #define _CONFIG_MANAGER_H_
 
-#include <iostream>
-#include <sstream>
-#include <fstream>
 #include <string>
 #include <cJSON.h>
 #include <SDL.h>
@@ -97,7 +94,7 @@ public:
 	const double initHomeHP = 10;           //家的初始默认血量常量
 
 public:
-	bool LoadConfig(const std::string&);    //加载游戏的各项基本设置（json）
+	bool LoadConfigs(const std::string&);   //加载游戏的各项基本设置（json）
 	bool LoadWaves(const std::string&);     //加载关卡波次的具体信息（json）
 	bool LoadMap(const std::string&);       //加载关卡地图的具体设置（csv）
 

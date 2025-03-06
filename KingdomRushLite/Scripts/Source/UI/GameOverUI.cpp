@@ -35,8 +35,8 @@ void GameOverUI::OnUpdate(SDL_Renderer* _renderer)
 
 	#pragma region WaveNumText
 	static WaveManager* _wm = WaveManager::Instance();
-	int _totalWaveNum = _wm->GetTotalWaveNum();
-	int _currentWaveNum = _wm->GetCurrentWaveIdx() + 1;
+	size_t _totalWaveNum = _wm->GetTotalWaveNum();
+	size_t _currentWaveNum = _wm->GetCurrentWaveIdx() + 1;
 	_currentWaveNum = (_currentWaveNum > _totalWaveNum) ? _totalWaveNum : _currentWaveNum;
 	std::string _waveNumStr = "AT " + std::to_string(_currentWaveNum) + " / " + std::to_string(_totalWaveNum) + " WAVE";
 	//先将文本以特定字体加载到内存中
