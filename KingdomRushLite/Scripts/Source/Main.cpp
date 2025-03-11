@@ -7,8 +7,22 @@
 //将此宏定义，否则main函数在预处理阶段会被define为SDL_main
 #define SDL_MAIN_HANDLED
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 int main(int _argc, char** _argv)
 {
-	//运行游戏主管理器内的主循环方法，并获取返回值
-	return GameManager::Instance()->Run(_argc, _argv);
+    //在Emscripten平台下，使用emscripten_set_main_loop来替代传统的游戏主循环
+    #ifdef __EMSCRIPTEN__
+	emscripten_set_main_loop(
+		[]()
+		{
+			GameManager::Instance()->Run(0, nullptr);
+		}, 0, 1
+	); //0代表没有循环次数，1代表单次执行
+	#else
+    //非Emscripten环境下直接运行
+    return GameManager::Instance()->Run(_argc, _argv);
+    #endif
 }

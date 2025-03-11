@@ -4,7 +4,7 @@
 This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 
 ## About
-This branch is for cmake build by Emscripten, but in current commit history, you can use following instructions in cmd to build in MSVC
+This branch is for CMake building with Emscripten, but in current commit history you can create a folder in root directory, in which input following commands in cmd to build the game in MSVC
 
 ```
 cmake .. -G "Visual Studio 17 2022" -A x64
