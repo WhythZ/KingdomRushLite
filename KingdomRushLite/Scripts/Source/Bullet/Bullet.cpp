@@ -1,4 +1,5 @@
 #include "../../Header/Bullet/Bullet.h"
+#include <cmath>
 #include "../../Header/Manager/Concrete/ProcessManager.h"
 
 void Bullet::SetPosition(const Vector2& _position)

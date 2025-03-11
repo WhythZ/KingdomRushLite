@@ -1,4 +1,5 @@
 #include "../../../Header/Manager/Concrete/GameManager.h"
+#include <cmath>
 //×ÖÌå¡¢Í¼Ïñ¡¢»ìÒôÖ§³Ö
 #include <SDL_ttf.h>
 #include <SDL_image.h>

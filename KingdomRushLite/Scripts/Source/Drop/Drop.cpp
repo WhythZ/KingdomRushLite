@@ -1,4 +1,5 @@
 #include "../../Header/Drop/Drop.h"
+#include <cmath>
 #include "../../Header/Map/Tile.h"
 
 Drop::Drop()
