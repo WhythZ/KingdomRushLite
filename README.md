@@ -4,19 +4,16 @@
 This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 
 ## About
-This branch is for CMake building with Emscripten, but in current commit history you can create a folder in root directory, in which input following commands in cmd to build the game in MSVC
+This branch is for building the game by CMake and Emscripten for publishing in web, just run following commands in cmd from root directory
 
 ```
-cmake .. -G "Visual Studio 17 2022" -A x64
-cmake --build . --config Release
+mkdir build
+cd build
+emcmake cmake ..
+emmake make
 ```
 
 ## Dependency
 |Lib|Version|
 |---|---|
 |[cJSON](https://github.com/DaveGamble/cJSON)|cJSON-1.7.18|
-|[SDL](https://github.com/libsdl-org/SDL)|SDL2-devel-2.30.2-VC|
-|[SDL_image](https://github.com/libsdl-org/SDL_image)|SDL2_image-devel-2.8.2-VC|
-|[SDL_gfx](https://www.ferzkopp.net/wordpress/2016/01/02/sdl_gfx-sdl2_gfx/)|[SDL2_gfx-1.0.4-VC](https://github.com/giroletm/SDL2_gfx/releases/tag/release-1.0.4)|
-|[SDL_ttf](https://github.com/libsdl-org/SDL_ttf)|SDL2_ttf-devel-2.22.0-VC|
-|[SDL_mixer](https://github.com/libsdl-org/SDL_mixer)|SDL2_mixer-devel-2.8.0-VC|
