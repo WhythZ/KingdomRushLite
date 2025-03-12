@@ -45,7 +45,7 @@ private:
 
 public:
 	Tower();
-	~Tower() = default;
+	virtual ~Tower() = default;
 	void SetPosition(const Vector2&);          //ÉèÖÃ·ÀÓùËşµÄÎ»ÖÃ
 
 	void OnUpdate(double);

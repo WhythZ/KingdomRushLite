@@ -95,6 +95,17 @@ This prototype is designed data-driven, you can create your personal experience 
 |[SDL_ttf](https://github.com/libsdl-org/SDL_ttf)|SDL2_ttf-devel-2.22.0-VC|
 |[SDL_mixer](https://github.com/libsdl-org/SDL_mixer)|SDL2_mixer-devel-2.8.0-VC|
 
+Notice that the libraries are all in MSVC version, if you want to compile by MinGW, remember to replace the libraries with corresponding versions
+
+To compile the game by MSVC and CMake, run following commands in cmd from root directory, then you'll find `KingdomRushLite.exe` in `build\KingdomRushLite\Release\`
+
+```
+mkdir build
+cd build
+cmake .. -G "Visual Studio 17 2022" -A x64
+cmake --build . --config Release
+```
+
 ## Todo
 - Change textures in minimalist style
 - Enable upgrading towers seperately

@@ -55,7 +55,7 @@ protected:
 
 public:
 	Player();
-	~Player();
+	virtual ~Player();
 	void SetPosition(const Vector2&);
 	void SetVelocity(const Vector2&);
 

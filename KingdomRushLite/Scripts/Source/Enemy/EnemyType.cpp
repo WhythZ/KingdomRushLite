@@ -4,6 +4,9 @@ std::ostream& operator<<(std::ostream& _cout, const EnemyType& _type)
 {
 	switch (_type)
 	{
+	case EnemyType::None:
+		_cout << "None";
+		break;
 	case EnemyType::Slime:
 		_cout << "Slime";
 		break;
