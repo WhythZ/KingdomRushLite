@@ -31,7 +31,7 @@ private:
 
 public:
 	Bullet() = default;
-	~Bullet() = default;
+	virtual ~Bullet() = default;
 	void SetPosition(const Vector2&);       //设定子弹的发射位置
 	void SetVelocity(const Vector2&);       //设定子弹发射的速度向量
 	void SetDamage(double);                 //设定子弹命中敌人的伤害

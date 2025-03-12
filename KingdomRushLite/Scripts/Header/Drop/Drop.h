@@ -37,7 +37,7 @@ private:
 
 public:
 	Drop();
-	~Drop() = default;
+	virtual ~Drop() = default;
 	void SetPosition(const Vector2&);
 
 	void OnUpdate(double);

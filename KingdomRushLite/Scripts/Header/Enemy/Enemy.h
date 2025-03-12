@@ -74,7 +74,7 @@ private:
 
 public:
 	Enemy();
-	~Enemy() = default;
+	virtual ~Enemy() = default;
 	void SetRecoverSkillTrigger(SkillCallBack); //设置回复技能的回调函数
 	void SetRoute(const Route*);                //设置行进路径
 	void SetPosition(const Vector2&);           //设置初始位置

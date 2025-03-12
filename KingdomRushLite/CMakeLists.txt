@@ -7,80 +7,27 @@ file(GLOB_RECURSE SOURCES
 # 创建可执行文件
 add_executable(KingdomRushLite ${SOURCES})
 
-# 链接依赖库
-target_link_libraries(KingdomRushLite
-    SDL2
-    SDL2main
-    SDL2_gfx
-    SDL2_image
-    SDL2_mixer
-    SDL2_ttf
-    cJSON
-)
+# 链接cJSON库
+target_link_libraries(KingdomRushLite PRIVATE cJSON)
 
-# Windows子系统设置（MSVC 和 MinGW 兼容）
-if(WIN32)
-    if(MSVC)
-        set_target_properties(KingdomRushLite PROPERTIES 
-            LINK_FLAGS "/SUBSYSTEM:WINDOWS"
-        )
-    elseif(MINGW)
-        target_link_libraries(KingdomRushLite -mwindows)
-    endif()
+# Emscripten相关配置
+if (USE_EMSCRIPTEN)
+    # 设置编译目标文件为HTML
+    set_target_properties(KingdomRushLite PROPERTIES SUFFIX ".html")
+
+    # 使用Emscripten内置的SDL2相关库，而不是使用本地原本的SDL2库，且无需添加.dll文件
+    target_compile_options(KingdomRushLite PRIVATE
+        "-sUSE_SDL=2"              # 使用Emscripten提供的 SDL2
+        "-sUSE_SDL_IMAGE=2"        # 启用SDL2_image
+        "-sUSE_SDL_MIXER=2"        # 启用SDL2_mixer
+        "-sUSE_SDL_TTF=2"          # 启用SDL2_ttf
+        "-sUSE_SDL_GFX=2"          # 启用SDL2_gfx
+    )
+
+    # 这里用target_link_options传递Emscripten的链接参数，将资源和配置文件加载到虚拟文件系统
+    target_link_options(KingdomRushLite PRIVATE
+        "-sFORCE_FILESYSTEM"  # 允许文件系统操作
+        "--preload-file ${CMAKE_CURRENT_SOURCE_DIR}/KingdomRushLite/Assets@/Assets"
+        "--preload-file ${CMAKE_CURRENT_SOURCE_DIR}/KingdomRushLite/Data@/Data"
+    )
 endif()
-# if(WIN32)
-#     set_target_properties(KingdomRushLite PROPERTIES 
-#         LINK_FLAGS "/SUBSYSTEM:WINDOWS"
-#     )
-# endif()
-
-# 复制资源文件到输出目录
-add_custom_command(TARGET KingdomRushLite POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/Assets"
-        "$<TARGET_FILE_DIR:KingdomRushLite>/Assets"
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/Data"
-        "$<TARGET_FILE_DIR:KingdomRushLite>/Data"
-)
-
-# 复制主DLL文件
-set(MAIN_DLLS
-    SDL2.dll
-    SDL2_gfx.dll
-    SDL2_image.dll
-    SDL2_mixer.dll
-    SDL2_ttf.dll
-)
-
-foreach(DLL ${MAIN_DLLS})
-    add_custom_command(TARGET KingdomRushLite POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-            "${CMAKE_CURRENT_SOURCE_DIR}/${DLL}"
-            "$<TARGET_FILE_DIR:KingdomRushLite>/"
-    )
-endforeach()
-
-# 复制可选依赖DLL（SDL2_image）
-file(GLOB SDL2_IMAGE_OPTIONAL_DLLS
-    "${CMAKE_SOURCE_DIR}/Dependencies/SDL2_image/x64lib/optional/*.dll"
-)
-foreach(DLL ${SDL2_IMAGE_OPTIONAL_DLLS})
-    add_custom_command(TARGET KingdomRushLite POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-            "${DLL}"
-            "$<TARGET_FILE_DIR:KingdomRushLite>/"
-    )
-endforeach()
-
-# 复制可选依赖DLL（SDL2_mixer）
-file(GLOB SDL2_MIXER_OPTIONAL_DLLS
-    "${CMAKE_SOURCE_DIR}/Dependencies/SDL2_mixer/x64lib/optional/*.dll"
-)
-foreach(DLL ${SDL2_MIXER_OPTIONAL_DLLS})
-    add_custom_command(TARGET KingdomRushLite POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-            "${DLL}"
-            "$<TARGET_FILE_DIR:KingdomRushLite>/"
-    )
-endforeach()

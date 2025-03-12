@@ -19,8 +19,10 @@ int main(int _argc, char** _argv)
 		[]()
 		{
 			GameManager::Instance()->Run(0, nullptr);
-		}, 0, 1
-	); //0代表没有循环次数，1代表单次执行
+		},
+		0, //帧率（0表示使用浏览器的默认帧率）
+		1  //模拟无限循环
+	);
 	#else
     //非Emscripten环境下直接运行
     return GameManager::Instance()->Run(_argc, _argv);

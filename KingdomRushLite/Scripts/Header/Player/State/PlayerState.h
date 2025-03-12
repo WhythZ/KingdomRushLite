@@ -19,7 +19,6 @@ public:
 	~PlayerState() = default;
 
 	virtual void OnBegin() override;
-	virtual void OnInput(const SDL_Event&) = 0;
 	virtual void OnUpdate(double) override;
 	virtual void OnRender(SDL_Renderer*) override;
 	virtual void OnEnd() override;
