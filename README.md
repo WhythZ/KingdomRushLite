@@ -4,7 +4,13 @@
 This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 
 ## About
-In this tower defence game prototype inspired by KingdomRush, you can not only build different towers using coins earned by defeating waves of enemies, but control a character with skills to battle
+In this tower defence game prototype inspired by KingdomRush, you can not only build different towers using coins earned by defeating waves of enemies, but control a character with skills to battle, [download to play](https://github.com/WhythZ/KingdomRushLite/releases)
+- Click on Empty Tile: Build towers
+- Click on Home Tile: Upgrade towers
+- Press W/A/S/D: Move the character
+- Press 1/2: Release character skills
+
+![Cover.png](https://github.com/WhythZ/KingdomRushLite/blob/master/Cover.png)
 
 Short descriptions about the core functional classes which forms multiple extensible gameplay systems are listed below, notice that all managers are derived from singleton `Manager` base class
 - General Game Management
@@ -95,9 +101,9 @@ This prototype is designed data-driven, you can create your personal experience 
 |[SDL_ttf](https://github.com/libsdl-org/SDL_ttf)|SDL2_ttf-devel-2.22.0-VC|
 |[SDL_mixer](https://github.com/libsdl-org/SDL_mixer)|SDL2_mixer-devel-2.8.0-VC|
 
-Notice that the libraries are all in MSVC version, if you want to compile by MinGW, remember to replace the libraries with corresponding versions
+Notice that the libraries are all in MSVC version, if you want to build by MinGW, remember to replace the libraries with corresponding versions
 
-To compile the game by MSVC and CMake, run following commands in cmd from root directory, then you'll find `KingdomRushLite.exe` in `build\KingdomRushLite\Release\`
+To build the game by MSVC and CMake, run following commands in cmd from root directory, then you'll find `KingdomRushLite.exe` in `build\KingdomRushLite\Release\`, or you can just open the repo in Visual Studio and run in Release mode
 
 ```
 mkdir build
@@ -106,7 +112,7 @@ cmake .. -G "Visual Studio 17 2022" -A x64
 cmake --build . --config Release
 ```
 
-## Todo
+## TodoList
 - Change textures in minimalist style
 - Enable upgrading towers seperately
 - Rewrite player's movement input
