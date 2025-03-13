@@ -13,6 +13,8 @@ emcmake cmake ..
 emmake make
 ```
 
+The building result is published on [this page](https://whythz-debug.github.io/KingdomRushLite/) (But untill 2025.03.13 it still doesn't work due to the runtime SDL2 error, which I have no idea with for now)
+
 ## Dependency
 |Lib|Version|
 |---|---|
