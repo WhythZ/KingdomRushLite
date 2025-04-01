@@ -4,7 +4,7 @@
 This repo adopts [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) License
 
 ## About
-In this tower defence game prototype inspired by KingdomRush, you can not only build different towers using coins earned by defeating waves of enemies, but control a character with skills to battle, [download to play](https://github.com/WhythZ/KingdomRushLite/releases)
+In this tower defence game prototype inspired by KingdomRush, you can not only build different towers using coins earned by defeating waves of enemies, but control a character with skills to battle, [download to play](https://github.com/WhythZ/KingdomRushLite/releases) or see the [showcase video](https://www.bilibili.com/video/BV1HjZ4YFEsT/?share_source=copy_web&vd_source=5ef86699cafaaf10c5dc362759c73a7d)
 - Click on Empty Tile: Build towers
 - Click on Home Tile: Upgrade towers
 - Press W/A/S/D: Move the character
