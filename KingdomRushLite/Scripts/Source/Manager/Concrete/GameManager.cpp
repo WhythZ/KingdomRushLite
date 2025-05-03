@@ -36,7 +36,8 @@ GameManager::GameManager()
 	ConfigManager* _config = ConfigManager::Instance();
 	InitAssert(_config->LoadMap("Data/Map.csv"), u8"Failed To Load Map.csv");
 	InitAssert(_config->LoadConfigs("Data/Configs.json"), u8"Failed To Load Configs.json");
-	InitAssert(_config->LoadWaves("Data/Waves.json"), u8"Failed To Load Waves.json");
+	//InitAssert(_config->LoadWaves("Data/Waves.json"), u8"Failed To Load Waves.json");
+	InitAssert(_config->LoadWaves("Data/WavesTest.json"), u8"Failed To Load WavesTest.json");
 	#pragma endregion
 
 	#pragma region Window&Renderer

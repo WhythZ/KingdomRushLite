@@ -14,7 +14,7 @@ class WaveManager :public Manager<WaveManager>
 private:
 	std::vector<Wave> waveList;        //记录波次列表
 	int waveIdx = -1;                  //当前正在进行的宏观波次索引
-	int eventIdx = 0;                  //当前波次进行的微观生成事件的索引
+	int eventIdx = -1;                 //当前波次进行的微观生成事件的索引
 	
 	Timer newWaveTimer;                //用于唤起宏观波次的计时器
 	Timer newEventTimer;               //用于唤起微观生成事件的计时器
