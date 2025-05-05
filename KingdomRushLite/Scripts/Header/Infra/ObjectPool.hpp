@@ -17,13 +17,14 @@ private:
     {
         union
         {
-            ChunkLinkNode* next;                     //节点空闲时用于构造空闲链表
-            char padding[sizeof(std::max_align_t)];  //确保对齐要求以兼容不同平台
+            ChunkLinkNode* next;                     //在空闲状态下构成空闲链表
+            char padding[sizeof(std::max_align_t)];  //在使用状态下确保内存对齐
         };
         char data[0];                                //存储实际对象数据的柔性数组
 	}*ChunkLink;                                     //内存块类型，每个内存块包含多个对象
 
 private:
+    //void*指针使得对象池能以通用方式管理任意类型对象，具体类型的转换由使用者负责
     void* freeHead;                                  //指向空闲链表（串联所有空闲对象）头部
     ChunkLink chunkHead;                             //指向内存块链表（串联所有分配的内存块）头部
     const size_t elementSize;                        //存储的每个对象的大小
@@ -37,21 +38,22 @@ public:
     virtual ~ObjectPool();
 
     void* Get();                                     //使用static_cast<MyObj*>(objPool.Get())进行强转
-    void Release(void*);                             //释放对象回池中
+    void Release(void*);                             //将使用完的对象重新加入空闲链表以供复用
     void Purge();                                    //释放所有内存块
     void Clean();                                    //重置对象池，将所有对象标记为空闲
 
 private:
 	void* AllocateFromChunk(void*);                  //从空闲链表中分配对象
-    static void* FirstOf(ChunkLink);                 //
-    static void*& NextOf(void* const);               //
-    void* AllocateFromProcessHeap();                 //分配新内存块
-    void* TidyChunk(ChunkLink);                      //内存块初始化，构建空闲链表
+    static void* FirstOf(ChunkLink);                 //获取内存块中第一个对象的地址
+    static void*& NextOf(void* const);               //获取或设置对象的下一个空闲对象指针，用于构建空闲链表
+    void* AllocateFromProcessHeap();                 //分配新的内存块，并初始化其中的对象槽位，构建空闲链表
+    void* TidyChunk(ChunkLink);                      //将内存块中的对象槽位串联成空闲链表，便于后续分配
 };
 
 ObjectPool::ObjectPool(size_t _elementSize, size_t _elementCount)
     :freeHead(nullptr), chunkHead(nullptr), elementSize(_elementSize), elementCount(_elementCount)
 {
+    //分配一个内存块，并将其首个对象加入空闲链表，确保对象池初始化后即可使用
     Release(AllocateFromProcessHeap());
 }
 
@@ -62,6 +64,7 @@ ObjectPool::ObjectPool(size_t _elementSize, size_t _elementCount, std::false_typ
 
 ObjectPool::~ObjectPool()
 {
+    //释放所有分配的内存块，防止内存泄漏
     this->Purge();
 }
 
@@ -73,7 +76,7 @@ void* ObjectPool::Get()
 
 void ObjectPool::Release(void* _ptr)
 {
-    //将被释放的对象插入空闲链表头部，不实际释放内存，留作后续重用
+    //将被释放的对象插入空闲链表头部
     NextOf(_ptr) = freeHead;
     freeHead = _ptr;
 }
@@ -132,23 +135,23 @@ void*& ObjectPool::NextOf(void* const _ptr)
 
 void* ObjectPool::AllocateFromProcessHeap()
 {
-    ChunkLink new_chunk = (ChunkLink) new uint8_t[sizeof(ChunkLinkNode) + elementSize * elementCount];
-    NextOf(TidyChunk(new_chunk)) = nullptr;
+    ChunkLink _newChunk = (ChunkLink) new uint8_t[sizeof(ChunkLinkNode) + elementSize * elementCount];
+    NextOf(TidyChunk(_newChunk)) = nullptr;
 
-    //link the new_chunk
-    new_chunk->next = this->chunkHead;
-    this->chunkHead = new_chunk;
+    //链接_newChunk
+    _newChunk->next = this->chunkHead;
+    this->chunkHead = _newChunk;
 
-    //allocate 1 object
-    return AllocateFromChunk(FirstOf(new_chunk));
+    //分配一个对象
+    return AllocateFromChunk(FirstOf(_newChunk));
 }
 
 void* ObjectPool::TidyChunk(ChunkLink _chunkHead)
 {
-    char* last = _chunkHead->data + (elementCount - 1) * elementSize;
-    for (char* ptr = _chunkHead->data; ptr < last; ptr += elementSize)
-        NextOf(ptr) = (ptr + elementSize);
-    return last;
+    char* _last = _chunkHead->data + (elementCount - 1) * elementSize;
+    for (char* _ptr = _chunkHead->data; _ptr < _last; _ptr += elementSize)
+        NextOf(_ptr) = (_ptr + elementSize);
+    return _last;
 }
 
 //#include <vector>
