@@ -452,5 +452,8 @@
     <ClInclude Include="Scripts\Header\UI\GameOverUI.h">
       <Filter>头文件\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Scripts\Header\Infra\ObjectPool.hpp">
+      <Filter>头文件\Infra</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

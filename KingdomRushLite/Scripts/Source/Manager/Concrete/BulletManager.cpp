@@ -67,7 +67,7 @@ void BulletManager::RemoveInvalidBullets()
 	auto _begin = std::remove_if(bulletList.begin(), bulletList.end(),
 		[](const Bullet* _bullet)
 		{
-			if (!_bullet->IsValid())
+			if (!_bullet->IsAlive())
 			{
 				delete _bullet;
 				return true;

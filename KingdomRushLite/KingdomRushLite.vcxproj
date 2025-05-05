@@ -86,6 +86,7 @@
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Slime.h" />
     <ClInclude Include="Scripts\Header\Enemy\Enemy.h" />
     <ClInclude Include="Scripts\Header\Enemy\EnemyType.h" />
+    <ClInclude Include="Scripts\Header\Infra\ObjectPool.hpp" />
     <ClInclude Include="Scripts\Header\Infra\StateMachine\State.h" />
     <ClInclude Include="Scripts\Header\Infra\StateMachine\StateMachine.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\AudioManager.h" />

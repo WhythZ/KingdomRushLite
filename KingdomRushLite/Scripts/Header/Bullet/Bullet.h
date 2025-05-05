@@ -25,7 +25,7 @@ protected:
 	#pragma endregion
 
 private:
-	bool isValid = true;                    //决定子弹是否应当继续存在
+	bool isAlive = true;                    //决定子弹是否应当继续存在
 	bool canCollide = true;                 //子弹是否可以被碰撞（伤害检定仅发生在碰撞那一帧，后续播放碰撞后动画时的帧不应继续检定）
 	double rotationAngle = 0;               //描述子弹瞄准方向的欧拉角度，用于动画的处理
 
@@ -49,7 +49,7 @@ public:
 	double GetDamage() const;               //获取子弹伤害
 	double GetDamageRadius() const;         //获取子弹伤害范围，用于伤害碰撞检测
 	bool CanCollide() const;                //查询子弹的可碰撞与否
-	bool IsValid() const;                   //查询子弹的失效与否
+	bool IsAlive() const;                   //查询子弹的失效与否
 };
 
 #endif

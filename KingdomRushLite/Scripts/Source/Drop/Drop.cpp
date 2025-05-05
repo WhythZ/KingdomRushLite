@@ -79,12 +79,12 @@ void Drop::OnCollide()
 
 void Drop::Invalidate()
 {
-	isValid = false;
+	isAlive = false;
 }
 
-bool Drop::IsValid() const
+bool Drop::IsAlive() const
 {
-	return isValid;
+	return isAlive;
 }
 
 const Vector2& Drop::GetPosition() const

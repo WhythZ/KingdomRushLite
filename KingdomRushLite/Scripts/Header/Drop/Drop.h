@@ -29,7 +29,7 @@ protected:
 	#pragma endregion
 
 private:
-	bool isValid = true;               //掉落物是否应当继续存在于场景中
+	bool isAlive = true;               //掉落物是否应当继续存在于场景中
 	bool isPoping = false;             //掉落物是否处于弹出的状态（此时速度不应为0）
 
 	Timer popTimer;                    //控制掉落物停止上升，模拟其向上弹出后下坠的重力效果
@@ -47,7 +47,7 @@ public:
 
 	void Invalidate();
 
-	bool IsValid() const;
+	bool IsAlive() const;
 	const Vector2& GetPosition() const;
 	const SDL_Point& GetSize() const;
 };

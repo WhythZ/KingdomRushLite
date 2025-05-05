@@ -79,7 +79,7 @@ void DropManager::RemoveInvalidDrops()
 	auto _begin = std::remove_if(dropList.begin(), dropList.end(),
 		[](const Drop* _drop)
 		{
-			if (!_drop->IsValid())
+			if (!_drop->IsAlive())
 			{
 				delete _drop;
 				return true;

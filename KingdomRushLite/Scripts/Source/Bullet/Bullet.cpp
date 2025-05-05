@@ -76,7 +76,7 @@ void Bullet::DisableCollide()
 
 void Bullet::Invalidate()
 {
-	isValid = false;
+	isAlive = false;
 	//失效的同时也要取消碰撞，因为子弹失效时碰撞可能未失效（一定时间内未击中敌人）
 	DisableCollide();
 }
@@ -106,7 +106,7 @@ bool Bullet::CanCollide() const
 	return canCollide;
 }
 
-bool Bullet::IsValid() const
+bool Bullet::IsAlive() const
 {
-	return isValid;
+	return isAlive;
 }
