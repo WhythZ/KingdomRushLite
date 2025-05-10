@@ -104,7 +104,7 @@ enum class FontResID
 	VonwaonBitmap16
 };
 
-//图像池类、音乐池类、声音池类、字体池类
+//图像享元池类、音乐享元池类、声音享元池类、字体享元池类
 typedef std::unordered_map<TextureResID, SDL_Texture*> TexturePool;
 typedef std::unordered_map<MusicResID, Mix_Music*> MusicPool;
 typedef std::unordered_map<SoundResID, Mix_Chunk*> SoundPool;
@@ -116,18 +116,18 @@ class ResourceManager :public Manager<ResourceManager>
 	friend class Manager<ResourceManager>;
 
 private:
-	TexturePool texturePool;              //图像池
-	MusicPool musicPool;                  //音乐池
-	SoundPool soundPool;                  //音效池
-	FontPool fontPool;                    //字体池
+	TexturePool texturePool;              //图像享元池
+	MusicPool musicPool;                  //音乐享元池
+	SoundPool soundPool;                  //音效享元池
+	FontPool fontPool;                    //字体享元池
 
 public:
 	bool LoadResource(SDL_Renderer*);     //加载所有资源
 
-	const TexturePool& GetTexturePool();  //获取只读图像池
-	const MusicPool& GetMusicPool();      //获取只读音频池
-	const SoundPool& GetSoundPool();      //获取只读音效池
-	const FontPool& GetFontPool();        //获取只读图像池
+	const TexturePool& GetTexturePool();  //获取只读图像享元池
+	const MusicPool& GetMusicPool();      //获取只读音频享元池
+	const SoundPool& GetSoundPool();      //获取只读音效享元池
+	const FontPool& GetFontPool();        //获取只读图像享元池
 
 private:
 	ResourceManager() = default;

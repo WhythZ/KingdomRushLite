@@ -10,8 +10,8 @@ class AudioManager :public Manager<AudioManager>
 	friend class Manager<AudioManager>;
 	
 private:
-	const MusicPool* musicPool;   //ÒôÀÖ³Ø
-	const SoundPool* soundPool;   //ÒôĞ§³Ø
+	const MusicPool* musicPool;   //ÒôÀÖÏíÔª³Ø
+	const SoundPool* soundPool;   //ÒôĞ§ÏíÔª³Ø
 
 public:
 	void PlayBGM(MusicResID);     //²¥·ÅÒôÀÖ
