@@ -1,193 +1,231 @@
 #ifndef _OBJECT_POOL_HPP_
 #define _OBJECT_POOL_HPP_
 
-//借鉴自https://github.com/simdsoft/yasio/blob/dev/yasio/impl/ObjectPool.hpp
-
-#include <assert.h>
-#include <stdlib.h>
-#include <cstddef>
+#include <vector>
+#include <iostream>
 #include <memory>
+#include <algorithm>
+#include <functional>
+#include <chrono>
 #include <mutex>
-#include <type_traits>
 
+#include <SDL.h>
+
+template <typename T>
 class ObjectPool
 {
 private:
-    typedef struct ChunkLinkNode
+    //自定义删除器，用于将对象释放回池中
+    struct PoolDeleter
     {
-        union
+        ObjectPool* pool;
+        PoolDeleter(ObjectPool* _pool) : pool(_pool) {}
+        void operator()(T* _ptr)
         {
-            ChunkLinkNode* next;                     //在空闲状态下构成空闲链表
-            char padding[sizeof(std::max_align_t)];  //在使用状态下确保内存对齐
-        };
-        char data[0];                                //存储实际对象数据的柔性数组
-	}*ChunkLink;                                     //内存块类型，每个内存块包含多个对象
+            pool->ReleaseObject(std::unique_ptr<T>(_ptr, *this));
+        }
+    };
 
 private:
-    //void*指针使得对象池能以通用方式管理任意类型对象，具体类型的转换由使用者负责
-    void* freeHead;                                  //指向空闲链表（串联所有空闲对象）头部
-    ChunkLink chunkHead;                             //指向内存块链表（串联所有分配的内存块）头部
-    const size_t elementSize;                        //存储的每个对象的大小
-    const size_t elementCount;                       //每个内存块存储的对象数量
+    //此处使用vector可能导致vector自身的频繁内存分配，可考虑使用list等替换
+    std::vector<std::unique_ptr<T>> activeObjects;         //活跃对象列表
+    std::vector<std::unique_ptr<T>> inactiveObjects;       //非活跃对象列表
+
+    size_t initialSize;                                    //初始容量上限
+    size_t maxSize;                                        //极限容量上限（0表无限制）
+    size_t expansionSize;                                  //每次扩容的幅度大小
+
+    mutable std::mutex poolMutex;                          //线程安全锁
+    std::chrono::steady_clock::time_point lastShrinkTime;  //上次缩容时间
+
+    //缩容策略函数，默认当活跃对象超过总容量50%时缩容
+    std::function<bool(const ObjectPool<T>&)> shrinkPolicy =
+        [](const ObjectPool<T>& _pool)
+        {
+            return _pool.GetInactiveCount() > (_pool.GetActiveCount() + _pool.GetInactiveCount()) / 2;
+        };
 
 public:
-	ObjectPool(size_t, size_t);                      //传入存储对象尺寸与数量，预分配一个内存块
-	ObjectPool(size_t, size_t, std::false_type);     //传参同上，但不进行预分配
-    ObjectPool(const ObjectPool&) = delete;          //删除拷贝构造函数
-    void operator=(const ObjectPool&) = delete;      //删除拷贝构造运算符
-    virtual ~ObjectPool();
+    ObjectPool(size_t = 100, size_t = 0, size_t = 100);    //默认容量、极限容量、扩容幅度
+    ~ObjectPool();
+    ObjectPool(const ObjectPool&) = delete;
+    ObjectPool& operator=(const ObjectPool&) = delete;
 
-    void* Get();                                     //使用static_cast<MyObj*>(objPool.Get())进行强转
-    void Release(void*);                             //将使用完的对象重新加入空闲链表以供复用
-    void Purge();                                    //释放所有内存块
-    void Clean();                                    //重置对象池，将所有对象标记为空闲
+    void OnUpdate(double);
+    void OnRender(SDL_Renderer*);
+
+    std::unique_ptr<T> Acquire();                          //从池中获取对象
+
+    size_t GetTotalCount() const;
+    size_t GetActiveCount() const;
+    size_t GetInactiveCount() const;
+    size_t GetMaxSize() const;
 
 private:
-	void* AllocateFromChunk(void*);                  //从空闲链表中分配对象
-    static void* FirstOf(ChunkLink);                 //获取内存块中第一个对象的地址
-    static void*& NextOf(void* const);               //获取或设置对象的下一个空闲对象指针，用于构建空闲链表
-    void* AllocateFromProcessHeap();                 //分配新的内存块，并初始化其中的对象槽位，构建空闲链表
-    void* TidyChunk(ChunkLink);                      //将内存块中的对象槽位串联成空闲链表，便于后续分配
+    std::unique_ptr<T> CreateObject();                     //创建新对象
+    void ReleaseObject(std::unique_ptr<T> _object);        //释放对象回池
+
+    bool CheckExpand(size_t);                              //对象池扩容
+    void CheckShrink();                                    //对象池缩容
 };
 
-ObjectPool::ObjectPool(size_t _elementSize, size_t _elementCount)
-    :freeHead(nullptr), chunkHead(nullptr), elementSize(_elementSize), elementCount(_elementCount)
+template <typename T>
+ObjectPool<T>::ObjectPool(size_t _initialSize, size_t _maxSize, size_t _expansionSize) :
+    initialSize(_initialSize),
+    maxSize(_maxSize),
+    expansionSize(_expansionSize),
+    lastShrinkTime(std::chrono::steady_clock::now())
 {
-    //分配一个内存块，并将其首个对象加入空闲链表，确保对象池初始化后即可使用
-    Release(AllocateFromProcessHeap());
+    if (_initialSize == 0)
+        throw std::runtime_error("ObjectPool initial size cannot be zero");
+
+    //初始化非活跃对象池
+    for (size_t i = 0; i < initialSize; i++)
+        inactiveObjects.push_back(CreateObject());
 }
 
-ObjectPool::ObjectPool(size_t _elementSize, size_t _elementCount, std::false_type)
-    :freeHead(nullptr), chunkHead(nullptr), elementSize(_elementSize), elementCount(_elementCount)
+template <typename T>
+ObjectPool<T>::~ObjectPool()
 {
+    std::lock_guard<std::mutex> lock(poolMutex);
+    activeObjects.clear();
+    inactiveObjects.clear();
 }
 
-ObjectPool::~ObjectPool()
+template <typename T>
+void ObjectPool<T>::OnUpdate(double _delta)
 {
-    //释放所有分配的内存块，防止内存泄漏
-    this->Purge();
+    if constexpr (std::is_member_function_pointer_v<decltype(&T::OnUpdate)>)
+        _obj->OnUpdate(_delta);
 }
 
-void* ObjectPool::Get()
+template <typename T>
+void ObjectPool<T>::OnRender(SDL_Renderer* _renderer)
 {
-	//如果空闲链表不为空，则从空闲链表中分配一个对象，否则分配新的内存块并返回其中首个对象
-    return (freeHead != nullptr) ? AllocateFromChunk(freeHead) : AllocateFromProcessHeap();
+    if constexpr (std::is_member_function_pointer_v<decltype(&T::OnRender)>)
+        _obj->OnRender(_renderer);
 }
 
-void ObjectPool::Release(void* _ptr)
+template <typename T>
+std::unique_ptr<T> ObjectPool<T>::Acquire()
 {
-    //将被释放的对象插入空闲链表头部
-    NextOf(_ptr) = freeHead;
-    freeHead = _ptr;
-}
+    std::lock_guard<std::mutex> lock(poolMutex);
 
-void ObjectPool::Purge()
-{
-    if (this->chunkHead == nullptr)
-        return;
-
-    ChunkLinkNode* p, ** q = &this->chunkHead;
-    while ((p = *q) != nullptr)
+    //如果非活跃对象为空且池未满，自动扩容
+    if (inactiveObjects.empty())
     {
-        *q = p->next;
-        delete[](uint8_t*)(p);
+        bool _flag = CheckExpand(expansionSize);
+		if (!_flag)
+            throw std::runtime_error("ObjectPool reached maximum size (" + std::to_string(maxSize) + ")\n");
     }
 
-    freeHead = nullptr;
+    //获取非活跃对象
+    std::unique_ptr<T> _obj = inactiveObjects.back();
+    inactiveObjects.pop_back();
+    activeObjects.push_back(_obj);
+
+    ////重置对象状态（要求T类有Reset方法）
+    //if constexpr (std::is_member_function_pointer_v<decltype(&T::Reset)>)
+    //    _obj->Reset();
+
+    //返回带有自定义删除器的std:unique_ptr
+    return std::unique_ptr<T>(_obj.get(), PoolDeleter(this));
 }
 
-void ObjectPool::Clean()
+template <typename T>
+size_t ObjectPool<T>::GetTotalCount() const
 {
-    if (this->chunkHead == nullptr)
+    std::lock_guard<std::mutex> lock(poolMutex);
+    return activeObjects.size() + inactiveObjects.size();
+}
+
+template <typename T>
+size_t ObjectPool<T>::GetActiveCount() const
+{
+    std::lock_guard<std::mutex> lock(poolMutex);
+    return activeObjects.size();
+}
+
+template <typename T>
+size_t ObjectPool<T>::GetInactiveCount() const
+{
+    std::lock_guard<std::mutex> lock(poolMutex);
+    return inactiveObjects.size();
+}
+
+template <typename T>
+size_t ObjectPool<T>::GetMaxSize() const
+{
+    return maxSize;
+}
+
+template <typename T>
+std::unique_ptr<T> ObjectPool<T>::CreateObject()
+{
+    return std::make_unique<T>();
+}
+
+template <typename T>
+void ObjectPool<T>::ReleaseObject(std::unique_ptr<T> _object)
+{
+    if (!_object) return;
+    std::lock_guard<std::mutex> lock(poolMutex);
+
+    //防止迭代器失效（使用find_if而不是remove_if，后者适用于批量操作），注意Lambda内比较的是get()的底层指针
+    auto it = std::find_if(activeObjects.begin(), activeObjects.end(),
+        [&_object](const auto& ptr) { return ptr.get() == _object.get(); });
+    if (it == activeObjects.end()) return;
+
+    //转移所有权，避免重复构造
+    inactiveObjects.push_back(std::move(*it));
+    activeObjects.erase(it);
+
+    //检查是否需要自动缩容
+    CheckShrink();
+}
+
+template <typename T>
+bool ObjectPool<T>::CheckExpand(size_t _amount)
+{
+    //检查是否达到最大容量限制
+	size_t _currentTotal = activeObjects.size() + inactiveObjects.size();
+    if (_currentTotal >= maxSize)
+        return false;
+
+    //若还可扩容，则扩容对应大小，不超过极限容量大小（maxSize==0表示无上限）
+	size_t _actualAmount = _amount;
+    if (maxSize > 0)
+        _actualAmount = std::min(_amount, maxSize - _currentTotal);
+    //在非活跃对象列表上进行扩容
+    for (size_t i = 0; i < _actualAmount; i++)
+        inactiveObjects.push_back(CreateObject());
+    return true;
+}
+
+template <typename T>
+void ObjectPool<T>::CheckShrink()
+{
+    //避免频繁缩容，至少间隔60秒
+    auto now = std::chrono::steady_clock::now();
+    if (std::chrono::duration_cast<std::chrono::seconds>(now - lastShrinkTime).count() < 60)
         return;
 
-    ChunkLinkNode* chunkHead = this->chunkHead;
-    void* last = this->TidyChunk(chunkHead);
-
-    while ((chunkHead = chunkHead->next) != nullptr)
+    //检查缩容策略，若满足条件则执行缩容
+    if (shrinkPolicy(*this))
     {
-        NextOf(last) = FirstOf(chunkHead);
-        last = this->TidyChunk(chunkHead);
+        //期望缩容到当前容量的一半，但保留至少initialSize个对象
+        size_t _targetSize = std::max(initialSize, (activeObjects.size() + expansionSize) / 2);
+        size_t _shrinkAmount = (activeObjects.size() + expansionSize) / 2;
+		//从非活跃对象列表中删除多余的对象
+        if (inactiveObjects.size() >= _shrinkAmount)
+        {
+            //直接从末尾erase防止迭代器失效，也可inactiveObjects.resize(inactiveObjects.size() - _shrinkAmount);
+            inactiveObjects.erase(inactiveObjects.end() - _shrinkAmount, inactiveObjects.end());
+            
+			//更新上次缩容时间
+            lastShrinkTime = now;
+        }
     }
-
-    NextOf(last) = nullptr;
-    freeHead = FirstOf(this->chunkHead);
 }
-
-void* ObjectPool::AllocateFromChunk(void* _current)
-{
-	//更新空闲链表头部指针，指向下一个对象
-    freeHead = NextOf(_current);
-	//返回闲置链表原先的头部对象
-    return _current;
-}
-
-void* ObjectPool::FirstOf(ChunkLink _chunkHead)
-{
-    return _chunkHead->data;
-}
-
-void*& ObjectPool::NextOf(void* const _ptr)
-{
-    //将传入指针_ptr强转解释为指向指针的指针void**，然后解引用它获取对指针的引用void*&
-    return *(static_cast<void**>(_ptr));
-}
-
-void* ObjectPool::AllocateFromProcessHeap()
-{
-    ChunkLink _newChunk = (ChunkLink) new uint8_t[sizeof(ChunkLinkNode) + elementSize * elementCount];
-    NextOf(TidyChunk(_newChunk)) = nullptr;
-
-    //链接_newChunk
-    _newChunk->next = this->chunkHead;
-    this->chunkHead = _newChunk;
-
-    //分配一个对象
-    return AllocateFromChunk(FirstOf(_newChunk));
-}
-
-void* ObjectPool::TidyChunk(ChunkLink _chunkHead)
-{
-    char* _last = _chunkHead->data + (elementCount - 1) * elementSize;
-    for (char* _ptr = _chunkHead->data; _ptr < _last; _ptr += elementSize)
-        NextOf(_ptr) = (_ptr + elementSize);
-    return _last;
-}
-
-//#include <vector>
-//#include <stack>
-//#include <SDL.h>
-//
-//template <typename T>
-//class ObjectPool
-//{
-//private:
-//	size_t maxSize;                    //对象池的最大大小
-//	std::vector<T*> pool;              //存储对象池中的所有对象
-//	std::stack<T*> unused;             //存储对象池中的闲置对象，优化掉查询时间
-//
-//public:
-//	ObjectPool(size_t);
-//	~ObjectPool();
-//
-//	void OnUpdate(double);
-//	void OnRender(SDL_Renderer*);
-//
-//	T* GetObject();                    //从对象池中获取一个对象
-//};
-//
-//template<typename T>
-//ObjectPool<T>::ObjectPool(size_t _maxSize) : maxSize(_maxSize)
-//{
-//	//在堆区开辟所有对象
-//	pool.reserve(maxSize);
-//}
-//
-//template<typename T>
-//ObjectPool<T>::~ObjectPool()
-//{
-//	for (auto _obj : pool)
-//		delete _obj;
-//}
 
 #endif
