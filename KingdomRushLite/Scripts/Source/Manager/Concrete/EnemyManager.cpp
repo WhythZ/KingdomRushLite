@@ -7,67 +7,28 @@
 #include "../../../Header/Enemy/Concrete/Goblin.h"
 #include "../../../Header/Enemy/Concrete/GoblinPriest.h"
 
-EnemyManager::~EnemyManager()
-{
-	for (Enemy* _enemy : enemyList)
-		delete _enemy;
-}
-
 void EnemyManager::OnUpdate(double _delta)
 {
-	for (Enemy* _enemy : enemyList)
-		_enemy->OnUpdate(_delta);
+	//更新对象池内的活跃对象
+	enemyPool.OnUpdate(_delta);
 
 	//碰撞检测
 	UpdateCollisionBullet();
 	UpdateCollisionHome();
-
-	//检测死亡敌人并将其移除
-	RemoveDeadEnemies();
-
-	//if (enemyList.size() > 0)
-	//{
-	//	std::cout << "FirstEnemyPos=" << enemyList[0]->GetPosition() << ", Target=" << enemyList[0]->GetTargetPosition() << ", ";
-	//	std::cout << "Velocity=" << enemyList[0]->GetVelocity() << "\n";
-	//}
 }
 
 void EnemyManager::OnRender(SDL_Renderer* _renderer)
 {
-	for (Enemy* _enemy : enemyList)
-		_enemy->OnRender(_renderer);
+	enemyPool.OnRender(_renderer);
 }
 
 void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 {
-	#pragma region Instantiate
-	//生成怪物对象
-	Enemy* _enemy = nullptr;
-	//确定怪物类型
-	switch (_type)
-	{
-	case EnemyType::Slime:
-		_enemy = new Slime();
-		break;
-	case EnemyType::SlimeKing:
-		_enemy = new SlimeKing();
-		break;
-	case EnemyType::Skeleton:
-		_enemy = new Skeleton();
-		break;
-	case EnemyType::Goblin:
-		_enemy = new Goblin();
-		break;
-	case EnemyType::GoblinPriest:
-		_enemy = new GoblinPriest();
-		break;
-	default:
-		break;
-	}
+	//从池中获取怪物对象
+	Enemy* _enemy = enemyPool.Acquire(_type);
 	//若指定类型无效使得指针仍未指向实例化的对象，则停止生成
 	if (_enemy == nullptr)
 		return;
-	#pragma endregion
 
 	#pragma region LocateSpawnPosition
 	//临时用于存储位置信息
@@ -121,7 +82,7 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 			//为正则对包括自己在内的范围内敌人生效，先需获取技能释放者的位置
 			const Vector2& _srcPos = _src->GetPosition();
 			//遍历场上的所有敌人，检测其是否在技能影响半径范围内
-			for (Enemy* _dst : enemyList)
+			for (Enemy* _dst : enemyPool)
 			{
 				//获取潜在目标的位置
 				const Vector2& _dstPos = _dst->GetPosition();
@@ -135,28 +96,22 @@ void EnemyManager::SpawnEnemy(EnemyType _type, int _spawnPointIdx)
 		}
 	);
 	#pragma endregion
-
-	//将怪物添加到统计列表
-	enemyList.push_back(_enemy);
-
-	//std::cout << "_tilePointList.size()=" << _tilePointList.size() << "\n";
-	//std::cout << "SpawnEnemy=" << _type << ", SpawnPositon=" << _pos << ", Route=" << _route << "\n";
 }
 
 bool EnemyManager::IsEnemyCleaned() const
 {
-	return enemyList.empty();
+	return enemyPool.NoBusyEnemy();
 }
 
-const EnemyManager::EnemyList& EnemyManager::GetEnemyList() const
+EnemyPool& EnemyManager::GetEnemyPool()
 {
-	return enemyList;
+	return enemyPool;
 }
 
 void EnemyManager::UpdateCollisionBullet()
 {
 	//遍历场上所有敌人，进行与子弹的碰撞检测
-	for (Enemy* _enemy : enemyList)
+	for (Enemy* _enemy : enemyPool)
 	{
 		//若该敌人已死则跳过，防止无意义地继续后续运算（因程序仍处于此循环语句，无法及时在外部将其移除）
 		if (!_enemy->IsAlive()) continue;
@@ -191,7 +146,7 @@ void EnemyManager::UpdateCollisionBullet()
 				else
 				{
 					//重新遍历所有敌人，即把检测范围从当前单个敌人扩大到场上所有敌人
-					for (Enemy* _target : enemyList)
+					for (Enemy* _target : enemyPool)
 					{
 						if ((_target->GetPosition() - _bulletPosition).Length() <= _damageRadius)
 							_target->DecreaseHealthBy(_damage);
@@ -220,7 +175,7 @@ void EnemyManager::UpdateCollisionHome()
 	#pragma endregion
 
 	//遍历所有在场的敌人，检测其是否碰到家，碰到了就处死，并计算家收到的伤害
-	for (Enemy* _enemy : enemyList)
+	for (Enemy* _enemy : enemyPool)
 	{
 		//已经死了的不算
 		if (!_enemy->IsAlive()) continue;
@@ -240,22 +195,4 @@ void EnemyManager::UpdateCollisionHome()
 			ProcessManager::Instance()->DecreaseHealthBy(_enemy->GetAttackDamage());
 		}
 	}
-}
-
-void EnemyManager::RemoveDeadEnemies()
-{
-	//函数remove_if遍历列表，按照Lambda的返回的bool，将true的元素统统放入enemyList列表容器的末尾，并将返回一个指向第一个true的元素的迭代器
-	auto _begin = std::remove_if(enemyList.begin(), enemyList.end(),
-		[](const Enemy* _enemy)
-		{
-			if (!_enemy->IsAlive())
-			{
-				delete _enemy;
-				return true;
-			}
-			return false;
-		});
-
-	//删除所有死亡的敌人，此时的enemyList在remove_if的排列下，所有死亡的敌人指针均在列表末尾
-	enemyList.erase(_begin, enemyList.end());
 }

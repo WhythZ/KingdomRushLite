@@ -21,6 +21,7 @@ private:
 	int shrinkCheckDuration = 60;                         //每隔多少秒检测一次缩容
 
 public:
+	ObjectPool();
 	ObjectPool(size_t, size_t, size_t);                   //初始容量、极限容量、扩容幅度
 	~ObjectPool();
 
@@ -33,6 +34,17 @@ private:
 	bool Expand(size_t);                                  //池子扩容
 	void Shrink(size_t);                                  //池子缩容
 };
+
+template<typename T>
+ObjectPool<T>::ObjectPool()
+{
+	//使用默认值，开辟一堆闲置对象
+	for (size_t i = 0; i < initialCapacity; i++)
+		freeObjects.emplace_back(new T());
+
+	//初始化时间点
+	lastShrinkTime = std::chrono::steady_clock::now();
+}
 
 template<typename T>
 ObjectPool<T>::ObjectPool(size_t _initialCapacity, size_t _maximumCapacity, size_t _expandAmount)
@@ -111,11 +123,11 @@ bool ObjectPool<T>::Expand(size_t _expandAmount)
 {
 	//按照幅度扩容闲置对象列表，不超过极限容量
 	size_t _currentCapacity = freeObjects.size() + busyObjects.size();
-	int _actualExpandAmount = std::min(_expandAmount, maximumCapacity - _currentCapacity);
+	size_t _actualExpandAmount = std::min(_expandAmount, maximumCapacity - _currentCapacity);
 	//无法继续扩容，返回扩容失败
 	if (_actualExpandAmount <= 0) return false;
 	//扩容成功
-	for (int i = 0; i < _actualExpandAmount; i++)
+	for (size_t i = 0; i < _actualExpandAmount; i++)
 		freeObjects.emplace_back(new T());
 	std::cout << "Successfully Expand ObjectPool By " << _actualExpandAmount << " Objects\n";
 	return true;

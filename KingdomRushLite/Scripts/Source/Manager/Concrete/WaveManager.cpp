@@ -8,17 +8,15 @@ WaveManager::WaveManager()
 	//获取波次列表
 	waveList = ConfigManager::Instance()->waveList;
 
-	#pragma region DebugLog
-	std::cout << "--------------------\nLoaded Waves\n";
-	for (int _i = 0; _i < waveList.size(); _i++)
-	{
-		std::cout << "Wave[" << _i << "]: ";
-		for (int _j = 0; _j < waveList[_i].spawnEventList.size(); _j++)
-			std::cout << waveList[_i].spawnEventList[_j].enemyType << " ";
-		std::cout << "\n";
-	}
-	std::cout << "--------------------\n";
-	#pragma endregion
+	//std::cout << "--------------------\nLoaded Waves\n";
+	//for (int _i = 0; _i < waveList.size(); _i++)
+	//{
+	//	std::cout << "Wave[" << _i << "]: ";
+	//	for (int _j = 0; _j < waveList[_i].spawnEventList.size(); _j++)
+	//		std::cout << waveList[_i].spawnEventList[_j].enemyType << " ";
+	//	std::cout << "\n";
+	//}
+	//std::cout << "--------------------\n";
 
 	static ProcessManager* _pm = ProcessManager::Instance();
 
@@ -44,7 +42,7 @@ WaveManager::WaveManager()
 			//还有剩余波次的话，那就重启波次计时器，准备（在当前波次所有生成事件完成后）开启下一波次
 			if (waveIdx < waveList.size())
 			{
-				std::cout << "Wave[" << waveIdx << "] Triggered\n";
+				//std::cout << "Wave[" << waveIdx << "] Triggered\n";
 
 				//重置生成事件索引为-1，并初始化新波次的第一个interval
 				eventIdx = -1;
@@ -84,7 +82,7 @@ WaveManager::WaveManager()
 			{
 				//依照当前生成事件的设置在对应出生点路径上生成对应种类的敌人
 				EnemyManager::Instance()->SpawnEnemy(_eventList[eventIdx].enemyType, _eventList[eventIdx].spawnPoint);
-				std::cout << "Event[" << eventIdx << "] Triggered\n";
+				//std::cout << "Event[" << eventIdx << "] Triggered\n";
 
 				//读取新的生成间隔时间，然后重启计时器以执行下一个生成事件
 				newEventTimer.SetWaitTime(_eventList[eventIdx].interval);

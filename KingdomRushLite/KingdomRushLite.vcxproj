@@ -24,6 +24,7 @@
     <ClCompile Include="Scripts\Source\Drop\Concrete\Coin.cpp" />
     <ClCompile Include="Scripts\Source\Drop\Drop.cpp" />
     <ClCompile Include="Scripts\Source\Enemy\EnemyType.cpp" />
+    <ClCompile Include="Scripts\Source\Infra\ObjectPool\EnemyPool.cpp" />
     <ClCompile Include="Scripts\Source\Infra\StateMachine\State.cpp" />
     <ClCompile Include="Scripts\Source\Infra\StateMachine\StateMachine.cpp" />
     <ClCompile Include="Scripts\Source\Manager\Concrete\DropManager.cpp" />
@@ -86,7 +87,8 @@
     <ClInclude Include="Scripts\Header\Enemy\Concrete\Slime.h" />
     <ClInclude Include="Scripts\Header\Enemy\Enemy.h" />
     <ClInclude Include="Scripts\Header\Enemy\EnemyType.h" />
-    <ClInclude Include="Scripts\Header\Infra\ObjectPool.hpp" />
+    <ClInclude Include="Scripts\Header\Infra\ObjectPool\EnemyPool.h" />
+    <ClInclude Include="Scripts\Header\Infra\ObjectPool\ObjectPool.hpp" />
     <ClInclude Include="Scripts\Header\Infra\StateMachine\State.h" />
     <ClInclude Include="Scripts\Header\Infra\StateMachine\StateMachine.h" />
     <ClInclude Include="Scripts\Header\Manager\Concrete\AudioManager.h" />

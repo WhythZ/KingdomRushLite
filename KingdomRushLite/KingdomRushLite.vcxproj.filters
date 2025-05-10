@@ -136,6 +136,12 @@
     <Filter Include="源文件\Player\State\Concrete">
       <UniqueIdentifier>{2318ab4e-6d1b-4ed1-9e94-4862747259d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Infra\ObjectPool">
+      <UniqueIdentifier>{c822853d-1ee3-4ec1-a4e3-36e7b67afe66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Infra\ObjectPool">
+      <UniqueIdentifier>{19ed728a-e753-457b-bb96-56fb0e59e34e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\cJSON\cJSON.c">
@@ -284,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="Scripts\Source\UI\StatusUI.cpp">
       <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Source\Infra\ObjectPool\EnemyPool.cpp">
+      <Filter>源文件\Infra\ObjectPool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -452,8 +461,11 @@
     <ClInclude Include="Scripts\Header\UI\GameOverUI.h">
       <Filter>头文件\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Header\Infra\ObjectPool.hpp">
-      <Filter>头文件\Infra</Filter>
+    <ClInclude Include="Scripts\Header\Infra\ObjectPool\EnemyPool.h">
+      <Filter>头文件\Infra\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Infra\ObjectPool\ObjectPool.hpp">
+      <Filter>头文件\Infra\ObjectPool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

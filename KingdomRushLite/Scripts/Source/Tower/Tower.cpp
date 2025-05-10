@@ -193,11 +193,11 @@ void Tower::UpdateFireAnim()
 Enemy* Tower::FindTargetEnemy()
 {
 	Enemy* _target = nullptr;
-	EnemyManager::EnemyList _enemyList = EnemyManager::Instance()->GetEnemyList();
+	EnemyPool _enemyPool = EnemyManager::Instance()->GetEnemyPool();
 
 	//在攻击范围内的敌人中，应当优先攻击最靠近家门口的那个
 	double _maxProcess = -1;
-	for (Enemy* _enemy : _enemyList)
+	for (Enemy* _enemy : _enemyPool)
 	{
 		//确保敌人在攻击半径范围内
 		if ((_enemy->GetPosition() - this->position).Length() <= fireRadius)
