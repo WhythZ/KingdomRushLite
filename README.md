@@ -18,6 +18,7 @@ Short descriptions about the core functional classes which forms multiple extens
     - `ProcessManager`: Maintains the in-game runtime data and offers related interfaces
 - Infrastructure Classes
     - `StateMachine`: Acts as component of entity to control its changing of states derived from `State`
+    - `ObjectPool`: Generic template container to reuse entities, can automatically expand and shrink
     - `Vector2`: Basic 2D vector with mathematical operators overloaded
     - `Timer`: Will trigger self-defined callback function when time out
     - `Animation`: Can be rendered with rotation, also offers spritesheet cutting
@@ -59,7 +60,7 @@ Short descriptions about the core functional classes which forms multiple extens
 
 ## Modify
 This prototype is designed data-driven, you can create your personal experience by editing the corresponding files below in `root\KingdomRushLite\Data\` after you clone this repo locally (Run `Main.cpp` under required IDE mode)
-- `Map.csv`: Defines tilemap by denoting each tile in `a/b/c/d` form, see `Tile.h`
+- `Map.csv`: Defines tilemap by denoting each tile in `a\b\c\d` form, see `Tile.h`
 - `Configs.json`: Defines window resolution and stats of player, towers and enemies
 - `Waves.json`: Defines the details of enemy waves spawned in game
 ```javascript
