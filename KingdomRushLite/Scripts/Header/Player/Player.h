@@ -5,6 +5,7 @@
 #include "../Infra/Vector2.h"
 #include "../Infra/DirectionType.h"
 #include "../Infra/StateMachine/StateMachine.h"
+#include "../Infra/CollideOutline.h"
 #include "State/Concrete/PlayerIdleState.h"
 #include "State/Concrete/PlayerMoveState.h"
 #include "State/Concrete/PlayerSkillState.h"
@@ -27,7 +28,7 @@ public:
 
 protected:
 	PlayerType type = PlayerType::None;
-	Vector2 size;
+	SDL_Point size;
 	Vector2 position;
 	Vector2 velocity;
 
@@ -53,6 +54,11 @@ protected:
 	Timer skill01Timer;
 	#pragma endregion
 
+private:
+	#pragma region Debug
+	CollideOutline collideOutline;
+	#pragma endregion
+
 public:
 	Player();
 	virtual ~Player();
@@ -67,7 +73,7 @@ public:
 	void HandleSkillInput(const SDL_Event&);
 
 	PlayerType GetType() const;
-	const Vector2& GetSize() const;
+	const SDL_Point& GetSize() const;
 	const Vector2& GetPosition() const;
 	double GetSpeed() const;
 	double GetSkill00CooldownRatio() const;          //获取技能恢复冷却的进度

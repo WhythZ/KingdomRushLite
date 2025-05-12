@@ -5,6 +5,7 @@
 #include "../Infra/Vector2.h"
 #include "../Infra/Timer.h"
 #include "../Infra/Animation.h"
+#include "../Infra/CollideOutline.h"
 
 class Drop
 {
@@ -34,6 +35,10 @@ private:
 
 	Timer popTimer;                    //控制掉落物停止上升，模拟其向上弹出后下坠的重力效果
 	Timer disappearTimer;              //控制掉落物经过一定时间后自动消失
+
+	#pragma region Debug
+	CollideOutline collideOutline;
+	#pragma endregion
 
 public:
 	Drop();

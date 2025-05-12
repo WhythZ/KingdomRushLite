@@ -60,7 +60,7 @@ const DropManager::DropList& DropManager::GetDropList() const
 void DropManager::UpdateCollisionPlayer()
 {
 	static Player* _player = PlayerManager::Instance()->player;
-	Vector2 _pSize = _player->GetSize();
+	SDL_Point _pSize = _player->GetSize();
 	Vector2 _pPosition = _player->GetPosition();
 
 	for (Drop* _drop : dropList)

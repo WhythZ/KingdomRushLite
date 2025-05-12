@@ -74,7 +74,7 @@ private:
 	#pragma endregion
 
 	#pragma region Debug
-	CollideOutline collideOutline;              //用于可视化绘制碰撞箱的组件
+	CollideOutline collideOutline;
 	#pragma endregion
 
 public:

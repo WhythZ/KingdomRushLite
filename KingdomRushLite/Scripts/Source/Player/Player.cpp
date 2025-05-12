@@ -100,6 +100,11 @@ void Player::OnUpdate(double _delta)
 void Player::OnRender(SDL_Renderer* _renderer)
 {
 	stateMachine->OnRender(_renderer);
+
+	#pragma region Debug
+	collideOutline.DrawBoxOutline(_renderer, { 255,0,0,255 },
+		{ (int)position.x,(int)position.y }, size, 0);
+	#pragma endregion
 }
 
 void Player::HandleMovementInput(const SDL_Event& _event)
@@ -176,7 +181,7 @@ PlayerType Player::GetType() const
 	return type;
 }
 
-const Vector2& Player::GetSize() const
+const SDL_Point& Player::GetSize() const
 {
 	return size;
 }

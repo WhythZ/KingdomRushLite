@@ -69,6 +69,11 @@ void Drop::OnRender(SDL_Renderer* _renderer)
 	_point.y = (int)(position.y - size.y / 2);
 
 	animIdle.OnRender(_renderer, _point);
+
+	#pragma region Debug
+	collideOutline.DrawBoxOutline(_renderer, { 255,0,0,255 },
+		{ (int)position.x,(int)position.y }, size, 0);
+	#pragma endregion
 }
 
 void Drop::OnCollide()

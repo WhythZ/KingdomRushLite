@@ -376,8 +376,11 @@ void PlayerDragon::OnFlashCollide()
 	//std::cout << "FlashSkillCollideRect=(" << flashSkillCollideRect.x << "," << flashSkillCollideRect.y << ","
 	//	<< flashSkillCollideRect.w << "," << flashSkillCollideRect.h << ",)\n";
 
+	//注意此处应当获取引用而不是直接复制，否则会导致对象池析构而内存泄漏
+	EnemyPool& _enemyPool = EnemyManager::Instance()->GetEnemyPool();
+
 	//遍历场上所有敌人，进行与技能范围的碰撞检测
-	for (Enemy* _enemy : EnemyManager::Instance()->GetEnemyPool())
+	for (Enemy* _enemy : _enemyPool)
 	{
 		//若该敌人已死则跳过，防止无意义地继续后续运算（因程序仍处于此循环语句，无法及时在外部将其移除）
 		if (!_enemy->IsAlive()) continue;
@@ -402,7 +405,10 @@ void PlayerDragon::OnImpactCollide()
 	//std::cout << "ImpactSkillCollideRect=(" << impactSkillCollideRect.x << "," << impactSkillCollideRect.y << ","
 	//	<< impactSkillCollideRect.w << "," << impactSkillCollideRect.h << ",)\n";
 
-	for (Enemy* _enemy : EnemyManager::Instance()->GetEnemyPool())
+	//注意此处应当获取引用而不是直接复制，否则会导致对象池析构而内存泄漏
+	EnemyPool& _enemyPool = EnemyManager::Instance()->GetEnemyPool();
+
+	for (Enemy* _enemy : _enemyPool)
 	{
 		if (!_enemy->IsAlive()) continue;
 

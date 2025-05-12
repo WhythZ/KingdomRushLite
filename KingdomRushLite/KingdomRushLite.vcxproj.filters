@@ -295,7 +295,7 @@
       <Filter>源文件\Infra\ObjectPool</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\Source\Infra\CollideOutline.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Infra</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -471,7 +471,7 @@
       <Filter>头文件\Infra\ObjectPool</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Header\Infra\CollideOutline.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Infra</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

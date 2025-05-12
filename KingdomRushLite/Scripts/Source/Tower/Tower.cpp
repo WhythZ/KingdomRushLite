@@ -193,7 +193,8 @@ void Tower::UpdateFireAnim()
 Enemy* Tower::FindTargetEnemy()
 {
 	Enemy* _target = nullptr;
-	EnemyPool _enemyPool = EnemyManager::Instance()->GetEnemyPool();
+	//注意此处应当获取引用而不是直接复制，否则会导致对象池析构而内存泄漏
+	EnemyPool& _enemyPool = EnemyManager::Instance()->GetEnemyPool();
 
 	//在攻击范围内的敌人中，应当优先攻击最靠近家门口的那个
 	double _maxProcess = -1;

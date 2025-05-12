@@ -56,6 +56,11 @@ void Bullet::OnRender(SDL_Renderer* _renderer)
 
 	//调用当前动画的渲染，注意传入了旋转角度
 	animFlying.OnRender(_renderer, _point, rotationAngle);
+
+	#pragma region Debug
+	collideOutline.DrawBoxOutline(_renderer, { 255,0,0,255 },
+		{ (int)position.x,(int)position.y }, size, 0);
+	#pragma endregion
 }
 
 void Bullet::OnCollide(Enemy* _enemy)
