@@ -91,6 +91,7 @@ public:
 	void DecreaseHealthBy(double);              //减少生命值
 	void SlowDownBy(double, double);            //移速减缓，传入减缓百分比以及持续时间
 	void Kill();                                //无效化该怪物
+	void Reset();                               //重置该怪物状态，以便放入对象池
 
 	bool IsAlive() const;                       //获取怪物存活状态
 	double GetRouteProcess() const;             //获取怪物行进状况

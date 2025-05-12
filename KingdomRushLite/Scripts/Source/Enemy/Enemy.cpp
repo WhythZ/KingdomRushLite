@@ -177,7 +177,9 @@ void Enemy::DecreaseHealthBy(double _decre)
 	{
 		//声明死亡状态
 		isAlive = false;
-		
+	
+		//std::cout << "Flag: Enemy Die\n";
+
 		//有概率爆金币
 		DropManager::Instance()->TrySpawnDrop(DropType::Coin, position, coinRatio);
 	}
@@ -201,8 +203,24 @@ void Enemy::SlowDownBy(double _speedLossPercentage, double _lastDuration)
 
 void Enemy::Kill()
 {
-	//当敌人触碰到家的时候，即使血量未清零，也要处死（无效化）怪物
+	//例如当敌人触碰到家的时候，即使血量未清零，也要处死（无效化）怪物
 	isAlive = false;
+	std::cout << "Flag: Kill Enemy\n";
+}
+
+void Enemy::Reset()
+{
+	//重置怪物的状态
+	isAlive = true;
+	healthCurrent = healthMaximum;
+	speedCurrent = speedMaximum;
+	targetTileIdx = 0;
+	//重置计时器
+	sketchTimer.Restart();
+	skillRecoverCooldownTimer.Restart();
+	speedRestoreTimer.Restart();
+	//重置动画
+	animCurrent = &animDown;
 }
 
 bool Enemy::IsAlive() const

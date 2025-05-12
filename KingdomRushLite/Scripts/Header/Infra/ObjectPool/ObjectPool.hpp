@@ -88,10 +88,13 @@ T* ObjectPool<T>::AcquireObject()
 template<typename T>
 void ObjectPool<T>::ReleaseObject(T* _target)
 {
-	//如果找到目标就将其转移到闲置列表
+	//如果找到目标
 	auto _it = std::find(busyObjects.begin(), busyObjects.end(), _target);
 	if (_it != busyObjects.end())
 	{
+		//清除对象的状态
+		(*_it)->Reset();
+		//将其转移到闲置列表
 		freeObjects.emplace_back(*_it);
 		busyObjects.erase(_it);
 		std::cout << "Successfully Release The Object Into Free Pool\n";

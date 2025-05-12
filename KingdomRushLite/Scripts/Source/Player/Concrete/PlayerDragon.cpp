@@ -327,11 +327,23 @@ void PlayerDragon::OnRender(SDL_Renderer* _renderer)
 	{
 		_point.x = flashSkillAnimRect.x; _point.y = flashSkillAnimRect.y;
 		flashSkillAnimCurrent->OnRender(_renderer, _point);
+		
+		#pragma region Debug
+		collideOutline.DrawBoxOutline(_renderer, { 255,0,0,255 },
+			{ flashSkillCollideRect.x + flashSkillCollideRect.w / 2 ,flashSkillCollideRect.y + flashSkillCollideRect.h / 2 },
+			{ flashSkillCollideRect.w,flashSkillCollideRect.h }, 0);
+		#pragma endregion
 	}
 	else if (isReleaseImpactSkill)
 	{
 		_point.x = impactSkillAnimRect.x; _point.y = impactSkillAnimRect.y;
 		impactSkillAnimCurrent->OnRender(_renderer, _point);
+
+		#pragma region Debug
+		collideOutline.DrawBoxOutline(_renderer, { 255,0,0,255 },
+			{ impactSkillCollideRect.x + impactSkillCollideRect.w / 2,impactSkillCollideRect.y + impactSkillCollideRect.h / 2 },
+			{ impactSkillCollideRect.w,impactSkillCollideRect.h }, 0);
+		#pragma endregion
 	}
 }
 

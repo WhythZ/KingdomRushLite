@@ -54,7 +54,6 @@ protected:
 	Timer skill01Timer;
 	#pragma endregion
 
-private:
 	#pragma region Debug
 	CollideOutline collideOutline;
 	#pragma endregion
