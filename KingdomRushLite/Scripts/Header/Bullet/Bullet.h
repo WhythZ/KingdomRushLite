@@ -4,6 +4,7 @@
 #include "BulletType.h"
 #include "../Infra/Vector2.h"
 #include "../Infra/Animation.h"
+#include "../Infra/CollideOutline.h"
 #include "../Enemy/Enemy.h"
 
 class Bullet

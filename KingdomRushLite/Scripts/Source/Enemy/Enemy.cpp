@@ -120,6 +120,11 @@ void Enemy::OnRender(SDL_Renderer* _renderer)
 	animCurrent->OnRender(_renderer, _point);
 	#pragma endregion
 
+	#pragma region Debug
+	collideOutline.DrawBoxOutline(_renderer, { 255,0,0,255 },
+		{ (int)position.x,(int)position.y }, size, 0);
+	#pragma endregion
+
 	#pragma region HealthBar
 	//血条的定位Rect
 	static SDL_Rect _healthBarRect;

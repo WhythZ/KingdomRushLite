@@ -294,6 +294,9 @@
     <ClCompile Include="Scripts\Source\Infra\ObjectPool\EnemyPool.cpp">
       <Filter>源文件\Infra\ObjectPool</Filter>
     </ClCompile>
+    <ClCompile Include="Scripts\Source\Infra\CollideOutline.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scripts\Header\Map\Tile.h">
@@ -466,6 +469,9 @@
     </ClInclude>
     <ClInclude Include="Scripts\Header\Infra\ObjectPool\ObjectPool.hpp">
       <Filter>头文件\Infra\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Header\Infra\CollideOutline.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include <functional>
 #include "../Infra/Animation.h"
 #include "../Infra/Vector2.h"
+#include "../Infra/CollideOutline.h"
 #include "../Map/Route.h"
 #include "EnemyType.h"
 
@@ -70,6 +71,10 @@ private:
 	const Route* route = nullptr;               //该怪物行进的瓦片路径
 	size_t targetTileIdx = 0;                   //怪物的目标瓦片索引
 	Vector2 targetTilePosition;                 //将要驶入的下一个瓦片的坐标位置
+	#pragma endregion
+
+	#pragma region Debug
+	CollideOutline collideOutline;              //用于可视化绘制碰撞箱的组件
 	#pragma endregion
 
 public:
