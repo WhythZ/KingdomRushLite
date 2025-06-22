@@ -45,7 +45,7 @@ GameManager::GameManager()
 	window = SDL_CreateWindow(_config->basicPrefab.windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		_config->basicPrefab.windowWidth, _config->basicPrefab.windowHeight, SDL_WINDOW_SHOWN);
 	//检测窗口是否初始化成功
-	InitAssert(window, "Failed To Create Window");
+	InitAssert(window, u8"Failed To Create Window");
 
 	//加载渲染器到窗口window上，第三参数位使用了三种渲染技术
 	//SDL_RENDERER_ACCELERATED：硬件加速
@@ -53,7 +53,7 @@ GameManager::GameManager()
 	//SDL_RENDERER_TARGETTEXTURE：将渲染目标设置为纹理，即先渲染纹理图片，再将图片渲染到窗口，用于瓦片地图的生成
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 	//检测渲染器是否初始化成功
-	InitAssert(renderer, "Failed To Create Renderer");
+	InitAssert(renderer, u8"Failed To Create Renderer");
 
 	//使得在打开SDL窗口时若是输入中文可以显示候选词列表，以提醒玩家切换为英文输入法，因为中文输入无法被正常捕获
 	SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
