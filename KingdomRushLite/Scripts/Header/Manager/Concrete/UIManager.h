@@ -31,10 +31,10 @@ public:
 	void DrawTexture(SDL_Renderer*, TextureResID, const SDL_Point&, const SDL_Point&);
 	//根据左上顶点位置、条尺寸、边框厚度、背景颜色、内容颜色、内容数值比例，绘制动态更新的数值条
 	void DrawDynamicBar(SDL_Renderer*, const SDL_Point&, const SDL_Point&, int, const SDL_Color&, const SDL_Color&, double);
-	//根据左上顶点位置、圆半径、边框颜色、内容颜色，绘制带边框的圆
-	void DrawCircle(SDL_Renderer*, const SDL_Point&, double, const SDL_Color&, const SDL_Color&);
-	//根据左上顶点位置、矩形尺寸、矩形颜色，绘制一个矩形色块
-	void DrawBox(SDL_Renderer*, const SDL_Point&, const SDL_Point&, const SDL_Color&);
+	//根据圆心位置、圆半径、边框颜色、内容颜色，绘制带边框的实心圆
+	void DrawFilledCircle(SDL_Renderer*, const SDL_Point&, double, const SDL_Color&, const SDL_Color&);
+	//根据左上顶点位置、矩形尺寸、矩形颜色，绘制一个矩形实心色块
+	void DrawFilledBox(SDL_Renderer*, const SDL_Point&, const SDL_Point&, const SDL_Color&);
 
 private:
 	UIManager();

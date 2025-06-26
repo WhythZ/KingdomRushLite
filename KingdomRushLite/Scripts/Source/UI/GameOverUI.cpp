@@ -64,7 +64,7 @@ void GameOverUI::OnRender(SDL_Renderer* _renderer)
 
 	#pragma region Background
 	//»æÖÆÒ»¸ö¸²¸ÇÈ«ÆÁµÄÕÚÕÖ±³¾°
-	_ui->DrawBox(_renderer, { 0,0 }, _windowSize, backgroundColor);
+	_ui->DrawFilledBox(_renderer, { 0,0 }, _windowSize, backgroundColor);
 	#pragma endregion
 
 	#pragma region WinLoseText

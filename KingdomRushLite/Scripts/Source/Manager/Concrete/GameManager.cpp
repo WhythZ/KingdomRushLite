@@ -70,7 +70,7 @@ GameManager::GameManager()
 	PlayerManager::Instance()->InstantiatePlayer(PlayerType::Dragon);
 
 	//²¥·Å±³¾°ÒôÀÖ
-	//AudioManager::Instance()->PlayBGM(MusicResID::BGM_InLevel_0);
+	AudioManager::Instance()->PlayBGM(MusicResID::BGM_InLevel_0);
 }
 
 GameManager::~GameManager()

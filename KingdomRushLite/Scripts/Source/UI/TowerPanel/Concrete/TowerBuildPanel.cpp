@@ -61,7 +61,7 @@ void TowerBuildPanel::OnRender(SDL_Renderer* _renderer)
 	}
 	//若半径有效且允许显示，则绘制攻击范围圆
 	if (isShowFireCircle && _radius > 0)
-		_ui->DrawCircle(_renderer, centerPosition, _radius, fireCircleBorderColor, fireCircleContentColor);
+		_ui->DrawFilledCircle(_renderer, centerPosition, _radius, fireCircleBorderColor, fireCircleContentColor);
 	#pragma endregion
 
 	//在攻击范围圆后渲染，防止前者遮挡原本UI
